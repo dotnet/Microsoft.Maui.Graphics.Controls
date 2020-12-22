@@ -1,0 +1,3 @@
+[submodule "System.Graphics"]
+	path = System.Graphics
+	url = https://github.com/jonlipsky/System.Graphics
