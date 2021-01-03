@@ -70,3 +70,5 @@ All controls support RTL.
 #### Performance
 
 Some native controls are complex. For example, Entry using Visual Material is made up of different elements. When using it, each of the different elements must be instantiated (the text box, the placeholder text, etc.). Using the drawn control, create an instance of a Canvas and draw the content. The time required to instantiate etc is shorter.
+
+<img src="images/graphicscontrols-performance.png" Width="600" /> 
