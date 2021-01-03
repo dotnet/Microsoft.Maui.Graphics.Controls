@@ -9,6 +9,7 @@ namespace GraphicsControls.Sample
             InitializeComponent();
 
             MainPage = new MainPage();
+            //MainPage = new NavigationPage(new BenchmarkPage());
         }
 
         protected override void OnStart()

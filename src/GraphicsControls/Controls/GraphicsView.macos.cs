@@ -33,7 +33,6 @@ namespace GraphicsControls.Mac
             if (e.OldElement != null)
             {
                 e.OldElement.Invalidated -= OnDrawInvalidated;
-                SetNativeControl(null);
             }
 
             if (e.NewElement != null)

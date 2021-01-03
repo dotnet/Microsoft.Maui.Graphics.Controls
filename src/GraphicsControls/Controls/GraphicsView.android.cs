@@ -29,7 +29,6 @@ namespace GraphicsControls.Android
             if (e.OldElement != null)
             {
                 e.OldElement.Invalidated -= OnDrawInvalidated;
-                SetNativeControl(null);
             }
 
             if (e.NewElement != null)

@@ -29,7 +29,14 @@ namespace GraphicsControls
             Content = _entry;
         }
 
-        public static readonly BindableProperty TextProperty = InputElement.TextProperty;
+        public static readonly BindableProperty TextProperty =
+            BindableProperty.Create(nameof(IInput.Text), typeof(string), typeof(IInput), string.Empty,
+                propertyChanged: OnTextChanged);
+
+        static void OnTextChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            (bindable as Entry)?.UpdateText();
+        }
 
         public static readonly BindableProperty TextColorProperty =
             BindableProperty.Create(nameof(IInput.TextColor), typeof(XColor), typeof(IInput), XColor.Default,
@@ -109,6 +116,7 @@ namespace GraphicsControls
                 AnimateMaterialPlaceholder(IsFocused);
 
             UpdateEntryPosition();
+            UpdateText();
             UpdateTextColor();
             UpdateCharacterSpacing();
         }
@@ -276,6 +284,11 @@ namespace GraphicsControls
 
             if (_indicatorRect.Contains(touchPoint))
                 _entry.Text = string.Empty;
+        }
+
+        void UpdateText()
+        {
+            _entry.Text = Text;
         }
 
         void UpdateTextColor()
