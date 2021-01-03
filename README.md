@@ -67,6 +67,10 @@ All controls support RTL.
 
 <img src="images/graphicscontrols-rtl.png" Width="220" /> 
 
+#### Mobile & Desktop support
+
+<img src="images/graphicscontrols-mac.gif" Width="600" /> 
+
 #### Performance
 
 Some native controls are complex. For example, Entry using Visual Material is made up of different elements. When using it, each of the different elements must be instantiated (the text box, the placeholder text, etc.). Using the drawn control, create an instance of a Canvas and draw the content. The time required to instantiate etc is shorter.
