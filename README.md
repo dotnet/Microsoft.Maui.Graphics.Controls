@@ -4,7 +4,7 @@ Xamarin.Forms allows you to define the user interface once for multiple platform
 
 While the native controls proposal is great as it offers the native experience (appearance, performance, etc). it has certain adjacent limitations like customization possibilities etc.
 
-_What if you could choose at any time between using the native control or a control drawn with the native look and feel?_
+_What if you could choose at any time between using the native control or a drawn control with the native look and feel?_
 
 **GraphicsControls** is a library that offers the controls available in Xamarin.Forms Visual allowing to choose between **Cupertino, Fluent and Material** but, instead of creating native controls, are **drawn controls**.
 
@@ -54,7 +54,7 @@ The controls are drawn getting a pixel perfect option to adjust in the same way 
 
 #### Easy to extend
 
-_Do you want to customize a drawn control?_ Create your own control class, inherit from the drawn control and override the **Draw** method.
+_Do you want to extend a drawn control?_ Create your own control class, inherit from the drawn control and override the **Draw** method.
 
 #### Dark Theme support
 
