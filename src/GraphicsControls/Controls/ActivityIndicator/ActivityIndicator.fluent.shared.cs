@@ -1,6 +1,7 @@
 ﻿using System.Graphics;
+using GraphicsControls.Extensions;
+using GraphicsControls.Helpers;
 using Xamarin.Forms;
-using GColor = System.Graphics.Color;
 
 namespace GraphicsControls
 {
@@ -27,7 +28,11 @@ namespace GraphicsControls
             float size = 28f;
             float strokeWidth = 1.5f;
 
-            canvas.StrokeColor = new GColor(Fluent.Color.Primary.ThemeLight);
+            if (IsEnabled)
+                canvas.StrokeColor = ColorHelper.GetGraphicsColor(Fluent.Color.Primary.ThemeLight, Fluent.Color.Primary.ThemeDark);
+            else
+                canvas.StrokeColor = ColorHelper.GetGraphicsColor(Fluent.Color.Background.NeutralTertiaryAlt, Fluent.Color.Background.NeutralQuaternaryAlt);
+
             canvas.StrokeSize = strokeWidth;
 
             var x = (dirtyRect.Width - size) / 2;
@@ -47,7 +52,8 @@ namespace GraphicsControls
                 float size = 28f;
                 float strokeWidth = 1.5f;
 
-                canvas.StrokeColor = new GColor(Fluent.Color.Primary.ThemePrimary);
+                canvas.StrokeColor = Color.ToGraphicsColor(Fluent.Color.Primary.ThemePrimary);
+
                 canvas.StrokeSize = strokeWidth;
 
                 var x = (dirtyRect.Width - size) / 2;
@@ -63,7 +69,11 @@ namespace GraphicsControls
         {
             canvas.SaveState();
 
-            canvas.FontColor = new GColor(Fluent.Color.Primary.ThemePrimary);
+            if (IsEnabled)
+                canvas.FontColor = Color.ToGraphicsColor(Fluent.Color.Primary.ThemePrimary);
+            else
+                canvas.FontColor = ColorHelper.GetGraphicsColor(Fluent.Color.Background.NeutralTertiaryAlt, Fluent.Color.Background.NeutralQuaternaryAlt);
+
             canvas.FontSize = 12f;
 
             var height = dirtyRect.Height;

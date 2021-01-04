@@ -17,7 +17,7 @@ namespace GraphicsControls
         {
             if (bindable is ActivityIndicator activityIndicator)
             {
-                if ((bool)newValue)
+                if (activityIndicator.IsEnabled && (bool)newValue)
                     activityIndicator.StartActivityIndicatorAnimation();
                 else
                     activityIndicator.StopActivityIndicatorAnimation();

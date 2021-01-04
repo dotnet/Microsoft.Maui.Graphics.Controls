@@ -1,4 +1,6 @@
 ﻿using System.Graphics;
+using GraphicsControls.Extensions;
+using GraphicsControls.Helpers;
 using GColor = System.Graphics.Color;
 
 namespace GraphicsControls
@@ -27,7 +29,10 @@ namespace GraphicsControls
         {
             canvas.SaveState();
 
-            canvas.FillColor = new GColor(Fluent.Color.Primary.ThemePrimary);
+            if (IsEnabled)
+                canvas.FillColor = ProgressColor.ToGraphicsColor(Fluent.Color.Primary.ThemePrimary);
+            else
+                canvas.FillColor = ColorHelper.GetGraphicsColor(Fluent.Color.Background.NeutralTertiaryAlt, Fluent.Color.Background.NeutralDark);
 
             var x = dirtyRect.X;
             var y = (float)((HeightRequest - FluentTrackHeight) / 2);

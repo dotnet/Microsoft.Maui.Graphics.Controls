@@ -1,6 +1,6 @@
 ﻿using System.Graphics;
+using GraphicsControls.Extensions;
 using GraphicsControls.Helpers;
-using GColor = System.Graphics.Color;
 
 namespace GraphicsControls
 {
@@ -12,7 +12,10 @@ namespace GraphicsControls
         {
             canvas.SaveState();
 
-            canvas.FillColor = new GColor(Fluent.Color.Primary.ThemeLight);
+            if (IsEnabled)
+                canvas.FillColor = MaximumTrackColor.ToGraphicsColor(Fluent.Color.Primary.ThemeLight);
+            else
+                canvas.FillColor = ColorHelper.GetGraphicsColor(Fluent.Color.Background.NeutralLighter, Fluent.Color.Background.NeutralDark);
 
             var x = dirtyRect.X;
 
@@ -32,7 +35,10 @@ namespace GraphicsControls
         {
             canvas.SaveState();
 
-            canvas.FillColor = new GColor(Fluent.Color.Primary.ThemePrimary);
+            if (IsEnabled)
+                canvas.FillColor = MinimumTrackColor.ToGraphicsColor(Fluent.Color.Primary.ThemePrimary);
+            else
+                canvas.FillColor = ColorHelper.GetGraphicsColor(Fluent.Color.Background.NeutralTertiaryAlt, Fluent.Color.Background.NeutralQuaternaryAlt);
 
             var x = dirtyRect.X;
 
@@ -53,7 +59,11 @@ namespace GraphicsControls
             float size = 16f;
             float strokeWidth = 2f;
 
-            canvas.StrokeColor = new GColor(Fluent.Color.Primary.ThemePrimary);
+            if (IsEnabled)
+                canvas.StrokeColor = ThumbColor.ToGraphicsColor(Fluent.Color.Primary.ThemePrimary);
+            else
+                canvas.StrokeColor = ColorHelper.GetGraphicsColor(Fluent.Color.Background.NeutralTertiaryAlt, Fluent.Color.Background.NeutralQuaternaryAlt);
+
             canvas.StrokeSize = strokeWidth;
 
             var x = (float)(((dirtyRect.Width - TextSize) * Value) - (size / 2));
@@ -66,7 +76,7 @@ namespace GraphicsControls
 
             var y = (float)((HeightRequest - size) / 2);
 
-            canvas.FillColor = Colors.White;
+            canvas.FillColor = ColorHelper.GetGraphicsColor(Fluent.Color.Foreground.White, Fluent.Color.Foreground.Black);
 
             canvas.FillOval(x, y, size, size);
             canvas.DrawOval(x, y, size, size);

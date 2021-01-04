@@ -1,5 +1,6 @@
 ﻿using System.Graphics;
 using GraphicsControls.Extensions;
+using GraphicsControls.Helpers;
 
 namespace GraphicsControls
 {
@@ -16,7 +17,11 @@ namespace GraphicsControls
 
             if (IsChecked)
             {
-                canvas.FillColor = Color.ToGraphicsColor(Fluent.Color.Primary.ThemePrimary);
+                if (IsEnabled)
+                    canvas.FillColor = Color.ToGraphicsColor(Fluent.Color.Primary.ThemePrimary);
+                else
+                    canvas.FillColor = ColorHelper.GetGraphicsColor(Fluent.Color.Background.NeutralLighter, Fluent.Color.Background.NeutralDark);
+
                 canvas.FillRoundedRectangle(x, y, size, size, 2);
             }
             else
@@ -24,7 +29,12 @@ namespace GraphicsControls
                 var strokeWidth = 2;
 
                 canvas.StrokeSize = strokeWidth;
-                canvas.StrokeColor = Color.ToGraphicsColor(Fluent.Color.Primary.ThemePrimary);
+
+                if (IsEnabled)
+                    canvas.StrokeColor = Color.ToGraphicsColor(Fluent.Color.Primary.ThemePrimary);
+                else
+                    canvas.FillColor = ColorHelper.GetGraphicsColor(Fluent.Color.Background.NeutralLighter, Fluent.Color.Background.NeutralDark);
+                
                 canvas.DrawRoundedRectangle(x + strokeWidth / 2, y + strokeWidth / 2, size - strokeWidth, size - strokeWidth, 2);
             }
 
@@ -55,7 +65,11 @@ namespace GraphicsControls
         {
             canvas.SaveState();
 
-            canvas.FontColor = Colors.Black;
+            if (IsEnabled)
+                canvas.FontColor = ColorHelper.GetGraphicsColor(Fluent.Color.Foreground.Black, Fluent.Color.Foreground.White);
+            else
+                canvas.FontColor = ColorHelper.GetGraphicsColor(Fluent.Color.Foreground.NeutralPrimary, Fluent.Color.Foreground.NeutralTertiary);
+
             canvas.FontSize = 14f;
 
             float size = 20f;

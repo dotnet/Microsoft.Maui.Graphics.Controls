@@ -73,7 +73,8 @@
                 VisualType="Fluent"
                 Progress="0.25"/>
             <graphics:RadioButton
-                VisualType="Fluent"/>
+                VisualType="Fluent"
+                IsChecked="True"/>
             <graphics:Slider
                 VisualType="Fluent"
                 Minimum="0"

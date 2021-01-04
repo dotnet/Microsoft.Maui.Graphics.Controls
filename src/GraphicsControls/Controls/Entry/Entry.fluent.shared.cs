@@ -31,29 +31,32 @@ namespace GraphicsControls
 
         void DrawFluentEntryBorder(ICanvas canvas, RectangleF dirtyRect)
         {
-            canvas.SaveState();
-
-            var strokeWidth = 1.0f;
-
-            canvas.StrokeColor = ColorHelper.GetGraphicsColor(Fluent.Color.Foreground.NeutralSecondary, Fluent.Color.Foreground.White);
-            canvas.StrokeSize = strokeWidth;
-
-            if(IsFocused)
+            if (IsEnabled)
             {
-                strokeWidth = 2.0f;
-                canvas.StrokeColor = new GColor(Fluent.Color.Primary.ThemePrimary);
+                canvas.SaveState();
+
+                var strokeWidth = 1.0f;
+
+                canvas.StrokeColor = ColorHelper.GetGraphicsColor(Fluent.Color.Foreground.NeutralSecondary, Fluent.Color.Foreground.White);
                 canvas.StrokeSize = strokeWidth;
+
+                if (IsFocused)
+                {
+                    strokeWidth = 2.0f;
+                    canvas.StrokeColor = new GColor(Fluent.Color.Primary.ThemePrimary);
+                    canvas.StrokeSize = strokeWidth;
+                }
+
+                var x = dirtyRect.X;
+                var y = dirtyRect.Y;
+
+                var width = dirtyRect.Width;
+                var height = FluentEntryHeight;
+
+                canvas.DrawRoundedRectangle(x + strokeWidth / 2, y + strokeWidth / 2, width - strokeWidth, height - strokeWidth, 2);
+
+                canvas.RestoreState();
             }
-
-            var x = dirtyRect.X;
-            var y = dirtyRect.Y;
-
-            var width = dirtyRect.Width;
-            var height = FluentEntryHeight;
-
-            canvas.DrawRoundedRectangle(x + strokeWidth / 2, y + strokeWidth / 2, width - strokeWidth, height - strokeWidth, 2);
-
-            canvas.RestoreState();
         }
 
         void DrawFluentEntryPlaceholder(ICanvas canvas, RectangleF dirtyRect)

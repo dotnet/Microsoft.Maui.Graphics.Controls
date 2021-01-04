@@ -13,13 +13,18 @@ namespace GraphicsControls
 
             var strokeWidth = 1;
 
-            canvas.StrokeColor = Colors.Black;
-            canvas.StrokeSize = strokeWidth;
-
             if (IsEnabled)
+            {
+                canvas.StrokeColor = Colors.Black;
                 canvas.FillColor = BackgroundColor.ToGraphicsColor(Fluent.Color.Primary.ThemePrimary);
+            }
             else
-                canvas.FillColor = ColorHelper.GetGraphicsColor(Fluent.Color.Background.NeutralLighter, Fluent.Color.Background.NeutralDark);
+            {
+                var disabledColor = ColorHelper.GetGraphicsColor(Fluent.Color.Background.NeutralLighter, Fluent.Color.Background.NeutralDark);
+                canvas.StrokeColor = canvas.FillColor = disabledColor;
+            }
+
+            canvas.StrokeSize = strokeWidth;
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
@@ -41,7 +46,11 @@ namespace GraphicsControls
         {
             canvas.SaveState();
 
-            canvas.FontColor = new GColor(TextColor.ToHex());
+            if (IsEnabled)
+                canvas.FontColor = TextColor.ToGraphicsColor(Fluent.Color.Foreground.White);
+            else
+                canvas.FontColor = ColorHelper.GetGraphicsColor(Fluent.Color.Foreground.NeutralPrimary, Fluent.Color.Foreground.NeutralTertiary);
+
             canvas.FontSize = 14f;
 
             var height = dirtyRect.Height;
