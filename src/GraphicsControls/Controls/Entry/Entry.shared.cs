@@ -1,5 +1,4 @@
-﻿using System;
-using System.Graphics;
+﻿using System.Graphics;
 using System.Runtime.CompilerServices;
 using GraphicsControls.Extensions;
 using Xamarin.Forms;
@@ -119,6 +118,7 @@ namespace GraphicsControls
             UpdateText();
             UpdateTextColor();
             UpdateCharacterSpacing();
+            UpdateFlowDirection();
         }
 
         public override void Unload()
@@ -148,6 +148,8 @@ namespace GraphicsControls
                 UpdateEntryPosition();
             else if (propertyName == IsFocusedProperty.PropertyName)
                 UpdateIsFocused();
+            else if (propertyName == FlowDirectionProperty.PropertyName)
+                UpdateFlowDirection();
         }
 
         public override void OnTouchDown(Point point)
@@ -242,15 +244,20 @@ namespace GraphicsControls
 
         void UpdateEntryPosition()
         {
+            bool isRtl = FlowDirection == FlowDirection.RightToLeft;
+
             switch (VisualType)
             {
                 case VisualType.Cupertino:
                 case VisualType.Fluent:
-                    _entry.Margin = new Thickness(8, 0, 40, 0);
+                    _entry.Margin = isRtl ? new Thickness(40, 0, 8, 0) : new Thickness(8, 0, 40, 0);
                     break;
                 case VisualType.Material:
                 default:
-                    _entry.Margin = Device.RuntimePlatform == Device.macOS ? new Thickness(10, 0, 40, 12) : new Thickness(12, 4, 40, 0);
+                    if (Device.RuntimePlatform == Device.macOS)
+                        _entry.Margin = isRtl ? new Thickness(40, 0, 10, 12) : new Thickness(10, 0, 40, 12);
+                    else
+                        _entry.Margin = isRtl ? new Thickness(40, 12, 12, 0) : new Thickness(12, 12, 40, 0);
                     break;
             }
         }
@@ -267,6 +274,14 @@ namespace GraphicsControls
             ((IElementController)this).SetValueFromRenderer(isFocusedPropertyKey, isFocused);
         }
 
+        void ClearTextIfNeeded(Point point)
+        {
+            PointF touchPoint = new PointF((float)point.X, (float)point.Y);
+
+            if (_indicatorRect.Contains(touchPoint))
+                _entry.Text = string.Empty;
+        }
+
         void UpdateIsFocused()
         {
             switch (VisualType)
@@ -278,12 +293,9 @@ namespace GraphicsControls
             }
         }
 
-        void ClearTextIfNeeded(Point point)
+        void UpdateFlowDirection()
         {
-            PointF touchPoint = new PointF((float)point.X, (float)point.Y);
-
-            if (_indicatorRect.Contains(touchPoint))
-                _entry.Text = string.Empty;
+            _entry.FlowDirection = FlowDirection;
         }
 
         void UpdateText()

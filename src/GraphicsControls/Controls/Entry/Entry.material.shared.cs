@@ -88,12 +88,20 @@ namespace GraphicsControls
 
             float margin = 12f;
 
-            var x = dirtyRect.X + 12;
+            var horizontalAlignment = HorizontalAlignment.Left;
+
+            var x = dirtyRect.X + margin;
+
+            if (FlowDirection == FlowDirection.RightToLeft)
+            {
+                x = dirtyRect.X;
+                horizontalAlignment = HorizontalAlignment.Right;
+            }
 
             var height = dirtyRect.Height;
             var width = dirtyRect.Width;
 
-            canvas.DrawString(Placeholder, x, PlaceholderY, width - margin, height, HorizontalAlignment.Left, VerticalAlignment.Top);
+            canvas.DrawString(Placeholder, x, PlaceholderY, width - margin, height, horizontalAlignment, VerticalAlignment.Top);
 
             canvas.RestoreState();
         }
@@ -112,6 +120,9 @@ namespace GraphicsControls
                 var x = dirtyRect.Width - backgroundMarginX;
                 var y = dirtyRect.Y + backgroundMarginY;
 
+                if (FlowDirection == FlowDirection.RightToLeft)
+                    x = backgroundMarginX;
+
                 canvas.FillColor = BackgroundColor.ToGraphicsColor(Material.Color.Black, Material.Color.White);
                 canvas.Alpha = Application.Current?.RequestedTheme == OSAppTheme.Light ? 0.12f : 0.24f;
 
@@ -128,6 +139,12 @@ namespace GraphicsControls
 
                 var tX = dirtyRect.Width - iconMarginX;
                 var tY = dirtyRect.Y + iconMarginY;
+
+                if (FlowDirection == FlowDirection.RightToLeft)
+                {
+                    iconMarginX = 19;
+                    tX = iconMarginX;
+                }
 
                 canvas.Translate(tX, tY);
 
