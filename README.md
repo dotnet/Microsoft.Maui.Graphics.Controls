@@ -18,6 +18,7 @@ There is currently support for:
 
 Soon, support will be added to:
 * **Linux** using SkiaSharp
+* **Tizen** using SkiaSharp
 * **WPF** using SharpDX
 
 ## What controls are available?
