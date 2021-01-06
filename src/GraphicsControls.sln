@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.809.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsControls", "GraphicsControls\GraphicsControls.csproj", "{474A33AE-06A4-4219-9545-17751EBF3F84}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "System.Graphics", "System.Graphics", "{9591B81B-1609-4E56-B42E-6B14024119E8}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{4F0017DB-8A18-4153-A129-782B29DECF51}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{465D03D3-BA73-4E52-BBEA-02DC54647BC6}"
@@ -18,8 +16,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsControls.Sample", "GraphicsControls.Sample\GraphicsControls.Sample.csproj", "{41B421AF-5731-4B8F-BEDE-96155879D929}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsControls.Sample.macOS", "GraphicsControls.Sample.macOS\GraphicsControls.Sample.macOS.csproj", "{C351DAA7-20C0-474D-B610-F00C8BE5B0F1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Graphics", "..\System.Graphics\src\System.Graphics\System.Graphics.csproj", "{103F9B7B-545C-4768-80F9-B2B5FE879CEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,18 +87,6 @@ Global
 		{C351DAA7-20C0-474D-B610-F00C8BE5B0F1}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{C351DAA7-20C0-474D-B610-F00C8BE5B0F1}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{C351DAA7-20C0-474D-B610-F00C8BE5B0F1}.Release|iPhone.Build.0 = Release|Any CPU
-		{103F9B7B-545C-4768-80F9-B2B5FE879CEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{103F9B7B-545C-4768-80F9-B2B5FE879CEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{103F9B7B-545C-4768-80F9-B2B5FE879CEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{103F9B7B-545C-4768-80F9-B2B5FE879CEE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{103F9B7B-545C-4768-80F9-B2B5FE879CEE}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{103F9B7B-545C-4768-80F9-B2B5FE879CEE}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{103F9B7B-545C-4768-80F9-B2B5FE879CEE}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{103F9B7B-545C-4768-80F9-B2B5FE879CEE}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{103F9B7B-545C-4768-80F9-B2B5FE879CEE}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{103F9B7B-545C-4768-80F9-B2B5FE879CEE}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{103F9B7B-545C-4768-80F9-B2B5FE879CEE}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{103F9B7B-545C-4768-80F9-B2B5FE879CEE}.Release|iPhone.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,6 +100,5 @@ Global
 		{27FAE6FC-C7E2-4B63-B713-906A59A0C0DF} = {465D03D3-BA73-4E52-BBEA-02DC54647BC6}
 		{41B421AF-5731-4B8F-BEDE-96155879D929} = {465D03D3-BA73-4E52-BBEA-02DC54647BC6}
 		{C351DAA7-20C0-474D-B610-F00C8BE5B0F1} = {465D03D3-BA73-4E52-BBEA-02DC54647BC6}
-		{103F9B7B-545C-4768-80F9-B2B5FE879CEE} = {9591B81B-1609-4E56-B42E-6B14024119E8}
 	EndGlobalSection
 EndGlobal

@@ -11,8 +11,8 @@
     <Title>GraphicsControls</Title>
     <Description>Library to draw Xamarin.Forms controls.</Description>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <AssemblyFileVersion>0.1.0.0</AssemblyFileVersion>
     <Version>1.0.0</Version>
     <PackageVersion>$(Version)$(VersionSuffix)</PackageVersion>
     <Authors>Javier Suarez</Authors>
@@ -54,13 +54,13 @@
     <DefineConstants>UWP</DefineConstants>
   </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)'=='Release' ">
-    <!-- Manage Xamarin.Forms version for distribution -->
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="**/*.shared.cs" />
     <Compile Include="**/*.shared.*.cs" />
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />   
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />
+    <PackageReference Include="System.Graphics" Version="0.1.6" />   
     <PackageReference Include="Markdig" Version="0.22.1" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard2.0')) ">
@@ -165,8 +165,5 @@
   <ItemGroup>
     <Compile Remove="build\*.cs" />
     <None Include="build\**\*.cs;build\**\*.targets" Pack="true" PackagePath="build" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\System.Graphics\src\System.Graphics\System.Graphics.csproj" />
   </ItemGroup>
 </Project>
