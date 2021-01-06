@@ -14,12 +14,17 @@ There is currently support for:
 * **iOS** using CoreGraphics
 * **macOS** using CoreGraphics
 * **Android** using Android Graphics
-* **UWP** using Win2D
 
 Soon, support will be added to:
+* **UWP** using Win2D
 * **Linux** using SkiaSharp
 * **Tizen** using SkiaSharp
 * **WPF** using SharpDX
+
+#### System.Graphics
+
+This project is using **System.Graphics**.
+System.Graphics is a cross-platform graphics library for iOS, Android, Windows, macOS and Linux completely in C#. With this library you can use a common API to target multiple abstractions allowing you to share your drawing code between platforms, or mix and match graphics implentations within a singular application.
 
 ## What controls are available?
 
@@ -77,3 +82,8 @@ All controls support RTL.
 Some native controls are complex. For example, Entry using Visual Material is made up of different elements. When using it, each of the different elements must be instantiated (the text box, the placeholder text, etc.). Using the drawn control, create an instance of a Canvas and draw the content. The time required to instantiate etc is shorter.
 
 <img src="images/graphicscontrols-performance.png" Width="600" /> 
+
+## Goals
+
+* Have pixel-perfect drawn controls working on all the Xamarin.Forms supported platforms.
+* High performance and customization options controls.
