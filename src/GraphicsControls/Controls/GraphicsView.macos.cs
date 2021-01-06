@@ -47,6 +47,8 @@ namespace GraphicsControls.Mac
                 Control.Drawable = Element;
 
                 UpdateContent();
+                UpdateAutomationHelpText();
+                UpdateAutomationName();
             }
         }
 
@@ -56,6 +58,10 @@ namespace GraphicsControls.Mac
 
             if (e.PropertyName == ContentView.ContentProperty.PropertyName)
                 UpdateContent();
+            else if (e.PropertyName == AutomationProperties.HelpTextProperty.PropertyName)
+                UpdateAutomationHelpText();
+            else if (e.PropertyName == AutomationProperties.NameProperty.PropertyName)
+                UpdateAutomationName();
 
             Control?.InvalidateDrawable();
         }
@@ -142,6 +148,16 @@ namespace GraphicsControls.Mac
             var content = Subviews[0];
             content.RemoveFromSuperview();
             AddSubview(content);
+        }
+
+        void UpdateAutomationHelpText()
+        {
+            Control?.SetAccessibilityHint(Element);
+        }
+
+        void UpdateAutomationName()
+        {
+            Control?.SetAccessibilityLabel(Element);
         }
     }
 }

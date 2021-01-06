@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Graphics.Android;
 using Android.Content;
 using Android.Views;
@@ -36,7 +37,18 @@ namespace GraphicsControls.Android
                 e.NewElement.Invalidated += OnDrawInvalidated;
                 SetNativeControl(new NativeGraphicsView(Context));
                 Control.Drawable = Element;
+
+                UpdateAutomationProperties();
             }
+        }
+
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(sender, e);
+
+            if (e.PropertyName == AutomationProperties.HelpTextProperty.PropertyName ||
+                e.PropertyName == AutomationProperties.NameProperty.PropertyName)
+                UpdateAutomationProperties();
         }
 
         protected override void OnAttachedToWindow()
@@ -95,6 +107,36 @@ namespace GraphicsControls.Android
         void OnDrawInvalidated(object sender, EventArgs e)
         {
             Control?.InvalidateDrawable();
+        }
+
+        void UpdateAutomationProperties()
+        {
+            if (Control == null)
+                return;
+
+            var defaultContentDescription = Control.ContentDescription;
+
+            string value = ConcatenateNameAndHelpText(Element);
+
+            var contentDescription = !string.IsNullOrWhiteSpace(value) ? value : defaultContentDescription;
+
+            if (string.IsNullOrWhiteSpace(contentDescription) && Element is Element element)
+                contentDescription = element.AutomationId;
+
+            Control.ContentDescription = contentDescription;
+        }
+
+        internal static string ConcatenateNameAndHelpText(BindableObject Element)
+        {
+            var name = (string)Element.GetValue(AutomationProperties.NameProperty);
+            var helpText = (string)Element.GetValue(AutomationProperties.HelpTextProperty);
+
+            if (string.IsNullOrWhiteSpace(name))
+                return helpText;
+            if (string.IsNullOrWhiteSpace(helpText))
+                return name;
+
+            return $"{name}. {helpText}";
         }
     }
 }

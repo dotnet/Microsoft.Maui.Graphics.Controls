@@ -49,6 +49,8 @@ namespace GraphicsControls.iOS
                 Control.Drawable = Element;
 
                 UpdateContent();
+                UpdateAutomationHelpText();
+                UpdateAutomationName();
             }
         }
 
@@ -58,6 +60,10 @@ namespace GraphicsControls.iOS
 
             if (e.PropertyName == ContentView.ContentProperty.PropertyName)
                 UpdateContent();
+            else if (e.PropertyName == AutomationProperties.HelpTextProperty.PropertyName)
+                UpdateAutomationHelpText();
+            else if (e.PropertyName == AutomationProperties.NameProperty.PropertyName)
+                UpdateAutomationName();
 
             Control?.InvalidateDrawable();
         }
@@ -172,6 +178,16 @@ namespace GraphicsControls.iOS
 
             var content = Subviews[0];
             BringSubviewToFront(content);
+        }
+
+        void UpdateAutomationHelpText()
+        {
+            Control?.SetAccessibilityHint(Element);
+        }
+
+        void UpdateAutomationName()
+        {
+            Control?.SetAccessibilityLabel(Element);
         }
     }
 }
