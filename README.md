@@ -87,3 +87,4 @@ Some native controls are complex. For example, Entry using Visual Material is ma
 
 * Have pixel-perfect drawn controls working on all the Xamarin.Forms supported platforms.
 * High performance and customization options controls.
+* In the short term, the goal is to have the controls for Xamarin.Forms, in the future they could reach Comet, .NET MAUI, etc.
