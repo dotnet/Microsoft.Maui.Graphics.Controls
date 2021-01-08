@@ -30,6 +30,9 @@
             <graphics:CheckBox
                 VisualType="Cupertino"
                 Text="CheckBox"/>
+            <graphics:Editor
+                VisualType="Cupertino"
+                Placeholder="Placeholder"/>
             <graphics:Entry
                 VisualType="Cupertino"
                 Placeholder="Placeholder"/>
@@ -66,6 +69,9 @@
                 VisualType="Fluent"
                 IsChecked="True"
                 Text="CheckBox"/>
+            <graphics:Editor
+                VisualType="Fluent"
+                Placeholder="Placeholder"/>
             <graphics:Entry
                 VisualType="Fluent"
                 Placeholder="Placeholder"/>
@@ -101,6 +107,9 @@
                 Clicked="OnButtonClicked"/>
             <graphics:CheckBox
                 VisualType="Material"/>
+            <graphics:Editor
+                VisualType="Material"
+                Placeholder="Placeholder"/>
             <graphics:Entry
                 VisualType="Material"
                 Placeholder="Placeholder"/>

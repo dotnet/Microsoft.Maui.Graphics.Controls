@@ -6,36 +6,30 @@ using XColor = Xamarin.Forms.Color;
 
 namespace GraphicsControls
 {
-    public class BorderlessEntry : Xamarin.Forms.Entry { }
+    public class BorderlessEditor : Xamarin.Forms.Editor { }
 
-    public partial class Entry : GraphicsVisualView, IInput
+    public partial class Editor : GraphicsVisualView, IInput
     {
-        RectangleF _indicatorRect;
-        readonly BorderlessEntry _entry;
+        readonly BorderlessEditor _editor;
 
-        public Entry()
+        public Editor()
         {
-            _indicatorRect = RectangleF.Zero;
-
-            _entry = new BorderlessEntry
+            _editor = new BorderlessEditor
             {
                 BackgroundColor = XColor.Transparent,
-                ClearButtonVisibility = ClearButtonVisibility.Never,
-                Text = Text,
-                TextColor = TextColor,
-                VerticalOptions = LayoutOptions.Center
+                VerticalOptions = LayoutOptions.Start
             };
 
-            Content = _entry;
+            Content = _editor;
         }
 
         public static readonly BindableProperty TextProperty =
-            BindableProperty.Create(nameof(IInput.Text), typeof(string), typeof(IInput), string.Empty,
-                propertyChanged: OnTextChanged);
+           BindableProperty.Create(nameof(IInput.Text), typeof(string), typeof(IInput), string.Empty,
+               propertyChanged: OnTextChanged);
 
         static void OnTextChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            (bindable as Entry)?.UpdateText();
+            (bindable as Editor)?.UpdateText();
         }
 
         public static readonly BindableProperty TextColorProperty =
@@ -44,7 +38,7 @@ namespace GraphicsControls
 
         static void OnTextColorChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            (bindable as Entry)?.UpdateTextColor();
+            (bindable as Editor)?.UpdateTextColor();
         }
 
         public static readonly BindableProperty CharacterSpacingProperty =
@@ -53,7 +47,7 @@ namespace GraphicsControls
 
         private static void OnCharacterSpacingChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            (bindable as Entry)?.UpdateCharacterSpacing();
+            (bindable as Editor)?.UpdateCharacterSpacing();
         }
 
         public static readonly BindableProperty PlaceholderProperty = InputElement.PlaceholderProperty;
@@ -96,26 +90,24 @@ namespace GraphicsControls
 
             switch (VisualType)
             {
-                case VisualType.Cupertino:
-                    HeightRequest = 36;
-                    break;
                 case VisualType.Material:
                 default:
-                    HeightRequest = 56;
+                    HeightRequest = _editor.HeightRequest = 114.95d;
                     break;
+                case VisualType.Cupertino:
                 case VisualType.Fluent:
-                    HeightRequest = FluentEntryHeight;
+                    HeightRequest = _editor.HeightRequest = 60;
                     break;
             }
 
-            _entry.TextChanged += OnEntryTextChanged;
-            _entry.Focused += OnEntryFocused;
-            _entry.Unfocused += OnEntryUnfocused;
+            _editor.TextChanged += OnEditorTextChanged;
+            _editor.Focused += OnEditorFocused;
+            _editor.Unfocused += OnEditorUnfocused;
 
             if (VisualType == VisualType.Material)
                 AnimateMaterialPlaceholder(IsFocused);
 
-            UpdateEntryPosition();
+            UpdateEditorPosition();
             UpdateText();
             UpdateTextColor();
             UpdateCharacterSpacing();
@@ -126,19 +118,18 @@ namespace GraphicsControls
         {
             base.Unload();
 
-            _entry.TextChanged -= OnEntryTextChanged;
-            _entry.Focused -= OnEntryFocused;
-            _entry.Unfocused -= OnEntryUnfocused;
+            _editor.TextChanged -= OnEditorTextChanged;
+            _editor.Focused -= OnEditorFocused;
+            _editor.Unfocused -= OnEditorUnfocused;
         }
 
         public override void Draw(ICanvas canvas, RectangleF dirtyRect)
         {
             base.Draw(canvas, dirtyRect);
 
-            DrawEntryBackground(canvas, dirtyRect);
-            DrawEntryBorder(canvas, dirtyRect);
+            DrawEditorBackground(canvas, dirtyRect);
+            DrawEditorBorder(canvas, dirtyRect);
             DrawEntryPlaceholder(canvas, dirtyRect);
-            DrawEntryIndicators(canvas, dirtyRect);
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -146,7 +137,7 @@ namespace GraphicsControls
             base.OnPropertyChanged(propertyName);
 
             if (propertyName == VisualTypeProperty.PropertyName)
-                UpdateEntryPosition();
+                UpdateEditorPosition();
             else if (propertyName == IsFocusedProperty.PropertyName)
                 UpdateIsFocused();
             else if (propertyName == FlowDirectionProperty.PropertyName)
@@ -157,40 +148,39 @@ namespace GraphicsControls
         {
             base.OnTouchDown(point);
 
-            FocusInternalEntryIfNeeded();
-            ClearTextIfNeeded(point);
+            FocusInternalEditorIfNeeded();
         }
 
-        protected virtual void DrawEntryBackground(ICanvas canvas, RectangleF dirtyRect)
+        protected virtual void DrawEditorBackground(ICanvas canvas, RectangleF dirtyRect)
         {
             switch (VisualType)
             {
                 case VisualType.Material:
                 default:
-                    DrawMaterialEntryBackground(canvas, dirtyRect);
+                    DrawMaterialEditorBackground(canvas, dirtyRect);
                     break;
                 case VisualType.Cupertino:
-                    DrawCupertinoEntryBackground(canvas, dirtyRect);
+                    DrawCupertinoEditorBackground(canvas, dirtyRect);
                     break;
                 case VisualType.Fluent:
-                    DrawFluentEntryBackground(canvas, dirtyRect);
+                    DrawFluentEditorBackground(canvas, dirtyRect);
                     break;
             }
         }
 
-        protected virtual void DrawEntryBorder(ICanvas canvas, RectangleF dirtyRect)
+        protected virtual void DrawEditorBorder(ICanvas canvas, RectangleF dirtyRect)
         {
             switch (VisualType)
             {
                 case VisualType.Material:
                 default:
-                    DrawMaterialEntryBorder(canvas, dirtyRect);
+                    DrawMaterialEditorBorder(canvas, dirtyRect);
                     break;
                 case VisualType.Cupertino:
-                    DrawCupertinoEntryBorder(canvas, dirtyRect);
+                    DrawCupertinoEditorBorder(canvas, dirtyRect);
                     break;
                 case VisualType.Fluent:
-                    DrawFluentEntryBorder(canvas, dirtyRect);
+                    DrawFluentEditorBorder(canvas, dirtyRect);
                     break;
             }
         }
@@ -201,86 +191,15 @@ namespace GraphicsControls
             {
                 case VisualType.Material:
                 default:
-                    DrawMaterialEntryPlaceholder(canvas, dirtyRect);
+                    DrawMaterialEditorPlaceholder(canvas, dirtyRect);
                     break;
                 case VisualType.Cupertino:
-                    DrawCupertinoEntryPlaceholder(canvas, dirtyRect);
+                    DrawCupertinoEditorPlaceholder(canvas, dirtyRect);
                     break;
                 case VisualType.Fluent:
-                    DrawFluentEntryPlaceholder(canvas, dirtyRect);
+                    DrawFluentEditorPlaceholder(canvas, dirtyRect);
                     break;
             }
-        }
-
-        protected virtual void DrawEntryIndicators(ICanvas canvas, RectangleF dirtyRect)
-        {
-            switch (VisualType)
-            {
-                case VisualType.Material:
-                default:
-                    DrawMaterialEntryIndicators(canvas, dirtyRect);
-                    break;
-                case VisualType.Cupertino:
-                    break;
-                case VisualType.Fluent:
-                    DrawFluentEntryIndicators(canvas, dirtyRect);
-                    break;
-            }
-        }
-
-        void OnEntryTextChanged(object sender, TextChangedEventArgs e)
-        {
-            Text = e.NewTextValue;
-        }
-
-        void OnEntryFocused(object sender, FocusEventArgs e)
-        {
-            UpdateIsFocused(true);
-        }
-
-        void OnEntryUnfocused(object sender, FocusEventArgs e)
-        {
-            UpdateIsFocused(false);
-        }
-
-        void UpdateEntryPosition()
-        {
-            bool isRtl = FlowDirection == FlowDirection.RightToLeft;
-
-            switch (VisualType)
-            {
-                case VisualType.Cupertino:
-                case VisualType.Fluent:
-                    _entry.Margin = isRtl ? new Thickness(40, 0, 8, 0) : new Thickness(8, 0, 40, 0);
-                    break;
-                case VisualType.Material:
-                default:
-                    if (Device.RuntimePlatform == Device.macOS)
-                        _entry.Margin = isRtl ? new Thickness(40, 0, 10, 12) : new Thickness(10, 0, 40, 12);
-                    else
-                        _entry.Margin = isRtl ? new Thickness(40, 12, 12, 0) : new Thickness(12, 12, 40, 0);
-                    break;
-            }
-        }
-
-        void FocusInternalEntryIfNeeded()
-        {
-            if (!_entry.IsFocused)
-                _entry.Focus();
-        }
-
-        void UpdateIsFocused(bool isFocused)
-        {
-            var isFocusedPropertyKey = this.GetInternalField<BindablePropertyKey>("IsFocusedPropertyKey");
-            ((IElementController)this).SetValueFromRenderer(isFocusedPropertyKey, isFocused);
-        }
-
-        void ClearTextIfNeeded(Point point)
-        {
-            PointF touchPoint = new PointF((float)point.X, (float)point.Y);
-
-            if (_indicatorRect.Contains(touchPoint))
-                _entry.Text = string.Empty;
         }
 
         void UpdateIsFocused()
@@ -294,30 +213,72 @@ namespace GraphicsControls
             }
         }
 
+        void UpdateEditorPosition()
+        { 
+            switch (VisualType)
+            {
+                case VisualType.Cupertino:
+                case VisualType.Fluent:
+                    _editor.Margin = new Thickness(6, 2);
+                    break;
+                case VisualType.Material:
+                default:
+                    _editor.Margin = new Thickness(6, 16, 6, 6);
+                    break;
+            }
+        }
+
+        void OnEditorTextChanged(object sender, TextChangedEventArgs e)
+        {
+            Text = e.NewTextValue;
+        }
+
+        void OnEditorFocused(object sender, FocusEventArgs e)
+        {
+            UpdateIsFocused(true);
+        }
+
+        void OnEditorUnfocused(object sender, FocusEventArgs e)
+        {
+            UpdateIsFocused(false);
+        }
+
+        void FocusInternalEditorIfNeeded()
+        {
+            if (!_editor.IsFocused)
+                _editor.Focus();
+        }
+
+        void UpdateIsFocused(bool isFocused)
+        {
+            var isFocusedPropertyKey = this.GetInternalField<BindablePropertyKey>("IsFocusedPropertyKey");
+            ((IElementController)this).SetValueFromRenderer(isFocusedPropertyKey, isFocused);
+        }
+
         void UpdateText()
         {
-            _entry.Text = Text;
+            _editor.Text = Text;
         }
 
         void UpdateTextColor()
         {
             if (TextColor != XColor.Default)
-                _entry.TextColor = TextColor;
+                _editor.TextColor = TextColor;
             else
             {
                 var textColor = Application.Current?.RequestedTheme == OSAppTheme.Light ? XColor.Black : XColor.White;
-                _entry.TextColor = textColor;
+                _editor.TextColor = textColor;
             }
         }
 
         void UpdateCharacterSpacing()
         {
-            _entry.CharacterSpacing = CharacterSpacing;
+            _editor.CharacterSpacing = CharacterSpacing;
         }
 
         void UpdateFlowDirection()
         {
-            _entry.FlowDirection = FlowDirection;
+            _editor.FlowDirection = FlowDirection;
         }
     }
 }
