@@ -33,6 +33,7 @@ Currently there are the following controls:
 * **BoxView**
 * **Button** (Cupertino, Fluent, Material)
 * **CheckBox** (Cupertino, Fluent, Material)
+* **Editor** (Cupertino, Fluent, Material)
 * **Entry** (Cupertino, Fluent, Material)
 * **ProgressBar** (Cupertino, Fluent, Material)
 * **RadioButton** (Cupertino, Fluent, Material)
@@ -41,7 +42,6 @@ Currently there are the following controls:
 * **Switch** (Cupertino, Fluent, Material)
 
 Upcoming controls:
-* Editor
 * DatePicker
 * TimePicker
 
