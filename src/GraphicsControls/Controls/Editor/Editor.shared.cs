@@ -1,4 +1,5 @@
-﻿using System.Graphics;
+﻿using System.ComponentModel;
+using System.Graphics;
 using System.Runtime.CompilerServices;
 using GraphicsControls.Extensions;
 using Xamarin.Forms;
@@ -6,6 +7,7 @@ using XColor = Xamarin.Forms.Color;
 
 namespace GraphicsControls
 {
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public class BorderlessEditor : Xamarin.Forms.Editor { }
 
     public partial class Editor : GraphicsVisualView, IInput
