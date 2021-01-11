@@ -30,6 +30,8 @@
             <graphics:CheckBox
                 VisualType="Cupertino"
                 Text="CheckBox"/>
+            <graphics:DatePicker
+                VisualType="Cupertino"/>
             <graphics:Editor
                 VisualType="Cupertino"
                 Placeholder="Placeholder"/>
@@ -53,6 +55,8 @@
                 Value="50"/>
             <graphics:Switch
                 VisualType="Cupertino"/>
+            <graphics:TimePicker
+                VisualType="Cupertino"/>
             <Label
                 Text="Fluent"
                 FontSize="Large"
@@ -69,6 +73,8 @@
                 VisualType="Fluent"
                 IsChecked="True"
                 Text="CheckBox"/>
+            <graphics:DatePicker
+                VisualType="Fluent"/>
             <graphics:Editor
                 VisualType="Fluent"
                 Placeholder="Placeholder"/>
@@ -93,6 +99,8 @@
                 Value="50"/>
             <graphics:Switch
                 VisualType="Fluent"/>
+            <graphics:TimePicker
+                VisualType="Fluent"/>
             <Label
                 Text="Material"
                 FontSize="Large"
@@ -106,6 +114,8 @@
                 Text="Material Button"
                 Clicked="OnButtonClicked"/>
             <graphics:CheckBox
+                VisualType="Material"/>
+            <graphics:DatePicker
                 VisualType="Material"/>
             <graphics:Editor
                 VisualType="Material"
@@ -129,6 +139,8 @@
                 Maximum="100"
                 Value="50"/>
             <graphics:Switch
+                VisualType="Material"/>
+            <graphics:TimePicker
                 VisualType="Material"/>
         </StackLayout>
     </ScrollView>
