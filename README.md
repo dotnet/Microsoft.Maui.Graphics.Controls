@@ -23,6 +23,8 @@ Soon, support will be added to:
 
 <img src="images/graphicscontrols-platforms.png" Width="600" /> 
 
+**NOTE:** Are you interested in having more information? You have a detailed [video](https://www.youtube.com/watch?v=hLcpAgWCHf4)!. 
+
 #### System.Graphics
 
 This project is using **System.Graphics**.
