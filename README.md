@@ -21,10 +21,12 @@ Soon, support will be added to:
 * **Tizen** using SkiaSharp
 * **WPF** using SharpDX
 
+<img src="images/graphicscontrols-platforms.png" Width="600" /> 
+
 #### System.Graphics
 
 This project is using **System.Graphics**.
-System.Graphics is a cross-platform graphics library for iOS, Android, Windows, macOS and Linux completely in C#. With this library you can use a common API to target multiple abstractions allowing you to share your drawing code between platforms, or mix and match graphics implentations within a singular application.
+[System.Graphics](https://github.com/jonlipsky/System.Graphics) is a cross-platform graphics library for iOS, Android, Windows, macOS and Linux completely in C#. With this library you can use a common API to target multiple abstractions allowing you to share your drawing code between platforms, or mix and match graphics implentations within a singular application.
 
 ## What controls are available?
 
@@ -42,8 +44,8 @@ Currently there are the following controls:
 * **Switch** (Cupertino, Fluent, Material)
 
 Upcoming controls:
-* DatePicker
-* TimePicker
+* DatePicker (Cupertino, Fluent, Material)
+* TimePicker (Cupertino, Fluent, Material)
 
 The controls have the same properties and events as those existing in Xamarin.Forms.  
 
