@@ -39,6 +39,7 @@ Currently there are the following controls:
 * **CheckBox** (Cupertino, Fluent, Material)
 * **Editor** (Cupertino, Fluent, Material)
 * **Entry** (Cupertino, Fluent, Material)
+* **Frame**
 * **ProgressBar** (Cupertino, Fluent, Material)
 * **RadioButton** (Cupertino, Fluent, Material)
 * **Slider** (Cupertino, Fluent, Material)
