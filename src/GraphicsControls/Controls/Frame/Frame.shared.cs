@@ -8,6 +8,9 @@ namespace GraphicsControls
     [ContentProperty(nameof(Content))]
     public class Frame : GraphicsView, ICornerRadius
     {
+        public static new readonly BindableProperty BackgroundColorProperty =
+            BindableProperty.Create(nameof(BackgroundColor), typeof(XColor), typeof(Frame), XColor.Default);
+
         public static readonly BindableProperty BorderColorProperty =
             BindableProperty.Create(nameof(BorderColor), typeof(XColor), typeof(Frame), XColor.Default);
 
@@ -15,6 +18,12 @@ namespace GraphicsControls
 
         public static readonly BindableProperty HasShadowProperty =
             BindableProperty.Create(nameof(HasShadow), typeof(bool), typeof(Frame), true);
+
+        public new XColor BackgroundColor
+        {
+            get { return (XColor)GetValue(BackgroundColorProperty); }
+            set { SetValue(BackgroundColorProperty, value); }
+        }
 
         public XColor BorderColor
         {

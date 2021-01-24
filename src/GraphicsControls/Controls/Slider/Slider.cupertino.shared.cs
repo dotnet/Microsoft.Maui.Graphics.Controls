@@ -33,7 +33,9 @@ namespace GraphicsControls
 
             var x = dirtyRect.X;
 
-            var width = (float)(dirtyRect.Width * Value);
+            var value = ((double)Value).Clamp(0, 1);
+            var width = (float)(dirtyRect.Width * value);
+
             var height = 1;
 
             var y = (float)((HeightRequest - height) / 2);
@@ -53,7 +55,8 @@ namespace GraphicsControls
             canvas.StrokeColor = new GColor("#161313");
             canvas.StrokeSize = strokeWidth;
 
-            var x = (float)((dirtyRect.Width * Value) - (size / 2));
+            var value = ((double)Value).Clamp(0, 1);
+            var x = (float)((dirtyRect.Width * value) - (size / 2));
 
             if (x <= strokeWidth)
                 x = strokeWidth;

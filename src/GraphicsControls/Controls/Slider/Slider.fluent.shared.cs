@@ -42,7 +42,9 @@ namespace GraphicsControls
 
             var x = dirtyRect.X;
 
-            var width = (float)((dirtyRect.Width - TextSize) * Value);
+            var value = ((double)Value).Clamp(0, 1);
+            var width = (float)((dirtyRect.Width - TextSize) * value);
+
             var height = 4;
 
             var y = (float)((HeightRequest - height) / 2);
@@ -66,7 +68,8 @@ namespace GraphicsControls
 
             canvas.StrokeSize = strokeWidth;
 
-            var x = (float)(((dirtyRect.Width - TextSize) * Value) - (size / 2));
+            var value = ((double)Value).Clamp(0, 1);
+            var x = (float)(((dirtyRect.Width - TextSize) * value) - (size / 2));
 
             if (x <= strokeWidth)
                 x = strokeWidth;
@@ -102,7 +105,7 @@ namespace GraphicsControls
 
             canvas.SetToBoldSystemFont();
 
-            string value = Value.ToString("####0.00");
+            string value = ((double)Value).Clamp(0, 1).ToString("####0.00");
 
             canvas.DrawString(value, x, y, TextSize, height, HorizontalAlignment.Left, VerticalAlignment.Center);
 

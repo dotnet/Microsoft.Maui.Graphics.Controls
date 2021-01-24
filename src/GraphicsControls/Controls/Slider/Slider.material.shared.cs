@@ -49,7 +49,9 @@ namespace GraphicsControls
 
             var x = dirtyRect.X;
 
-            var width = (float)(dirtyRect.Width * Value);
+            var value = ((double)Value).Clamp(0, 1);
+            var width = (float)(dirtyRect.Width * value);
+
             var height = 2;
 
             var y = (float)((HeightRequest - height) / 2);
@@ -63,7 +65,8 @@ namespace GraphicsControls
         {
             canvas.SaveState();
 
-            var x = (float)((dirtyRect.Width * Value) - (MaterialFloatThumb / 2));
+            var value = ((double)Value).Clamp(0, 1);
+            var x = (float)((dirtyRect.Width * value) - (MaterialFloatThumb / 2));
 
             if (x <= 0)
                 x = 0;
