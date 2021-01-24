@@ -15,6 +15,20 @@
                 HeightRequest="100"
                 CornerRadius="12"
                 Color="LightSkyBlue"/>
+            <graphics:Frame
+                HeightRequest="100"
+                BorderColor="DarkBlue"
+                BackgroundColor="LightBlue"
+                CornerRadius="12"
+                HasShadow="True">
+                <Grid>
+                    <Label
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        FontSize="Large"
+                        Text="Frame"/>
+                </Grid>
+            </graphics:Frame>
             <Label
                 Text="Cupertino"
                 FontSize="Large"
