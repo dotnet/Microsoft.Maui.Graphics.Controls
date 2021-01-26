@@ -3,6 +3,7 @@ using System.Graphics;
 using System.Runtime.CompilerServices;
 using GraphicsControls.Effects;
 using Xamarin.Forms;
+using Point = System.Graphics.Point;
 using XColor = Xamarin.Forms.Color;
 
 namespace GraphicsControls

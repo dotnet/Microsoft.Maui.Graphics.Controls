@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using GraphicsControls.Effects;
 using GraphicsControls.Helpers;
 using Xamarin.Forms;
+using Point = System.Graphics.Point;
 using XColor = Xamarin.Forms.Color;
 
 namespace GraphicsControls

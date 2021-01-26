@@ -14,6 +14,7 @@ using APointF = Android.Graphics.PointF;
 using AView = Android.Views.View;
 using GColor = System.Graphics.Color;
 using GraphicsView = GraphicsControls.GraphicsView;
+using Point = System.Graphics.Point;
 
 [assembly: ExportRenderer(typeof(GraphicsView), typeof(GraphicsViewRenderer))]
 namespace GraphicsControls.Android

@@ -19,7 +19,7 @@
                 HeightRequest="100"
                 BorderColor="DarkBlue"
                 BackgroundColor="LightBlue"
-                CornerRadius="12"
+                CornerRadius="12, 0, 0, 24"
                 HasShadow="True">
                 <Grid>
                     <Label

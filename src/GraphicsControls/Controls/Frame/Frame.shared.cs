@@ -6,7 +6,7 @@ using XColor = Xamarin.Forms.Color;
 namespace GraphicsControls
 {
     [ContentProperty(nameof(Content))]
-    public class Frame : GraphicsView, ICornerRadius
+    public class Frame : GraphicsView
     {
         public static new readonly BindableProperty BackgroundColorProperty =
             BindableProperty.Create(nameof(BackgroundColor), typeof(XColor), typeof(Frame), XColor.Default);
@@ -14,7 +14,8 @@ namespace GraphicsControls
         public static readonly BindableProperty BorderColorProperty =
             BindableProperty.Create(nameof(BorderColor), typeof(XColor), typeof(Frame), XColor.Default);
 
-        public static readonly BindableProperty CornerRadiusProperty = CornerRadiusElement.CornerRadiusProperty;
+        public static readonly BindableProperty CornerRadiusProperty =
+            BindableProperty.Create(nameof(CornerRadius), typeof(CornerRadius), typeof(Frame), default(CornerRadius));
 
         public static readonly BindableProperty HasShadowProperty =
             BindableProperty.Create(nameof(HasShadow), typeof(bool), typeof(Frame), true);
@@ -31,10 +32,10 @@ namespace GraphicsControls
             set { SetValue(BorderColorProperty, value); }
         }
 
-        public double CornerRadius
+        public CornerRadius CornerRadius
         {
-            get { return (double)GetValue(CornerRadiusElement.CornerRadiusProperty); }
-            set { SetValue(CornerRadiusElement.CornerRadiusProperty, value); }
+            get { return (CornerRadius)GetValue(CornerRadiusProperty); }
+            set { SetValue(CornerRadiusProperty, value); }
         }
 
         public bool HasShadow
@@ -72,7 +73,7 @@ namespace GraphicsControls
             var height = dirtyRect.Height - CanvasDefaults.DefaultShadowBlur * 2;
             var width = dirtyRect.Width - CanvasDefaults.DefaultShadowBlur * 2;
 
-            canvas.FillRoundedRectangle(x, y, width, height, (float)CornerRadius);
+            canvas.FillRoundedRectangle(x, y, width, height, (float)CornerRadius.TopLeft, (float)CornerRadius.TopRight, (float)CornerRadius.BottomLeft, (float)CornerRadius.BottomRight);
 
             canvas.RestoreState();
         }
@@ -89,7 +90,7 @@ namespace GraphicsControls
             var height = dirtyRect.Height - CanvasDefaults.DefaultShadowBlur * 2;
             var width = dirtyRect.Width - CanvasDefaults.DefaultShadowBlur * 2;
 
-            canvas.DrawRoundedRectangle(x, y, width, height, (float)CornerRadius);
+            canvas.DrawRoundedRectangle(x, y, width, height, (float)CornerRadius.TopLeft, (float)CornerRadius.TopRight, (float)CornerRadius.BottomLeft, (float)CornerRadius.BottomRight);
 
             canvas.RestoreState();
         }
@@ -109,7 +110,7 @@ namespace GraphicsControls
             var height = dirtyRect.Height - (CanvasDefaults.DefaultShadowBlur * 2);
             var width = dirtyRect.Width - (CanvasDefaults.DefaultShadowBlur * 2);
 
-            canvas.FillRoundedRectangle(x, y, width, height, (float)CornerRadius);
+            canvas.FillRoundedRectangle(x, y, width, height, (float)CornerRadius.TopLeft, (float)CornerRadius.TopRight, (float)CornerRadius.BottomLeft, (float)CornerRadius.BottomRight);
 
             canvas.RestoreState();
         }

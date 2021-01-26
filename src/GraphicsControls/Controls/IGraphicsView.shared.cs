@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Graphics;
 using GraphicsControls.Effects;
-using Point = Xamarin.Forms.Point;
+using Point = System.Graphics.Point;
 
 namespace GraphicsControls
 {

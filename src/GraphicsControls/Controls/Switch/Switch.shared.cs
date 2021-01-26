@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Graphics;
 using Xamarin.Forms;
+using Point = System.Graphics.Point;
 using XColor = Xamarin.Forms.Color;
 
 namespace GraphicsControls

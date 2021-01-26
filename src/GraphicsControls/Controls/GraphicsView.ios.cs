@@ -9,6 +9,7 @@ using GraphicsControls.iOS;
 using System.ComponentModel;
 using GraphicsControls.Extensions;
 using GraphicsView = GraphicsControls.GraphicsView;
+using Point = System.Graphics.Point;
 
 [assembly: ExportRenderer(typeof(GraphicsView), typeof(GraphicsViewRenderer))]
 namespace GraphicsControls.iOS

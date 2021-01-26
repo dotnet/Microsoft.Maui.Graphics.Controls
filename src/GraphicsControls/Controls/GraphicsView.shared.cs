@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Graphics;
 using GraphicsControls.Effects;
 using Xamarin.Forms;
+using Point = System.Graphics.Point;
 
 namespace GraphicsControls
 {
