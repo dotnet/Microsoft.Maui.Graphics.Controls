@@ -60,7 +60,7 @@
     <Compile Include="**/*.shared.cs" />
     <Compile Include="**/*.shared.*.cs" />
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />
-    <PackageReference Include="JonLipsky.System.Graphics" Version="0.1.34" />   
+    <PackageReference Include="JonLipsky.System.Graphics" Version="0.1.36" />   
     <PackageReference Include="Markdig" Version="0.22.1" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard2.0')) ">
