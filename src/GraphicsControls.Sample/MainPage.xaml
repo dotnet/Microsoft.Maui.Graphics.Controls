@@ -6,6 +6,7 @@
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
     x:Class="GraphicsControls.Sample.MainPage"
     ios:Page.UseSafeArea="true"
+    BackgroundColor="White"
     Title="GraphicsControls">
     <ScrollView
         BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
