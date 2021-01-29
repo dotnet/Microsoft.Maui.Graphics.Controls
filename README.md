@@ -14,11 +14,11 @@ There is currently support for:
 * **iOS** using CoreGraphics
 * **macOS** using CoreGraphics
 * **Android** using Android Graphics
-
-Soon, support will be added to:
-* **UWP** using Win2D
-* **Linux** using SkiaSharp
 * **Tizen** using SkiaSharp
+  
+Soon, support will be added to:
+* **Linux** using SkiaSharp
+* **UWP** using Win2D
 * **WPF** using SharpDX
 
 <img src="images/graphicscontrols-platforms.png" Width="600" /> 
