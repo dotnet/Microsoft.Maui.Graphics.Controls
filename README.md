@@ -1,4 +1,4 @@
-# GraphicsControls
+# Experimental GraphicsControls
 
 Xamarin.Forms allows you to define the user interface once for multiple platforms. It offers an abstraction layer that is converted on each platform into native controls.
 
@@ -6,7 +6,7 @@ While the native controls proposal is great as it offers the native experience (
 
 _What if you could choose at any time between using the native control or a drawn control with the native look and feel?_
 
-**GraphicsControls** is a library that offers the controls available in Xamarin.Forms Visual allowing to choose between **Cupertino, Fluent and Material** but, instead of creating native controls, are **drawn controls**.
+**GraphicsControls** is a library that offers the controls available in Xamarin.Forms Visual allowing to choose between **Cupertino, Fluent and Material** but, instead of creating native controls, are **drawn controls**. This project is a **.NET experiment** related to Xamarin / .NET MAUI with different tests to validate the interest and feasibility of drawn controls but is not covered by Microsoft support.
 
 <img src="images/graphicscontrols.png" Width="220" /> 
 
@@ -95,6 +95,12 @@ Some native controls are complex. For example, Entry using Visual Material is ma
 * Have pixel-perfect drawn controls working on all the Xamarin.Forms supported platforms.
 * High performance and customization options controls.
 * In the short term, the goal is to have the controls for Xamarin.Forms, in the future they could reach Comet, .NET MAUI, etc.
+
+## Contributing
+
+As an experimental project, there are several active areas of development and we're looking for your feedback to help set the direction for this project. Please check it out and let us know any feedback you have on the project by logging issues in this repo.
+
+Thank you!
 
 ## Copyright and license
 
