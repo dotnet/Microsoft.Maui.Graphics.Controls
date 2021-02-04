@@ -254,7 +254,7 @@ Here you find a list of all controls with their (public) APIs and their status.
 | Dark Theme Support  | ⚠️  | 
 | RTL Support  | ⚠️  |
 
-### ⚠️ Stepper
+### ⚠️ Switch
 
 **Properties**
 | API | Cupertino | Fluent | Material |
