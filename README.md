@@ -46,7 +46,7 @@ Currently there are the following controls:
 * **Stepper** (Cupertino, Fluent, Material)
 * **Switch** (Cupertino, Fluent, Material)
 
-Upcoming controls:
+Work in progress:
 * DatePicker (Cupertino, Fluent, Material)
 * TimePicker (Cupertino, Fluent, Material)
 
@@ -65,6 +65,30 @@ The controls are drawn getting a pixel perfect option to adjust in the same way 
 #### Easy to extend
 
 _Do you want to extend a drawn control?_ Create your own control class, inherit from the drawn control and override the **Draw** method.
+
+```
+public class CustomControl : GraphicsView
+{
+    public override void Draw(ICanvas canvas, RectangleF dirtyRect)
+    {
+        base.Draw(canvas, dirtyRect);
+    }
+}
+```
+
+On the other hand, iy you want to modify how a specific layer of an existing control is drawn, you just have to overwrite the method that draws the layer. 
+
+```
+public class CustomSlider : Slider
+{
+    protected override void DrawSliderThumb(ICanvas canvas, RectangleF dirtyRect)
+    {
+        base.DrawSliderThumb(canvas, dirtyRect);
+    }
+}
+```
+
+Also can add new layers, delete existing layers or reorganize the priority when drawing the layers. 
 
 #### Dark Theme support
 
