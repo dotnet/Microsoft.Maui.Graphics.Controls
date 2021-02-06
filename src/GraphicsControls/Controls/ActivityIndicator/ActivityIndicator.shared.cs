@@ -1,4 +1,5 @@
-﻿using System.Graphics;
+﻿using System.Collections.Generic;
+using System.Graphics;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using XColor = Xamarin.Forms.Color;
@@ -7,6 +8,13 @@ namespace GraphicsControls
 {
     public partial class ActivityIndicator : GraphicsVisualView, IColor
     {
+        public static class Layers
+        {
+            public const string Background = "ActivityIndicator.Layers.Background";
+            public const string Indicator = "ActivityIndicator.Layers.Indicator";
+            public const string IndicatorText = "ActivityIndicator.Layers.IndicatorText";
+        }
+
         public static readonly BindableProperty ColorProperty = ColorElement.ColorProperty;
 
         public static readonly BindableProperty IsRunningProperty =
@@ -36,6 +44,13 @@ namespace GraphicsControls
             set { SetValue(IsRunningProperty, value); }
         }
 
+        public List<string> ActivityIndicatorLayers = new List<string>
+        {
+            Layers.Background,
+            Layers.Indicator,
+            Layers.IndicatorText
+        };
+
         public override void Load()
         {
             base.Load();
@@ -58,13 +73,23 @@ namespace GraphicsControls
             }
         }
 
-        public override void Draw(ICanvas canvas, RectangleF dirtyRect)
-        {
-            base.Draw(canvas, dirtyRect);
+        public override List<string> GraphicsLayers =>
+            ActivityIndicatorLayers;
 
-            DrawActivityIndicatorBackground(canvas, dirtyRect);
-            DrawActivityIndicator(canvas, dirtyRect);
-            DrawActivityIndicatorText(canvas, dirtyRect);
+        public override void DrawLayer(string layer, ICanvas canvas, RectangleF dirtyRect)
+        {
+            switch (layer)
+            {
+                case Layers.Background:
+                    DrawActivityIndicatorBackground(canvas, dirtyRect);
+                    break;
+                case Layers.Indicator:
+                    DrawActivityIndicator(canvas, dirtyRect);
+                    break;
+                case Layers.IndicatorText:
+                    DrawActivityIndicatorText(canvas, dirtyRect);
+                    break;
+            }
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)

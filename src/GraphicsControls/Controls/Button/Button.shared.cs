@@ -1,5 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
+using System.Collections.Generic;
 using System.Graphics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -12,6 +12,12 @@ namespace GraphicsControls
 {
     public partial class Button : GraphicsVisualView, IButton, ICornerRadius
     {
+        public static class Layers
+        {
+            public const string Background = "Button.Layers.Background";
+            public const string Text = "Button.Layers.Text";
+        }
+
         readonly RippleEffect _rippleEffect;
         RectangleF _backgroundRect;
 
@@ -72,25 +78,11 @@ namespace GraphicsControls
             set { SetValue(CornerRadiusElement.CornerRadiusProperty, value); }
         }
 
-        bool IButton.IsEnabledCore
+        public List<string> ButtonLayers = new List<string>
         {
-            set { SetValueCore(IsEnabledProperty, value); }
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        void IButton.SetIsPressed(bool isPressed) => SetValue(IsPressedPropertyKey, isPressed);
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        void IButton.PropagateUpClicked() => Clicked?.Invoke(this, EventArgs.Empty);
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        void IButton.PropagateUpPressed() => Pressed?.Invoke(this, EventArgs.Empty);
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        void IButton.PropagateUpReleased() => Released?.Invoke(this, EventArgs.Empty);
-
-        void IButton.OnCommandCanExecuteChanged(object sender, EventArgs e) =>
-            ButtonElement.CommandCanExecuteChanged(this, EventArgs.Empty);
+            Layers.Background,
+            Layers.Text
+        };
 
         public event EventHandler Clicked;
         public event EventHandler Pressed;
@@ -117,12 +109,20 @@ namespace GraphicsControls
             base.Load();
         }
 
-        public override void Draw(ICanvas canvas, RectangleF dirtyRect)
-        {
-            DrawButtonBackground(canvas, dirtyRect);
-            DrawButtonText(canvas, dirtyRect);
+        public override List<string> GraphicsLayers =>
+            ButtonLayers;
 
-            base.Draw(canvas, dirtyRect);
+        public override void DrawLayer(string layer, ICanvas canvas, RectangleF dirtyRect)
+        {
+            switch (layer)
+            {
+                case Layers.Background:
+                    DrawButtonBackground(canvas, dirtyRect);
+                    break;
+                case Layers.Text:
+                    DrawButtonText(canvas, dirtyRect);
+                    break;
+            }
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)

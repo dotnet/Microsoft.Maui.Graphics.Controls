@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Graphics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -10,6 +11,14 @@ namespace GraphicsControls
 {
     public partial class Slider : GraphicsVisualView, IRange
     {
+        public static class Layers
+        {
+            public const string TrackBackground = "Slider.Layers.TrackBackground";
+            public const string TrackProgress = "Slider.Layers.TrackProgress";
+            public const string Thumb = "Slider.Layers.Thumb";
+            public const string Text = "Slider.Layers.Text";
+        }
+
         RectangleF _trackRect;
         RectangleF _thumbRect;
         bool _isThumbSelected;
@@ -40,9 +49,29 @@ namespace GraphicsControls
             Value = val.Clamp(min, max);
         }
 
-        public static readonly BindableProperty MinimumProperty = RangeElement.MinimumProperty;
+        public static readonly BindableProperty MinimumProperty = BindableProperty.Create(nameof(Minimum), typeof(double), typeof(Slider), 0d,
+            validateValue: (bindable, value) =>
+            {
+                var slider = (Slider)bindable;
+                return (double)value < slider.Maximum;
+            }, coerceValue: (bindable, value) =>
+            {
+                var slider = (Slider)bindable;
+                slider.Value = slider.Value.Clamp((double)value, slider.Maximum);
+                return value;
+            });
 
-        public static readonly BindableProperty MaximumProperty = RangeElement.MaximumProperty;
+        public static readonly BindableProperty MaximumProperty = BindableProperty.Create("Maximum", typeof(double), typeof(Slider), 1d,
+            validateValue: (bindable, value) =>
+            {
+                var slider = (Slider)bindable;
+                return (double)value > slider.Minimum;
+            }, coerceValue: (bindable, value) =>
+            {
+                var slider = (Slider)bindable;
+                slider.Value = slider.Value.Clamp(slider.Minimum, (double)value);
+                return value;
+            });
 
         public static readonly BindableProperty ValueProperty =
             BindableProperty.Create(nameof(Value), typeof(double), typeof(Slider), 0d, BindingMode.TwoWay, coerceValue: (bindable, value) =>
@@ -122,6 +151,14 @@ namespace GraphicsControls
         public event EventHandler DragCompleted;
         public event EventHandler<ValueChangedEventArgs> ValueChanged;
 
+        public List<string> SliderLayers = new List<string>
+        {
+            Layers.TrackBackground,
+            Layers.TrackProgress,
+            Layers.Thumb,
+            Layers.Text
+        };
+
         public override void Load()
         {
             base.Load();
@@ -141,14 +178,26 @@ namespace GraphicsControls
             Value /= Maximum - Minimum;
         }
 
-        public override void Draw(ICanvas canvas, RectangleF dirtyRect)
-        {
-            base.Draw(canvas, dirtyRect);
+        public override List<string> GraphicsLayers =>
+            SliderLayers;
 
-            DrawSliderTrackBackground(canvas, dirtyRect);
-            DrawSliderTrackProgress(canvas, dirtyRect);
-            DrawSliderThumb(canvas, dirtyRect);
-            DrawSliderText(canvas, dirtyRect);
+        public override void DrawLayer(string layer, ICanvas canvas, RectangleF dirtyRect)
+        {
+            switch (layer)
+            {
+                case Layers.TrackBackground:
+                    DrawSliderTrackBackground(canvas, dirtyRect);
+                    break;
+                case Layers.TrackProgress:
+                    DrawSliderTrackProgress(canvas, dirtyRect);
+                    break;
+                case Layers.Thumb:
+                    DrawSliderThumb(canvas, dirtyRect);
+                    break;
+                case Layers.Text:
+                    DrawSliderText(canvas, dirtyRect);
+                    break;
+            }
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)

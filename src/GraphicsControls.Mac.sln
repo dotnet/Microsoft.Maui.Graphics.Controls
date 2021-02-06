@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsControls.Sample.mac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsControls.Sample.Android", "GraphicsControls.Sample.Android\GraphicsControls.Sample.Android.csproj", "{2EE53371-EFD9-4304-A231-93E6F75DBC81}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A6CE0398-E304-48E5-955B-DA2F77D6B940}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsControls.Tests", "GraphicsControls.Tests\GraphicsControls.Tests.csproj", "{8BBE3D89-DFDB-489F-BA5F-7ED04E724D8A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +91,18 @@ Global
 		{2EE53371-EFD9-4304-A231-93E6F75DBC81}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{2EE53371-EFD9-4304-A231-93E6F75DBC81}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{2EE53371-EFD9-4304-A231-93E6F75DBC81}.Release|iPhone.Build.0 = Release|Any CPU
+		{8BBE3D89-DFDB-489F-BA5F-7ED04E724D8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BBE3D89-DFDB-489F-BA5F-7ED04E724D8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BBE3D89-DFDB-489F-BA5F-7ED04E724D8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BBE3D89-DFDB-489F-BA5F-7ED04E724D8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BBE3D89-DFDB-489F-BA5F-7ED04E724D8A}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{8BBE3D89-DFDB-489F-BA5F-7ED04E724D8A}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{8BBE3D89-DFDB-489F-BA5F-7ED04E724D8A}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{8BBE3D89-DFDB-489F-BA5F-7ED04E724D8A}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{8BBE3D89-DFDB-489F-BA5F-7ED04E724D8A}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{8BBE3D89-DFDB-489F-BA5F-7ED04E724D8A}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{8BBE3D89-DFDB-489F-BA5F-7ED04E724D8A}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{8BBE3D89-DFDB-489F-BA5F-7ED04E724D8A}.Release|iPhone.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -100,5 +116,6 @@ Global
 		{41B421AF-5731-4B8F-BEDE-96155879D929} = {465D03D3-BA73-4E52-BBEA-02DC54647BC6}
 		{C351DAA7-20C0-474D-B610-F00C8BE5B0F1} = {465D03D3-BA73-4E52-BBEA-02DC54647BC6}
 		{2EE53371-EFD9-4304-A231-93E6F75DBC81} = {465D03D3-BA73-4E52-BBEA-02DC54647BC6}
+		{8BBE3D89-DFDB-489F-BA5F-7ED04E724D8A} = {A6CE0398-E304-48E5-955B-DA2F77D6B940}
 	EndGlobalSection
 EndGlobal

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Graphics;
 using Xamarin.Forms;
 
@@ -6,6 +7,12 @@ namespace GraphicsControls
 {
     public partial class RadioButton : GraphicsVisualView
     {
+        public static class Layers
+        {
+            public const string Background = "RadioButton.Layers.Background";
+            public const string Mark = "RadioButton.Layers.Mark";
+        }
+
         internal const string GroupNameChangedMessage = "RadioButtonGroupNameChanged";
         internal const string ValueChangedMessage = "RadioButtonValueChanged";
 
@@ -40,6 +47,12 @@ namespace GraphicsControls
             set => SetValue(ValueProperty, value);
         }
 
+        public List<string> RadioButtonLayers = new List<string>
+        {
+            Layers.Background,
+            Layers.Mark
+        };
+
         public event EventHandler<CheckedChangedEventArgs> CheckedChanged;
 
         public override void Load()
@@ -59,12 +72,20 @@ namespace GraphicsControls
             }
         }
 
-        public override void Draw(ICanvas canvas, RectangleF dirtyRect)
-        {
-            base.Draw(canvas, dirtyRect);
+        public override List<string> GraphicsLayers =>
+            RadioButtonLayers;
 
-            DrawRadioButtonBackground(canvas, dirtyRect);
-            DrawRadioButtonMark(canvas, dirtyRect);
+        public override void DrawLayer(string layer, ICanvas canvas, RectangleF dirtyRect)
+        {
+            switch (layer)
+            {
+                case Layers.Background:
+                    DrawRadioButtonBackground(canvas, dirtyRect);
+                    break;
+                case Layers.Mark:
+                    DrawRadioButtonMark(canvas, dirtyRect);
+                    break;
+            }
         }
 
         protected virtual void DrawRadioButtonBackground(ICanvas canvas, RectangleF dirtyRect)

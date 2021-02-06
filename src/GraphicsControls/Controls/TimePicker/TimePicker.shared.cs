@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Graphics;
 using Xamarin.Forms;
 
@@ -6,6 +7,14 @@ namespace GraphicsControls
 {
     public partial class TimePicker : GraphicsVisualView
     {
+        public static class Layers
+        {
+            public const string Background = "TimePicker.Layers.Background";
+            public const string Border = "TimePicker.Layers.Border";
+            public const string Placeholder = "TimePicker.Layers.Placeholder";
+            public const string Date = "TimePicker.Layers.Date";
+        }
+
         public static readonly BindableProperty TimeProperty =
             BindableProperty.Create(nameof(Time), typeof(TimeSpan), typeof(TimePicker), new TimeSpan(0), BindingMode.TwoWay, (bindable, value) =>
             {
@@ -18,6 +27,14 @@ namespace GraphicsControls
             get { return (TimeSpan)GetValue(TimeProperty); }
             set { SetValue(TimeProperty, value); }
         }
+
+        public List<string> TimePickerLayers = new List<string>
+        {
+            Layers.Background,
+            Layers.Border,
+            Layers.Placeholder,
+            Layers.Date
+        };
 
         public override void Load()
         {
@@ -38,14 +55,26 @@ namespace GraphicsControls
             }
         }
 
-        public override void Draw(ICanvas canvas, RectangleF dirtyRect)
-        {
-            base.Draw(canvas, dirtyRect);
+        public override List<string> GraphicsLayers =>
+            TimePickerLayers;
 
-            DrawTimePickerBackground(canvas, dirtyRect);
-            DrawTimePickerBorder(canvas, dirtyRect);
-            DrawTimePickerPlaceholder(canvas, dirtyRect);
-            DrawTimePickerDate(canvas, dirtyRect);
+        public override void DrawLayer(string layer, ICanvas canvas, RectangleF dirtyRect)
+        {
+            switch (layer)
+            {
+                case Layers.Background:
+                    DrawTimePickerBackground(canvas, dirtyRect);
+                    break;
+                case Layers.Border:
+                    DrawTimePickerBorder(canvas, dirtyRect);
+                    break;
+                case Layers.Placeholder:
+                    DrawTimePickerPlaceholder(canvas, dirtyRect);
+                    break;
+                case Layers.Date:
+                    DrawTimePickerDate(canvas, dirtyRect);
+                    break;
+            }
         }
 
         protected virtual void DrawTimePickerBackground(ICanvas canvas, RectangleF dirtyRect)

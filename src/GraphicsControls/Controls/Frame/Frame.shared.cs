@@ -1,4 +1,5 @@
-﻿using System.Graphics;
+﻿using System.Collections.Generic;
+using System.Graphics;
 using GraphicsControls.Extensions;
 using Xamarin.Forms;
 using XColor = Xamarin.Forms.Color;
@@ -8,6 +9,13 @@ namespace GraphicsControls
     [ContentProperty(nameof(Content))]
     public class Frame : GraphicsView
     {
+        public static class Layers
+        {
+            public const string Shadow = "Frame.Layers.Shadow";
+            public const string Background = "Frame.Layers.Background";
+            public const string Border = "Frame.Layers.Border";
+        }
+
         public static new readonly BindableProperty BackgroundColorProperty =
             BindableProperty.Create(nameof(BackgroundColor), typeof(XColor), typeof(Frame), XColor.Default);
 
@@ -44,6 +52,13 @@ namespace GraphicsControls
             set { SetValue(HasShadowProperty, value); }
         }
 
+        public List<string> EntryLayers = new List<string>
+        {
+            Layers.Shadow,
+            Layers.Background,
+            Layers.Border
+        };
+
         protected override void OnSizeAllocated(double width, double height)
         {
             base.OnSizeAllocated(width, height);
@@ -52,13 +67,23 @@ namespace GraphicsControls
             Scale = scale;
         }
 
-        public override void Draw(ICanvas canvas, RectangleF dirtyRect)
-        {
-            base.Draw(canvas, dirtyRect);
+        public override List<string> GraphicsLayers =>
+            EntryLayers;
 
-            DrawShadow(canvas, dirtyRect);
-            DrawBackground(canvas, dirtyRect);
-            DrawBorder(canvas, dirtyRect);
+        public override void DrawLayer(string layer, ICanvas canvas, RectangleF dirtyRect)
+        {
+            switch (layer)
+            {
+                case Layers.Shadow:
+                    DrawShadow(canvas, dirtyRect);
+                    break;
+                case Layers.Background:
+                    DrawBackground(canvas, dirtyRect);
+                    break;
+                case Layers.Border:
+                    DrawBorder(canvas, dirtyRect);
+                    break;
+            }
         }
 
         void DrawBackground(ICanvas canvas, RectangleF dirtyRect)

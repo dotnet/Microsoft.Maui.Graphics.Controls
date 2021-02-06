@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Graphics;
 using System.Runtime.CompilerServices;
 using GraphicsControls.Extensions;
@@ -13,6 +14,14 @@ namespace GraphicsControls
 
     public partial class Entry : GraphicsVisualView, IInput
     {
+        public static class Layers
+        {
+            public const string Background = "Entry.Layers.Background";
+            public const string Border = "Entry.Layers.Border";
+            public const string Placeholder = "Entry.Layers.Placeholder";
+            public const string Indicator = "Entry.Layers.Indicator";
+        }
+
         RectangleF _indicatorRect;
         readonly BorderlessEntry _entry;
 
@@ -93,6 +102,14 @@ namespace GraphicsControls
             set { SetValue(PlaceholderColorProperty, value); }
         }
 
+        public List<string> EntryLayers = new List<string>
+        {
+            Layers.Background,
+            Layers.Border,
+            Layers.Placeholder,
+            Layers.Indicator
+        };
+
         public override void Load()
         {
             base.Load();
@@ -134,14 +151,26 @@ namespace GraphicsControls
             _entry.Unfocused -= OnEntryUnfocused;
         }
 
-        public override void Draw(ICanvas canvas, RectangleF dirtyRect)
-        {
-            base.Draw(canvas, dirtyRect);
+        public override List<string> GraphicsLayers =>
+            EntryLayers;
 
-            DrawEntryBackground(canvas, dirtyRect);
-            DrawEntryBorder(canvas, dirtyRect);
-            DrawEntryPlaceholder(canvas, dirtyRect);
-            DrawEntryIndicators(canvas, dirtyRect);
+        public override void DrawLayer(string layer, ICanvas canvas, RectangleF dirtyRect)
+        {
+            switch (layer)
+            {
+                case Layers.Background:
+                    DrawEntryBackground(canvas, dirtyRect);
+                    break;
+                case Layers.Border:
+                    DrawEntryBorder(canvas, dirtyRect);
+                    break;
+                case Layers.Placeholder:
+                    DrawEntryPlaceholder(canvas, dirtyRect);
+                    break;
+                case Layers.Indicator:
+                    DrawEntryIndicators(canvas, dirtyRect);
+                    break;
+            }
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)

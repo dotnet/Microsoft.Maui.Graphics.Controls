@@ -6,12 +6,11 @@ using Xamarin.Forms.Platform.Tizen;
 using ElmSharp;
 using System.Graphics.Skia.Views;
 using GraphicsControls.Tizen;
-
-using Point = System.Graphics.Point;
 using EPoint = ElmSharp.Point;
 using GraphicsView = GraphicsControls.GraphicsView;
-using XForms = Xamarin.Forms.Forms;
 using Layout = Xamarin.Forms.Layout;
+using Point = System.Graphics.Point;
+using XForms = Xamarin.Forms.Forms;
 
 [assembly: ExportRenderer(typeof(GraphicsView), typeof(GraphicsViewRenderer))]
 namespace GraphicsControls.Tizen
@@ -19,7 +18,6 @@ namespace GraphicsControls.Tizen
     [Preserve(AllMembers = true)]
     public class GraphicsViewRenderer : LayoutRenderer
     {
-        const int MinHeight = 32;
         EvasObjectEvent<EvasMouseEventArgs> _mouseUp;
         EvasObjectEvent<EvasMouseEventArgs> _mouseDown;
         EvasObjectEvent<EvasMouseEventArgs> _mouseMove;
@@ -45,8 +43,11 @@ namespace GraphicsControls.Tizen
 
                 SetNativeControl(new Xamarin.Forms.Platform.Tizen.Native.Canvas(Forms.NativeParent));
 
-                _skiaGraphicsView = new SkiaGraphicsView(XForms.NativeParent);
-                _skiaGraphicsView.Drawable = Element;
+                _skiaGraphicsView = new SkiaGraphicsView(XForms.NativeParent)
+                {
+                    Drawable = Element
+                };
+
                 _skiaGraphicsView.Show();
                 _mouseDown = new EvasObjectEvent<EvasMouseEventArgs>(_skiaGraphicsView, EvasObjectCallbackType.MouseDown, EvasMouseEventArgs.Create);
                 _mouseUp = new EvasObjectEvent<EvasMouseEventArgs>(_skiaGraphicsView, EvasObjectCallbackType.MouseUp, EvasMouseEventArgs.Create);
@@ -134,7 +135,7 @@ namespace GraphicsControls.Tizen
 
     public class EvasMouseEventArgs : EventArgs
     {
-        IntPtr _nativeEventInfo;
+        readonly IntPtr _nativeEventInfo;
 
         public EPoint Point { get; private set; }
 
