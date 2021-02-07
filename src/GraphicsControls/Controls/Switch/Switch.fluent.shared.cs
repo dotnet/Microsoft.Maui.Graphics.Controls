@@ -28,7 +28,12 @@ namespace GraphicsControls
             canvas.SaveState();
 
             if (IsEnabled)
-                canvas.FillColor = BackgroundColor.ToGraphicsColor(Fluent.Color.Primary.ThemePrimary);
+            {
+                if (IsToggled)
+                    canvas.FillColor = OnColor.ToGraphicsColor(Fluent.Color.Primary.ThemePrimary);
+                else
+                    canvas.FillColor = BackgroundColor.ToGraphicsColor(Fluent.Color.Primary.ThemePrimary);
+            }
             else
                 canvas.FillColor = ColorHelper.GetGraphicsColor(Fluent.Color.Background.NeutralLighter, Fluent.Color.Background.NeutralDark);
 

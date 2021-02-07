@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Graphics;
 using System.Runtime.CompilerServices;
 using GraphicsControls.Extensions;
@@ -86,6 +87,8 @@ namespace GraphicsControls
             get { return (XColor)GetValue(PlaceholderColorProperty); }
             set { SetValue(PlaceholderColorProperty, value); }
         }
+
+        public event EventHandler Completed;
 
         public override void Load()
         {
@@ -244,6 +247,8 @@ namespace GraphicsControls
         void OnEditorUnfocused(object sender, FocusEventArgs e)
         {
             UpdateIsFocused(false);
+
+            Completed?.Invoke(this, EventArgs.Empty);
         }
 
         void FocusInternalEditorIfNeeded()

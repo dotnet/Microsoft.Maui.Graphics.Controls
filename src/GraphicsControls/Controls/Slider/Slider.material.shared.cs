@@ -1,4 +1,5 @@
 ﻿using System.Graphics;
+using GraphicsControls.Extensions;
 using Xamarin.Forms;
 using GColor = System.Graphics.Color;
 
@@ -25,7 +26,7 @@ namespace GraphicsControls
         {
             canvas.SaveState();
 
-            canvas.FillColor = new GColor(Fluent.Color.Primary.ThemeLight);
+            canvas.FillColor = MaximumTrackColor.ToGraphicsColor(Material.Color.LightBlue);
 
             var x = dirtyRect.X;
 
@@ -45,7 +46,7 @@ namespace GraphicsControls
         {
             canvas.SaveState();
 
-            canvas.FillColor = new GColor(Material.Color.Blue);
+            canvas.FillColor = MinimumTrackColor.ToGraphicsColor(Material.Color.Blue);
 
             var x = dirtyRect.X;
 
@@ -76,7 +77,7 @@ namespace GraphicsControls
 
             var y = (float)((HeightRequest - MaterialFloatThumb) / 2);
 
-            canvas.FillColor = new GColor(Material.Color.Blue);
+            canvas.FillColor = ThumbColor.ToGraphicsColor(Material.Color.Blue);
 
             canvas.FillOval(x, y, MaterialFloatThumb, MaterialFloatThumb);
 

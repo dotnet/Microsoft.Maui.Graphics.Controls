@@ -1,6 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Graphics;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using GraphicsControls.Effects;
 using Xamarin.Forms;
 using Point = System.Graphics.Point;
@@ -8,7 +10,7 @@ using XColor = Xamarin.Forms.Color;
 
 namespace GraphicsControls
 {
-    public partial class Button : GraphicsVisualView, ICornerRadius
+    public partial class Button : GraphicsVisualView, IButton, ICornerRadius
     {
         readonly RippleEffect _rippleEffect;
         RectangleF _backgroundRect;
@@ -23,11 +25,34 @@ namespace GraphicsControls
             CornerRadius = 2;
         }
 
+        public static readonly BindableProperty CommandProperty = ButtonElement.CommandProperty;
+
+        public static readonly BindableProperty CommandParameterProperty = ButtonElement.CommandParameterProperty;
+
+        internal static readonly BindablePropertyKey IsPressedPropertyKey =
+            BindableProperty.CreateReadOnly(nameof(IsPressed), typeof(bool), typeof(Button), default(bool));
+
+        public static readonly BindableProperty IsPressedProperty = IsPressedPropertyKey.BindableProperty;
+
         public static readonly BindableProperty TextProperty = TextElement.TextProperty;
 
         public static readonly BindableProperty TextColorProperty = TextElement.TextColorProperty;
 
         public static readonly BindableProperty CornerRadiusProperty = CornerRadiusElement.CornerRadiusProperty;
+
+        public ICommand Command
+        {
+            get { return (ICommand)GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
+        }
+
+        public object CommandParameter
+        {
+            get { return GetValue(CommandParameterProperty); }
+            set { SetValue(CommandParameterProperty, value); }
+        }
+
+        public bool IsPressed => (bool)GetValue(IsPressedProperty);
 
         public string Text
         {
@@ -46,6 +71,26 @@ namespace GraphicsControls
             get { return (double)GetValue(CornerRadiusElement.CornerRadiusProperty); }
             set { SetValue(CornerRadiusElement.CornerRadiusProperty, value); }
         }
+
+        bool IButton.IsEnabledCore
+        {
+            set { SetValueCore(IsEnabledProperty, value); }
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        void IButton.SetIsPressed(bool isPressed) => SetValue(IsPressedPropertyKey, isPressed);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        void IButton.PropagateUpClicked() => Clicked?.Invoke(this, EventArgs.Empty);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        void IButton.PropagateUpPressed() => Pressed?.Invoke(this, EventArgs.Empty);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        void IButton.PropagateUpReleased() => Released?.Invoke(this, EventArgs.Empty);
+
+        void IButton.OnCommandCanExecuteChanged(object sender, EventArgs e) =>
+            ButtonElement.CommandCanExecuteChanged(this, EventArgs.Empty);
 
         public event EventHandler Clicked;
         public event EventHandler Pressed;
@@ -102,6 +147,7 @@ namespace GraphicsControls
             }
 
             Pressed?.Invoke(this, EventArgs.Empty);
+
             Clicked?.Invoke(this, EventArgs.Empty);
         }
 
