@@ -76,7 +76,7 @@ public class CustomControl : GraphicsView
 }
 ```
 
-On the other hand, iy you want to modify how a specific layer of an existing control is drawn, you just have to overwrite the method that draws the layer. 
+On the other hand, if you want to modify how a specific layer of an existing control is drawn, you just have to overwrite the method that draws the layer. 
 
 ```
 public class CustomSlider : Slider
@@ -107,6 +107,11 @@ All controls support RTL.
 <img src="images/graphicscontrols-mac.gif" Width="600" /> 
 
 #### Accesibility support
+
+Building an accessible application ensures that the application is usable by people who approach the user interface with a range of needs and experiences.
+GraphicsControls will allow to set AutomationProperties, which in turn set native accessibility values.
+
+(Work in progress)
 
 #### Performance
 
