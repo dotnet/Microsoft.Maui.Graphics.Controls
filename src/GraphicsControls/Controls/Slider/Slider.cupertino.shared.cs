@@ -1,15 +1,19 @@
 ﻿using System.Graphics;
-using GColor = System.Graphics.Color;
+using GraphicsControls.Extensions;
 
 namespace GraphicsControls
 {
     public partial class Slider
     {
+        const string DefaultCupertinoSliderTrackBackgroundColor = "#8E8E93";
+        const string DefaultCupertinoSliderTrackProgressColor = "#007AFF";
+        const string DefaultCupertinoSliderThumbColor = "#161313";
+
         void DrawCupertinoSliderTrackBackground(ICanvas canvas, RectangleF dirtyRect)
         {
             canvas.SaveState();
 
-            canvas.FillColor = new GColor("#8E8E93");
+            canvas.FillColor = MaximumTrackColor.ToGraphicsColor(DefaultCupertinoSliderTrackBackgroundColor);
 
             var x = dirtyRect.X;
 
@@ -29,7 +33,7 @@ namespace GraphicsControls
         {
             canvas.SaveState();
 
-            canvas.FillColor = new GColor("#007AFF");
+            canvas.FillColor = MinimumTrackColor.ToGraphicsColor(DefaultCupertinoSliderTrackProgressColor);
 
             var x = dirtyRect.X;
 
@@ -52,7 +56,7 @@ namespace GraphicsControls
             float size = 28f;
             float strokeWidth = 0.5f;
 
-            canvas.StrokeColor = new GColor("#161313");
+            canvas.StrokeColor = ThumbColor.ToGraphicsColor(DefaultCupertinoSliderThumbColor);
             canvas.StrokeSize = strokeWidth;
 
             var value = ((double)Value).Clamp(0, 1);
@@ -66,7 +70,7 @@ namespace GraphicsControls
 
             var y = (float)((HeightRequest - size) / 2);
 
-            canvas.FillColor = Colors.White;
+            canvas.FillColor = ThumbColor.ToGraphicsColor(Colors.White.ToHex());
 
             canvas.SetShadow(new SizeF(1, 1), 2, CanvasDefaults.DefaultShadowColor);
 

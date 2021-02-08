@@ -14,58 +14,60 @@ Here you find a list of all controls with their (public) APIs and their status.
 **Properties**
 | API | Cupertino | Fluent | Material |
 | ----|:-------:|:---:|:-----:|
-| Color  | ⚠️  | ⚠️  | ⚠️  |  
-| IsRunning  | ⚠️  | ⚠️  | ⚠️  | 
+| Color  | ✅  | ✅  | ✅  |  
+| IsRunning  | ✅  | ✅ | ✅ | 
 
 **Features**
 | Feature | Description |
 | ----|:-------:|
 | Accesibility Support  | ⚠️  | 
-| Dark Theme Support  | ⚠️  | 
-| RTL Support  | ⚠️  |
+| Dark Theme Support  | ✅  | 
+| RTL Support  | ❎  |
 
 ### ⚠️ BoxView
 
 **Properties**
 | API |  Description |
 | ----|:-------:|
-| Color  | ⚠️  |
-| CornerRadius  | ⚠️  | 
+| Color  | ✅  |
+| CornerRadius  | ✅  | 
 
 **Features**
 | Feature | Description |
 | ----|:-------:|
 | Accesibility Support  | ⚠️  | 
 | Dark Theme Support  | ⚠️  | 
-| RTL Support  | ⚠️  |
+| RTL Support  | ❎  |
 
 ### ⚠️ Button
 
 **Properties**
 | API | Cupertino | Fluent | Material |
 | ----|:-------:|:---:|:-----:|
-| BackgroundColor  | ⚠️  | ⚠️  | ⚠️  |  
+| BackgroundColor  | ✅   | ✅   | ✅   |  
 | BorderColor  | ⚠️  | ⚠️  | ⚠️  | 
 | BorderWidth  | ⚠️  | ⚠️  | ⚠️  | 
 | CharacterSpacing  | ⚠️  | ⚠️  | ⚠️  | 
-| Clicked  | ⚠️  | ⚠️  | ⚠️  | 
-| Command  | ⚠️  | ⚠️  | ⚠️  | 
-| CommandParameter  | ⚠️  | ⚠️  | ⚠️  | 
+| Clicked  | ✅  | ✅  | ✅  | 
+| Command  | ✅  | ✅  | ✅  | 
+| CommandParameter  | ✅  | ✅  | ✅  | 
 | ContentLayout  | ⚠️  | ⚠️  | ⚠️  | 
-| CornerRadius  | ⚠️  | ⚠️  | ⚠️  | 
+| CornerRadius  | ✅  | ✅  | ✅  | 
 | FontAttributes  | ⚠️  | ⚠️  | ⚠️  | 
 | FontFamily  | ⚠️  | ⚠️  | ⚠️  | 
 | FontSize  | ⚠️  | ⚠️  | ⚠️  | 
 | ImageSource  | ⚠️  | ⚠️  | ⚠️  | 
 | Padding  | ⚠️  | ⚠️  | ⚠️  | 
-| Text  | ⚠️  | ⚠️  | ⚠️  | 
+| Pressed  | ✅  | ✅  | ✅  | 
+| Released  | ✅  | ✅  | ✅  | 
+| Text  | ✅  | ✅  | ✅  | 
 | TextColor  | ⚠️  | ⚠️  | ⚠️  | 
 
 **Features**
 | Feature | Description |
 | ----|:-------:|
 | Accesibility Support  | ⚠️  | 
-| Dark Theme Support  | ⚠️  | 
+| Dark Theme Support  | ✅  | 
 | RTL Support  | ⚠️  |
 
 ### ⚠️ CheckBox
@@ -73,15 +75,15 @@ Here you find a list of all controls with their (public) APIs and their status.
 **Properties**
 | API | Cupertino | Fluent | Material |
 | ----|:-------:|:---:|:-----:|
-| Color  | ⚠️  | ⚠️  | ⚠️  |  
-| CheckedChanged  | ⚠️  | ⚠️  | ⚠️  | 
-| IsChecked  | ⚠️  | ⚠️  | ⚠️  | 
+| Color  | ✅  | ✅  | ✅  |  
+| CheckedChanged  | ✅  | ✅  | ✅  | 
+| IsChecked  | ✅  | ✅  | ✅  | 
 
 **Features**
 | Feature | Description |
 | ----|:-------:|
 | Accesibility Support  | ⚠️  | 
-| Dark Theme Support  | ⚠️  | 
+| Dark Theme Support  | ✅  | 
 | RTL Support  | ⚠️  |
 
 ### ⚠️ DatePicker
@@ -89,6 +91,7 @@ Here you find a list of all controls with their (public) APIs and their status.
 **Properties**
 | API | Cupertino | Fluent | Material |
 | ----|:-------:|:---:|:-----:|
+| BackgroundColor  | ✅  | ✅  | ✅  |  
 | CharacterSpacing  | ⚠️  | ⚠️  | ⚠️  |  
 | Date  | ⚠️  | ⚠️  | ⚠️  | 
 | DateSelected  | ⚠️  | ⚠️  | ⚠️  | 
@@ -113,14 +116,14 @@ Here you find a list of all controls with their (public) APIs and their status.
 | API | Cupertino | Fluent | Material |
 | ----|:-------:|:---:|:-----:|
 | AutoSize  | ⚠️  | ⚠️  | ⚠️  |  
-| Completed  | ⚠️  | ⚠️  | ⚠️  | 
+| Completed  | ✅  | ✅  | ✅  | 
 | CharacterSpacing  | ⚠️  | ⚠️  | ⚠️  | 
 | FontAttributes  | ⚠️  | ⚠️  | ⚠️  |  
 | FontFamily  | ⚠️  | ⚠️  | ⚠️  | 
 | FontSize  | ⚠️  | ⚠️  | ⚠️  | 
 | IsReadOnly  | ⚠️  | ⚠️  | ⚠️  | 
 | IsTextPredictionEnabled  | ⚠️  | ⚠️  | ⚠️  | 
-| Text  | ⚠️  | ⚠️  | ⚠️  | 
+| Text  | ✅  | ✅  | ✅  | 
 | TextColor  | ⚠️  | ⚠️  | ⚠️  | 
 | MaxLength  | ⚠️  | ⚠️  | ⚠️  | 
 
@@ -128,7 +131,7 @@ Here you find a list of all controls with their (public) APIs and their status.
 | Feature | Description |
 | ----|:-------:|
 | Accesibility Support  | ⚠️  | 
-| Dark Theme Support  | ⚠️  | 
+| Dark Theme Support  | ✅  | 
 | RTL Support  | ⚠️  |
 
 ### ⚠️ Entry
@@ -146,31 +149,31 @@ Here you find a list of all controls with their (public) APIs and their status.
 | HorizontalTextAlignment  | ⚠️  | ⚠️  | ⚠️  | 
 | IsTextPredictionEnabled  | ⚠️  | ⚠️  | ⚠️  | 
 | IsPassword  | ⚠️  | ⚠️  | ⚠️  | 
-| PlaceHolder  | ⚠️  | ⚠️  | ⚠️  | 
+| PlaceHolder  | ✅  | ✅  | ✅  | 
 | PlaceHolderColor  | ⚠️  | ⚠️  | ⚠️  | 
 | VerticalTextAlignment  | ⚠️  | ⚠️  | ⚠️  | 
 | ReturnCommand  | ⚠️  | ⚠️  | ⚠️  | 
 | ReturnCommandParameter  | ⚠️  | ⚠️  | ⚠️  | 
 | ReturnType  | ⚠️  | ⚠️  | ⚠️  | 
 | SelectionLength  | ⚠️  | ⚠️  | ⚠️  | 
-| Text  | ⚠️  | ⚠️  | ⚠️  | 
+| Text  | ✅  | ✅  | ✅  | 
 | TextColor  | ⚠️  | ⚠️  | ⚠️  | 
 
 **Features**
 | Feature | Description |
 | ----|:-------:|
 | Accesibility Support  | ⚠️  | 
-| Dark Theme Support  | ⚠️  | 
-| RTL Support  | ⚠️  |
+| Dark Theme Support  | ✅  | 
+| RTL Support  | ✅  |
 
 ### ⚠️ Frame
 
 **Properties**
 | API | Status | 
 | ----|:-------:|
-| BorderColor  | ⚠️  | 
-| CornerRadius  | ⚠️  |  
-| HasShadow  | ⚠️  | 
+| BorderColor  | ✅  | 
+| CornerRadius  | ✅  |  
+| HasShadow  | ✅  | 
 
 **Features**
 | Feature | Description |
@@ -184,15 +187,15 @@ Here you find a list of all controls with their (public) APIs and their status.
 **Properties**
 | API | Cupertino | Fluent | Material |
 | ----|:-------:|:---:|:-----:|
-| Progress  | ⚠️  | ⚠️  | ⚠️  |  
-| ProgressColor  | ⚠️  | ⚠️  | ⚠️  | 
-| ProgressTo  | ⚠️  | ⚠️  | ⚠️  | 
+| Progress  | ✅  | ✅  | ✅  |  
+| ProgressColor  | ✅  | ✅  | ✅  | 
+| ProgressTo  | ✅  | ✅  | ✅  | 
 
 **Features**
 | Feature | Description |
 | ----|:-------:|
 | Accesibility Support  | ⚠️  | 
-| Dark Theme Support  | ⚠️  | 
+| Dark Theme Support  | ✅  | 
 | RTL Support  | ⚠️  |
 
 ### ⚠️ RadioButton
@@ -200,15 +203,15 @@ Here you find a list of all controls with their (public) APIs and their status.
 **Properties**
 | API | Cupertino | Fluent | Material |
 | ----|:-------:|:---:|:-----:|
-| CheckedChanged  | ⚠️  | ⚠️  | ⚠️  |  
-| GroupName  | ⚠️  | ⚠️  | ⚠️  | 
-| IsChecked  | ⚠️  | ⚠️  | ⚠️  | 
+| CheckedChanged  | ✅  | ✅  | ✅  |  
+| GroupName  | ✅  | ✅  | ✅  | 
+| IsChecked  | ✅  | ⚠️  | ✅  | 
 
 **Features**
 | Feature | Description |
 | ----|:-------:|
 | Accesibility Support  | ⚠️  | 
-| Dark Theme Support  | ⚠️  | 
+| Dark Theme Support  | ✅  | 
 | RTL Support  | ⚠️  |
 
 ### ⚠️ Slider
@@ -216,23 +219,23 @@ Here you find a list of all controls with their (public) APIs and their status.
 **Properties**
 | API | Cupertino | Fluent | Material |
 | ----|:-------:|:---:|:-----:|
-| DragCompleted  | ⚠️  | ⚠️  | ⚠️  |  
-| DragCompletedCommand  | ⚠️  | ⚠️  | ⚠️  | 
-| DragStarted  | ⚠️  | ⚠️  | ⚠️  | 
-| DragStartedCommand  | ⚠️  | ⚠️  | ⚠️  |  
-| Maximum  | ⚠️  | ⚠️  | ⚠️  | 
-| MaximumTrackColor  | ⚠️  | ⚠️  | ⚠️  | 
-| Minimum  | ⚠️  | ⚠️  | ⚠️  | 
-| MinimumTrackColor  | ⚠️  | ⚠️  | ⚠️  | 
-| ThumbColor  | ⚠️  | ⚠️  | ⚠️  | 
-| Value  | ⚠️  | ⚠️  | ⚠️  | 
-| ValueChanged  | ⚠️  | ⚠️  | ⚠️  | 
+| DragCompleted  | ✅  | ✅  | ✅  |  
+| DragCompletedCommand  | ✅  | ✅  | ✅  | 
+| DragStarted  | ✅  | ✅  | ✅  | 
+| DragStartedCommand  | ✅  | ✅  | ✅  |  
+| Maximum  | ✅  | ✅  | ✅  | 
+| MaximumTrackColor  | ✅ | ✅  | ✅  | 
+| Minimum  | ✅  | ✅  | ✅  | 
+| MinimumTrackColor  | ✅  | ✅  | ✅  | 
+| ThumbColor  | ✅  | ✅  | ✅  | 
+| Value  | ✅  | ✅  | ✅  | 
+| ValueChanged  | ✅  | ✅  | ✅  | 
 
 **Features**
 | Feature | Description |
 | ----|:-------:|
 | Accesibility Support  | ⚠️  | 
-| Dark Theme Support  | ⚠️  | 
+| Dark Theme Support  | ✅  | 
 | RTL Support  | ⚠️  |
 
 ### ⚠️ Stepper
@@ -240,34 +243,33 @@ Here you find a list of all controls with their (public) APIs and their status.
 **Properties**
 | API | Cupertino | Fluent | Material |
 | ----|:-------:|:---:|:-----:|
-| Increment  | ⚠️  | ⚠️  | ⚠️  |  
-| Maximum  | ⚠️  | ⚠️  | ⚠️  | 
-| Minimum  | ⚠️  | ⚠️  | ⚠️  | 
-| Value  | ⚠️  | ⚠️  | ⚠️  |  
-| ValueChanged  | ⚠️  | ⚠️  | ⚠️  | 
-| StepperPosition  | ⚠️  | ⚠️  | ⚠️  | 
+| Increment  | ✅  | ✅  | ✅  |  
+| Maximum  | ✅  | ✅ | ✅  | 
+| Minimum  | ✅  | ✅  | ✅  | 
+| Value  | ✅  | ✅  | ✅  |  
+| ValueChanged  | ✅  | ✅  | ✅  | 
 
 **Features**
 | Feature | Description |
 | ----|:-------:|
 | Accesibility Support  | ⚠️  | 
-| Dark Theme Support  | ⚠️  | 
-| RTL Support  | ⚠️  |
+| Dark Theme Support  | ✅  | 
+| RTL Support  | ✅  |
 
 ### ⚠️ Switch
 
 **Properties**
 | API | Cupertino | Fluent | Material |
 | ----|:-------:|:---:|:-----:|
-| IsToggled  | ⚠️  | ⚠️  | ⚠️  |  
-| OnColor  | ⚠️  | ⚠️  | ⚠️  | 
-| ThumbColor  | ⚠️  | ⚠️  | ⚠️  | 
+| IsToggled  | ✅  | ✅  | ✅  |  
+| OnColor  | ✅  | ✅  | ✅  | 
+| ThumbColor  | ✅  | ✅  | ✅  | 
 
 **Features**
 | Feature | Description |
 | ----|:-------:|
 | Accesibility Support  | ⚠️  | 
-| Dark Theme Support  | ⚠️  | 
+| Dark Theme Support  | ✅  | 
 | RTL Support  | ⚠️  |
 
 ### ⚠️ TimePicker
@@ -275,6 +277,7 @@ Here you find a list of all controls with their (public) APIs and their status.
 **Properties**
 | API | Cupertino | Fluent | Material |
 | ----|:-------:|:---:|:-----:|
+| BackgroundColor  | ✅  | ✅  | ✅  |  
 | CharacterSpacing  | ⚠️  | ⚠️  | ⚠️  |  
 | FontAttributes  | ⚠️  | ⚠️  | ⚠️  | 
 | FontFamily  | ⚠️  | ⚠️  | ⚠️  | 
