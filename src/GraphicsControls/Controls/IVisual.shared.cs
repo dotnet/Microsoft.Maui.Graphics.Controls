@@ -3,15 +3,15 @@ using Xamarin.Forms;
 
 namespace GraphicsControls
 {
-	public interface IVisual
+	public interface IVisualType
 	{
 		VisualType VisualType { get; }
 	}
 
-	public static class VisualElement
+	public static class VisualTypeElement
 	{
 		public static readonly BindableProperty VisualTypeProperty =
-			BindableProperty.Create(nameof(IVisual.VisualType), typeof(VisualType), typeof(IVisual), DefaultVisualType(),
+			BindableProperty.Create(nameof(IVisualType.VisualType), typeof(VisualType), typeof(IVisualType), DefaultVisualType(),
 				propertyChanged: OnVisualTypeChanged);
 
         static void OnVisualTypeChanged(BindableObject bindable, object oldValue, object newValue)

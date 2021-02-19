@@ -1,4 +1,5 @@
-﻿using System.Graphics;
+﻿using System.Collections.Generic;
+using System.Graphics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -8,6 +9,12 @@ namespace GraphicsControls
 {
     public partial class ProgressBar : GraphicsVisualView
     {
+        public static class Layers
+        {
+            public const string Track = "ProgressBar.Layers.Track";
+            public const string Progress = "ProgressBar.Layers.Progress";
+        }
+
         public static readonly BindableProperty ProgressProperty =
             BindableProperty.Create(nameof(Progress), typeof(double), typeof(ProgressBar), 0d,
                 coerceValue: (bo, v) => ((double)v).Clamp(0, 1));
@@ -27,12 +34,26 @@ namespace GraphicsControls
             set { SetValue(ProgressColorProperty, value); }
         }
 
-        public override void Draw(ICanvas canvas, RectangleF dirtyRect)
+        public List<string> ProgressBarLayers = new List<string>
         {
-            base.Draw(canvas, dirtyRect);
+            Layers.Track,
+            Layers.Progress
+        };
 
-            DrawProgressTrack(canvas, dirtyRect);
-            DrawProgressBar(canvas, dirtyRect);
+        public override List<string> GraphicsLayers =>
+            ProgressBarLayers;
+
+        public override void DrawLayer(string layer, ICanvas canvas, RectangleF dirtyRect)
+        {
+            switch (layer)
+            {
+                case Layers.Track:
+                    DrawProgressTrack(canvas, dirtyRect);
+                    break;
+                case Layers.Progress:
+                    DrawProgressBar(canvas, dirtyRect);
+                    break;
+            }
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)

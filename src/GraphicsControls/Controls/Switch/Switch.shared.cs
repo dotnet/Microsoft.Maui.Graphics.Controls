@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Graphics;
 using Xamarin.Forms;
 using Point = System.Graphics.Point;
@@ -8,6 +9,12 @@ namespace GraphicsControls
 {
     public partial class Switch : GraphicsVisualView
     {
+        public static class Layers
+        {
+            public const string Background = "Switch.Layers.Background";
+            public const string Thumb = "Switch.Layers.Thumb";
+        }
+
         public const string SwitchOnVisualState = "On";
         public const string SwitchOffVisualState = "Off";
 
@@ -42,6 +49,12 @@ namespace GraphicsControls
             set { SetValue(ThumbColorProperty, value); }
         }
 
+        public List<string> SwitchLayers = new List<string>
+        {
+            Layers.Background,
+            Layers.Thumb
+        };
+
         public event EventHandler<ToggledEventArgs> Toggled;
 
         public override void Load()
@@ -66,12 +79,20 @@ namespace GraphicsControls
             }
         }
 
-        public override void Draw(ICanvas canvas, RectangleF dirtyRect)
-        {
-            base.Draw(canvas, dirtyRect);
+        public override List<string> GraphicsLayers =>
+            SwitchLayers;
 
-            DrawSwitchBackground(canvas, dirtyRect);
-            DrawSwitchThumb(canvas, dirtyRect);
+        public override void DrawLayer(string layer, ICanvas canvas, RectangleF dirtyRect)
+        {
+            switch (layer)
+            {
+                case Layers.Background:
+                    DrawSwitchBackground(canvas, dirtyRect);
+                    break;
+                case Layers.Thumb:
+                    DrawSwitchThumb(canvas, dirtyRect);
+                    break;
+            }
         }
 
         protected override void ChangeVisualState()

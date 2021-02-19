@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Graphics;
 using System.Runtime.CompilerServices;
 using GraphicsControls.Effects;
@@ -11,6 +12,15 @@ namespace GraphicsControls
 {
     public partial class Stepper : GraphicsVisualView, IRange
     {
+        public static class Layers
+        {
+            public const string Background = "Stepper.Layers.Background";
+            public const string Separator = "Stepper.Layers.Separator";
+            public const string Minus = "Stepper.Layers.Minus";
+            public const string Plus = "Stepper.Layers.Plus";
+            public const string Text = "Stepper.Layers.Text";
+        }
+
         int _digits = 4;
         RectangleF _minusRect;
         RectangleF _plusRect;
@@ -54,9 +64,23 @@ namespace GraphicsControls
             Value = val.Clamp(min, max);
         }
 
-        public static readonly BindableProperty MinimumProperty = RangeElement.MinimumProperty;
+        public static readonly BindableProperty MaximumProperty = BindableProperty.Create(nameof(Maximum), typeof(double), typeof(Stepper), 100.0,
+            validateValue: (bindable, value) => (double)value > ((Stepper)bindable).Minimum,
+            coerceValue: (bindable, value) =>
+            {
+                var stepper = (Stepper)bindable;
+                stepper.Value = stepper.Value.Clamp(stepper.Minimum, (double)value);
+                return value;
+            });
 
-        public static readonly BindableProperty MaximumProperty = RangeElement.MaximumProperty;
+        public static readonly BindableProperty MinimumProperty = BindableProperty.Create(nameof(Minimum), typeof(double), typeof(Stepper), 0.0,
+            validateValue: (bindable, value) => (double)value < ((Stepper)bindable).Maximum,
+            coerceValue: (bindable, value) =>
+            {
+                var stepper = (Stepper)bindable;
+                stepper.Value = stepper.Value.Clamp((double)value, stepper.Maximum);
+                return value;
+            });
 
         public static readonly BindableProperty IncrementProperty =
             BindableProperty.Create(nameof(Increment), typeof(double), typeof(Stepper), 1.0,
@@ -100,6 +124,15 @@ namespace GraphicsControls
             set { SetValue(ValueProperty, value); }
         }
 
+        public List<string> StepperLayers = new List<string>
+        {
+            Layers.Background,
+            Layers.Separator,
+            Layers.Minus,
+            Layers.Plus,
+            Layers.Text
+        };
+
         public event EventHandler<ValueChangedEventArgs> ValueChanged;
 
         public override void Load()
@@ -126,15 +159,29 @@ namespace GraphicsControls
             }
         }
 
-        public override void Draw(ICanvas canvas, RectangleF dirtyRect)
-        {
-            base.Draw(canvas, dirtyRect);
+        public override List<string> GraphicsLayers =>
+            StepperLayers;
 
-            DrawStepperBackground(canvas, dirtyRect);
-            DrawStepperSeparator(canvas, dirtyRect);
-            DrawStepperMinus(canvas, dirtyRect);
-            DrawStepperPlus(canvas, dirtyRect);
-            DrawStepperText(canvas, dirtyRect);
+        public override void DrawLayer(string layer, ICanvas canvas, RectangleF dirtyRect)
+        {
+            switch(layer)
+            {
+                case Layers.Background:
+                    DrawStepperBackground(canvas, dirtyRect);
+                    break;
+                case Layers.Separator:
+                    DrawStepperSeparator(canvas, dirtyRect);
+                    break;
+                case Layers.Minus:
+                    DrawStepperMinus(canvas, dirtyRect);
+                    break;
+                case Layers.Plus:
+                    DrawStepperPlus(canvas, dirtyRect);
+                    break;
+                case Layers.Text:
+                    DrawStepperText(canvas, dirtyRect);
+                    break;
+            }
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Graphics;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
@@ -9,6 +10,13 @@ namespace GraphicsControls
 {
     public partial class CheckBox : GraphicsVisualView, IColor
     {
+        public static class Layers
+        {
+            public const string Background = "CheckBox.Layers.Background";
+            public const string Mark = "CheckBox.Layers.Mark";
+            public const string Text = "CheckBox.Layers.Text";
+        }
+
         public const string IsCheckedVisualState = "IsChecked";
 
         public static readonly BindableProperty IsCheckedProperty =
@@ -51,15 +59,32 @@ namespace GraphicsControls
             set { SetValue(ColorProperty, value); }
         }
 
+        public List<string> CheckBoxLayers = new List<string>
+        {
+            Layers.Background,
+            Layers.Mark,
+            Layers.Text
+        };
+
         public event EventHandler<CheckedChangedEventArgs> CheckedChanged;
 
-        public override void Draw(ICanvas canvas, RectangleF dirtyRect)
-        {
-            base.Draw(canvas, dirtyRect);
+        public override List<string> GraphicsLayers =>
+            CheckBoxLayers;
 
-            DrawCheckBoxBackground(canvas, dirtyRect);
-            DrawCheckBoxMark(canvas, dirtyRect);
-            DrawCheckBoxText(canvas, dirtyRect);
+        public override void DrawLayer(string layer, ICanvas canvas, RectangleF dirtyRect)
+        {
+            switch (layer)
+            {
+                case Layers.Background:
+                    DrawCheckBoxBackground(canvas, dirtyRect);
+                    break;
+                case Layers.Mark:
+                    DrawCheckBoxMark(canvas, dirtyRect);
+                    break;
+                case Layers.Text:
+                    DrawCheckBoxText(canvas, dirtyRect);
+                    break;
+            }
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)

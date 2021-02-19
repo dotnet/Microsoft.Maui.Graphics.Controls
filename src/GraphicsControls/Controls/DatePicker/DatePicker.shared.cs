@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Graphics;
 using Xamarin.Forms;
 
@@ -6,6 +7,15 @@ namespace GraphicsControls
 {
     public partial class DatePicker : GraphicsVisualView
     {
+        public static class Layers
+        {
+            public const string Background = "DatePicker.Layers.Background";
+            public const string Border = "DatePicker.Layers.Border";
+            public const string Icon = "DatePicker.Layers.Icon";
+            public const string Placeholder = "DatePicker.Layers.Placeholder";
+            public const string Date = "DatePicker.Layers.Date";
+        }
+
         public static readonly BindableProperty DateProperty =
             BindableProperty.Create(nameof(Date), typeof(DateTime), typeof(DatePicker), default(DateTime), BindingMode.TwoWay,
                 coerceValue: CoerceDate,
@@ -88,6 +98,15 @@ namespace GraphicsControls
             set { SetValue(MinimumDateProperty, value); }
         }
 
+        public List<string> DatePickerLayers = new List<string>
+        {
+            Layers.Background,
+            Layers.Border,
+            Layers.Icon,
+            Layers.Placeholder,
+            Layers.Date
+        };
+
         public event EventHandler<DateChangedEventArgs> DateSelected;
 
         public override void Load()
@@ -109,15 +128,29 @@ namespace GraphicsControls
             }
         }
 
-        public override void Draw(ICanvas canvas, RectangleF dirtyRect)
-        {
-            base.Draw(canvas, dirtyRect);
+        public override List<string> GraphicsLayers =>
+            DatePickerLayers;
 
-            DrawDatePickerBackground(canvas, dirtyRect);
-            DrawDatePickerBorder(canvas, dirtyRect);
-            DrawDatePickerIcon(canvas, dirtyRect);
-            DrawDatePickerPlaceholder(canvas, dirtyRect);
-            DrawDatePickerDate(canvas, dirtyRect);
+        public override void DrawLayer(string layer, ICanvas canvas, RectangleF dirtyRect)
+        {
+            switch (layer)
+            {
+                case Layers.Background:
+                    DrawDatePickerBackground(canvas, dirtyRect);
+                    break;
+                case Layers.Border:
+                    DrawDatePickerBorder(canvas, dirtyRect);
+                    break;
+                case Layers.Icon:
+                    DrawDatePickerIcon(canvas, dirtyRect);
+                    break;
+                case Layers.Placeholder:
+                    DrawDatePickerPlaceholder(canvas, dirtyRect);
+                    break;
+                case Layers.Date:
+                    DrawDatePickerDate(canvas, dirtyRect);
+                    break;
+            }
         }
 
         protected virtual void DrawDatePickerBackground(ICanvas canvas, RectangleF dirtyRect)
