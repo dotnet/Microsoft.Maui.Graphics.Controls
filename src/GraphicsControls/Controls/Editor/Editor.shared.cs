@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Graphics;
 using System.Runtime.CompilerServices;
@@ -94,6 +95,8 @@ namespace GraphicsControls
             get { return (XColor)GetValue(PlaceholderColorProperty); }
             set { SetValue(PlaceholderColorProperty, value); }
         }
+
+        public event EventHandler Completed;
 
         public List<string> EditorLayers = new List<string>
         {

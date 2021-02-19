@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Graphics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -77,6 +78,27 @@ namespace GraphicsControls
             get { return (double)GetValue(CornerRadiusElement.CornerRadiusProperty); }
             set { SetValue(CornerRadiusElement.CornerRadiusProperty, value); }
         }
+
+        bool IButton.IsEnabledCore
+        {
+            set { SetValueCore(IsEnabledProperty, value); }
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        void IButton.SetIsPressed(bool isPressed) => SetValue(IsPressedPropertyKey, isPressed);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        void IButton.PropagateUpClicked() => Clicked?.Invoke(this, EventArgs.Empty);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        void IButton.PropagateUpPressed() => Pressed?.Invoke(this, EventArgs.Empty);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        void IButton.PropagateUpReleased() => Released?.Invoke(this, EventArgs.Empty);
+
+        void IButton.OnCommandCanExecuteChanged(object sender, EventArgs e) =>
+            ButtonElement.CommandCanExecuteChanged(this, EventArgs.Empty);
+
 
         public List<string> ButtonLayers = new List<string>
         {
