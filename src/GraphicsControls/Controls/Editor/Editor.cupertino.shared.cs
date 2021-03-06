@@ -49,7 +49,7 @@ namespace GraphicsControls
             {
                 canvas.SaveState();
 
-                canvas.FontColor = TextColor.ToGraphicsColor(Material.Color.Black, Material.Color.White);
+                canvas.FontColor = PlaceholderColor.ToGraphicsColor(Material.Color.Black, Material.Color.White);
                 canvas.FontSize = 14f;
 
                 float margin = 8f;

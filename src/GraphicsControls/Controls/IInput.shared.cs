@@ -2,7 +2,7 @@
 
 namespace GraphicsControls
 {
-	public interface IInput : IText, IPlaceholder
+	public interface IInput : IText, IPlaceholder, IFont
 	{
 
 	}
