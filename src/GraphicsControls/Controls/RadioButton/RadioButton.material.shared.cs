@@ -26,18 +26,21 @@ namespace GraphicsControls
 
         void DrawMaterialRadioButtonMark(ICanvas canvas, RectangleF dirtyRect)
         {
-            canvas.SaveState();
+            if (IsChecked)
+            {
+                canvas.SaveState();
 
-            canvas.FillColor = BackgroundColor.ToGraphicsColor(Material.Color.Blue);
+                canvas.FillColor = BackgroundColor.ToGraphicsColor(Material.Color.Blue);
 
-            var x = 6;
-            var y = 6;
+                var x = 6;
+                var y = 6;
 
-            var size = 10;
+                var size = 10;
 
-            canvas.FillOval(x, y, size, size);
+                canvas.FillOval(x, y, size, size);
 
-            canvas.RestoreState();
+                canvas.RestoreState();
+            }
         }
     }
 }
