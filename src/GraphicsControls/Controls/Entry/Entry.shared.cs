@@ -72,6 +72,33 @@ namespace GraphicsControls
 
         public static readonly BindableProperty PlaceholderColorProperty = InputElement.PlaceholderColorProperty;
 
+        public static readonly BindableProperty FontAttributesProperty =
+            BindableProperty.Create(nameof(IFont.FontAttributes), typeof(FontAttributes), typeof(IFont), FontAttributes.None,
+                propertyChanged: OnFontAttributesChanged);
+
+        private static void OnFontAttributesChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            (bindable as Entry)?.UpdateFontAttributes();
+        }
+
+        public static readonly BindableProperty FontFamilyProperty =
+            BindableProperty.Create(nameof(IFont.FontFamily), typeof(string), typeof(IFont), string.Empty,
+                propertyChanged: OnFontFamilyChanged);
+
+        private static void OnFontFamilyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            (bindable as Entry)?.UpdateFontFamily();
+        }
+
+        public static readonly BindableProperty FontSizeProperty =
+            BindableProperty.Create(nameof(IFont.FontSize), typeof(double), typeof(IInput), Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
+                propertyChanged: OnFontSizeChanged);
+
+        private static void OnFontSizeChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            (bindable as Entry)?.UpdateFontSize();
+        }
+
         public string Text
         {
             get { return (string)GetValue(TextProperty); }
@@ -100,6 +127,24 @@ namespace GraphicsControls
         {
             get { return (XColor)GetValue(PlaceholderColorProperty); }
             set { SetValue(PlaceholderColorProperty, value); }
+        }
+
+        public FontAttributes FontAttributes
+        {
+            get { return (FontAttributes)GetValue(FontAttributesProperty); }
+            set { SetValue(FontAttributesProperty, value); }
+        }
+
+        public string FontFamily
+        {
+            get { return (string)GetValue(FontFamilyProperty); }
+            set { SetValue(FontFamilyProperty, value); }
+        }
+
+        public double FontSize
+        {
+            get { return (double)GetValue(FontSizeProperty); }
+            set { SetValue(FontSizeProperty, value); }
         }
 
         public List<string> EntryLayers = new List<string>
@@ -140,6 +185,10 @@ namespace GraphicsControls
             UpdateTextColor();
             UpdateCharacterSpacing();
             UpdateFlowDirection();
+            UpdateFontAttributes();
+            UpdateFontFamily();
+            UpdateFontSize();
+
         }
 
         public override void Unload()
@@ -351,5 +400,21 @@ namespace GraphicsControls
         {
             _entry.FlowDirection = FlowDirection;
         }
+
+        void UpdateFontAttributes()
+        {
+            _entry.FontAttributes = FontAttributes;
+        }
+
+        void UpdateFontFamily()
+        {
+            _entry.FontFamily = FontFamily;
+        }
+
+        void UpdateFontSize()
+        {
+            _entry.FontSize = FontSize;
+        }
+
     }
 }
