@@ -5,6 +5,8 @@ namespace GraphicsControls
 {
     public partial class CheckBox
     {
+        const string MaterialCheckBoxMark = "M13.3516 1.35156L5 9.71094L0.648438 5.35156L1.35156 4.64844L5 8.28906L12.6484 0.648438L13.3516 1.35156Z";
+
         void DrawMaterialCheckBoxBackground(ICanvas canvas, RectangleF dirtyRect)
         {
             canvas.SaveState();
@@ -40,9 +42,7 @@ namespace GraphicsControls
                 canvas.Translate(2, 4);
 
                 var vBuilder = new PathBuilder();
-                var path =
-                    vBuilder.BuildPath(
-                        "M13.3516 1.35156L5 9.71094L0.648438 5.35156L1.35156 4.64844L5 8.28906L12.6484 0.648438L13.3516 1.35156Z");
+                var path = vBuilder.BuildPath(MaterialCheckBoxMark);
 
                 canvas.StrokeColor = Colors.White;
                 canvas.DrawPath(path);

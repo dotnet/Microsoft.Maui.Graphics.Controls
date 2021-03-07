@@ -79,7 +79,7 @@ namespace GraphicsControls
 
             canvas.FillColor = ThumbColor.ToGraphicsColor(Material.Color.Blue);
 
-            canvas.FillOval(x, y, MaterialFloatThumb, MaterialFloatThumb);
+            canvas.FillEllipse(x, y, MaterialFloatThumb, MaterialFloatThumb);
 
             canvas.RestoreState();
 

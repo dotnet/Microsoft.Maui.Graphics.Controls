@@ -6,6 +6,8 @@ namespace GraphicsControls
 {
     public partial class CheckBox
     {
+        const string FluentCheckBoxMark = "M13.3516 1.35156L5 9.71094L0.648438 5.35156L1.35156 4.64844L5 8.28906L12.6484 0.648438L13.3516 1.35156Z";
+
         void DrawFluentCheckBoxBackground(ICanvas canvas, RectangleF dirtyRect)
         {
             canvas.SaveState();
@@ -50,9 +52,7 @@ namespace GraphicsControls
                 canvas.Translate(3, 5);
 
                 var vBuilder = new PathBuilder();
-                var path =
-                    vBuilder.BuildPath(
-                        "M13.3516 1.35156L5 9.71094L0.648438 5.35156L1.35156 4.64844L5 8.28906L12.6484 0.648438L13.3516 1.35156Z");
+                var path = vBuilder.BuildPath(FluentCheckBoxMark);
 
                 canvas.StrokeColor = Colors.White;
                 canvas.DrawPath(path);

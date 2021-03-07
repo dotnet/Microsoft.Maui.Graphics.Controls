@@ -8,6 +8,8 @@ namespace GraphicsControls
 {
     public partial class Entry
     {
+        const string MaterialEntryIndicatorIcon = "M9.295 7.885C9.68436 8.27436 9.68436 8.90564 9.295 9.295C8.90564 9.68436 8.27436 9.68436 7.885 9.295L5 6.41L2.115 9.295C1.72564 9.68436 1.09436 9.68436 0.705 9.295C0.315639 8.90564 0.315639 8.27436 0.705 7.885L3.59 5L0.705 2.115C0.315639 1.72564 0.31564 1.09436 0.705 0.705C1.09436 0.315639 1.72564 0.315639 2.115 0.705L5 3.59L7.885 0.705C8.27436 0.315639 8.90564 0.31564 9.295 0.705C9.68436 1.09436 9.68436 1.72564 9.295 2.115L6.41 5L9.295 7.885Z";
+
         const float FocusedMaterialPlaceholderFontSize = 12f;
         const float UnfocusedMaterialPlaceholderFontSize = 16f;
 
@@ -149,9 +151,7 @@ namespace GraphicsControls
                 canvas.Translate(tX, tY);
 
                 var vBuilder = new PathBuilder();
-                var path =
-                    vBuilder.BuildPath(
-                        "M9.295 7.885C9.68436 8.27436 9.68436 8.90564 9.295 9.295C8.90564 9.68436 8.27436 9.68436 7.885 9.295L5 6.41L2.115 9.295C1.72564 9.68436 1.09436 9.68436 0.705 9.295C0.315639 8.90564 0.315639 8.27436 0.705 7.885L3.59 5L0.705 2.115C0.315639 1.72564 0.31564 1.09436 0.705 0.705C1.09436 0.315639 1.72564 0.315639 2.115 0.705L5 3.59L7.885 0.705C8.27436 0.315639 8.90564 0.31564 9.295 0.705C9.68436 1.09436 9.68436 1.72564 9.295 2.115L6.41 5L9.295 7.885Z");
+                var path = vBuilder.BuildPath(MaterialEntryIndicatorIcon);
 
                 canvas.FillColor = BackgroundColor.ToGraphicsColor(Material.Color.Black, Material.Color.White);
                 canvas.FillPath(path);
