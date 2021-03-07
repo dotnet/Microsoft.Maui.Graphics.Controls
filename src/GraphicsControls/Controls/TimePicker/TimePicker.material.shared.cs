@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Graphics;
+using GraphicsControls.Effects;
 using GraphicsControls.Extensions;
 using GraphicsControls.Helpers;
 using Xamarin.Forms;
@@ -82,7 +83,7 @@ namespace GraphicsControls
         {
             canvas.SaveState();
 
-            canvas.FontColor = ColorHelper.GetGraphicsColor(Material.Color.Dark, Material.Color.Light);
+            canvas.FontColor = TextColor.ToGraphicsColor(Material.Color.Dark, Material.Color.Light);
             canvas.FontSize = 16f;
 
             float margin = 12f;
@@ -100,8 +101,10 @@ namespace GraphicsControls
             var height = dirtyRect.Height;
             var width = dirtyRect.Width;
 
-            var date = new DateTime(Time.Ticks);
-            canvas.DrawString(date.ToString("HH:mm tt"), x, 22f, width - margin, height, horizontalAlignment, VerticalAlignment.Top);
+            var time = TimePickerDialog.GetTime(this);
+            var date = new DateTime(time.Ticks);
+
+            canvas.DrawString(date.ToString(Format), x, 22f, width - margin, height, horizontalAlignment, VerticalAlignment.Top);
 
             canvas.RestoreState();
         }

@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Graphics;
+using GraphicsControls.Effects;
 using Xamarin.Forms;
+using XColor = Xamarin.Forms.Color;
 
 namespace GraphicsControls
 {
     public partial class TimePicker : GraphicsVisualView
     {
+        TimePickerDialogRoutingEffect _timePickerEffect;
+
         public static class Layers
         {
             public const string Background = "TimePicker.Layers.Background";
@@ -15,6 +19,9 @@ namespace GraphicsControls
             public const string Date = "TimePicker.Layers.Date";
         }
 
+        public static readonly BindableProperty FormatProperty =
+            BindableProperty.Create(nameof(Format), typeof(string), typeof(TimePicker), "t");
+
         public static readonly BindableProperty TimeProperty =
             BindableProperty.Create(nameof(Time), typeof(TimeSpan), typeof(TimePicker), new TimeSpan(0), BindingMode.TwoWay, (bindable, value) =>
             {
@@ -22,10 +29,25 @@ namespace GraphicsControls
                 return time.TotalHours < 24 && time.TotalMilliseconds >= 0;
             });
 
+        public static readonly BindableProperty TextColorProperty =
+            BindableProperty.Create(nameof(TextColor), typeof(XColor), typeof(TimePicker), XColor.Default);
+
+        public string Format
+        {
+            get { return (string)GetValue(FormatProperty); }
+            set { SetValue(FormatProperty, value); }
+        }
+
         public TimeSpan Time
         {
             get { return (TimeSpan)GetValue(TimeProperty); }
             set { SetValue(TimeProperty, value); }
+        }
+
+        public XColor TextColor
+        {
+            get { return (XColor)GetValue(TextColorProperty); }
+            set { SetValue(TextColorProperty, value); }
         }
 
         public List<string> TimePickerLayers = new List<string>
@@ -53,6 +75,15 @@ namespace GraphicsControls
                     HeightRequest = 32;
                     break;
             }
+
+            _timePickerEffect = new TimePickerDialogRoutingEffect();
+
+            Effects.Add(_timePickerEffect);
+        }
+
+        public override void Unload()
+        {
+            Effects.Remove(_timePickerEffect);
         }
 
         public override List<string> GraphicsLayers =>
