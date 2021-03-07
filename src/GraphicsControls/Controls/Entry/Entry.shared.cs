@@ -415,6 +415,5 @@ namespace GraphicsControls
         {
             _entry.FontSize = FontSize;
         }
-
     }
 }
