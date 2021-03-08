@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Graphics;
+using GraphicsControls.Effects;
 using GraphicsControls.Extensions;
 using GraphicsControls.Helpers;
 
@@ -81,7 +82,9 @@ namespace GraphicsControls
         {
             var height = FluentTimePickerHeight;
             var divided = FluentDatePickerWidth / 3;
-            var date = new DateTime(Time.Ticks);
+
+            var time = TimePickerDialog.GetTime(this);
+            var date = new DateTime(time.Ticks);
 
             Color textColor;
 
