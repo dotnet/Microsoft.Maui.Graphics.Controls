@@ -99,7 +99,7 @@ namespace GraphicsControls
             var height = dirtyRect.Height;
             var width = dirtyRect.Width;
 
-            canvas.DrawString(Date.ToShortDateString(), x, 22f, width - margin, height, horizontalAlignment, VerticalAlignment.Top);
+            canvas.DrawString(GetDate().ToShortDateString(), x, 22f, width - margin, height, horizontalAlignment, VerticalAlignment.Top);
 
             canvas.RestoreState();
         }

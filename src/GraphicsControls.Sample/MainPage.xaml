@@ -46,7 +46,10 @@
                 VisualType="Cupertino"
                 Text="CheckBox"/>
             <graphics:DatePicker
-                VisualType="Cupertino"/>
+                VisualType="Cupertino"
+                MinimumDate="01/01/2021"
+                MaximumDate="12/31/2021"
+                Date="01/02/2021"/>
             <graphics:Editor
                 VisualType="Cupertino"
                 Placeholder="Placeholder"/>
@@ -89,7 +92,10 @@
                 IsChecked="True"
                 Text="CheckBox"/>
             <graphics:DatePicker
-                VisualType="Fluent"/>
+                VisualType="Fluent"
+                MinimumDate="01/01/2021"
+                MaximumDate="12/31/2021"
+                Date="01/02/2021"/>
             <graphics:Editor
                 VisualType="Fluent"
                 Placeholder="Placeholder"/>
@@ -131,7 +137,10 @@
             <graphics:CheckBox
                 VisualType="Material"/>
             <graphics:DatePicker
-                VisualType="Material"/>
+                VisualType="Material"
+                MinimumDate="01/01/2021"
+                MaximumDate="12/31/2021"
+                Date="01/02/2021"/>
             <graphics:Editor
                 VisualType="Material"
                 Placeholder="Placeholder"/>

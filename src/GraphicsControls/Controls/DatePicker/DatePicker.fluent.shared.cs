@@ -95,7 +95,7 @@ namespace GraphicsControls
             var height = FluentDatePickerHeight;
             var width = dirtyRect.Width;
 
-            canvas.DrawString(Date.ToShortDateString(), x, 0, width - margin, height, HorizontalAlignment.Left, VerticalAlignment.Center);
+            canvas.DrawString(GetDate().ToShortDateString(), x, 0, width - margin, height, HorizontalAlignment.Left, VerticalAlignment.Center);
 
             canvas.RestoreState();
         }

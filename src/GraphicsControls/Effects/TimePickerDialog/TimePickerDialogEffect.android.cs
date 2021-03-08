@@ -8,7 +8,7 @@ using ATimePickerDialog = Android.App.TimePickerDialog;
 using AView = Android.Views.View;
 
 [assembly: ResolutionGroupName("GraphicsControls")]
-[assembly: ExportEffect(typeof(TimePickerDialogPlatformEffect), nameof(GraphicsControls.Effects.TimePickerDialog))]
+[assembly: ExportEffect(typeof(TimePickerDialogPlatformEffect), nameof(TimePickerDialog))]
 namespace GraphicsControls.Effects
 {
     public class TimePickerDialogPlatformEffect : PlatformEffect

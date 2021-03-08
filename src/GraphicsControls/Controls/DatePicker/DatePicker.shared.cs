@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Graphics;
+using System.Runtime.CompilerServices;
+using GraphicsControls.Effects;
 using Xamarin.Forms;
 
 namespace GraphicsControls
 {
     public partial class DatePicker : GraphicsVisualView
     {
+        DatePickerDialogRoutingEffect _datePickerEffect;
+
         public static class Layers
         {
             public const string Background = "DatePicker.Layers.Background";
@@ -126,6 +130,18 @@ namespace GraphicsControls
                     HeightRequest = 32;
                     break;
             }
+
+            _datePickerEffect = new DatePickerDialogRoutingEffect();
+
+            Effects.Add(_datePickerEffect);
+
+            UpdateMaximumDate();
+            UpdateMinimumDate();
+        }
+
+        public override void Unload()
+        {
+            Effects.Remove(_datePickerEffect);
         }
 
         public override List<string> GraphicsLayers =>
@@ -151,6 +167,16 @@ namespace GraphicsControls
                     DrawDatePickerDate(canvas, dirtyRect);
                     break;
             }
+        }
+
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            base.OnPropertyChanged(propertyName);
+
+            if (propertyName == MaximumDateProperty.PropertyName)
+                UpdateMaximumDate();
+            else if (propertyName == MinimumDateProperty.PropertyName)
+                UpdateMinimumDate();
         }
 
         protected virtual void DrawDatePickerBackground(ICanvas canvas, RectangleF dirtyRect)
@@ -222,6 +248,26 @@ namespace GraphicsControls
                     DrawFluentDatePickerDate(canvas, dirtyRect);
                     break;
             }
+        }
+
+        void UpdateMaximumDate()
+        {
+            DatePickerDialog.SetMaximumDate(this, MaximumDate);
+        }
+
+        void UpdateMinimumDate()
+        {
+            DatePickerDialog.SetMinimumDate(this, MinimumDate);
+        }
+
+        DateTime GetDate()
+        {
+            var date = DatePickerDialog.GetDate(this);
+
+            if (date == default)
+                return MinimumDate;
+
+            return date;
         }
     }
 }
