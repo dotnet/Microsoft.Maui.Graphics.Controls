@@ -81,7 +81,7 @@ namespace GraphicsControls
         {
             canvas.SaveState();
 
-            canvas.FontColor = ColorHelper.GetGraphicsColor(Material.Color.Dark, Material.Color.Light);
+            canvas.FontColor = TextColor.ToGraphicsColor(Material.Color.Dark, Material.Color.Light);
             canvas.FontSize = 16f;
 
             float margin = 12f;

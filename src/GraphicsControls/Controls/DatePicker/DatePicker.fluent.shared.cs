@@ -82,9 +82,9 @@ namespace GraphicsControls
             canvas.SaveState();
 
             if (IsEnabled)
-                canvas.FontColor = ColorHelper.GetGraphicsColor(Fluent.Color.Foreground.Black, Fluent.Color.Foreground.White);
+                canvas.FontColor = TextColor.ToGraphicsColor(Fluent.Color.Foreground.Black, Fluent.Color.Foreground.White);
             else
-                canvas.FontColor = ColorHelper.GetGraphicsColor(Fluent.Color.Foreground.NeutralTertiary, Fluent.Color.Foreground.White);
+                canvas.FontColor = TextColor.ToGraphicsColor(Fluent.Color.Foreground.NeutralTertiary, Fluent.Color.Foreground.White);
 
             canvas.FontSize = 14f;
 

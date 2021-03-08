@@ -4,6 +4,7 @@ using System.Graphics;
 using System.Runtime.CompilerServices;
 using GraphicsControls.Effects;
 using Xamarin.Forms;
+using XColor = Xamarin.Forms.Color;
 
 namespace GraphicsControls
 {
@@ -33,6 +34,9 @@ namespace GraphicsControls
         public static readonly BindableProperty MaximumDateProperty =
             BindableProperty.Create(nameof(MaximumDate), typeof(DateTime), typeof(DatePicker), new DateTime(2100, 12, 31),
                 validateValue: ValidateMaximumDate, coerceValue: CoerceMaximumDate);
+
+        public static readonly BindableProperty TextColorProperty =
+            BindableProperty.Create(nameof(TextColor), typeof(XColor), typeof(TimePicker), XColor.Default);
 
         static object CoerceDate(BindableObject bindable, object value)
         {
@@ -100,6 +104,12 @@ namespace GraphicsControls
         {
             get { return (DateTime)GetValue(MinimumDateProperty); }
             set { SetValue(MinimumDateProperty, value); }
+        }
+
+        public XColor TextColor
+        {
+            get { return (XColor)GetValue(TextColorProperty); }
+            set { SetValue(TextColorProperty, value); }
         }
 
         public List<string> DatePickerLayers = new List<string>

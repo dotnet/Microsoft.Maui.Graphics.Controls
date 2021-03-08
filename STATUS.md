@@ -93,15 +93,15 @@ Here you find a list of all controls with their (public) APIs and their status.
 | ----|:-------:|:---:|:-----:|
 | BackgroundColor  | ✅  | ✅  | ✅  |  
 | CharacterSpacing  | ⚠️  | ⚠️  | ⚠️  |  
-| Date  | ⚠️  | ⚠️  | ⚠️  | 
+| Date  | ✅  | ✅  | ✅  | 
 | DateSelected  | ⚠️  | ⚠️  | ⚠️  | 
 | FontAttributes  | ⚠️  | ⚠️  | ⚠️  |  
 | FontFamily  | ⚠️  | ⚠️  | ⚠️  | 
 | FontSize  | ⚠️  | ⚠️  | ⚠️  | 
 | Format  | ⚠️  | ⚠️  | ⚠️  | 
-| MaximumDate  | ⚠️  | ⚠️  | ⚠️  | 
-| MinimumDate  | ⚠️  | ⚠️  | ⚠️  | 
-| TextColor  | ⚠️  | ⚠️  | ⚠️  | 
+| MaximumDate  | ✅  | ✅  | ✅  | 
+| MinimumDate  | ✅  | ✅  | ✅  | 
+| TextColor  | ✅  | ✅  | ✅  | 
 
 **Features**
 | Feature | Description |
