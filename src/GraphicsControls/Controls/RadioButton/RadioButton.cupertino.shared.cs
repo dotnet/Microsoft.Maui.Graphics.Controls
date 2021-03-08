@@ -20,7 +20,7 @@ namespace GraphicsControls
 
             var size = 20;
 
-            canvas.DrawOval(x, y, size, size);
+            canvas.DrawEllipse(x, y, size, size);
 
             canvas.RestoreState();
         }
@@ -36,7 +36,7 @@ namespace GraphicsControls
 
             var size = 12;
 
-            canvas.FillOval(x, y, size, size);
+            canvas.FillEllipse(x, y, size, size);
 
             canvas.RestoreState();
         }

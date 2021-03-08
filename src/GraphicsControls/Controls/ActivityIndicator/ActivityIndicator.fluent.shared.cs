@@ -38,7 +38,7 @@ namespace GraphicsControls
             var x = (dirtyRect.Width - size) / 2;
             var y = dirtyRect.Y + strokeWidth;
 
-            canvas.DrawOval(x, y, size, size);
+            canvas.DrawEllipse(x, y, size, size);
 
             canvas.RestoreState();
         }

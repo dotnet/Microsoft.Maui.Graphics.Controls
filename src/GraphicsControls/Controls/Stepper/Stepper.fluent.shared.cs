@@ -8,6 +8,9 @@ namespace GraphicsControls
 {
     public partial class Stepper
     {
+        const string FluentStepperUpIcon = "M4 0.722656L7.97266 4.69531L7.02734 5.63672L4 2.60938L0.972656 5.63672L0.0273438 4.69531L4 0.722656Z";
+        const string FluentStepperDownIcon = "M7.02734 0.363281L7.97266 1.30469L4 5.27734L0.0273438 1.30469L0.972656 0.363281L4 3.39062L7.02734 0.363281Z";
+
         const float FluentStepperHeight = 32.0f;
         const float FluentChevronSize = 14.0f;
 
@@ -65,9 +68,7 @@ namespace GraphicsControls
             canvas.Translate(tX, margin);
 
             var vBuilder = new PathBuilder();
-            var path =
-                vBuilder.BuildPath(
-                    "M4 0.722656L7.97266 4.69531L7.02734 5.63672L4 2.60938L0.972656 5.63672L0.0273438 4.69531L4 0.722656Z");
+            var path = vBuilder.BuildPath(FluentStepperUpIcon);
 
             if (IsEnabled)
                 canvas.FillColor = ColorHelper.GetGraphicsColor(Fluent.Color.Foreground.Black, Fluent.Color.Foreground.White);
@@ -93,9 +94,7 @@ namespace GraphicsControls
             canvas.Translate(tX, FluentStepperHeight - (margin * 2));
 
             var vBuilder = new PathBuilder();
-            var path =
-                vBuilder.BuildPath(
-                    "M7.02734 0.363281L7.97266 1.30469L4 5.27734L0.0273438 1.30469L0.972656 0.363281L4 3.39062L7.02734 0.363281Z");
+            var path = vBuilder.BuildPath(FluentStepperDownIcon);
 
             if (IsEnabled)
                 canvas.FillColor = ColorHelper.GetGraphicsColor(Fluent.Color.Foreground.Black, Fluent.Color.Foreground.White);
