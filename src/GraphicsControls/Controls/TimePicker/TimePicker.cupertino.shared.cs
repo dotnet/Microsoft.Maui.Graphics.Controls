@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Graphics;
+using GraphicsControls.Effects;
 using GraphicsControls.Extensions;
 using GraphicsControls.Helpers;
 
@@ -58,8 +59,10 @@ namespace GraphicsControls
             var height = dirtyRect.Height;
             var width = dirtyRect.Width;
 
-            var date = new DateTime(Time.Ticks);
-            canvas.DrawString(date.ToString("HH:mm tt"), x, 0, width - margin, height, HorizontalAlignment.Left, VerticalAlignment.Center);
+            var time = TimePickerDialog.GetTime(this);
+            var date = new DateTime(time.Ticks);
+
+            canvas.DrawString(date.ToString(Format), x, 0, width - margin, height, HorizontalAlignment.Left, VerticalAlignment.Center);
 
             canvas.RestoreState();
         }

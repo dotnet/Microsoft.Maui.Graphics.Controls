@@ -74,8 +74,8 @@ namespace GraphicsControls
 
             canvas.SetShadow(new SizeF(1, 1), 2, CanvasDefaults.DefaultShadowColor);
 
-            canvas.FillOval(x, y, size, size);
-            canvas.DrawOval(x, y, size, size);
+            canvas.FillEllipse(x, y, size, size);
+            canvas.DrawEllipse(x, y, size, size);
 
             canvas.RestoreState();
 

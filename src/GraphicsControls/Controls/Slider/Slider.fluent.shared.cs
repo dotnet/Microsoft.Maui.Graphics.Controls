@@ -81,8 +81,8 @@ namespace GraphicsControls
 
             canvas.FillColor = ColorHelper.GetGraphicsColor(Fluent.Color.Foreground.White, Fluent.Color.Foreground.Black);
 
-            canvas.FillOval(x, y, size, size);
-            canvas.DrawOval(x, y, size, size);
+            canvas.FillEllipse(x, y, size, size);
+            canvas.DrawEllipse(x, y, size, size);
 
             canvas.RestoreState();
 
