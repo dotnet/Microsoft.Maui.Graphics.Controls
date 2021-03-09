@@ -207,7 +207,7 @@ Here you find a list of all controls with their (public) APIs and their status.
 | ----|:-------:|:---:|:-----:|
 | CheckedChanged  | ✅  | ✅  | ✅  |  
 | GroupName  | ✅  | ✅  | ✅  | 
-| IsChecked  | ✅  | ⚠️  | ✅  | 
+| IsChecked  | ✅  | ✅  | ✅  | 
 
 **Features**
 | Feature | Description |

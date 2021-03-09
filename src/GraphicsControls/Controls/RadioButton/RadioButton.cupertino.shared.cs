@@ -27,18 +27,21 @@ namespace GraphicsControls
 
         void DrawCupertinoRadioButtonMark(ICanvas canvas, RectangleF dirtyRect)
         {
-            canvas.SaveState();
+            if (IsChecked)
+            {
+                canvas.SaveState();
 
-            canvas.FillColor = BackgroundColor.ToGraphicsColor(Cupertino.Color.SystemColor.Light.Blue, Cupertino.Color.SystemColor.Dark.Blue);
+                canvas.FillColor = BackgroundColor.ToGraphicsColor(Cupertino.Color.SystemColor.Light.Blue, Cupertino.Color.SystemColor.Dark.Blue);
 
-            var x = 6;
-            var y = 7;
+                var x = 6;
+                var y = 7;
 
-            var size = 12;
+                var size = 12;
 
-            canvas.FillEllipse(x, y, size, size);
-
-            canvas.RestoreState();
+                canvas.FillEllipse(x, y, size, size);
+              
+                canvas.RestoreState();
+            }
         }
     }
 }
