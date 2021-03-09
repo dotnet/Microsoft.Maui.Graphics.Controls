@@ -61,7 +61,7 @@ Here you find a list of all controls with their (public) APIs and their status.
 | Pressed  | ✅  | ✅  | ✅  | 
 | Released  | ✅  | ✅  | ✅  | 
 | Text  | ✅  | ✅  | ✅  | 
-| TextColor  | ⚠️  | ⚠️  | ⚠️  | 
+| TextColor  | ✅  | ✅  | ✅  | 
 
 **Features**
 | Feature | Description |
@@ -118,13 +118,15 @@ Here you find a list of all controls with their (public) APIs and their status.
 | AutoSize  | ⚠️  | ⚠️  | ⚠️  |  
 | Completed  | ✅  | ✅  | ✅  | 
 | CharacterSpacing  | ⚠️  | ⚠️  | ⚠️  | 
-| FontAttributes  | ⚠️  | ⚠️  | ⚠️  |  
-| FontFamily  | ⚠️  | ⚠️  | ⚠️  | 
-| FontSize  | ⚠️  | ⚠️  | ⚠️  | 
+| FontAttributes  | ✅  | ✅  | ✅  |  
+| FontFamily  | ✅  | ✅  | ✅  | 
+| FontSize  | ✅  | ✅  | ✅  | 
 | IsReadOnly  | ⚠️  | ⚠️  | ⚠️  | 
-| IsTextPredictionEnabled  | ⚠️  | ⚠️  | ⚠️  | 
+| IsTextPredictionEnabled  | ✅  | ✅  | ✅  |
+| PlaceHolder  | ✅  | ✅  | ✅  | 
+| PlaceHolderColor  | ✅  | ✅  | ✅  | 
 | Text  | ✅  | ✅  | ✅  | 
-| TextColor  | ⚠️  | ⚠️  | ⚠️  | 
+| TextColor  | ✅  | ✅  | ✅  | 
 | MaxLength  | ⚠️  | ⚠️  | ⚠️  | 
 
 **Features**

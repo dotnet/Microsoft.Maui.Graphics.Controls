@@ -67,13 +67,40 @@ namespace GraphicsControls
         public static readonly BindableProperty PlaceholderColorProperty = InputElement.PlaceholderColorProperty;
 
         public static readonly BindableProperty FontAttributesProperty =
-            BindableProperty.Create(nameof(IFont.FontAttributes), typeof(FontAttributes), typeof(IFont), FontAttributes.None);
+           BindableProperty.Create(nameof(IFont.FontAttributes), typeof(FontAttributes), typeof(IFont), FontAttributes.None,
+               propertyChanged: OnFontAttributesChanged);
+
+        private static void OnFontAttributesChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            (bindable as Editor)?.UpdateFontAttributes();
+        }
 
         public static readonly BindableProperty FontFamilyProperty =
-            BindableProperty.Create(nameof(IFont.FontFamily), typeof(string), typeof(IFont), string.Empty);
+           BindableProperty.Create(nameof(IFont.FontFamily), typeof(string), typeof(IFont), string.Empty,
+               propertyChanged: OnFontFamilyChanged);
+
+        private static void OnFontFamilyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            (bindable as Editor)?.UpdateFontFamily();
+        }
 
         public static readonly BindableProperty FontSizeProperty =
-            BindableProperty.Create(nameof(IFont.FontSize), typeof(double), typeof(IInput), Device.GetNamedSize(NamedSize.Medium, typeof(Label)));
+           BindableProperty.Create(nameof(IFont.FontSize), typeof(double), typeof(IInput), Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
+               propertyChanged: OnFontSizeChanged);
+
+        private static void OnFontSizeChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            (bindable as Editor)?.UpdateFontSize();
+        }
+
+        public static readonly BindableProperty IsTextPredictionEnabledProperty =
+            BindableProperty.Create(nameof(IsTextPredictionEnabled), typeof(bool), typeof(Editor), true, BindingMode.Default,
+                  propertyChanged: OnIsTextPredictionEnabledChanged);
+
+        private static void OnIsTextPredictionEnabledChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            (bindable as Editor)?.UpdateIsTextPredictionEnabled();
+        }
 
         public string Text
         {
@@ -123,6 +150,12 @@ namespace GraphicsControls
             set { SetValue(FontSizeProperty, value); }
         }
 
+        public bool IsTextPredictionEnabled
+        {
+            get { return (bool)GetValue(IsTextPredictionEnabledProperty); }
+            set { SetValue(IsTextPredictionEnabledProperty, value); }
+        }
+
         public event EventHandler Completed;
 
         public List<string> EditorLayers = new List<string>
@@ -160,6 +193,10 @@ namespace GraphicsControls
             UpdateTextColor();
             UpdateCharacterSpacing();
             UpdateFlowDirection();
+            UpdateFontAttributes();
+            UpdateFontFamily();
+            UpdateFontSize();
+            UpdateIsTextPredictionEnabled();
         }
 
         public override void Unload()
@@ -348,6 +385,26 @@ namespace GraphicsControls
         void UpdateFlowDirection()
         {
             _editor.FlowDirection = FlowDirection;
+        }
+
+        void UpdateFontAttributes()
+        {
+            _editor.FontAttributes = FontAttributes;
+        }
+
+        void UpdateFontFamily()
+        {
+            _editor.FontFamily = FontFamily;
+        }
+
+        void UpdateFontSize()
+        {
+            _editor.FontSize = FontSize;
+        }
+
+        void UpdateIsTextPredictionEnabled()
+        {
+            _editor.IsTextPredictionEnabled = IsTextPredictionEnabled;
         }
     }
 }

@@ -68,6 +68,15 @@ namespace GraphicsControls
             (bindable as Entry)?.UpdateCharacterSpacing();
         }
 
+        public static readonly BindableProperty FontAttributesProperty =
+            BindableProperty.Create(nameof(IFont.FontAttributes), typeof(FontAttributes), typeof(IFont), FontAttributes.None);
+
+        public static readonly BindableProperty FontFamilyProperty =
+            BindableProperty.Create(nameof(IFont.FontFamily), typeof(string), typeof(IFont), string.Empty);
+
+        public static readonly BindableProperty FontSizeProperty =
+            BindableProperty.Create(nameof(IFont.FontSize), typeof(double), typeof(IInput), Device.GetNamedSize(NamedSize.Medium, typeof(Label)));
+
         public static readonly BindableProperty PlaceholderProperty = InputElement.PlaceholderProperty;
 
         public static readonly BindableProperty PlaceholderColorProperty = InputElement.PlaceholderColorProperty;

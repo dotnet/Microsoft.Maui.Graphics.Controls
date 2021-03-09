@@ -64,7 +64,7 @@ namespace GraphicsControls
                 canvas.SaveState();
 
                 if (IsEnabled)
-                    canvas.FontColor = ColorHelper.GetGraphicsColor(Fluent.Color.Foreground.Black, Fluent.Color.Foreground.White);
+                    canvas.FontColor = PlaceholderColor.ToGraphicsColor(Fluent.Color.Foreground.Black, Fluent.Color.Foreground.White);
                 else
                     canvas.FontColor = new GColor(Fluent.Color.Foreground.NeutralTertiary);
 
