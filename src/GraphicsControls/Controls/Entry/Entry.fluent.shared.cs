@@ -7,6 +7,8 @@ namespace GraphicsControls
 {
     public partial class Entry
     {
+        const string FluentEntryIndicatorIcon = "M6.84961 6L12 11.1504L11.1504 12L6 6.84961L0.849609 12L0 11.1504L5.15039 6L0 0.849609L0.849609 0L6 5.15039L11.1504 0L12 0.849609L6.84961 6Z";
+
         const float FluentEntryHeight = 32.0f;
 
         void DrawFluentEntryBackground(ICanvas canvas, RectangleF dirtyRect)
@@ -100,9 +102,7 @@ namespace GraphicsControls
                 canvas.Translate(tX, tY);
 
                 var vBuilder = new PathBuilder();
-                var path =
-                    vBuilder.BuildPath(
-                        "M6.84961 6L12 11.1504L11.1504 12L6 6.84961L0.849609 12L0 11.1504L5.15039 6L0 0.849609L0.849609 0L6 5.15039L11.1504 0L12 0.849609L6.84961 6Z");
+                var path = vBuilder.BuildPath(FluentEntryIndicatorIcon);
 
                 canvas.FillColor = BackgroundColor.ToGraphicsColor(Material.Color.Gray1, Material.Color.Gray6);
                 canvas.FillPath(path);
