@@ -143,9 +143,9 @@ Here you find a list of all controls with their (public) APIs and their status.
 | CharacterSpacing  | ⚠️  | ⚠️  | ⚠️  | 
 | Completed  | ⚠️  | ⚠️  | ⚠️  | 
 | CursorPosition  | ⚠️  | ⚠️  | ⚠️  |  
-| FontAttributes  | ⚠️  | ⚠️  | ⚠️  | 
-| FontFamily  | ⚠️  | ⚠️  | ⚠️  | 
-| FontSize  | ⚠️  | ⚠️  | ⚠️  | 
+| FontAttributes  | ✅  | ✅  | ✅  | 
+| FontFamily  | ✅  | ✅  | ✅  | 
+| FontSize  | ✅  | ✅  | ✅  | 
 | HorizontalTextAlignment  | ⚠️  | ⚠️  | ⚠️  | 
 | IsTextPredictionEnabled  | ⚠️  | ⚠️  | ⚠️  | 
 | IsPassword  | ⚠️  | ⚠️  | ⚠️  | 
