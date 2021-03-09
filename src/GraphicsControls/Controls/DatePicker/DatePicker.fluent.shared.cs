@@ -82,9 +82,9 @@ namespace GraphicsControls
             canvas.SaveState();
 
             if (IsEnabled)
-                canvas.FontColor = ColorHelper.GetGraphicsColor(Fluent.Color.Foreground.Black, Fluent.Color.Foreground.White);
+                canvas.FontColor = TextColor.ToGraphicsColor(Fluent.Color.Foreground.Black, Fluent.Color.Foreground.White);
             else
-                canvas.FontColor = ColorHelper.GetGraphicsColor(Fluent.Color.Foreground.NeutralTertiary, Fluent.Color.Foreground.White);
+                canvas.FontColor = TextColor.ToGraphicsColor(Fluent.Color.Foreground.NeutralTertiary, Fluent.Color.Foreground.White);
 
             canvas.FontSize = 14f;
 
@@ -95,7 +95,7 @@ namespace GraphicsControls
             var height = FluentDatePickerHeight;
             var width = dirtyRect.Width;
 
-            canvas.DrawString(Date.ToShortDateString(), x, 0, width - margin, height, HorizontalAlignment.Left, VerticalAlignment.Center);
+            canvas.DrawString(GetDate().ToShortDateString(), x, 0, width - margin, height, HorizontalAlignment.Left, VerticalAlignment.Center);
 
             canvas.RestoreState();
         }

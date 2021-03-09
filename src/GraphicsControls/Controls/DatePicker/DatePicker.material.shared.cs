@@ -81,7 +81,7 @@ namespace GraphicsControls
         {
             canvas.SaveState();
 
-            canvas.FontColor = ColorHelper.GetGraphicsColor(Material.Color.Dark, Material.Color.Light);
+            canvas.FontColor = TextColor.ToGraphicsColor(Material.Color.Dark, Material.Color.Light);
             canvas.FontSize = 16f;
 
             float margin = 12f;
@@ -99,7 +99,7 @@ namespace GraphicsControls
             var height = dirtyRect.Height;
             var width = dirtyRect.Width;
 
-            canvas.DrawString(Date.ToShortDateString(), x, 22f, width - margin, height, horizontalAlignment, VerticalAlignment.Top);
+            canvas.DrawString(GetDate().ToShortDateString(), x, 22f, width - margin, height, horizontalAlignment, VerticalAlignment.Top);
 
             canvas.RestoreState();
         }
