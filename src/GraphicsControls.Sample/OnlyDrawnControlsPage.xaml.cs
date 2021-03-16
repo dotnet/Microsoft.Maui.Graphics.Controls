@@ -3,9 +3,9 @@ using Xamarin.Forms;
 
 namespace GraphicsControls.Sample
 {
-    public partial class MainPage : ContentPage
+    public partial class OnlyDrawnControlsPage : ContentPage
     {
-        public MainPage()
+        public OnlyDrawnControlsPage()
         {
             InitializeComponent();
         }

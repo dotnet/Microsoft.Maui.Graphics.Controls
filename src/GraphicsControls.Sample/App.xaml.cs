@@ -8,7 +8,11 @@ namespace GraphicsControls.Sample
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            if (Device.RuntimePlatform == Device.GTK)
+                MainPage = new OnlyDrawnControlsPage();
+            else
+                MainPage = new MixedControlsPage();
+
             //MainPage = new NavigationPage(new BenchmarkPage());
         }
 

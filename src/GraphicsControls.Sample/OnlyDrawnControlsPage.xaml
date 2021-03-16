@@ -1,36 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     xmlns:graphics="clr-namespace:GraphicsControls;assembly=GraphicsControls" 
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
-    x:Class="GraphicsControls.Sample.MainPage"
+    x:Class="GraphicsControls.Sample.OnlyDrawnControlsPage"
     ios:Page.UseSafeArea="true"
-    BackgroundColor="White"
     Title="GraphicsControls">
-    <ScrollView
-        BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
-        <StackLayout
+    <ScrollView 
+        BackgroundColor="White">
+        <StackLayout     
             Padding="12">
             <graphics:BoxView
-                HeightRequest="100"
+                HeightRequest="60"
                 CornerRadius="12"
                 Color="LightSkyBlue"/>
-            <graphics:Frame
-                HeightRequest="100"
-                BorderColor="DarkBlue"
-                BackgroundColor="LightBlue"
-                CornerRadius="12, 0, 0, 24"
-                HasShadow="True">
-                <Grid>
-                    <Label
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center"
-                        FontSize="Large"
-                        Text="Frame"/>
-                </Grid>
-            </graphics:Frame>
-            <Label
+            <Label     
                 Text="Cupertino"
                 FontSize="Large"
                 Margin="0, 12, 0, 0"/>
@@ -45,17 +30,6 @@
             <graphics:CheckBox
                 VisualType="Cupertino"
                 Text="CheckBox"/>
-            <graphics:DatePicker
-                VisualType="Cupertino"
-                MinimumDate="01/01/2021"
-                MaximumDate="12/31/2021"
-                Date="01/02/2021"/>
-            <graphics:Editor
-                VisualType="Cupertino"
-                Placeholder="Placeholder"/>
-            <graphics:Entry
-                VisualType="Cupertino"
-                Placeholder="Placeholder"/>
             <graphics:ProgressBar
                 VisualType="Cupertino"
                 Progress="0.25"/>
@@ -73,8 +47,6 @@
                 Maximum="100"
                 Value="50"/>
             <graphics:Switch
-                VisualType="Cupertino"/>
-            <graphics:TimePicker
                 VisualType="Cupertino"/>
             <Label
                 Text="Fluent"
@@ -92,17 +64,6 @@
                 VisualType="Fluent"
                 IsChecked="True"
                 Text="CheckBox"/>
-            <graphics:DatePicker
-                VisualType="Fluent"
-                MinimumDate="01/01/2021"
-                MaximumDate="12/31/2021"
-                Date="01/02/2021"/>
-            <graphics:Editor
-                VisualType="Fluent"
-                Placeholder="Placeholder"/>
-            <graphics:Entry
-                VisualType="Fluent"
-                Placeholder="Placeholder"/>
             <graphics:ProgressBar
                 VisualType="Fluent"
                 Progress="0.25"/>
@@ -120,8 +81,6 @@
                 Maximum="100"
                 Value="50"/>
             <graphics:Switch
-                VisualType="Fluent"/>
-            <graphics:TimePicker
                 VisualType="Fluent"/>
             <Label
                 Text="Material"
@@ -137,17 +96,6 @@
                 Clicked="OnButtonClicked"/>
             <graphics:CheckBox
                 VisualType="Material"/>
-            <graphics:DatePicker
-                VisualType="Material"
-                MinimumDate="01/01/2021"
-                MaximumDate="12/31/2021"
-                Date="01/02/2021"/>
-            <graphics:Editor
-                VisualType="Material"
-                Placeholder="Placeholder"/>
-            <graphics:Entry
-                VisualType="Material"
-                Placeholder="Placeholder"/>
             <graphics:ProgressBar
                 VisualType="Material"
                 Progress="0.25"/>
@@ -165,8 +113,6 @@
                 Maximum="100"
                 Value="50"/>
             <graphics:Switch
-                VisualType="Material"/>
-            <graphics:TimePicker
                 VisualType="Material"/>
         </StackLayout>
     </ScrollView>

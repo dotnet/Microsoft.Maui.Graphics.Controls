@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.GTK;
+using Xamarin.Forms.Platform.GTK.Extensions;
 
 namespace GraphicsControls.Sample.GTK
 {
@@ -9,16 +10,19 @@ namespace GraphicsControls.Sample.GTK
         [STAThread]
         static void Main(string[] args)
         {
-            GtkOpenGL.Init();
             Gtk.Application.Init();
-            Forms.Init(); 
-            GraphicsControls.GTK.GraphicsViewRenderer.Init();
+            Forms.Init();
+            
             var app = new App();
             var window = new FormsWindow();
             window.LoadApplication(app);
             window.SetApplicationTitle("GraphicsControls");
+            //window.SetSize(800, 1000);
             window.Show();
+
             Gtk.Application.Run();
+
+            GraphicsControls.GTK.GraphicsViewRenderer.Init();
         }
     }
 }
