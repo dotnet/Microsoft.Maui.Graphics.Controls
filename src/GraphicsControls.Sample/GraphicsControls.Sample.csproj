@@ -20,4 +20,14 @@
   <ItemGroup>
     <Folder Include="Benchmark\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="MixedControlsPage.xaml.cs">
+      <DependentUpon>MixedControlsPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="OnlyDrawnControlsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>
