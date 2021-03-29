@@ -25,10 +25,10 @@ Soon, support will be added to:
 
 **NOTE:** Are you interested in having more information? You have a detailed [video](https://www.youtube.com/watch?v=hLcpAgWCHf4)!. 
 
-#### System.Graphics
+#### Microsoft.Maui.Graphics
 
-This project is using **System.Graphics**.
-[System.Graphics](https://github.com/jonlipsky/System.Graphics) is a cross-platform graphics library for iOS, Android, Windows, macOS and Linux completely in C#. With this library you can use a common API to target multiple abstractions allowing you to share your drawing code between platforms, or mix and match graphics implentations within a singular application.
+This project is using **Microsoft.Maui.Graphics**.
+[Microsoft.Maui.Graphics](https://github.com/dotnet/Microsoft.Maui.Graphics) is a cross-platform graphics library for iOS, Android, Windows, macOS and Linux completely in C#. With this library you can use a common API to target multiple abstractions allowing you to share your drawing code between platforms, or mix and match graphics implentations within a singular application.
 
 ## What controls are available?
 
@@ -37,6 +37,7 @@ Currently there are the following controls:
 * **BoxView**
 * **Button** (Cupertino, Fluent, Material)
 * **CheckBox** (Cupertino, Fluent, Material)
+* **DatePicker** (Cupertino, Fluent, Material)
 * **Editor** (Cupertino, Fluent, Material)
 * **Entry** (Cupertino, Fluent, Material)
 * **Frame**
@@ -45,10 +46,7 @@ Currently there are the following controls:
 * **Slider** (Cupertino, Fluent, Material)
 * **Stepper** (Cupertino, Fluent, Material)
 * **Switch** (Cupertino, Fluent, Material)
-
-Work in progress:
-* DatePicker (Cupertino, Fluent, Material)
-* TimePicker (Cupertino, Fluent, Material)
+* **TimePicker** (Cupertino, Fluent, Material)
 
 The controls have the same properties and events as those existing in Xamarin.Forms.  
 
