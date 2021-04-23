@@ -55,13 +55,10 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MainApplication.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -97,6 +94,18 @@
     <ProjectReference Include="..\GraphicsControls\GraphicsControls.csproj">
       <Project>{474A33AE-06A4-4219-9545-17751EBF3F84}</Project>
       <Name>GraphicsControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\maui\src\Core\src\Core.csproj">
+      <Project>{8EF59C96-7972-41C6-830B-59FC81B9AD7B}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\maui\src\Compatibility\Core\src\Android\Compatibility.Android.csproj">
+      <Project>{F602BE45-8096-4A38-BF1B-28EF078E51E1}</Project>
+      <Name>Compatibility.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\maui\src\Compatibility\Core\src\Android.FormsViewGroup\Compatibility.Android.FormsViewGroup.csproj">
+      <Project>{FDA97CEE-D0A1-48ED-B555-1E90B7CA1468}</Project>
+      <Name>Compatibility.Android.FormsViewGroup</Name>
     </ProjectReference>
   </ItemGroup>
  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

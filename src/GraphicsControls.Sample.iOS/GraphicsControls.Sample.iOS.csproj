@@ -123,13 +123,6 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
-    <PackageReference Include="Xamarin.Forms.Visual.Material">
-      <Version>4.8.0.1687</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\GraphicsControls.Sample\GraphicsControls.Sample.csproj">
       <Project>{41B421AF-5731-4B8F-BEDE-96155879D929}</Project>
       <Name>GraphicsControls.Sample</Name>
@@ -137,6 +130,14 @@
     <ProjectReference Include="..\GraphicsControls\GraphicsControls.csproj">
       <Project>{474A33AE-06A4-4219-9545-17751EBF3F84}</Project>
       <Name>GraphicsControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\maui\src\Core\src\Core.csproj">
+      <Project>{8EF59C96-7972-41C6-830B-59FC81B9AD7B}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\maui\src\Compatibility\Core\src\iOS\Compatibility.iOS.csproj">
+      <Project>{271193C1-6E7C-429C-A36D-3F1BE5267231}</Project>
+      <Name>Compatibility.iOS</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
