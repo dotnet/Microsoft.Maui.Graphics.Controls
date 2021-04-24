@@ -31,13 +31,13 @@ namespace Microsoft.Maui.Graphics.Controls
 		static readonly float hPadding = 8;
         static readonly float touchSize = 44f;
 
-		private static void MapDrawThumb(ICanvas canvas, RectangleF dirtyRect, ISliderDrawable drawable, ISlider view)
+		public static void MapDrawThumb(ICanvas canvas, RectangleF dirtyRect, ISliderDrawable drawable, ISlider view)
 			=> drawable.DrawThumb(canvas, dirtyRect, view);
 
 		public static void MapDrawTrackProgress(ICanvas canvas, RectangleF dirtyRect, ISliderDrawable drawable, ISlider view)
 			=> drawable.DrawTrackProgress(canvas, dirtyRect, view);
 
-		private static void MapDrawText(ICanvas canvas, RectangleF dirtyRect, ISliderDrawable drawable, ISlider view)
+		public static void MapDrawText(ICanvas canvas, RectangleF dirtyRect, ISliderDrawable drawable, ISlider view)
 			=> drawable.DrawText(canvas, dirtyRect, view);
 
 		bool isTracking = false;
