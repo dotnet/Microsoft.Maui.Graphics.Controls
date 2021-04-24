@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Maui.Graphics.Controls
+﻿using System.Linq;
+
+namespace Microsoft.Maui.Graphics.Controls
 {
     public class CheckBoxHandler : GraphicsControlHandler<ICheckBoxDrawable, ICheckBox>
     {
@@ -22,15 +24,18 @@
 
 		}
 
-		public override string[] LayerDrawingOrder()
-        {
-            throw new System.NotImplementedException();
-        }
+		public static string[] DefaultCheckBoxLayerDrawingOrder =
+			ViewHandler.DefaultLayerDrawingOrder.ToList().InsertAfter(new string[]
+			{
+				"Background",
+				"Mark",
+			}, "Text").ToArray();
 
-        protected override ICheckBoxDrawable CreateDrawable()
-        {
-            throw new System.NotImplementedException();
-		}
+		public override string[] LayerDrawingOrder() =>
+			DefaultCheckBoxLayerDrawingOrder;
+
+		protected override ICheckBoxDrawable CreateDrawable() =>
+			new MaterialCheckBoxDrawable();
 
 		public static void MapDrawBackground(ICanvas canvas, RectangleF dirtyRect, ICheckBoxDrawable drawable, ICheckBox view)
 			=> drawable.DrawBackground(canvas, dirtyRect, view);

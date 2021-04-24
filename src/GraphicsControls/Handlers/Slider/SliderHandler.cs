@@ -4,6 +4,8 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public class SliderHandler : GraphicsControlHandler<ISliderDrawable, ISlider>
 	{
+		bool _isTracking;
+
 		public static PropertyMapper<ISlider> PropertyMapper = new PropertyMapper<ISlider>(ViewHandler.Mapper)
 		{
 			Actions =
@@ -28,8 +30,18 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		}
 
-		static readonly float hPadding = 8;
-        static readonly float touchSize = 44f;
+		public static string[] DefaultSliderLayerDrawingOrder =
+			ViewHandler.DefaultLayerDrawingOrder.ToList().InsertAfter(new string[]
+			{
+				"TrackProgress",
+				"Thumb",
+			}, "Text").ToArray();
+
+		public override string[] LayerDrawingOrder() =>
+			DefaultSliderLayerDrawingOrder;
+
+		protected override ISliderDrawable CreateDrawable() =>
+			new MaterialSliderDrawable();
 
 		public static void MapDrawThumb(ICanvas canvas, RectangleF dirtyRect, ISliderDrawable drawable, ISlider view)
 			=> drawable.DrawThumb(canvas, dirtyRect, view);
@@ -40,17 +52,15 @@ namespace Microsoft.Maui.Graphics.Controls
 		public static void MapDrawText(ICanvas canvas, RectangleF dirtyRect, ISliderDrawable drawable, ISlider view)
 			=> drawable.DrawText(canvas, dirtyRect, view);
 
-		bool isTracking = false;
-
 		public override bool StartInteraction(PointF[] points)
 		{
-			isTracking = Drawable.TouchTargetRect.Contains(points);
+			_isTracking = Drawable.TouchTargetRect.Contains(points);
 			return base.StartInteraction(points);
 		}
 
 		public override void DragInteraction(PointF[] points)
 		{
-			if (!isTracking)
+			if (!_isTracking)
 				return;
 
 			if (VirtualView == null)
@@ -76,8 +86,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public override void EndInteraction(PointF[] points, bool inside)
 		{
-
-			isTracking = false;
+			_isTracking = false;
 			VirtualView?.DragCompleted();
 
 			base.EndInteraction(points, inside);
@@ -85,19 +94,8 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public override void CancelInteraction()
 		{
-			isTracking = false;
+			_isTracking = false;
 			base.CancelInteraction();
 		}
-
-		public static string[] DefaultSliderLayerDrawingOrder =
-			ViewHandler.DefaultLayerDrawingOrder.ToList().InsertAfter(new string[]
-			{
-				"TrackProgress",
-				"Thumb",
-			}, "Text").ToArray();
-
-		protected override ISliderDrawable CreateDrawable() => new MaterialSliderDrawable();
-
-		public override string[] LayerDrawingOrder() => DefaultSliderLayerDrawingOrder;
 	}
 }

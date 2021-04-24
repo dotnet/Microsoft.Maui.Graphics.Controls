@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Maui.Graphics.Controls
+﻿using System.Linq;
+
+namespace Microsoft.Maui.Graphics.Controls
 {
     public class SwitchHandler : GraphicsControlHandler<ISwitchDrawable, ISwitch>
     {
@@ -23,15 +25,17 @@
 
 		}
 
-		public override string[] LayerDrawingOrder()
-        {
-            throw new System.NotImplementedException();
-        }
+		public static string[] DefaultSwitchLayerDrawingOrder =
+			ViewHandler.DefaultLayerDrawingOrder.ToList().InsertAfter(new string[]
+			{
+				"Background",
+			}, "Thumb").ToArray();
 
-        protected override ISwitchDrawable CreateDrawable()
-        {
-            throw new System.NotImplementedException();
-		}
+		public override string[] LayerDrawingOrder() =>
+			DefaultSwitchLayerDrawingOrder;
+
+		protected override ISwitchDrawable CreateDrawable() =>
+			new MaterialSwitchDrawable();
 
 		public static void MapDrawBackground(ICanvas canvas, RectangleF dirtyRect, ISwitchDrawable drawable, ISwitch view)
 			=> drawable.DrawBackground(canvas, dirtyRect, view);

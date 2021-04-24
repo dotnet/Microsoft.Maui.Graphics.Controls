@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Maui.Graphics.Controls
+﻿using System.Linq;
+
+namespace Microsoft.Maui.Graphics.Controls
 {
     public class ProgressBarHandler : GraphicsControlHandler<IProgressBarDrawable, IProgress>
     {
@@ -21,15 +23,17 @@
 
 		}
 
-		public override string[] LayerDrawingOrder()
-        {
-            throw new System.NotImplementedException();
-        }
+		public static string[] DefaultProgressBarLayerDrawingOrder =
+			ViewHandler.DefaultLayerDrawingOrder.ToList().InsertAfter(new string[]
+			{
+				"Track",
+			}, "Progress").ToArray();
 
-        protected override IProgressBarDrawable CreateDrawable()
-        {
-            throw new System.NotImplementedException();
-		}
+		public override string[] LayerDrawingOrder() =>
+			DefaultProgressBarLayerDrawingOrder;
+
+		protected override IProgressBarDrawable CreateDrawable() =>
+			new MaterialProgressBarDrawable();
 
 		public static void MapDrawTrack(ICanvas canvas, RectangleF dirtyRect, IProgressBarDrawable drawable, IProgress view)
 			=> drawable.DrawTrack(canvas, dirtyRect, view);

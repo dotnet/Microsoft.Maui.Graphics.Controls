@@ -21,9 +21,7 @@ namespace Microsoft.Maui.Graphics.Controls
 		{
 			canvas.SaveState();
 
-			var slider = VirtualView;
-
-			canvas.FillColor = slider.MaximumTrackColor;
+			canvas.FillColor = VirtualView.MaximumTrackColor;
 
 			var x = dirtyRect.X;
 
@@ -45,14 +43,11 @@ namespace Microsoft.Maui.Graphics.Controls
 		{
 			canvas.SaveState();
 
-			var slider = VirtualView;
-
-
-			canvas.FillColor = slider.MinimumTrackColor;
+			canvas.FillColor = VirtualView.MinimumTrackColor;
 
 			var x = dirtyRect.X;
 
-			var value = ((double)slider.Value).Clamp(0, 1);
+			var value = ((double)VirtualView.Value).Clamp(0, 1);
 			stateDefaultValues.TryGetValue("TextSize", out var textSize);
 			var width = (float)((dirtyRect.Width - (float)textSize) * value);
 
@@ -69,16 +64,14 @@ namespace Microsoft.Maui.Graphics.Controls
 		{
 			canvas.SaveState();
 
-			var slider = VirtualView;
-
 			var size = 16f;
 			var strokeWidth = 2f;
 
-			canvas.StrokeColor = slider.ThumbColor;
+			canvas.StrokeColor = VirtualView.ThumbColor;
 
 			canvas.StrokeSize = strokeWidth;
 
-			var value = ((double)slider.Value).Clamp(0, 1);
+			var value = ((double)VirtualView.Value).Clamp(0, 1);
 			stateDefaultValues.TryGetValue("TextSize", out var textSize);
 			var x = (float)(((dirtyRect.Width - (float)textSize) * value) - (size / 2));
 

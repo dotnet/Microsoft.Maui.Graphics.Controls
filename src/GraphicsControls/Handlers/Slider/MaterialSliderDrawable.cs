@@ -12,9 +12,7 @@
 		{
 			canvas.SaveState();
 
-			var slider = VirtualView;
-
-			canvas.FillColor = slider.MaximumTrackColor;
+			canvas.FillColor = VirtualView.MaximumTrackColor;
 
 			var x = dirtyRect.X;
 
@@ -35,13 +33,11 @@
 		{
 			canvas.SaveState();
 
-			var slider = VirtualView;
-
-			canvas.FillColor = slider.MinimumTrackColor;
+			canvas.FillColor = VirtualView.MinimumTrackColor;
 
 			var x = dirtyRect.X;
 
-			var value = ((double)slider.Value).Clamp(0, 1);
+			var value = ((double)VirtualView.Value).Clamp(0, 1);
 			var width = (float)(dirtyRect.Width * value);
 
 			var height = 2;
@@ -59,9 +55,7 @@
 
 			canvas.SaveState();
 
-			var slider = VirtualView;
-
-			var value = ((double)slider.Value).Clamp(0, 1);
+			var value = ((double)VirtualView.Value).Clamp(0, 1);
 			var x = (float)((dirtyRect.Width * value) - (MaterialFloatThumb / 2));
 
 			if (x <= 0)
@@ -72,7 +66,7 @@
 
 			var y = (float)((dirtyRect.Height - MaterialFloatThumb) / 2);
 
-			canvas.FillColor = slider.ThumbColor;
+			canvas.FillColor = VirtualView.ThumbColor;
 
 			touchTargetRect.Center(new PointF(x, y));
 

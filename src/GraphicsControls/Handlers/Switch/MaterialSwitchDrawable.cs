@@ -2,14 +2,57 @@
 {
     public class MaterialSwitchDrawable : ViewDrawable<ISwitch>, ISwitchDrawable
     {
+        const float MaterialThumbOffPosition = 12f;
+        const float MaterialThumbOnPosition = 34f;
+        const float MaterialSwitchBackgroundWidth = 34;
+        const float MaterialSwitchBackgroundMargin = 5;
+
         public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ISwitch view)
         {
-            throw new System.NotImplementedException();
+            canvas.SaveState();
+
+            if (VirtualView.IsOn)
+            {
+                canvas.FillColor = VirtualView.TrackColor.WithDefault(Material.Color.LightBlue);
+                canvas.Alpha = 0.5f;
+            }
+            else
+            {
+                canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Material.Color.Gray2);
+                canvas.Alpha = 1.0f;
+            }
+
+            var margin = MaterialSwitchBackgroundMargin;
+
+            var x = dirtyRect.X + margin;
+            var y = dirtyRect.Y + margin;
+
+            var height = 14;
+            var width = MaterialSwitchBackgroundWidth;
+
+            canvas.FillRoundedRectangle(x, y, width, height, 10);
+
+            canvas.RestoreState();
         }
 
         public void DrawThumb(ICanvas canvas, RectangleF dirtyRect, ISwitch view)
         {
-            throw new System.NotImplementedException();
+            canvas.SaveState();
+
+            if (VirtualView.IsOn)
+                canvas.FillColor = VirtualView.ThumbColor.WithDefault(Material.Color.Blue);
+            else
+                canvas.FillColor = VirtualView.ThumbColor.WithDefault(Fluent.Color.Foreground.White);
+
+            var margin = 2;
+            var radius = 10;
+
+            var y = dirtyRect.Y + margin + radius;
+
+            canvas.SetShadow(new SizeF(0, 1), 2, CanvasDefaults.DefaultShadowColor);
+            canvas.FillCircle(MaterialThumbOffPosition, y, radius);
+
+            canvas.RestoreState();
         }
     }
 }

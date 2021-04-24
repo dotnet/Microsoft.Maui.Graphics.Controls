@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Maui.Graphics.Controls
+﻿using System.Linq;
+
+namespace Microsoft.Maui.Graphics.Controls
 {
     public class StepperHandler : GraphicsControlHandler<IStepperDrawable, IStepper>
     {
@@ -27,15 +29,20 @@
 
 		}
 
-		public override string[] LayerDrawingOrder()
-        {
-            throw new System.NotImplementedException();
-        }
+		public static string[] DefaultStepperLayerDrawingOrder =
+			ViewHandler.DefaultLayerDrawingOrder.ToList().InsertAfter(new string[]
+			{
+				"Background",
+				"Separator",
+				"Minus",
+				"Plus",
+			}, "Text").ToArray();
 
-        protected override IStepperDrawable CreateDrawable()
-        {
-            throw new System.NotImplementedException();
-		}
+		public override string[] LayerDrawingOrder() =>
+			DefaultStepperLayerDrawingOrder;
+
+		protected override IStepperDrawable CreateDrawable() =>
+			new MaterialStepperDrawable();
 
 		public static void MapDrawBackground(ICanvas canvas, RectangleF dirtyRect, IStepperDrawable drawable, IStepper view)
 			=> drawable.DrawBackground(canvas, dirtyRect, view);
