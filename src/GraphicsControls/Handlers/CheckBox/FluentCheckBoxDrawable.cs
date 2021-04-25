@@ -61,5 +61,8 @@
         {
 
         }
+
+        public override Size GetDesiredSize(IView view, double widthConstraint, double heightConstraint) =>
+            new Size(widthConstraint, 20f);
     }
 }

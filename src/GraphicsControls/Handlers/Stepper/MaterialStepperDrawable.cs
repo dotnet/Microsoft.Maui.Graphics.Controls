@@ -9,6 +9,10 @@
         const float MaterialStepperWidth = 110.0f;
         const float MaterialButtonMargin = 6.0f;
 
+        public RectangleF MinusRectangle { get; set; }
+
+        public RectangleF PlusRectangle { get; set; }
+
         public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IStepper view)
         {
         
@@ -38,6 +42,8 @@
             canvas.FillPath(path);
 
             canvas.RestoreState();
+
+            MinusRectangle = new RectangleF(x, y, width, height);
         }
 
         public void DrawPlus(ICanvas canvas, RectangleF dirtyRect, IStepper view)
@@ -64,6 +70,8 @@
             canvas.FillPath(path);
 
             canvas.RestoreState();
+
+            PlusRectangle = new RectangleF(x, y, width, height);
         }
 
         public void DrawSeparator(ICanvas canvas, RectangleF dirtyRect, IStepper view)

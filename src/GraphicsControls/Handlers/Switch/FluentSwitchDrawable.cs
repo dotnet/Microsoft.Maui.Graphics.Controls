@@ -42,9 +42,13 @@
 
             var y = dirtyRect.Y + margin + radius;
 
-            canvas.FillCircle(FluentThumbOffPosition, y, radius);
+            var fluentThumbPosition = VirtualView.IsOn ? FluentThumbOnPosition : FluentThumbOffPosition;
+            canvas.FillCircle(fluentThumbPosition, y, radius);
 
             canvas.RestoreState();
         }
+
+        public override Size GetDesiredSize(IView view, double widthConstraint, double heightConstraint) =>
+            new Size(widthConstraint, 20f);
     }
 }

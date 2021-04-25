@@ -6,6 +6,10 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public class CupertinoSliderDrawable : ViewDrawable<ISlider>, ISliderDrawable
 	{
+		const string DefaultCupertinoSliderTrackBackgroundColor = "#8E8E93";
+		const string DefaultCupertinoSliderTrackProgressColor = "#007AFF";
+		const string DefaultCupertinoSliderThumbColor = "#161313";
+
 		static readonly Dictionary<string, object> stateDefaultValues = new Dictionary<string, object>
 		{
 			["TextSize"] = 36f
@@ -21,7 +25,7 @@ namespace Microsoft.Maui.Graphics.Controls
 		{
 			canvas.SaveState();
 
-			canvas.FillColor = VirtualView.MaximumTrackColor;
+			canvas.FillColor = VirtualView.MaximumTrackColor.WithDefault(DefaultCupertinoSliderTrackBackgroundColor);
 
 			var x = dirtyRect.X;
 
@@ -42,11 +46,11 @@ namespace Microsoft.Maui.Graphics.Controls
 		{
 			canvas.SaveState();
 
-			canvas.FillColor = VirtualView.MinimumTrackColor;
+			canvas.FillColor = VirtualView.MinimumTrackColor.WithDefault(DefaultCupertinoSliderTrackProgressColor);
 
 			var x = dirtyRect.X;
 
-			var value = ((double)VirtualView.Value).Clamp(0, 1);
+			var value = ((double)VirtualView.Value).Clamp(VirtualView.Minimum, VirtualView.Maximum);
 
 			stateDefaultValues.TryGetValue("TextSize", out var textSize);
 			var width = (float)((dirtyRect.Width - (float)textSize) * value);
@@ -67,11 +71,11 @@ namespace Microsoft.Maui.Graphics.Controls
 			var size = 16f;
 			var strokeWidth = 2f;
 
-			canvas.StrokeColor = VirtualView.ThumbColor;
+			canvas.StrokeColor = VirtualView.ThumbColor.WithDefault(DefaultCupertinoSliderThumbColor);
 
 			canvas.StrokeSize = strokeWidth;
 
-			var value = ((double)VirtualView.Value).Clamp(0, 1);
+			var value = (double)VirtualView.Value;
 			stateDefaultValues.TryGetValue("TextSize", out var textSize);
 			var x = (float)(((dirtyRect.Width - (float)textSize) * value) - (size / 2));
 

@@ -38,9 +38,15 @@
             var y = dirtyRect.Y + margin + radius;
 
             canvas.SetShadow(new SizeF(0, 1), 2, CanvasDefaults.DefaultShadowColor);
-            canvas.FillCircle(CupertinoThumbOffPosition, y, radius);
+
+            var cupertinoThumbPosition = VirtualView.IsOn ? CupertinoThumbOnPosition : CupertinoThumbOffPosition;
+
+            canvas.FillCircle(cupertinoThumbPosition, y, radius);
 
             canvas.RestoreState();
         }
+
+        public override Size GetDesiredSize(IView view, double widthConstraint, double heightConstraint) =>
+            new Size(widthConstraint, 30f);
     }
 }

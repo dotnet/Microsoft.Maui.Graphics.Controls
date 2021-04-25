@@ -3,37 +3,44 @@
 namespace Microsoft.Maui.Graphics.Controls
 {
 	public abstract partial class GraphicsControlHandler<TViewDrawable, TVirtualView> : IGraphicsControl
-	 where TVirtualView : class, IView
-	 where TViewDrawable : class, IViewDrawable
+		where TVirtualView : class, IView
+		where TViewDrawable : class, IViewDrawable
 	{
 		TViewDrawable? _drawable;
-		protected readonly DrawMapper drawMapper;
+		protected readonly DrawMapper _drawMapper;
+		ControlState _currentState = ControlState.Default;
 
 		protected GraphicsControlHandler() : base(ViewHandler.Mapper)
 		{
-			drawMapper = ViewHandler.DrawMapper;
+			_drawMapper = ViewHandler.DrawMapper;
 		}
 
 		protected GraphicsControlHandler(DrawMapper? drawMapper, PropertyMapper mapper) : base(mapper ?? ViewHandler.Mapper)
 		{
-			drawMapper ??= new DrawMapper<TViewDrawable, TVirtualView>(ViewHandler.DrawMapper);
+			_drawMapper = drawMapper ?? new DrawMapper<TViewDrawable, TVirtualView>(ViewHandler.DrawMapper);
 		}
+
+		DrawMapper IGraphicsControl.DrawMapper => _drawMapper;
+
+		public RectangleF Bounds { get; private set; }
+
+		public bool TouchEnabled { get; set; } = true;
+
+		protected PointF CurrentTouchPoint { get; set; }
 
 		public bool PointsContained(PointF[] points) => points.Any(p => Bounds.BoundsContains(p));
 
-		protected PointF CurrentTouchPoint { get; set; }
-		ControlState currentState = ControlState.Default;
-
 		public ControlState CurrentState
 		{
-			get => VirtualView!.IsEnabled ? currentState : ControlState.Disabled;
+			get => VirtualView!.IsEnabled ? _currentState : ControlState.Disabled;
 			set
 			{
-				if (currentState == value)
+				if (_currentState == value)
 					return;
 
-				currentState = value;
+				_currentState = value;
 				Drawable.CurrentState = value;
+
 				ControlStateChanged();
 				Invalidate();
 			}
@@ -64,12 +71,12 @@ namespace Microsoft.Maui.Graphics.Controls
 		{
 			CurrentTouchPoint = points.FirstOrDefault();
 			CurrentState = ControlState.Pressed;
+
 			return true;
 		}
 
 		public virtual void DragInteraction(PointF[] points)
 		{
-
 			CurrentTouchPoint = points.FirstOrDefault();
 		}
 
@@ -81,7 +88,6 @@ namespace Microsoft.Maui.Graphics.Controls
 		public virtual void CancelInteraction()
 		{
 			CurrentState = ControlState.Default;
-
 		}
 
 		protected virtual void ControlStateChanged()
@@ -96,10 +102,6 @@ namespace Microsoft.Maui.Graphics.Controls
 		public override Size GetDesiredSize(double widthConstraint, double heightConstraint) =>
 			Drawable.GetDesiredSize(VirtualView!, widthConstraint, heightConstraint);
 
-		public RectangleF Bounds { get; private set; }
-
-		public bool TouchEnabled { get; set; } = true;
-
 		public override void SetVirtualView(IView view)
 		{
 			base.SetVirtualView(view);
@@ -109,7 +111,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public virtual void Draw(ICanvas canvas, RectangleF dirtyRect)
 		{
-			if (VirtualView == null || drawMapper == null)
+			if (VirtualView == null || _drawMapper == null)
 				return;
 
 			canvas.SaveState();
@@ -119,14 +121,12 @@ namespace Microsoft.Maui.Graphics.Controls
 
 			foreach (var layer in layers)
 			{
-				drawMapper?.DrawLayer(canvas, rect, Drawable, VirtualView, layer);
+				_drawMapper?.DrawLayer(canvas, rect, Drawable, VirtualView, layer);
 			}
 
 			canvas.ResetState();
 		}
 
 		public abstract string[] LayerDrawingOrder();
-
-		DrawMapper IGraphicsControl.DrawMapper => drawMapper;
 	}
 }

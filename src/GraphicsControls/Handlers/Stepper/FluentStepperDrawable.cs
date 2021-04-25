@@ -8,6 +8,10 @@
         const float FluentStepperHeight = 32.0f;
         const float FluentChevronSize = 14.0f;
 
+        public RectangleF MinusRectangle { get; set; }
+
+        public RectangleF PlusRectangle { get; set; }
+
         public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IStepper view)
         {
             canvas.SaveState();
@@ -49,6 +53,9 @@
             canvas.FillPath(path);
 
             canvas.RestoreState();
+
+            var touchMargin = 12;
+            MinusRectangle = new RectangleF(tX - touchMargin, FluentStepperHeight / 2, FluentStepperHeight / 2 + touchMargin, FluentStepperHeight / 2);
         }
 
         public void DrawPlus(ICanvas canvas, RectangleF dirtyRect, IStepper view)
@@ -72,6 +79,9 @@
             canvas.FillPath(path);
 
             canvas.RestoreState();
+
+            var touchMargin = 12;
+            PlusRectangle = new RectangleF(tX - touchMargin, 0, FluentStepperHeight / 2 + touchMargin, FluentStepperHeight / 2);
         }
 
         public void DrawSeparator(ICanvas canvas, RectangleF dirtyRect, IStepper view)

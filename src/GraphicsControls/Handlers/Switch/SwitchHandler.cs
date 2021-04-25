@@ -29,7 +29,8 @@ namespace Microsoft.Maui.Graphics.Controls
 			ViewHandler.DefaultLayerDrawingOrder.ToList().InsertAfter(new string[]
 			{
 				"Background",
-			}, "Thumb").ToArray();
+				"Thumb"
+			}, "Text").ToArray();
 
 		public override string[] LayerDrawingOrder() =>
 			DefaultSwitchLayerDrawingOrder;
@@ -42,5 +43,16 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public static void MapDrawThumb(ICanvas canvas, RectangleF dirtyRect, ISwitchDrawable drawable, ISwitch view)
 			=> drawable.DrawThumb(canvas, dirtyRect, view);
-	}
+
+        public override bool StartInteraction(PointF[] points)
+		{
+			if (VirtualView != null)
+			{
+				VirtualView.IsOn = !VirtualView.IsOn;
+				Invalidate();
+			}
+
+			return base.StartInteraction(points);
+        }
+    }
 }

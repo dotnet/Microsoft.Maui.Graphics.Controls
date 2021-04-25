@@ -8,6 +8,10 @@
         const float CupertinoStepperHeight = 28.0f;
         const float CupertinoStepperWidth = 100.0f;
 
+        public RectangleF MinusRectangle { get; set; }
+
+        public RectangleF PlusRectangle { get; set; }
+
         public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IStepper view)
         {
             canvas.SaveState();
@@ -42,6 +46,8 @@
             canvas.FillPath(path);
 
             canvas.RestoreState();
+
+            MinusRectangle = new RectangleF(tX, tY, CupertinoStepperHeight / 2, CupertinoStepperHeight / 2);
         }
 
         public void DrawPlus(ICanvas canvas, RectangleF dirtyRect, IStepper view)
@@ -61,6 +67,8 @@
             canvas.FillPath(path);
 
             canvas.RestoreState();
+
+            PlusRectangle = new RectangleF(tX, tY, CupertinoStepperHeight / 2, CupertinoStepperHeight / 2);
         }
 
         public void DrawSeparator(ICanvas canvas, RectangleF dirtyRect, IStepper view)

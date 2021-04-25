@@ -58,5 +58,21 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public static void MapDrawText(ICanvas canvas, RectangleF dirtyRect, IStepperDrawable drawable, IStepper view)
 			=> drawable.DrawText(canvas, dirtyRect, view);
-	}
+
+        public override bool StartInteraction(PointF[] points)
+		{
+			if (VirtualView == null)
+				return false;
+
+			var point = points[0];
+
+			if (Drawable.MinusRectangle.Contains(point))
+				VirtualView.Value -= VirtualView.Interval;
+
+			if (Drawable.PlusRectangle.Contains(point))
+				VirtualView.Value += VirtualView.Interval;
+
+			return base.StartInteraction(points);
+        }
+    }
 }

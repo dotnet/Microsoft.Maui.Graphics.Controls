@@ -50,9 +50,14 @@
             var y = dirtyRect.Y + margin + radius;
 
             canvas.SetShadow(new SizeF(0, 1), 2, CanvasDefaults.DefaultShadowColor);
-            canvas.FillCircle(MaterialThumbOffPosition, y, radius);
+
+            var materialThumbPosition = VirtualView.IsOn ? MaterialThumbOnPosition : MaterialThumbOffPosition;
+            canvas.FillCircle(materialThumbPosition, y, radius);
 
             canvas.RestoreState();
         }
+
+        public override Size GetDesiredSize(IView view, double widthConstraint, double heightConstraint) =>
+            new Size(widthConstraint, 24f);
     }
 }

@@ -2,8 +2,8 @@
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public class CheckBoxHandler : GraphicsControlHandler<ICheckBoxDrawable, ICheckBox>
-    {
+	public class CheckBoxHandler : GraphicsControlHandler<ICheckBoxDrawable, ICheckBox>
+	{
 		public static PropertyMapper<ICheckBox> PropertyMapper = new PropertyMapper<ICheckBox>(ViewHandler.Mapper)
 		{
 			Actions =
@@ -45,5 +45,13 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public static void MapDrawText(ICanvas canvas, RectangleF dirtyRect, ICheckBoxDrawable drawable, ICheckBox view)
 			=> drawable.DrawText(canvas, dirtyRect, view);
+
+		public override bool StartInteraction(PointF[] points)
+		{
+			if (VirtualView != null)
+				VirtualView.IsChecked = !VirtualView.IsChecked;
+
+			return base.StartInteraction(points);
+		}
 	}
 }

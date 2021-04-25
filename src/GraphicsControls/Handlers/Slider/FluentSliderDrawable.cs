@@ -21,7 +21,7 @@ namespace Microsoft.Maui.Graphics.Controls
 		{
 			canvas.SaveState();
 
-			canvas.FillColor = VirtualView.MaximumTrackColor;
+			canvas.FillColor = VirtualView.MaximumTrackColor.WithDefault(Fluent.Color.Primary.ThemeLight);
 
 			var x = dirtyRect.X;
 
@@ -43,11 +43,11 @@ namespace Microsoft.Maui.Graphics.Controls
 		{
 			canvas.SaveState();
 
-			canvas.FillColor = VirtualView.MinimumTrackColor;
+			canvas.FillColor = VirtualView.MinimumTrackColor.WithDefault(Fluent.Color.Primary.ThemePrimary);
 
 			var x = dirtyRect.X;
 
-			var value = ((double)VirtualView.Value).Clamp(0, 1);
+			var value = ((double)VirtualView.Value).Clamp(VirtualView.Minimum, VirtualView.Maximum);
 			stateDefaultValues.TryGetValue("TextSize", out var textSize);
 			var width = (float)((dirtyRect.Width - (float)textSize) * value);
 
@@ -67,11 +67,11 @@ namespace Microsoft.Maui.Graphics.Controls
 			var size = 16f;
 			var strokeWidth = 2f;
 
-			canvas.StrokeColor = VirtualView.ThumbColor;
+			canvas.StrokeColor = VirtualView.ThumbColor.WithDefault(Fluent.Color.Primary.ThemePrimary);
 
 			canvas.StrokeSize = strokeWidth;
 
-			var value = ((double)VirtualView.Value).Clamp(0, 1);
+			var value = (double)VirtualView.Value;
 			stateDefaultValues.TryGetValue("TextSize", out var textSize);
 			var x = (float)(((dirtyRect.Width - (float)textSize) * value) - (size / 2));
 
@@ -99,7 +99,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
 			var slider = VirtualView;
 
-			canvas.FontColor = Colors.Black;
+			canvas.FontColor = Fluent.Color.Foreground.Black.ToColor();
 			canvas.FontSize = 14f;
 
 			var height = dirtyRect.Height;
@@ -119,7 +119,7 @@ namespace Microsoft.Maui.Graphics.Controls
 			canvas.RestoreState();
 		}
 
-		public override Size GetDesiredSize(IView view, double widthConstraint, double heightConstraint) => new Size(widthConstraint,20f);
-
+		public override Size GetDesiredSize(IView view, double widthConstraint, double heightConstraint) =>
+			new Size(widthConstraint, 20f);
 	}
 }

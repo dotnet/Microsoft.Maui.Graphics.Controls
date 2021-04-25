@@ -27,7 +27,8 @@ namespace Microsoft.Maui.Graphics.Controls
 			ViewHandler.DefaultLayerDrawingOrder.ToList().InsertAfter(new string[]
 			{
 				"Track",
-			}, "Progress").ToArray();
+				"Progress",
+			}, "Text").ToArray();
 
 		public override string[] LayerDrawingOrder() =>
 			DefaultProgressBarLayerDrawingOrder;

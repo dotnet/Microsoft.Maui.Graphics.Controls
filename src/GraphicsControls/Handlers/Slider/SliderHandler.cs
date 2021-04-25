@@ -55,6 +55,9 @@ namespace Microsoft.Maui.Graphics.Controls
 		public override bool StartInteraction(PointF[] points)
 		{
 			_isTracking = Drawable.TouchTargetRect.Contains(points);
+
+			UpdateValue(points[0]);
+
 			return base.StartInteraction(points);
 		}
 
@@ -68,18 +71,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
 			VirtualView.DragStarted();
 
-			// Only track the first point;
-			var point = points[0];
-			var TrackRect = Drawable.TrackRect;
-			var progress = (point.X - TrackRect.X) / TrackRect.Width;
-
-
-			var min = VirtualView.Minimum;
-			var max = VirtualView.Maximum;
-
-			var value = min + (max - min) * progress;
-
-			VirtualView.Value = value;
+			UpdateValue(points[0]);
 
 			base.DragInteraction(points);
 		}
@@ -96,6 +88,15 @@ namespace Microsoft.Maui.Graphics.Controls
 		{
 			_isTracking = false;
 			base.CancelInteraction();
+		}
+
+		void UpdateValue(PointF point)
+		{
+			if (VirtualView == null)
+				return;
+
+			var trackRect = Drawable.TrackRect;
+			VirtualView.Value = (point.X - trackRect.X) * VirtualView.Maximum / trackRect.Width;
 		}
 	}
 }

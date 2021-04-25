@@ -11,7 +11,7 @@
             canvas.FillColor = Material.Color.Blue.ToColor();
 
             var x = dirtyRect.X;
-            var y = (float)((VirtualView.Height - MaterialTrackHeight) / 2);
+            var y = (float)((dirtyRect.Height - MaterialTrackHeight) / 2);
 
             var width = dirtyRect.Width;
 
@@ -27,7 +27,7 @@
             canvas.FillColor = Fluent.Color.Background.NeutralLight.ToColor();
 
             var x = dirtyRect.X;
-            var y = (float)((VirtualView.Height - MaterialTrackHeight) / 2);
+            var y = (float)((dirtyRect.Height - MaterialTrackHeight) / 2);
 
             var width = dirtyRect.Width;
 
@@ -35,5 +35,8 @@
 
             canvas.RestoreState();
         }
+
+        public override Size GetDesiredSize(IView view, double widthConstraint, double heightConstraint) =>
+            new Size(widthConstraint, 12f);
     }
 }
