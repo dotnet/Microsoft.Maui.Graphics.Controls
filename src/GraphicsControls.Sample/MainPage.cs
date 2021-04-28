@@ -12,6 +12,9 @@ namespace Microsoft.Maui.Graphics.Controls
 
             verticalStack.Add(new Label { FontSize = 24, Text = "Microsoft.Maui.Graphics.Controls", Margin = new Thickness(0, 24) });
 
+            verticalStack.Add(new Label { Text = "Button" });
+            verticalStack.Add(new Button { Text = "Button" });
+
             verticalStack.Add(new Label { Text = "CheckBox" });
             verticalStack.Add(new CheckBox { IsChecked = true });
 

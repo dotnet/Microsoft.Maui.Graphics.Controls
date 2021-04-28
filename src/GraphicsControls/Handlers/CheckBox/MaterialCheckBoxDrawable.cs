@@ -3,7 +3,7 @@
     public class MaterialCheckBoxDrawable : ViewDrawable<ICheckBox>, ICheckBoxDrawable
     {
         const string MaterialCheckBoxMark = "M13.3516 1.35156L5 9.71094L0.648438 5.35156L1.35156 4.64844L5 8.28906L12.6484 0.648438L13.3516 1.35156Z";
-
+    
         public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ICheckBox view)
         {
             canvas.SaveState();

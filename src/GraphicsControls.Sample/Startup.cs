@@ -14,6 +14,7 @@ namespace Microsoft.Maui.Graphics.Controls
 				.UseFormsCompatibility()
 				.ConfigureMauiHandlers((_, handlersCollection) => handlersCollection.AddHandlers(new Dictionary<Type, Type>
 				{
+					{ typeof(IButton), typeof(ButtonHandler) },
 					{ typeof(ICheckBox), typeof(CheckBoxHandler) },
 					{ typeof(IProgress), typeof(ProgressBarHandler) },
 					{ typeof(ISlider), typeof(SliderHandler) },
