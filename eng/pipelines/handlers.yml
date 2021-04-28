@@ -1,0 +1,107 @@
+trigger:
+  branches:
+    include:
+    - main
+    - release/*
+  tags:
+    include:
+    - '*'
+  paths:
+    include:
+    - '*'
+    exclude:
+    - .github/*
+    - docs/*
+    - CODE-OF-CONDUCT.md
+    - CONTRIBUTING.md
+    - LICENSE.TXT
+    - PATENTS.TXT
+    - README.md
+    - SECURITY.md
+    - THIRD-PARTY-NOTICES.TXT
+
+pr:
+  branches:
+    include:
+    - main
+    - release/*
+  paths:
+    include:
+    - '*'
+    exclude:
+    - .github/*
+    - docs/*
+    - CODE-OF-CONDUCT.md
+    - CONTRIBUTING.md
+    - LICENSE.TXT
+    - PATENTS.TXT
+    - README.md
+    - SECURITY.md
+    - THIRD-PARTY-NOTICES.TXT
+
+schedules:
+- cron: "0 0 * * *"
+  displayName: Daily midnight build
+  branches:
+    include:
+    - main
+
+variables:
+  - template: /eng/pipelines/common/variables.yml
+
+parameters:
+  - name: BuildEverything
+    type: boolean
+    default: false
+  - name: BuildConfigurations
+    type: object
+    default:
+      - Debug
+      - Release
+
+resources:
+  repositories:
+    - repository: xamarin-templates
+      type: github
+      name: xamarin/yaml-templates
+      endpoint: xamarin
+      ref: refs/heads/main
+
+stages:
+
+  - stage: build_windows
+    displayName: Build Windows
+    dependsOn: []
+    jobs:
+      - ${{ each BuildCondition in parameters.BuildConfigurations }}:
+        - job: win_hosted_${{ BuildCondition }}
+          workspace:
+            clean: all
+          displayName: Build Windows Phase (${{ BuildCondition }})
+          timeoutInMinutes: 60
+          pool:
+            name: $(winVmPool)
+            vmImage: $(winVmImage)
+            demands: [ msbuild ]
+          steps:
+            - task: MSBuild@1
+              inputs:
+                solution: '**/GraphicsControls.Windows.sln'
+                configuration: {{ BuildCondition }}
+
+
+  # only sign using the private server
+  # - ${{ if eq(variables['System.TeamProject'], 'devdiv') }}:
+  #   - stage: nuget_signing
+  #     dependsOn: build_windows
+  #     displayName: Sign Nuget
+  #     jobs:
+  #       - template: sign-artifacts/jobs/v2.yml@xamarin-templates
+  #         parameters:
+  #           teamName: Maui
+  #           usePipelineArtifactTasks: false
+  #           targetFolder: $(Build.ArtifactStagingDirectory)/nuget/signed
+  #           signedArtifactName: nuget
+  #           signedArtifactPath: signed
+  #           displayName: Sign Phase
+  #           condition: and(succeeded(), ne(variables['signVmImage'], ''), or(eq(variables['Sign'], 'true'), or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), startsWith(variables['Build.SourceBranch'],'refs/tags/'))))
