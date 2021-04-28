@@ -8,7 +8,10 @@
         {
             canvas.SaveState();
 
-            canvas.FillColor = Material.Color.Blue.ToColor();
+            if (VirtualView.IsEnabled)
+                canvas.FillColor = Material.Color.Blue.ToColor();
+            else
+                canvas.FillColor = Material.Color.Gray3.ToColor();
 
             var x = dirtyRect.X;
             var y = (float)((dirtyRect.Height - MaterialTrackHeight) / 2);
@@ -24,7 +27,7 @@
         {
             canvas.SaveState();
 
-            canvas.FillColor = Fluent.Color.Background.NeutralLight.ToColor();
+            canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Fluent.Color.Background.NeutralLight);
 
             var x = dirtyRect.X;
             var y = (float)((dirtyRect.Height - MaterialTrackHeight) / 2);

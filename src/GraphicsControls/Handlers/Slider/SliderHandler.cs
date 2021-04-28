@@ -54,6 +54,9 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public override bool StartInteraction(PointF[] points)
 		{
+			if (VirtualView == null || !VirtualView.IsEnabled)
+				return false;
+
 			_isTracking = Drawable.TouchTargetRect.Contains(points);
 
 			UpdateValue(points[0]);
@@ -66,7 +69,7 @@ namespace Microsoft.Maui.Graphics.Controls
 			if (!_isTracking)
 				return;
 
-			if (VirtualView == null)
+			if (VirtualView == null || !VirtualView.IsEnabled)
 				return;
 
 			VirtualView.DragStarted();

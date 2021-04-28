@@ -9,7 +9,7 @@
         {
             canvas.SaveState();
 
-            canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Material.Color.Blue);
+            canvas.FillColor = VirtualView.BackgroundColor.WithDefault(VirtualView.IsEnabled ? Material.Color.Blue : Material.Color.Gray3);
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
@@ -26,7 +26,9 @@
             canvas.SaveState();
 
             canvas.FontName = "Roboto";
-            canvas.FontColor = VirtualView.TextColor.WithDefault(Material.Color.White);
+
+            canvas.FontColor = VirtualView.TextColor.WithDefault(VirtualView.IsEnabled ? Material.Color.White : Material.Color.Gray1);
+
             canvas.FontSize = Material.Font.Button;
 
             var x = dirtyRect.X;

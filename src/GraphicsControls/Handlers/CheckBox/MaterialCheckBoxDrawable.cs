@@ -15,7 +15,11 @@
 
             if (VirtualView.IsChecked)
             {
-                canvas.FillColor = Material.Color.Blue.ToColor();
+                if (VirtualView.IsEnabled)
+                    canvas.FillColor = Material.Color.Blue.ToColor();
+                else
+                    canvas.FillColor = Material.Color.Gray3.ToColor();
+
                 canvas.FillRoundedRectangle(x, y, size, size, 2);
             }
             else
@@ -41,7 +45,11 @@
                 var vBuilder = new PathBuilder();
                 var path = vBuilder.BuildPath(MaterialCheckBoxMark);
 
-                canvas.StrokeColor = Colors.White;
+                if (VirtualView.IsEnabled)
+                    canvas.StrokeColor = Material.Color.White.ToColor();
+                else
+                    canvas.StrokeColor = Material.Color.Gray1.ToColor();
+
                 canvas.DrawPath(path);
 
                 canvas.RestoreState();

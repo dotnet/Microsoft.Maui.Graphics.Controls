@@ -8,6 +8,7 @@
         const float MaterialStepperHeight = 40.0f;
         const float MaterialStepperWidth = 110.0f;
         const float MaterialButtonMargin = 6.0f;
+        const float MaterialButtonCornerRadius = 6.0f;
 
         public RectangleF MinusRectangle { get; set; }
 
@@ -15,7 +16,28 @@
 
         public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IStepper view)
         {
-        
+            canvas.SaveState();
+
+            canvas.StrokeSize = 1;
+            canvas.FillColor = VirtualView.BackgroundColor.WithDefault(VirtualView.IsEnabled ? Material.Color.White : Material.Color.Gray6);
+
+            var x = dirtyRect.X;
+            var y = dirtyRect.Y;
+
+            var height = MaterialStepperHeight;
+            var width = MaterialStepperWidth / 2;
+
+            canvas.FillRoundedRectangle(x, y, width, height, MaterialButtonCornerRadius);
+
+            x = MaterialStepperWidth / 2 + MaterialButtonMargin;
+            y = dirtyRect.Y;
+
+            height = MaterialStepperHeight;
+            width = MaterialStepperWidth / 2;
+
+            canvas.FillRoundedRectangle(x, y, width, height, MaterialButtonCornerRadius);     
+
+            canvas.RestoreState();
         }
 
         public void DrawMinus(ICanvas canvas, RectangleF dirtyRect, IStepper view)
@@ -31,14 +53,18 @@
             var height = MaterialStepperHeight;
             var width = MaterialStepperWidth / 2;
 
-            canvas.DrawRoundedRectangle(x, y, width, height, 6);
+            canvas.DrawRoundedRectangle(x, y, width, height, MaterialButtonCornerRadius);
 
             canvas.Translate(20, 20);
 
             var vBuilder = new PathBuilder();
             var path = vBuilder.BuildPath(MaterialStepperMinusIcon);
 
-            canvas.FillColor = Material.Color.Black.ToColor();
+            if (VirtualView.IsEnabled)
+                canvas.FillColor = Material.Color.Black.ToColor();
+            else
+                canvas.FillColor = Material.Color.Gray3.ToColor();
+
             canvas.FillPath(path);
 
             canvas.RestoreState();
@@ -59,14 +85,18 @@
             var height = MaterialStepperHeight;
             var width = MaterialStepperWidth / 2;
 
-            canvas.DrawRoundedRectangle(x, y, width, height, 6);
+            canvas.DrawRoundedRectangle(x, y, width, height, MaterialButtonCornerRadius);
 
             canvas.Translate(80, 14);
 
             var vBuilder = new PathBuilder();
             var path = vBuilder.BuildPath(MaterialStepperPlusIcon);
 
-            canvas.FillColor = Material.Color.Black.ToColor();
+            if (VirtualView.IsEnabled)
+                canvas.FillColor = Material.Color.Black.ToColor();
+            else
+                canvas.FillColor = Material.Color.Gray3.ToColor();
+
             canvas.FillPath(path);
 
             canvas.RestoreState();

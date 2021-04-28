@@ -12,7 +12,7 @@
 		{
 			canvas.SaveState();
 
-			canvas.FillColor = VirtualView.MaximumTrackColor.WithDefault(Material.Color.LightBlue);
+			canvas.FillColor = VirtualView.MaximumTrackColor.WithDefault(VirtualView.IsEnabled ? Material.Color.LightBlue : Material.Color.Gray3);
 
 			var x = dirtyRect.X;
 
@@ -33,12 +33,11 @@
 		{
 			canvas.SaveState();
 
-			canvas.FillColor = VirtualView.MinimumTrackColor.WithDefault(Material.Color.Blue);
+			canvas.FillColor = VirtualView.MinimumTrackColor.WithDefault(VirtualView.IsEnabled ? Material.Color.Blue : Material.Color.Gray1);
 
 			var x = dirtyRect.X;
 
-			var value = ((double)VirtualView.Value).Clamp(0, 1);
-			var width = (float)(dirtyRect.Width * value);
+			var width = (float)(dirtyRect.Width * VirtualView.Value / VirtualView.Maximum);
 
 			var height = 2;
 
@@ -65,7 +64,7 @@
 
 			var y = (float)((dirtyRect.Height - MaterialFloatThumb) / 2);
 
-			canvas.FillColor = VirtualView.ThumbColor.WithDefault(Material.Color.Blue);
+			canvas.FillColor = VirtualView.ThumbColor.WithDefault(VirtualView.IsEnabled ? Material.Color.Blue : Material.Color.Gray1);
 
 			touchTargetRect.Center(new PointF(x, y));
 

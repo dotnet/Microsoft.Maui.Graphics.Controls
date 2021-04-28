@@ -49,7 +49,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public override bool StartInteraction(PointF[] points)
         {
-			if (VirtualView != null)
+			if (VirtualView != null && VirtualView.IsEnabled)
 			{
 				VirtualView.Pressed();
 				VirtualView.Clicked();
@@ -60,7 +60,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public override void EndInteraction(PointF[] points, bool inside)
         {
-			if(inside && VirtualView != null)
+			if(inside && VirtualView != null && VirtualView.IsEnabled)
             {
 				VirtualView.Released();
             }

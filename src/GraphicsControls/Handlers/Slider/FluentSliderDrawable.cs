@@ -47,9 +47,9 @@ namespace Microsoft.Maui.Graphics.Controls
 
 			var x = dirtyRect.X;
 
-			var value = ((double)VirtualView.Value).Clamp(VirtualView.Minimum, VirtualView.Maximum);
 			stateDefaultValues.TryGetValue("TextSize", out var textSize);
-			var width = (float)((dirtyRect.Width - (float)textSize) * value);
+
+			var width = (float)((dirtyRect.Width - (float)textSize) * VirtualView.Value / VirtualView.Maximum);
 
 			var height = 4;
 

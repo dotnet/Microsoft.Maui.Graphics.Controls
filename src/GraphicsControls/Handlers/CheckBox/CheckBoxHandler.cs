@@ -48,7 +48,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public override bool StartInteraction(PointF[] points)
 		{
-			if (VirtualView != null)
+			if (VirtualView != null && VirtualView.IsEnabled)
 				VirtualView.IsChecked = !VirtualView.IsChecked;
 
 			return base.StartInteraction(points);

@@ -13,12 +13,12 @@
 
             if (VirtualView.IsOn)
             {
-                canvas.FillColor = VirtualView.TrackColor.WithDefault(Material.Color.LightBlue);
+                canvas.FillColor = VirtualView.TrackColor.WithDefault(VirtualView.IsEnabled ? Material.Color.LightBlue : Material.Color.Gray4);
                 canvas.Alpha = 0.5f;
             }
             else
             {
-                canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Material.Color.Gray2);
+                canvas.FillColor = VirtualView.BackgroundColor.WithDefault(VirtualView.IsEnabled ? Material.Color.Gray2 : Material.Color.Gray3);
                 canvas.Alpha = 1.0f;
             }
 
@@ -40,9 +40,9 @@
             canvas.SaveState();
 
             if (VirtualView.IsOn)
-                canvas.FillColor = VirtualView.ThumbColor.WithDefault(Material.Color.Blue);
+                canvas.FillColor = VirtualView.ThumbColor.WithDefault(VirtualView.IsEnabled ? Material.Color.Blue : Material.Color.Gray1);
             else
-                canvas.FillColor = VirtualView.ThumbColor.WithDefault(Fluent.Color.Foreground.White);
+                canvas.FillColor = VirtualView.ThumbColor.WithDefault(VirtualView.IsEnabled ? Material.Color.White : Material.Color.Gray3);
 
             var margin = 2;
             var radius = 10;
