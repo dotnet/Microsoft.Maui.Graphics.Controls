@@ -1,25 +1,6 @@
-# Experimental GraphicsControls
+# Microsoft.Maui.Graphics.Controls
 
-Xamarin.Forms allows you to define the user interface once for multiple platforms. It offers an abstraction layer that is converted on each platform into native controls.
-
-While the native controls proposal is great as it offers the native experience (appearance, performance, etc). it has certain adjacent limitations like customization possibilities etc.
-
-_What if you could choose at any time between using the native control or a drawn control with the native look and feel?_
-
-**GraphicsControls** is a library that offers the controls available in Xamarin.Forms Visual allowing to choose between **Cupertino, Fluent and Material** but, instead of creating native controls, are **drawn controls**. This project is a **.NET experiment** related to Xamarin / .NET MAUI with different tests to validate the interest and feasibility of drawn controls but is not covered by Microsoft support.
-
-<img src="images/graphicscontrols.png" Width="220" /> 
-
-There is currently support for:
-* **iOS** using CoreGraphics
-* **macOS** using CoreGraphics
-* **Android** using Android Graphics
-* **Tizen** using SkiaSharp
-  
-Soon, support will be added to:
-* **Linux** using SkiaSharp
-* **UWP** using Win2D
-* **WPF** using SharpDX
+**Microsoft.Maui.Graphics.Controls** is a **.NET MAUI experiment** that offers drawn controls  allowing to choose between **Cupertino, Fluent and Material**.
 
 <img src="images/graphicscontrols-platforms.png" Width="600" /> 
 
@@ -30,98 +11,10 @@ Soon, support will be added to:
 This project is using **Microsoft.Maui.Graphics**.
 [Microsoft.Maui.Graphics](https://github.com/dotnet/Microsoft.Maui.Graphics) is a cross-platform graphics library for iOS, Android, Windows, macOS and Linux completely in C#. With this library you can use a common API to target multiple abstractions allowing you to share your drawing code between platforms, or mix and match graphics implentations within a singular application.
 
-## What controls are available?
-
-Currently there are the following controls:
-* **ActivityIndicator** (Cupertino, Fluent, Material)
-* **BoxView**
-* **Button** (Cupertino, Fluent, Material)
-* **CheckBox** (Cupertino, Fluent, Material)
-* **DatePicker** (Cupertino, Fluent, Material)
-* **Editor** (Cupertino, Fluent, Material)
-* **Entry** (Cupertino, Fluent, Material)
-* **Frame**
-* **ProgressBar** (Cupertino, Fluent, Material)
-* **RadioButton** (Cupertino, Fluent, Material)
-* **Slider** (Cupertino, Fluent, Material)
-* **Stepper** (Cupertino, Fluent, Material)
-* **Switch** (Cupertino, Fluent, Material)
-* **TimePicker** (Cupertino, Fluent, Material)
-
-The controls have the same properties and events as those existing in Xamarin.Forms.  
-
-## Features
-
-The main features are:
-
-#### Drawn controls
-
-The controls are drawn getting a pixel perfect option to adjust in the same way on all the platforms.
-
-<img src="images/graphicscontrols-isenabled.gif" Width="220" /> 
-
-#### Easy to extend
-
-_Do you want to extend a drawn control?_ Create your own control class, inherit from the drawn control and override the **Draw** method.
-
-```
-public class CustomControl : GraphicsView
-{
-    public override void Draw(ICanvas canvas, RectangleF dirtyRect)
-    {
-        base.Draw(canvas, dirtyRect);
-    }
-}
-```
-
-On the other hand, if you want to modify how a specific layer of an existing control is drawn, you just have to overwrite the method that draws the layer. 
-
-```
-public class CustomSlider : Slider
-{
-    protected override void DrawSliderThumb(ICanvas canvas, RectangleF dirtyRect)
-    {
-        base.DrawSliderThumb(canvas, dirtyRect);
-    }
-}
-```
-
-Also can add new layers, delete existing layers or reorganize the priority when drawing the layers. 
-
-#### Dark Theme support
-
-All controls, in the different visual modes (Cupertino, Fluent and Material) supports both light and dark theme.
-
-<img src="images/graphicscontrols-darktheme.gif" Width="220" /> 
-
-#### RTL support (Work in progress)
-
-All controls support RTL.
-
-<img src="images/graphicscontrols-rtl.png" Width="220" /> 
-
-#### Mobile & Desktop support
-
-<img src="images/graphicscontrols-mac.gif" Width="600" /> 
-
-#### Accesibility support
-
-Building an accessible application ensures that the application is usable by people who approach the user interface with a range of needs and experiences.
-GraphicsControls will allow to set AutomationProperties, which in turn set native accessibility values.
-
-(Work in progress)
-
-#### Performance
-
-Some native controls are complex. For example, Entry using Visual Material is made up of different elements. When using it, each of the different elements must be instantiated (the text box, the placeholder text, etc.). Using the drawn control, create an instance of a Canvas and draw the content. The time required to instantiate etc is shorter.
-
-<img src="images/graphicscontrols-performance.png" Width="600" /> 
-
 ## Goals
 
-* Have pixel-perfect drawn controls working on all the Xamarin.Forms supported platforms.
+* Have pixel-perfect drawn controls working on all the .NET MAUI supported platforms.
 * High performance and customization options controls.
-* In the short term, the goal is to have the controls for Xamarin.Forms, in the future they could reach Comet, .NET MAUI, etc.
 
 ## Contributing
 
