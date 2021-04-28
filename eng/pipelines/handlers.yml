@@ -133,17 +133,17 @@ stages:
 
 
   # only sign using the private server
-  # - ${{ if eq(variables['System.TeamProject'], 'devdiv') }}:
-  #   - stage: nuget_signing
-  #     dependsOn: build_windows
-  #     displayName: Sign Nuget
-  #     jobs:
-  #       - template: sign-artifacts/jobs/v2.yml@xamarin-templates
-  #         parameters:
-  #           teamName: Maui
-  #           usePipelineArtifactTasks: false
-  #           targetFolder: $(Build.ArtifactStagingDirectory)/nuget/signed
-  #           signedArtifactName: nuget
-  #           signedArtifactPath: signed
-  #           displayName: Sign Phase
-  #           condition: and(succeeded(), ne(variables['signVmImage'], ''), or(eq(variables['Sign'], 'true'), or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), startsWith(variables['Build.SourceBranch'],'refs/tags/'))))
+  - ${{ if eq(variables['System.TeamProject'], 'devdiv') }}:
+    - stage: nuget_signing
+      dependsOn: win_build
+      displayName: Sign Nuget
+      jobs:
+        - template: sign-artifacts/jobs/v2.yml@xamarin-templates
+          parameters:
+            teamName: Maui
+            usePipelineArtifactTasks: false
+            targetFolder: $(Build.ArtifactStagingDirectory)/nuget/signed
+            signedArtifactName: nuget
+            signedArtifactPath: signed
+            displayName: Sign Phase
+            condition: and(succeeded(), ne(variables['signVmImage'], ''), or(eq(variables['Sign'], 'true'), or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), startsWith(variables['Build.SourceBranch'],'refs/tags/'))))
