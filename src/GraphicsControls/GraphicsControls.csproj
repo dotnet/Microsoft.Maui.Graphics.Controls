@@ -5,27 +5,10 @@
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);uap10.0.17763;netcoreapp3.1;net472;net471</TargetFrameworks>
     <AssemblyName>GraphicsControls</AssemblyName>
     <RootNamespace>GraphicsControls</RootNamespace>
-    <PackageId>GraphicsControls</PackageId>
-    <Summary>Library to draw Xamarin.Forms controls.</Summary>
-    <PackageTag>xamarin,ios,android,uwp,xamarin.forms,controls,watchos,tvos,tizen,draw</PackageTag>
-    <Title>GraphicsControls</Title>
-    <Description>Library to draw Xamarin.Forms controls.</Description>
-    <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <AssemblyVersion>0.1.0.0</AssemblyVersion>
     <AssemblyFileVersion>0.1.0.0</AssemblyFileVersion>
-    <Version>1.0.0</Version>
-    <PackageVersion>$(Version)$(VersionSuffix)</PackageVersion>
-    <Authors>Javier Suarez</Authors>
-    <Owners>Javier Suarez</Owners>
-    <NeutralLanguage>en</NeutralLanguage>
-    <Copyright>© Javier Suarez. All rights reserved.</Copyright>
-    <RepositoryUrl>https://github.com/jsuarezruiz/GraphicsControls</RepositoryUrl>
     <DefineConstants>$(DefineConstants);</DefineConstants>
-    <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageProjectUrl>https://github.com/jsuarezruiz/GraphicsControls</PackageProjectUrl>
     <DebugType>portable</DebugType>
     <Configurations>Debug;Release</Configurations>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>

@@ -69,7 +69,7 @@ resources:
 
 stages:
 
-  - stage: build_windows
+  - stage: win_build
     displayName: Build Windows
     dependsOn: []
     jobs:
@@ -83,11 +83,53 @@ stages:
             name: $(winVmPool)
             vmImage: $(winVmImage)
             demands: [ msbuild ]
-          steps:
-            - task: MSBuild@1
+          variables:
+              buildConfiguration : '${{ BuildCondition }}'
+          steps: 
+            - task: NuGetCommand@2
               inputs:
-                solution: '**/GraphicsControls.Windows.sln'
-                configuration: {{ BuildCondition }}
+                command: 'restore'
+                restoreSolution: $(GraphicsControlsSln)
+
+            - task: MSBuild@1
+              displayName: 'Build sln'
+              inputs:
+                solution: $(GraphicsControlsSln)            
+                configuration: $(BuildConfiguration)
+                msbuildArguments: -bl:$(build.artifactstagingdirectory)/${{BuildCondition}}/win_build$_${{BuildCondition}}.binlog
+            
+            - task: MSBuild@1
+              displayName: 'Pack sln'
+              inputs:
+                solution: $(GraphicsControlsLibraryProject)            
+                configuration: $(BuildConfiguration)
+                msbuildArguments: -t:pack /p:PackageOutputPath="$(build.artifactstagingdirectory)/nuget/${{ BuildCondition }}"
+
+            - task: CopyFiles@2
+              displayName: 'Copy Files dlls'
+              inputs:
+                Contents: src/**/bin/**/*.dll
+                TargetFolder: '$(build.artifactstagingdirectory)/${{ BuildCondition }}'
+
+            - task: CopyFiles@2
+              displayName: 'Copy nupkg'
+              inputs:
+                Contents: artifacts/*.nupkg 
+                flattenFolders: true
+                TargetFolder: '$(build.artifactstagingdirectory)/nuget/${{ BuildCondition }}/'
+            
+            - task: CopyFiles@2
+              displayName: 'Copy SignList.xml Files'
+              inputs:
+                Contents: eng/automation/SignList.xml
+                TargetFolder: '$(Build.ArtifactStagingDirectory)/${{ BuildCondition }}'
+                flattenFolders: true
+  
+            - task: PublishBuildArtifacts@1
+              displayName: 'Publish Artifact: win_build'
+              condition: always()
+              inputs:
+                ArtifactName: win_build
 
 
   # only sign using the private server

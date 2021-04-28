@@ -7,3 +7,7 @@ variables:
   value: true
 - name: DOTNET_VERSION
   value: 5.0.102
+- name: GraphicsControlsSln
+  value: '**/GraphicsControls.Windows.sln'
+- name: GraphicsControlsLibraryProject
+  value: '**/GraphicsControls.csproj'
