@@ -51,7 +51,8 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public Action<ICanvas, RectangleF, TViewDrawable, TVirtualView> this[string key]
 		{
-			set => genericMap[key] = (c, r, h, v) => value?.Invoke(c, r, (TViewDrawable)h, (TVirtualView)v);
+			set => genericMap[key] = (canvas, rect, drawable, virtualView) =>
+			value?.Invoke(canvas, rect, (TViewDrawable)drawable, (TVirtualView)virtualView);
 		}
 
 		public override Action<ICanvas, RectangleF, IViewDrawable, IView>? Get(string key)

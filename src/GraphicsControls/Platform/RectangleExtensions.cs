@@ -1,9 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-	public static class RectExtensions
+    public static class RectangleExtensions
 	{
 		public static PointF Center(this RectangleF rectangle) =>
 			new PointF(rectangle.X + (rectangle.Width / 2), rectangle.Y + (rectangle.Height / 2));
