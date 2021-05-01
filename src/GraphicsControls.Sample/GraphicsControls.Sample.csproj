@@ -1,33 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>MonoAndroid10.0;Xamarin.iOS10</TargetFrameworks>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DebugType>portable</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GraphicsControls\GraphicsControls.csproj" />
+    <ProjectReference Include="..\maui\src\Core\src\Core.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Benchmark\" />
+
+  <ItemGroup Condition="$(TargetFramework.StartsWith('Xamarin.iOS')) == true ">
+    <ProjectReference Include="..\maui\src\Compatibility\Core\src\iOS\Compatibility.iOS.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Update="MixedControlsPage.xaml.cs">
-      <DependentUpon>MixedControlsPage.xaml</DependentUpon>
-    </Compile>
+
+  <ItemGroup Condition="$(TargetFramework.StartsWith('MonoAndroid')) == true ">
+    <ProjectReference Include="..\maui\src\Compatibility\Core\src\Android\Compatibility.Android.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="OnlyDrawnControlsPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
+
 </Project>
