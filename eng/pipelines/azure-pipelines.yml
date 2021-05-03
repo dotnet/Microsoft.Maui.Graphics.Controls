@@ -85,7 +85,10 @@ stages:
             demands: [ msbuild ]
           variables:
               buildConfiguration : '${{ BuildCondition }}'
-          steps: 
+          steps:
+            - checkout: self
+              clean: true
+              submodules: true 
             - task: NuGetCommand@2
               inputs:
                 command: 'restore'
