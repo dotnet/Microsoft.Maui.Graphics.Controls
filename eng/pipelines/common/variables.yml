@@ -1,0 +1,13 @@
+variables:
+- name: BuildVersion
+  value: $[counter('nuget-counter', 1)]
+- name: NUGET_VERSION
+  value: 5.8.1
+- name: DOTNET_SKIP_FIRST_TIME_EXPERIENCE
+  value: true
+- name: DOTNET_VERSION
+  value: 5.0.102
+- name: GraphicsControlsSln
+  value: '**/GraphicsControls.sln'
+- name: GraphicsControlsLibraryProject
+  value: '**/GraphicsControls.csproj'

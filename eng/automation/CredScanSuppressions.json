@@ -1,0 +1,9 @@
+{
+    "tool": "Credential Scanner",
+    "suppressions": [
+        {
+            "file": "\\debug.keystore",
+            "_justification": "Dummy debug store file used for testing."
+        }
+    ]
+}
