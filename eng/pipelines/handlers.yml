@@ -96,7 +96,7 @@ stages:
               inputs:
                 solution: $(GraphicsControlsSln)            
                 configuration: $(BuildConfiguration)
-                msbuildArguments: -bl:$(build.artifactstagingdirectory)/${{BuildCondition}}/win_build$_${{BuildCondition}}.binlog
+                msbuildArguments: -bl:$(build.artifactstagingdirectory)/${{BuildCondition}}/win_build_${{ BuildCondition }}.binlog
             
             - task: MSBuild@1
               displayName: 'Pack sln'
@@ -122,7 +122,7 @@ stages:
               displayName: 'Copy SignList.xml Files'
               inputs:
                 Contents: eng/automation/SignList.xml
-                TargetFolder: '$(Build.ArtifactStagingDirectory)/${{ BuildCondition }}'
+                TargetFolder: '$(Build.ArtifactStagingDirectory)/nuget/${{ BuildCondition }}'
                 flattenFolders: true
   
             - task: PublishBuildArtifacts@1
