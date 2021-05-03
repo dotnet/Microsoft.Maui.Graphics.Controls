@@ -1,5 +1,7 @@
 # Microsoft.Maui.Graphics.Controls
 
+[![Build Status](https://dev.azure.com/devdiv/DevDiv/_apis/build/status/MAUI.Graphics.Controls?repoName=dotnet%2FMicrosoft.Maui.Graphics.Controls&branchName=main)](https://dev.azure.com/devdiv/DevDiv/_build/latest?definitionId=14477&repoName=dotnet%2FMicrosoft.Maui.Graphics.Controls&branchName=main)
+
 **Microsoft.Maui.Graphics.Controls** is a **.NET MAUI experiment** that offers drawn controls  allowing to choose between **Cupertino, Fluent and Material**.
 
 <img src="images/graphicscontrols-platforms.png" Width="600" /> 
