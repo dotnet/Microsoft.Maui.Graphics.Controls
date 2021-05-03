@@ -1,0 +1,151 @@
+trigger:
+  branches:
+    include:
+    - main
+    - release/*
+  tags:
+    include:
+    - '*'
+  paths:
+    include:
+    - '*'
+    exclude:
+    - .github/*
+    - docs/*
+    - CODE-OF-CONDUCT.md
+    - CONTRIBUTING.md
+    - LICENSE.TXT
+    - PATENTS.TXT
+    - README.md
+    - SECURITY.md
+    - THIRD-PARTY-NOTICES.TXT
+
+pr:
+  branches:
+    include:
+    - main
+    - release/*
+  paths:
+    include:
+    - '*'
+    exclude:
+    - .github/*
+    - docs/*
+    - CODE-OF-CONDUCT.md
+    - CONTRIBUTING.md
+    - LICENSE.TXT
+    - PATENTS.TXT
+    - README.md
+    - SECURITY.md
+    - THIRD-PARTY-NOTICES.TXT
+
+schedules:
+- cron: "0 0 * * *"
+  displayName: Daily midnight build
+  branches:
+    include:
+    - main
+
+variables:
+  - template: /eng/pipelines/common/variables.yml
+
+parameters:
+  - name: BuildEverything
+    type: boolean
+    default: false
+  - name: BuildConfigurations
+    type: object
+    default:
+      - Debug
+      - Release
+
+resources:
+  repositories:
+    - repository: xamarin-templates
+      type: github
+      name: xamarin/yaml-templates
+      endpoint: xamarin
+      ref: refs/heads/main
+
+stages:
+
+  - stage: win_build
+    displayName: Build Windows
+    dependsOn: []
+    jobs:
+      - ${{ each BuildCondition in parameters.BuildConfigurations }}:
+        - job: win_hosted_${{ BuildCondition }}
+          workspace:
+            clean: all
+          displayName: Build Windows Phase (${{ BuildCondition }})
+          timeoutInMinutes: 60
+          pool:
+            name: $(winVmPool)
+            vmImage: $(winVmImage)
+            demands: [ msbuild ]
+          variables:
+              buildConfiguration : '${{ BuildCondition }}'
+          steps: 
+            - task: NuGetCommand@2
+              inputs:
+                command: 'restore'
+                restoreSolution: $(GraphicsControlsSln)
+
+            - task: MSBuild@1
+              displayName: 'Build sln'
+              inputs:
+                solution: $(GraphicsControlsSln)            
+                configuration: $(BuildConfiguration)
+                msbuildArguments: -bl:$(build.artifactstagingdirectory)/${{BuildCondition}}/win_build_${{ BuildCondition }}.binlog
+            
+            - task: MSBuild@1
+              displayName: 'Pack sln'
+              inputs:
+                solution: $(GraphicsControlsLibraryProject)            
+                configuration: $(BuildConfiguration)
+                msbuildArguments: -t:pack /p:PackageOutputPath="$(build.artifactstagingdirectory)/nuget/${{ BuildCondition }}"
+
+            - task: CopyFiles@2
+              displayName: 'Copy Files dlls'
+              inputs:
+                Contents: src/**/bin/**/*.dll
+                TargetFolder: '$(build.artifactstagingdirectory)/${{ BuildCondition }}'
+
+            - task: CopyFiles@2
+              displayName: 'Copy nupkg'
+              inputs:
+                Contents: artifacts/*.nupkg 
+                flattenFolders: true
+                TargetFolder: '$(build.artifactstagingdirectory)/nuget/${{ BuildCondition }}/'
+            
+            - task: CopyFiles@2
+              displayName: 'Copy SignList.xml Files'
+              inputs:
+                Contents: eng/automation/SignList.xml
+                TargetFolder: '$(Build.ArtifactStagingDirectory)/nuget/${{ BuildCondition }}'
+                flattenFolders: true
+  
+            - task: PublishBuildArtifacts@1
+              displayName: 'Publish Artifact: win_build'
+              condition: always()
+              inputs:
+                ArtifactName: win_build
+
+
+  # only sign using the private server
+  - ${{ if eq(variables['System.TeamProject'], 'devdiv') }}:
+    - stage: nuget_signing
+      dependsOn: win_build
+      displayName: Sign Nuget
+      jobs:
+        - template: sign-artifacts/jobs/v2.yml@xamarin-templates
+          parameters:
+            teamName: Maui
+            usePipelineArtifactTasks: false
+            artifactName: win_build
+            artifactPath: nuget/Release
+            targetFolder: $(Build.ArtifactStagingDirectory)/nuget/signed
+            signedArtifactName: nuget
+            signedArtifactPath: signed
+            displayName: Sign Phase
+            condition: and(succeeded(), or(eq(variables['Sign'], 'true'), or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), startsWith(variables['Build.SourceBranch'],'refs/tags/'))))
