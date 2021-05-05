@@ -36,6 +36,7 @@ namespace Microsoft.Maui.Graphics.Controls
 				"Separator",
 				"Minus",
 				"Plus",
+				"Text",
 			}, "Text").ToArray();
 
 		public override string[] LayerDrawingOrder() =>
