@@ -15,7 +15,7 @@
 
             if (VirtualView.IsChecked)
             {
-                canvas.FillColor = Cupertino.Color.SystemColor.Light.Blue.ToColor();
+                canvas.FillColor = VirtualView.IsEnabled ? Cupertino.Color.SystemColor.Light.Blue.ToColor() : Cupertino.Color.SystemGray.Light.InactiveGray.ToColor();
                 canvas.FillEllipse(x, y, size, size);
             }
             else
@@ -23,7 +23,7 @@
                 var strokeWidth = 2;
 
                 canvas.StrokeSize = strokeWidth;
-                canvas.StrokeColor = Cupertino.Color.SystemColor.Light.Blue.ToColor();
+                canvas.StrokeColor = VirtualView.IsEnabled ? Cupertino.Color.SystemColor.Light.Blue.ToColor() : Cupertino.Color.SystemGray.Light.InactiveGray.ToColor();
                 canvas.DrawEllipse(x + strokeWidth / 2, y + strokeWidth / 2, size - strokeWidth, size - strokeWidth);
             }
 
@@ -41,7 +41,8 @@
                 var vBuilder = new PathBuilder();
                 var path = vBuilder.BuildPath(CupertinoCheckBoxMark);
 
-                canvas.StrokeColor = Colors.White;
+                canvas.StrokeColor = Cupertino.Color.Fill.Light.White.ToColor();
+
                 canvas.DrawPath(path);
 
                 canvas.RestoreState();

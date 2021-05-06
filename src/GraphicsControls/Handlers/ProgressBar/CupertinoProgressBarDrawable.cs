@@ -8,10 +8,10 @@
         {
             canvas.SaveState();
 
-            canvas.FillColor = Cupertino.Color.SystemColor.Light.Blue.ToColor();
+            canvas.FillColor = VirtualView.IsEnabled ? Cupertino.Color.SystemColor.Light.Blue.ToColor() : Cupertino.Color.SystemGray.Light.InactiveGray.ToColor();
 
             var x = dirtyRect.X;
-            var y = (float)((VirtualView.Height - CupertinoTrackHeight) / 2);
+            var y = (float)((dirtyRect.Height - CupertinoTrackHeight) / 2);
 
             var width = dirtyRect.Width;
 
@@ -27,7 +27,7 @@
             canvas.FillColor = Cupertino.Color.SystemGray.Light.Gray5.ToColor();
 
             var x = dirtyRect.X;
-            var y = (float)((VirtualView.Height - CupertinoTrackHeight) / 2);
+            var y = (float)((dirtyRect.Height - CupertinoTrackHeight) / 2);
 
             var width = dirtyRect.Width;
 

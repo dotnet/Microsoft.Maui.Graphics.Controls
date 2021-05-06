@@ -16,7 +16,7 @@
         {
             canvas.SaveState();
 
-            canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Cupertino.Color.Fill.Light.Tertiary);
+            canvas.FillColor = VirtualView.BackgroundColor.WithDefault(VirtualView.IsEnabled ? Cupertino.Color.Fill.Light.Tertiary : Cupertino.Color.Fill.Light.Quaternary);
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;

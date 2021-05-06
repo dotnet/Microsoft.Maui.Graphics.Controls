@@ -46,17 +46,18 @@ namespace Microsoft.Maui.Graphics.Controls
 		{
 			canvas.SaveState();
 
-			canvas.FillColor = VirtualView.MinimumTrackColor.WithDefault(DefaultCupertinoSliderTrackProgressColor);
+			canvas.FillColor = VirtualView.MinimumTrackColor.WithDefault(VirtualView.IsEnabled ? DefaultCupertinoSliderTrackProgressColor : Cupertino.Color.SystemGray.Light.InactiveGray);
 
 			var x = dirtyRect.X;
 
 			stateDefaultValues.TryGetValue("TextSize", out var textSize);
 
-			var width = (float)((dirtyRect.Width - (float)textSize) * VirtualView.Value / VirtualView.Maximum);
-
 			var height = 4;
 
 			var y = (float)((dirtyRect.Height - height) / 2);
+
+			var value = (VirtualView.Value / VirtualView.Maximum - VirtualView.Minimum).Clamp(0, 1);
+			var width = (float)((dirtyRect.Width - (float)textSize) * value);
 
 			canvas.FillRoundedRectangle(x, y, width, height, 0);
 
@@ -74,7 +75,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
 			canvas.StrokeSize = strokeWidth;
 
-			var value = (double)VirtualView.Value;
+			var value = (VirtualView.Value / VirtualView.Maximum - VirtualView.Minimum).Clamp(0, 1);
 			stateDefaultValues.TryGetValue("TextSize", out var textSize);
 			var x = (float)(((dirtyRect.Width - (float)textSize) * value) - (size / 2));
 
@@ -113,9 +114,9 @@ namespace Microsoft.Maui.Graphics.Controls
 
 			canvas.SetToBoldSystemFont();
 
-			var value = ((double)VirtualView.Value).Clamp(0, 1).ToString("####0.00");
+			string valueString = VirtualView.Value.Clamp(VirtualView.Minimum, VirtualView.Maximum).ToString("####0.00");
 
-			canvas.DrawString(value, x, y, (float)textSize, height, GHorizontalAlignment.Left, GVerticalAlignment.Center);
+			canvas.DrawString(valueString, x, y, (float)textSize, height, GHorizontalAlignment.Left, GVerticalAlignment.Center);
 
 			canvas.RestoreState();
 		}

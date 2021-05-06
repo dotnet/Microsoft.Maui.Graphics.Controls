@@ -8,7 +8,7 @@
         {
             canvas.SaveState();
 
-            canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Cupertino.Color.SystemColor.Light.Blue);
+            canvas.FillColor = VirtualView.BackgroundColor.WithDefault(VirtualView.IsEnabled ? Cupertino.Color.SystemColor.Light.Blue : Cupertino.Color.SystemGray.Light.InactiveGray);
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
@@ -25,7 +25,7 @@
         {
             canvas.SaveState();
 
-            canvas.FontColor = VirtualView.TextColor.WithDefault(Cupertino.Color.Label.Light.Primary);
+            canvas.FontColor = VirtualView.TextColor.WithDefault(Cupertino.Color.Label.Light.White);
             canvas.FontSize = 17f;
 
             var height = dirtyRect.Height;
