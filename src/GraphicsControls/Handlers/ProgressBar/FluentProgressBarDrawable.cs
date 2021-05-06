@@ -8,14 +8,14 @@
         {
             canvas.SaveState();
 
-            canvas.FillColor = Fluent.Color.Background.NeutralLight.ToColor();
+            canvas.FillColor = Fluent.Color.Primary.ThemePrimary.ToColor();
 
             var x = dirtyRect.X;
-            var y = (float)((VirtualView.Height - FluentTrackHeight) / 2);
+            var y = (float)((dirtyRect.Height - FluentTrackHeight) / 2);
 
             var width = dirtyRect.Width;
 
-            canvas.FillRoundedRectangle(x, y, width, FluentTrackHeight, 0);
+            canvas.FillRoundedRectangle(x, y, (float)(width * VirtualView.Progress), FluentTrackHeight, 0);
 
             canvas.RestoreState();
         }
@@ -24,17 +24,14 @@
         {
             canvas.SaveState();
 
-            if (VirtualView.IsEnabled)
-                canvas.FillColor = Fluent.Color.Primary.ThemePrimary.ToColor();
-            else
-                canvas.FillColor = Fluent.Color.Background.NeutralTertiaryAlt.ToColor();
+            canvas.FillColor = VirtualView.BackgroundColor.WithDefault(VirtualView.IsEnabled ? Fluent.Color.Background.NeutralTertiaryAlt : Fluent.Color.Background.NeutralLight);
 
             var x = dirtyRect.X;
-            var y = (float)((VirtualView.Height - FluentTrackHeight) / 2);
+            var y = (float)((dirtyRect.Height - FluentTrackHeight) / 2);
 
             var width = dirtyRect.Width;
 
-            canvas.FillRoundedRectangle(x, y, (float)(width * VirtualView.Progress), FluentTrackHeight, 0);
+            canvas.FillRoundedRectangle(x, y, width, FluentTrackHeight, 0);
 
             canvas.RestoreState();
         }

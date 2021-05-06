@@ -45,14 +45,14 @@ namespace Microsoft.Maui.Graphics.Controls
 
 			canvas.FillColor = VirtualView.MinimumTrackColor.WithDefault(Fluent.Color.Primary.ThemePrimary);
 
-			var x = dirtyRect.X;
-
 			stateDefaultValues.TryGetValue("TextSize", out var textSize);
 
-			var width = (float)((dirtyRect.Width - (float)textSize) * VirtualView.Value / VirtualView.Maximum);
+			var value = (VirtualView.Value / VirtualView.Maximum - VirtualView.Minimum).Clamp(0, 1);
 
+			var width = (float)((dirtyRect.Width - (float)textSize) * value);
 			var height = 4;
 
+			var x = dirtyRect.X;
 			var y = (float)((dirtyRect.Height - height) / 2);
 
 			canvas.FillRoundedRectangle(x, y, width, height, 0);
@@ -71,7 +71,8 @@ namespace Microsoft.Maui.Graphics.Controls
 
 			canvas.StrokeSize = strokeWidth;
 
-			var value = (double)VirtualView.Value;
+			var value = (VirtualView.Value / VirtualView.Maximum - VirtualView.Minimum).Clamp(0, 1);
+
 			stateDefaultValues.TryGetValue("TextSize", out var textSize);
 			var x = (float)(((dirtyRect.Width - (float)textSize) * value) - (size / 2));
 
@@ -97,8 +98,6 @@ namespace Microsoft.Maui.Graphics.Controls
 		{
 			canvas.SaveState();
 
-			var slider = VirtualView;
-
 			canvas.FontColor = Fluent.Color.Foreground.Black.ToColor();
 			canvas.FontSize = 14f;
 
@@ -107,14 +106,15 @@ namespace Microsoft.Maui.Graphics.Controls
 
 			var margin = 6;
 			stateDefaultValues.TryGetValue("TextSize", out var textSize);
+
 			var x = (float)(width - (float)textSize + margin);
 			var y = 2;
 
 			canvas.SetToBoldSystemFont();
 
-			var value = ((double)slider.Value).Clamp(0, 1).ToString("####0.00");
+			string valueString = VirtualView.Value.Clamp(VirtualView.Minimum, VirtualView.Maximum).ToString("####0.00");
 
-			canvas.DrawString(value, x, y, (float)textSize, height, GHorizontalAlignment.Left, GVerticalAlignment.Center);
+			canvas.DrawString(valueString, x, y, (float)textSize, height, GHorizontalAlignment.Left, GVerticalAlignment.Center);
 
 			canvas.RestoreState();
 		}
