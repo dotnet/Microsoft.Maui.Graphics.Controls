@@ -7,7 +7,7 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<PropertyGroup>
-	   <PackageId>GraphicsControls</PackageId>
+	   <PackageId>Microsoft.Maui.Graphics.Controls</PackageId>
 	</PropertyGroup>
 	<Import Project="..\maui\.nuspec\Microsoft.Maui.Controls.MultiTargeting.targets" />
 	<ItemGroup>
