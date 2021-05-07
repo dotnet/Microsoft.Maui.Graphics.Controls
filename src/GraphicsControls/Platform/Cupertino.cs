@@ -68,6 +68,7 @@
                     public const string Quaternary = "#BFBFC0";
                     public const string Link = "#0077FF";
                     public const string Black = "#000000";
+                    public const string White = "#FFFFFF";
                     public const string Error = "#FF453A";
                 }
 
@@ -79,6 +80,7 @@
                     public const string Quaternary = "#515153";
                     public const string Link = "#007AFF";
                     public const string Black = "#000000";
+                    public const string White = "#FFFFFF";
                     public const string Error = "#FF453A";
                 }
             }

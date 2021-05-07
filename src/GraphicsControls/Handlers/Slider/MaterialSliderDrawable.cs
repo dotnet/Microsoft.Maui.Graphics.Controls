@@ -37,7 +37,8 @@
 
 			var x = dirtyRect.X;
 
-			var width = (float)(dirtyRect.Width * VirtualView.Value / VirtualView.Maximum);
+			var value = (VirtualView.Value / VirtualView.Maximum - VirtualView.Minimum).Clamp(0, 1);
+			var width = (float)(dirtyRect.Width * value);
 
 			var height = 2;
 
@@ -54,7 +55,8 @@
 
 			canvas.SaveState();
 
-			var x = (float)(VirtualView.Value * dirtyRect.Width / VirtualView.Maximum);
+			var value = (VirtualView.Value / VirtualView.Maximum - VirtualView.Minimum).Clamp(0, 1);
+			var x = (float)((dirtyRect.Width * value) - (MaterialFloatThumb / 2));
 
 			if (x <= 0)
 				x = 0;

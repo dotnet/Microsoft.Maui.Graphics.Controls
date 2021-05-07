@@ -6,6 +6,8 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public class FluentSliderDrawable : ViewDrawable<ISlider>, ISliderDrawable
 	{
+		const double TextMargin = 6.0d;
+
 		static readonly Dictionary<string, object> stateDefaultValues = new Dictionary<string, object>
 		{
 			["TextSize"] = 36f
@@ -43,13 +45,13 @@ namespace Microsoft.Maui.Graphics.Controls
 		{
 			canvas.SaveState();
 
-			canvas.FillColor = VirtualView.MinimumTrackColor.WithDefault(Fluent.Color.Primary.ThemePrimary);
+			canvas.FillColor = VirtualView.MinimumTrackColor.WithDefault(VirtualView.IsEnabled ? Fluent.Color.Primary.ThemePrimary : Fluent.Color.Primary.ThemeSecondary);
 
 			stateDefaultValues.TryGetValue("TextSize", out var textSize);
 
 			var value = (VirtualView.Value / VirtualView.Maximum - VirtualView.Minimum).Clamp(0, 1);
 
-			var width = (float)((dirtyRect.Width - (float)textSize) * value);
+			var width = (float)((dirtyRect.Width - (float)textSize - TextMargin) * value);
 			var height = 4;
 
 			var x = dirtyRect.X;
@@ -74,10 +76,10 @@ namespace Microsoft.Maui.Graphics.Controls
 			var value = (VirtualView.Value / VirtualView.Maximum - VirtualView.Minimum).Clamp(0, 1);
 
 			stateDefaultValues.TryGetValue("TextSize", out var textSize);
-			var x = (float)(((dirtyRect.Width - (float)textSize) * value) - (size / 2));
+			var x = (float)(((dirtyRect.Width - (float)textSize - TextMargin) * value) - (size / 2));
 
 			if (x <= strokeWidth)
-				x = strokeWidth;
+				x = strokeWidth / 2;
 
 			if (x >= dirtyRect.Width - (size + strokeWidth))
 				x = dirtyRect.Width - (size + strokeWidth);
@@ -104,10 +106,9 @@ namespace Microsoft.Maui.Graphics.Controls
 			var height = dirtyRect.Height;
 			var width = dirtyRect.Width;
 
-			var margin = 6;
 			stateDefaultValues.TryGetValue("TextSize", out var textSize);
 
-			var x = (float)(width - (float)textSize + margin);
+			var x = (float)(width - (float)textSize + TextMargin);
 			var y = 2;
 
 			canvas.SetToBoldSystemFont();
