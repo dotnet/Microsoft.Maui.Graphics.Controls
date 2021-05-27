@@ -1,0 +1,131 @@
+﻿namespace Microsoft.Maui.Graphics.Controls
+{
+    public class MaterialEntryDrawable : ViewDrawable<IEntry>, IEntryDrawable
+    {
+        const string MaterialEntryIndicatorIcon = "M9.295 7.885C9.68436 8.27436 9.68436 8.90564 9.295 9.295C8.90564 9.68436 8.27436 9.68436 7.885 9.295L5 6.41L2.115 9.295C1.72564 9.68436 1.09436 9.68436 0.705 9.295C0.315639 8.90564 0.315639 8.27436 0.705 7.885L3.59 5L0.705 2.115C0.315639 1.72564 0.31564 1.09436 0.705 0.705C1.09436 0.315639 1.72564 0.315639 2.115 0.705L5 3.59L7.885 0.705C8.27436 0.315639 8.90564 0.31564 9.295 0.705C9.68436 1.09436 9.68436 1.72564 9.295 2.115L6.41 5L9.295 7.885Z";
+
+        const float UnfocusedMaterialPlaceholderFontSize = 16f;
+        const float UnfocusedMaterialPlaceholderPosition = 22f;
+
+        readonly float PlaceholderFontSize = UnfocusedMaterialPlaceholderFontSize;
+        readonly float PlaceholderPosition = UnfocusedMaterialPlaceholderPosition;
+
+        RectangleF indicatorRect = new RectangleF();
+        public RectangleF IndicatorRect => indicatorRect;
+
+        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEntry view)
+        {
+            canvas.SaveState();
+
+            canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Material.Color.Gray5);
+
+            var width = dirtyRect.Width;
+
+            var vBuilder = new PathBuilder();
+            var path =
+                vBuilder.BuildPath(
+                    $"M0 4C0 1.79086 1.79086 0 4 0H{width - 4}C{width - 2}.209 0 {width} 1.79086 {width} 4V56H0V4Z");
+
+            canvas.FillPath(path);
+
+            canvas.RestoreState();
+        }
+
+        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IEntry view)
+        {
+            canvas.SaveState();
+
+            var strokeWidth = 1.0f;
+            canvas.FillColor = Material.Color.Black.ToColor();
+
+            var x = dirtyRect.X;
+            var y = 53.91f;
+
+            var width = dirtyRect.Width;
+            var height = strokeWidth;
+
+            canvas.FillRectangle(x, y, width, height);
+
+            canvas.RestoreState();
+        }
+
+        public void DrawIndicator(ICanvas canvas, RectangleF dirtyRect, IEntry view)
+        {
+            if (!string.IsNullOrEmpty(VirtualView.Text))
+            {
+                canvas.SaveState();
+
+                float radius = 12f;
+
+                var backgroundMarginX = 24;
+                var backgroundMarginY = 28;
+
+                var x = dirtyRect.Width - backgroundMarginX;
+                var y = dirtyRect.Y + backgroundMarginY;
+
+                if (VirtualView.FlowDirection == FlowDirection.RightToLeft)
+                    x = backgroundMarginX;
+
+                canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Material.Color.Black);
+                canvas.Alpha = 0.12f;
+
+                canvas.FillCircle(x, y, radius);
+
+                canvas.RestoreState();
+
+                indicatorRect = new RectangleF(x - radius, y - radius, radius * 2, radius * 2);
+
+                canvas.SaveState();
+
+                var iconMarginX = 29;
+                var iconMarginY = 23;
+
+                var tX = dirtyRect.Width - iconMarginX;
+                var tY = dirtyRect.Y + iconMarginY;
+
+                if (VirtualView.FlowDirection == FlowDirection.RightToLeft)
+                {
+                    iconMarginX = 19;
+                    tX = iconMarginX;
+                }
+
+                canvas.Translate(tX, tY);
+
+                var vBuilder = new PathBuilder();
+                var path = vBuilder.BuildPath(MaterialEntryIndicatorIcon);
+
+                canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Material.Color.Black);
+                canvas.FillPath(path);
+
+                canvas.RestoreState();
+            }
+        }
+
+        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEntry view)
+        {
+            canvas.SaveState();
+
+            canvas.FontColor = Material.Color.Dark.ToColor();
+            canvas.FontSize = PlaceholderFontSize;
+
+            float margin = 12f;
+
+            var horizontalAlignment = HorizontalAlignment.Left;
+
+            var x = dirtyRect.X + margin;
+
+            if (VirtualView.FlowDirection == FlowDirection.RightToLeft)
+            {
+                x = dirtyRect.X;
+                horizontalAlignment = HorizontalAlignment.Right;
+            }
+
+            var height = dirtyRect.Height;
+            var width = dirtyRect.Width;
+
+            canvas.DrawString(VirtualView.Placeholder, x, PlaceholderPosition, width - margin, height, horizontalAlignment, VerticalAlignment.Top);
+
+            canvas.RestoreState();
+        }
+    }
+}

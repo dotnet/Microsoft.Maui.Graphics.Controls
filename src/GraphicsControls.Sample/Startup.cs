@@ -16,10 +16,14 @@ namespace Microsoft.Maui.Graphics.Controls
 				{
 					{ typeof(IButton), typeof(ButtonHandler) },
 					{ typeof(ICheckBox), typeof(CheckBoxHandler) },
+					{ typeof(IDatePicker), typeof(DatePickerHandler) },
+					{ typeof(IEditor), typeof(EditorHandler) },
+					{ typeof(IEntry), typeof(EntryHandler) },
 					{ typeof(IProgress), typeof(ProgressBarHandler) },
 					{ typeof(ISlider), typeof(SliderHandler) },
 					{ typeof(IStepper), typeof(StepperHandler) },
-					{ typeof(ISwitch), typeof(SwitchHandler) }
+					{ typeof(ISwitch), typeof(SwitchHandler) },
+					{ typeof(ITimePicker), typeof(TimePickerHandler) },
 				}))
 				.UseMauiApp<MyApp>();
 		}
