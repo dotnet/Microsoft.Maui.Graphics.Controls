@@ -2,8 +2,13 @@
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public class EditorHandler : GraphicsControlHandler<IEditorDrawable, IEditor>
+    public partial class EditorHandler
 	{
+		public EditorHandler() : base(DrawMapper, PropertyMapper)
+		{
+
+		}
+
 		public static PropertyMapper<IEditor> PropertyMapper = new PropertyMapper<IEditor>(ViewHandler.Mapper)
 		{
 			Actions =
@@ -21,11 +26,6 @@ namespace Microsoft.Maui.Graphics.Controls
 			["Border"] = MapDrawBorder,
 			["Placeholder"] = MapDrawPlaceholder
 		};
-
-		public EditorHandler() : base(DrawMapper, PropertyMapper)
-		{
-
-		}
 
 		public static string[] DefaultEditorLayerDrawingOrder =
 			ViewHandler.DefaultLayerDrawingOrder.ToList().InsertAfter(new string[]

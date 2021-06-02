@@ -1,26 +1,44 @@
-﻿using System.Linq;
+﻿#nullable enable
+using System;
+using System.Linq;
+using System.Reflection;
+using Microsoft.Maui.Handlers;
+#if __IOS__ || MACCATALYST
+using NativeView = UIKit.UIView;
+#elif MONOANDROID
+using NativeView = Android.Views.View;
+#elif WINDOWS
+using NativeView = Microsoft.UI.Xaml.FrameworkElement;
+#elif NETSTANDARD || (NET6_0 && !IOS && !ANDROID)
+using NativeView = System.Object;
+# endif
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-	public abstract partial class GraphicsControlHandler<TViewDrawable, TVirtualView> : IGraphicsHandler
+	public abstract partial class MixedGraphicsControlHandler<TVirtualView, TViewDrawable, TNativeView> : ViewHandler<TVirtualView, TNativeView>, IViewHandler, IMixedGraphicsHandler
 		where TVirtualView : class, IView
 		where TViewDrawable : class, IViewDrawable
+#if !NETSTANDARD || IOS || ANDROID || WINDOWS
+		where TNativeView : NativeView
+#else
+		where TNativeView : class
+#endif
 	{
 		TViewDrawable? _drawable;
 		protected readonly DrawMapper _drawMapper;
 		ControlState _currentState = ControlState.Default;
 
-		protected GraphicsControlHandler() : base(ViewHandler.Mapper)
+		protected MixedGraphicsControlHandler() : base(ViewHandler.Mapper)
 		{
 			_drawMapper = ViewHandler.DrawMapper;
 		}
 
-		protected GraphicsControlHandler(DrawMapper? drawMapper, PropertyMapper mapper) : base(mapper ?? ViewHandler.Mapper)
+		protected MixedGraphicsControlHandler(DrawMapper? drawMapper, PropertyMapper mapper) : base(mapper ?? ViewHandler.Mapper)
 		{
 			_drawMapper = drawMapper ?? new DrawMapper<TViewDrawable, TVirtualView>(ViewHandler.DrawMapper);
 		}
 
-		DrawMapper IGraphicsHandler.DrawMapper => _drawMapper;
+		DrawMapper IMixedGraphicsHandler.DrawMapper => _drawMapper;
 
 		public RectangleF Bounds { get; private set; }
 
@@ -95,6 +113,12 @@ namespace Microsoft.Maui.Graphics.Controls
 		{
 		}
 
+		public void Invalidate()
+		{
+			if (NativeView is IInvalidate invalidatableView)
+				invalidatableView?.Invalidate();
+		}
+
 		public virtual void Resized(RectangleF bounds)
 		{
 			Bounds = bounds;
@@ -103,11 +127,21 @@ namespace Microsoft.Maui.Graphics.Controls
 		public override Size GetDesiredSize(double widthConstraint, double heightConstraint) =>
 			Drawable.GetDesiredSize(VirtualView!, widthConstraint, heightConstraint);
 
-		public override void SetVirtualView(IView view)
+        public override void SetVirtualView(IView view)
 		{
 			base.SetVirtualView(view);
+
 			Drawable.View = VirtualView!;
+			SetDrawableIfExists();
+
 			Invalidate();
+		}
+
+		void SetDrawableIfExists()
+        {
+			Type? type = NativeView?.GetType();
+			PropertyInfo? prop = type?.GetProperty("Drawable");
+			prop?.SetValue(NativeView, this, null);
 		}
 
 		public virtual void Draw(ICanvas canvas, RectangleF dirtyRect)

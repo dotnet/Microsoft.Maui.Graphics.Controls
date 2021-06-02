@@ -32,6 +32,10 @@ namespace Microsoft.Maui.Graphics.Controls
             verticalStack.Add(new Label { FontSize = 9, Text = "Custom CheckBox" });
             verticalStack.Add(new CheckBox { BackgroundColor = Colors.Purple, IsChecked = true });
 
+            // ENTRY
+            verticalStack.Add(new Label { FontSize = 9, Text = "Entry" });
+            verticalStack.Add(new Entry { Placeholder = "Placeholder" });
+
             // PROGRESSBAR
             verticalStack.Add(new Label { FontSize = 9, Text = "ProgressBar" });
             verticalStack.Add(new ProgressBar { Progress = 0.5d });

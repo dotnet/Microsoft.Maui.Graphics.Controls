@@ -1,17 +1,18 @@
-﻿using System.Linq;
+﻿#nullable enable
+using System.Linq;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public class EntryHandler : GraphicsControlHandler<IEntryDrawable, IEntry>
+	public partial class EntryHandler
 	{
-		public static PropertyMapper<IEntry> PropertyMapper = new PropertyMapper<IEntry>(ViewHandler.Mapper)
+		public EntryHandler() : base(DrawMapper, PropertyMapper)
 		{
-			Actions =
-			{
-				[nameof(IEntry.Placeholder)] = ViewHandler.MapInvalidate,
-				[nameof(IEntry.Text)] = ViewHandler.MapInvalidate,
-				[nameof(IEntry.TextColor)] = ViewHandler.MapInvalidate
-			}
+
+		}
+
+		public static PropertyMapper<IEntry, EntryHandler> PropertyMapper = new PropertyMapper<IEntry, EntryHandler>(ViewMapper)
+		{
+			[nameof(IEntry.Text)] = MapText
 		};
 
 		public static DrawMapper<IEntryDrawable, IEntry> DrawMapper = new DrawMapper<IEntryDrawable, IEntry>(ViewHandler.DrawMapper)
@@ -21,11 +22,6 @@ namespace Microsoft.Maui.Graphics.Controls
 			["Placeholder"] = MapDrawPlaceholder,
 			["Indicator"] = MapDrawIndicator
 		};
-
-		public EntryHandler() : base(DrawMapper, PropertyMapper)
-		{
-
-		}
 
 		public static string[] DefaultEntryLayerDrawingOrder =
 			ViewHandler.DefaultLayerDrawingOrder.ToList().InsertAfter(new string[]

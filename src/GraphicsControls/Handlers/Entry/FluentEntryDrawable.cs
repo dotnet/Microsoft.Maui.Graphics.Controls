@@ -8,6 +8,8 @@
         RectangleF indicatorRect = new RectangleF();
         public RectangleF IndicatorRect => indicatorRect;
 
+        public bool HasFocus { get; set; }
+
         public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEntry view)
         {
             canvas.SaveState();
@@ -102,5 +104,8 @@
                 canvas.RestoreState();
             }
         }
+
+        public override Size GetDesiredSize(IView view, double widthConstraint, double heightConstraint) =>
+            new Size(widthConstraint, 36f);
     }
 }

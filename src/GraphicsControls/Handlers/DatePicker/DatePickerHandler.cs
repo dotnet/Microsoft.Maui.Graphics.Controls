@@ -2,8 +2,13 @@
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public class DatePickerHandler : GraphicsControlHandler<IDatePickerDrawable, IDatePicker>
-    {
+    public partial class DatePickerHandler
+	{
+		public DatePickerHandler() : base(DrawMapper, PropertyMapper)
+		{
+
+		}
+
 		public static PropertyMapper<IDatePicker> PropertyMapper = new PropertyMapper<IDatePicker>(ViewHandler.Mapper)
 		{
 			Actions =
@@ -22,11 +27,6 @@ namespace Microsoft.Maui.Graphics.Controls
 			["Placeholder"] = MapDrawPlaceholder,
 			["Date"] = MapDrawDate
 		};
-
-		public DatePickerHandler() : base(DrawMapper, PropertyMapper)
-		{
-
-		}
 
 		public static string[] DefaultDatePickerLayerDrawingOrder =
 			ViewHandler.DefaultLayerDrawingOrder.ToList().InsertAfter(new string[]

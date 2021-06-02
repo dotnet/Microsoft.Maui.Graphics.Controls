@@ -1,6 +1,6 @@
 ﻿namespace Microsoft.Maui.Graphics.Controls
 {
-    public interface IViewDrawable<TVirtualView> : IViewDrawable
+	public interface IViewDrawable<TVirtualView> : IViewDrawable
 		where TVirtualView : IView
 	{
 

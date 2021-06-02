@@ -51,6 +51,6 @@
 		};
 
 		public static void MapInvalidate(IViewHandler handler, IView view) =>
-			(handler as IGraphicsControl)?.Invalidate();
+			(handler as IGraphicsHandler)?.Invalidate();
 	}
 }

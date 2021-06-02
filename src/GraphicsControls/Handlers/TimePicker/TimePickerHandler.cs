@@ -2,8 +2,13 @@
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public class TimePickerHandler : GraphicsControlHandler<ITimePickerDrawable, ITimePicker>
+    public partial class TimePickerHandler
 	{
+		public TimePickerHandler() : base(DrawMapper, PropertyMapper)
+		{
+
+		}
+
 		public static PropertyMapper<ITimePicker> PropertyMapper = new PropertyMapper<ITimePicker>(ViewHandler.Mapper)
 		{
 			Actions =
@@ -20,11 +25,6 @@ namespace Microsoft.Maui.Graphics.Controls
 			["Placeholder"] = MapDrawPlaceholder,
 			["Time"] = MapDrawTime
 		};
-
-		public TimePickerHandler() : base(DrawMapper, PropertyMapper)
-		{
-
-		}
 
 		public static string[] DefaultTimePickerLayerDrawingOrder =
 			ViewHandler.DefaultLayerDrawingOrder.ToList().InsertAfter(new string[]

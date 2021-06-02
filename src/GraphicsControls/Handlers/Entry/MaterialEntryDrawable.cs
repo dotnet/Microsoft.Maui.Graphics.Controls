@@ -13,11 +13,13 @@
         RectangleF indicatorRect = new RectangleF();
         public RectangleF IndicatorRect => indicatorRect;
 
+        public bool HasFocus { get; set; }
+
         public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEntry view)
         {
             canvas.SaveState();
 
-            canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Material.Color.Gray5);
+            canvas.FillColor = view.BackgroundColor.WithDefault(Material.Color.Gray5);
 
             var width = dirtyRect.Width;
 
@@ -37,6 +39,12 @@
 
             var strokeWidth = 1.0f;
             canvas.FillColor = Material.Color.Black.ToColor();
+
+            if (HasFocus)
+            {
+                strokeWidth = 2.0f;
+                canvas.FillColor = Material.Color.Blue.ToColor();
+            }
 
             var x = dirtyRect.X;
             var y = 53.91f;
@@ -114,12 +122,6 @@
 
             var x = dirtyRect.X + margin;
 
-            if (VirtualView.FlowDirection == FlowDirection.RightToLeft)
-            {
-                x = dirtyRect.X;
-                horizontalAlignment = HorizontalAlignment.Right;
-            }
-
             var height = dirtyRect.Height;
             var width = dirtyRect.Width;
 
@@ -127,5 +129,8 @@
 
             canvas.RestoreState();
         }
+
+        public override Size GetDesiredSize(IView view, double widthConstraint, double heightConstraint) =>
+            new Size(widthConstraint, 56f);
     }
 }
