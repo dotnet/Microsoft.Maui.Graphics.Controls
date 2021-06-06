@@ -2,16 +2,16 @@
 {
     public class FluentButtonDrawable : ViewDrawable<IButton>, IButtonDrawable
     {
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IButton view)
+        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IButton button)
         {
             canvas.SaveState();
 
             var strokeWidth = 1;
 
-            if (VirtualView.IsEnabled)
+            if (button.IsEnabled)
             {
                 canvas.StrokeColor = Colors.Black;
-                canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Fluent.Color.Primary.ThemePrimary);
+                canvas.FillColor = button.BackgroundColor.WithDefault(Fluent.Color.Primary.ThemePrimary);
             }
             else
             {
@@ -35,12 +35,12 @@
             canvas.RestoreState();
         }
 
-        public void DrawText(ICanvas canvas, RectangleF dirtyRect, IButton view)
+        public void DrawText(ICanvas canvas, RectangleF dirtyRect, IButton button)
         {
             canvas.SaveState();
 
-            if (VirtualView.IsEnabled)
-                canvas.FontColor = VirtualView.TextColor.WithDefault(Fluent.Color.Foreground.White);
+            if (button.IsEnabled)
+                canvas.FontColor = button.TextColor.WithDefault(Fluent.Color.Foreground.White);
             else
                 canvas.FontColor = Fluent.Color.Foreground.NeutralPrimary.ToColor();
 
@@ -49,7 +49,7 @@
             var height = dirtyRect.Height;
             var width = dirtyRect.Width;
 
-            canvas.DrawString(VirtualView.Text, 0, 0, width, height, HorizontalAlignment.Center, VerticalAlignment.Center);
+            canvas.DrawString(button.Text, 0, 0, width, height, HorizontalAlignment.Center, VerticalAlignment.Center);
 
             canvas.RestoreState();
         }

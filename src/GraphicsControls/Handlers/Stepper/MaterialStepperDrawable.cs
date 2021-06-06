@@ -14,12 +14,12 @@
 
         public RectangleF PlusRectangle { get; set; }
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IStepper view)
+        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
         {
             canvas.SaveState();
 
             canvas.StrokeSize = 1;
-            canvas.FillColor = VirtualView.BackgroundColor.WithDefault(VirtualView.IsEnabled ? Material.Color.White : Material.Color.Gray6);
+            canvas.FillColor = stepper.BackgroundColor.WithDefault(VirtualView.IsEnabled ? Material.Color.White : Material.Color.Gray6);
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
@@ -40,7 +40,7 @@
             canvas.RestoreState();
         }
 
-        public void DrawMinus(ICanvas canvas, RectangleF dirtyRect, IStepper view)
+        public void DrawMinus(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
         {
             canvas.SaveState();
 
@@ -72,7 +72,7 @@
             MinusRectangle = new RectangleF(x, y, width, height);
         }
 
-        public void DrawPlus(ICanvas canvas, RectangleF dirtyRect, IStepper view)
+        public void DrawPlus(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
         {
             canvas.SaveState();
 
@@ -92,7 +92,7 @@
             var vBuilder = new PathBuilder();
             var path = vBuilder.BuildPath(MaterialStepperPlusIcon);
 
-            if (VirtualView.IsEnabled)
+            if (stepper.IsEnabled)
                 canvas.FillColor = Material.Color.Black.ToColor();
             else
                 canvas.FillColor = Material.Color.Gray3.ToColor();
@@ -104,12 +104,12 @@
             PlusRectangle = new RectangleF(x, y, width, height);
         }
 
-        public void DrawSeparator(ICanvas canvas, RectangleF dirtyRect, IStepper view)
+        public void DrawSeparator(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
         {
         
         }
 
-        public void DrawText(ICanvas canvas, RectangleF dirtyRect, IStepper view)
+        public void DrawText(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
         {
         
         }

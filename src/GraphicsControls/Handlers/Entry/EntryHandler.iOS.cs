@@ -3,7 +3,7 @@ using UIKit;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public partial class EntryHandler : MixedGraphicsControlHandler<IEntry, IEntryDrawable, GraphicsEntry>
+    public partial class EntryHandler : MixedGraphicsControlHandler<IEntryDrawable, IEntry, GraphicsEntry>
     {
         protected override GraphicsEntry CreateNativeView()
         {

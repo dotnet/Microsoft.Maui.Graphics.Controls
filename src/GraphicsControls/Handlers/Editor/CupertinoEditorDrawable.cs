@@ -2,11 +2,11 @@
 {
     public class CupertinoEditorDrawable : ViewDrawable<IEditor>, IEditorDrawable
     {
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEditor view)
+        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEditor editor)
         {
             canvas.SaveState();
 
-            canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Material.Color.White);
+            canvas.FillColor = editor.BackgroundColor.WithDefault(Material.Color.White);
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
@@ -19,7 +19,7 @@
             canvas.RestoreState();
         }
 
-        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IEditor view)
+        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IEditor editor)
         {
             canvas.SaveState();
 
@@ -39,13 +39,13 @@
             canvas.RestoreState();
         }
 
-        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEditor view)
+        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEditor editor)
         {
-            if (string.IsNullOrEmpty(VirtualView.Text))
+            if (string.IsNullOrEmpty(editor.Text))
             {
                 canvas.SaveState();
 
-                canvas.FontColor = VirtualView.PlaceholderColor.WithDefault(Material.Color.Black);
+                canvas.FontColor = editor.PlaceholderColor.WithDefault(Material.Color.Black);
                 canvas.FontSize = 14f;
 
                 float margin = 8f;
@@ -56,10 +56,13 @@
                 var height = dirtyRect.Height;
                 var width = dirtyRect.Width;
 
-                canvas.DrawString(VirtualView.Placeholder, x, y, width - margin, height, HorizontalAlignment.Left, VerticalAlignment.Top);
+                canvas.DrawString(editor.Placeholder, x, y, width - margin, height, HorizontalAlignment.Left, VerticalAlignment.Top);
 
                 canvas.RestoreState();
             }
         }
+
+        public override Size GetDesiredSize(IView view, double widthConstraint, double heightConstraint) =>
+            new Size(widthConstraint, 60.0d);
     }
 }

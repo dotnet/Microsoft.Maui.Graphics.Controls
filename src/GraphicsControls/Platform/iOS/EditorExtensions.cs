@@ -1,7 +1,7 @@
 ﻿namespace Microsoft.Maui.Graphics.Controls
 {
-    public interface IInvalidate
+    public static class EditorExtensions
     {
-        void Invalidate();
+     
     }
 }

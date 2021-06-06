@@ -4,11 +4,11 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public class MaterialDatePickerDrawable : ViewDrawable<IDatePicker>, IDatePickerDrawable
     {
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IDatePicker view)
+        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IDatePicker datePicker)
         {
             canvas.SaveState();
 
-            canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Material.Color.Gray5);
+            canvas.FillColor = datePicker.BackgroundColor.WithDefault(Material.Color.Gray5);
 
             var width = dirtyRect.Width;
 
@@ -22,7 +22,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IDatePicker view)
+        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IDatePicker datePicker)
         {
             canvas.SaveState();
 
@@ -40,11 +40,11 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawDate(ICanvas canvas, RectangleF dirtyRect, IDatePicker view)
+        public void DrawDate(ICanvas canvas, RectangleF dirtyRect, IDatePicker datePicker)
         {
             canvas.SaveState();
 
-            canvas.FontColor = VirtualView.TextColor.WithDefault(Material.Color.Dark);
+            canvas.FontColor = datePicker.TextColor.WithDefault(Material.Color.Dark);
             canvas.FontSize = 16f;
 
             float margin = 12f;
@@ -63,12 +63,12 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawIndicator(ICanvas canvas, RectangleF dirtyRect, IDatePicker view)
+        public void DrawIndicator(ICanvas canvas, RectangleF dirtyRect, IDatePicker datePicker)
         {
 
         }
 
-        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IDatePicker view)
+        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IDatePicker datePicker)
         {
             canvas.SaveState();
 
@@ -88,5 +88,8 @@ namespace Microsoft.Maui.Graphics.Controls
 
             canvas.RestoreState();
         }
+
+        public override Size GetDesiredSize(IView view, double widthConstraint, double heightConstraint) =>
+            new Size(widthConstraint, 56f);
     }
 }

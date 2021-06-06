@@ -1,6 +1,6 @@
 ﻿namespace Microsoft.Maui.Graphics.Controls
 {
-    public interface IGraphicsHandler : IGraphicsControlInteraction, IViewHandler, IDrawable, IInvalidate
+    public interface IGraphicsHandler : IGraphicsControlInteraction, IViewHandler, IDrawable, IInvalidatable
 	{
 		DrawMapper DrawMapper { get; }
 

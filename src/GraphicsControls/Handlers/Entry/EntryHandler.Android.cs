@@ -1,12 +1,10 @@
 ﻿using System;
-using Android.Views;
-using Microsoft.Maui.Handlers;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public partial class EntryHandler : MixedGraphicsControlHandler<IEntry, IEntryDrawable, View>
+    public partial class EntryHandler : MixedGraphicsControlHandler<IEntryDrawable, IEntry, GraphicsEntry>
 	{
-		protected override View CreateNativeView() => throw new NotImplementedException();
+		protected override GraphicsEntry CreateNativeView() => throw new NotImplementedException();
 
 		public static void MapText(IViewHandler handler, IEntry entry) { }
 	}

@@ -7,12 +7,12 @@ namespace Microsoft.Maui.Graphics.Controls
         const float FluentTimePickerHeight = 32.0f;
         const float FluentDatePickerWidth = 250.0f;
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ITimePicker view)
+        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
         {
             canvas.SaveState();
 
-            if (VirtualView.IsEnabled)
-                canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Fluent.Color.Foreground.White);
+            if (timePicker.IsEnabled)
+                canvas.FillColor = timePicker.BackgroundColor.WithDefault(Fluent.Color.Foreground.White);
             else
                 canvas.FillColor = Fluent.Color.Background.NeutralLighter.ToColor();
 
@@ -27,9 +27,9 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, ITimePicker view)
+        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
         {
-            if (VirtualView.IsEnabled)
+            if (timePicker.IsEnabled)
             {
                 canvas.SaveState();
 
@@ -74,12 +74,12 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, ITimePicker view)
+        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
         {
 
         }
 
-        public void DrawTime(ICanvas canvas, RectangleF dirtyRect, ITimePicker view)
+        public void DrawTime(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
         {
             var height = FluentTimePickerHeight;
             var divided = FluentDatePickerWidth / 3;
@@ -89,7 +89,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
             Color textColor;
 
-            if (VirtualView.IsEnabled)
+            if (timePicker.IsEnabled)
                 textColor = Fluent.Color.Foreground.Black.ToColor();
             else
                 textColor = Fluent.Color.Foreground.NeutralTertiary.ToColor();
@@ -123,5 +123,8 @@ namespace Microsoft.Maui.Graphics.Controls
 
             canvas.RestoreState();
         }
+
+        public override Size GetDesiredSize(IView view, double widthConstraint, double heightConstraint) =>
+            new Size(widthConstraint, 32f);
     }
 }

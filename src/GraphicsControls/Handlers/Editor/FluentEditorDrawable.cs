@@ -2,12 +2,12 @@
 {
     public class FluentEditorDrawable : ViewDrawable<IEditor>, IEditorDrawable
     {
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEditor view)
+        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEditor editor)
         {
             canvas.SaveState();
 
-            if (VirtualView.IsEnabled)
-                canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Fluent.Color.Foreground.White);
+            if (editor.IsEnabled)
+                canvas.FillColor = editor.BackgroundColor.WithDefault(Fluent.Color.Foreground.White);
             else
                 canvas.FillColor = Fluent.Color.Background.NeutralLighter.ToColor();
 
@@ -22,9 +22,9 @@
             canvas.RestoreState();
         }
 
-        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IEditor view)
+        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IEditor editor)
         {
-            if (VirtualView.IsEnabled)
+            if (editor.IsEnabled)
             {
                 canvas.SaveState();
 
@@ -45,14 +45,14 @@
             }
         }
 
-        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEditor view)
+        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEditor editor)
         {
-            if (string.IsNullOrEmpty(VirtualView.Text))
+            if (string.IsNullOrEmpty(editor.Text))
             {
                 canvas.SaveState();
 
-                if (VirtualView.IsEnabled)
-                    canvas.FontColor = VirtualView.PlaceholderColor.WithDefault(Fluent.Color.Foreground.Black);
+                if (editor.IsEnabled)
+                    canvas.FontColor = editor.PlaceholderColor.WithDefault(Fluent.Color.Foreground.Black);
                 else
                     canvas.FontColor = Fluent.Color.Foreground.NeutralTertiary.ToColor();
 
@@ -66,10 +66,13 @@
                 var height = dirtyRect.Height;
                 var width = dirtyRect.Width;
 
-                canvas.DrawString(VirtualView.Placeholder, x, y, width - margin, height, HorizontalAlignment.Left, VerticalAlignment.Top);
+                canvas.DrawString(editor.Placeholder, x, y, width - margin, height, HorizontalAlignment.Left, VerticalAlignment.Top);
 
                 canvas.RestoreState();
             }
         }
+
+        public override Size GetDesiredSize(IView view, double widthConstraint, double heightConstraint) =>
+            new Size(widthConstraint, 60.0d);
     }
 }

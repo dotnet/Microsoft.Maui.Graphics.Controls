@@ -5,7 +5,7 @@ using UIKit;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public class GraphicsEntry : UITextField, IInvalidate
+    public class GraphicsEntry : UITextField, IMixedNativeView
     {
         readonly NativeCanvas _canvas;
         CGColorSpace? _colorSpace;
@@ -35,6 +35,10 @@ namespace Microsoft.Maui.Graphics.Controls
         }
 
         public UIEdgeInsets EdgeInsets { get; set; }
+
+        static readonly string[] DefaultNativeLayers = new[] { nameof(IEntry.Text) };
+
+        public string[] NativeLayers => DefaultNativeLayers;
 
         public void Invalidate()
         {
@@ -77,6 +81,11 @@ namespace Microsoft.Maui.Graphics.Controls
                 rect.Y + insets.Top,
                 rect.Width - insets.Left - insets.Right,
                 rect.Height - insets.Top - insets.Bottom);
+        }
+
+        public void DrawBaseLayer(RectangleF dirtyRect)
+        {
+            base.Draw(dirtyRect);
         }
 
         public override void Draw(CGRect dirtyRect)

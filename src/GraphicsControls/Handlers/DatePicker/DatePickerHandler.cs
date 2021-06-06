@@ -9,14 +9,11 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		}
 
-		public static PropertyMapper<IDatePicker> PropertyMapper = new PropertyMapper<IDatePicker>(ViewHandler.Mapper)
+		public static PropertyMapper<IDatePicker, DatePickerHandler> PropertyMapper = new PropertyMapper<IDatePicker, DatePickerHandler>(ViewHandler.Mapper)
 		{
-			Actions =
-			{
-				[nameof(IDatePicker.MinimumDate)] = ViewHandler.MapInvalidate,
-				[nameof(IDatePicker.MaximumDate)] = ViewHandler.MapInvalidate,
-				[nameof(IDatePicker.Date)] = ViewHandler.MapInvalidate
-			}
+			[nameof(IDatePicker.MinimumDate)] = MapMinimumDate,
+			[nameof(IDatePicker.MaximumDate)] = MapMaximumDate,
+			[nameof(IDatePicker.Date)] = MapDate
 		};
 
 		public static DrawMapper<IDatePickerDrawable, IDatePicker> DrawMapper = new DrawMapper<IDatePickerDrawable, IDatePicker>(ViewHandler.DrawMapper)

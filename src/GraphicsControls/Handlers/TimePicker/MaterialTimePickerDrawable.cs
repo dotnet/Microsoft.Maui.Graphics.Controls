@@ -4,11 +4,11 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public class MaterialTimePickerDrawable : ViewDrawable<ITimePicker>, ITimePickerDrawable
     {
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ITimePicker view)
+        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
         {
             canvas.SaveState();
 
-            canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Material.Color.Gray5);
+            canvas.FillColor = timePicker.BackgroundColor.WithDefault(Material.Color.Gray5);
 
             var width = dirtyRect.Width;
 
@@ -22,7 +22,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, ITimePicker view)
+        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
         {
             canvas.SaveState();
 
@@ -40,7 +40,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, ITimePicker view)
+        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
         {
             canvas.SaveState();
 
@@ -53,7 +53,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
             var x = dirtyRect.X + margin;
 
-            if (VirtualView.FlowDirection == FlowDirection.RightToLeft)
+            if (timePicker.FlowDirection == FlowDirection.RightToLeft)
             {
                 x = dirtyRect.X;
                 horizontalAlignment = HorizontalAlignment.Right;
@@ -67,11 +67,11 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawTime(ICanvas canvas, RectangleF dirtyRect, ITimePicker view)
+        public void DrawTime(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
         {
             canvas.SaveState();
 
-            canvas.FontColor = VirtualView.TextColor.WithDefault(Material.Color.Dark);
+            canvas.FontColor = timePicker.TextColor.WithDefault(Material.Color.Dark);
             canvas.FontSize = 16f;
 
             float margin = 12f;
@@ -80,7 +80,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
             var x = dirtyRect.X + margin;
 
-            if (VirtualView.FlowDirection == FlowDirection.RightToLeft)
+            if (timePicker.FlowDirection == FlowDirection.RightToLeft)
             {
                 x = dirtyRect.X;
                 horizontalAlignment = HorizontalAlignment.Right;
@@ -92,9 +92,12 @@ namespace Microsoft.Maui.Graphics.Controls
             var time = TimeSpan.Zero;
             var date = new DateTime(time.Ticks);
 
-            canvas.DrawString(date.ToString(VirtualView.Format), x, 22f, width - margin, height, horizontalAlignment, VerticalAlignment.Top);
+            canvas.DrawString(date.ToString(timePicker.Format), x, 22f, width - margin, height, horizontalAlignment, VerticalAlignment.Top);
 
             canvas.RestoreState();
         }
+
+        public override Size GetDesiredSize(IView view, double widthConstraint, double heightConstraint) =>
+            new Size(widthConstraint, 56f);
     }
 }

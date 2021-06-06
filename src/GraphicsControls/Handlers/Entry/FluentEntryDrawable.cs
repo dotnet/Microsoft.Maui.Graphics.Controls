@@ -10,12 +10,12 @@
 
         public bool HasFocus { get; set; }
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEntry view)
+        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEntry entry)
         {
             canvas.SaveState();
 
-            if (VirtualView.IsEnabled)
-                canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Fluent.Color.Foreground.White);
+            if (entry.IsEnabled)
+                canvas.FillColor = entry.BackgroundColor.WithDefault(Fluent.Color.Foreground.White);
             else
                 canvas.FillColor = Fluent.Color.Background.NeutralLighter.ToColor();
 
@@ -30,9 +30,9 @@
             canvas.RestoreState();
         }
 
-        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IEntry view)
+        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IEntry entry)
         {
-            if (VirtualView.IsEnabled)
+            if (entry.IsEnabled)
             {
                 canvas.SaveState();
 
@@ -53,9 +53,9 @@
             }
         }
 
-        public void DrawIndicator(ICanvas canvas, RectangleF dirtyRect, IEntry view)
+        public void DrawIndicator(ICanvas canvas, RectangleF dirtyRect, IEntry entry)
         {
-            if (!string.IsNullOrEmpty(VirtualView.Text))
+            if (!string.IsNullOrEmpty(entry.Text))
             {
                 canvas.SaveState();
 
@@ -70,7 +70,7 @@
                 var vBuilder = new PathBuilder();
                 var path = vBuilder.BuildPath(FluentEntryIndicatorIcon);
 
-                canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Material.Color.Gray1);
+                canvas.FillColor = entry.BackgroundColor.WithDefault(Material.Color.Gray1);
                 canvas.FillPath(path);
 
                 canvas.RestoreState();
@@ -79,13 +79,13 @@
             }
         }
 
-        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEntry view)
+        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEntry entry)
         {
-            if (string.IsNullOrEmpty(VirtualView.Text))
+            if (string.IsNullOrEmpty(entry.Text))
             {
                 canvas.SaveState();
 
-                if (VirtualView.IsEnabled)
+                if (entry.IsEnabled)
                     canvas.FontColor = Fluent.Color.Foreground.Black.ToColor();
                 else
                     canvas.FontColor = Fluent.Color.Foreground.NeutralTertiary.ToColor();
@@ -99,7 +99,7 @@
                 var height = FluentEntryHeight;
                 var width = dirtyRect.Width;
 
-                canvas.DrawString(VirtualView.Placeholder, x, 0, width - margin, height, HorizontalAlignment.Left, VerticalAlignment.Center);
+                canvas.DrawString(entry.Placeholder, x, 0, width - margin, height, HorizontalAlignment.Left, VerticalAlignment.Center);
 
                 canvas.RestoreState();
             }

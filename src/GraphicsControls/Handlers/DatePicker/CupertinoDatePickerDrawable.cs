@@ -4,11 +4,11 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public class CupertinoDatePickerDrawable : ViewDrawable<IDatePicker>, IDatePickerDrawable
     {
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IDatePicker view)
+        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IDatePicker datePicker)
         {
             canvas.SaveState();
 
-            canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Material.Color.White);
+            canvas.FillColor = datePicker.BackgroundColor.WithDefault(Material.Color.White);
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
@@ -21,7 +21,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IDatePicker view)
+        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IDatePicker datePicker)
         {
             canvas.SaveState();
 
@@ -41,11 +41,11 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawDate(ICanvas canvas, RectangleF dirtyRect, IDatePicker view)
+        public void DrawDate(ICanvas canvas, RectangleF dirtyRect, IDatePicker datePicker)
         {
             canvas.SaveState();
 
-            canvas.FontColor = VirtualView.TextColor.WithDefault(Material.Color.Black);
+            canvas.FontColor = datePicker.TextColor.WithDefault(Material.Color.Black);
             canvas.FontSize = 14f;
 
             float margin = 8f;
@@ -62,14 +62,17 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawIndicator(ICanvas canvas, RectangleF dirtyRect, IDatePicker view)
+        public void DrawIndicator(ICanvas canvas, RectangleF dirtyRect, IDatePicker datePicker)
         {
 
         }
 
-        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IDatePicker view)
+        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IDatePicker datePicker)
         {
 
         }
+
+        public override Size GetDesiredSize(IView view, double widthConstraint, double heightConstraint) =>
+            new Size(widthConstraint, 36f);
     }
 }

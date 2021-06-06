@@ -1,10 +1,22 @@
-﻿using System;
-namespace Microsoft.Maui.Graphics.Controls.Handlers.Entry
+﻿using Android.Content;
+using Android.Views;
+
+namespace Microsoft.Maui.Graphics.Controls
 {
-    public class GraphicsEntry
+    public class GraphicsEntry : View, IMixedNativeView
     {
-        public GraphicsEntry()
+        public GraphicsEntry(Context context) : base(context)
         {
+
+        }
+
+        public string[] NativeLayers => throw new System.NotImplementedException();
+
+        public IDrawable Drawable { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
+        public void DrawBaseLayer(RectangleF dirtyRect)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

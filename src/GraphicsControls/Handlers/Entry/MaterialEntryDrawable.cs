@@ -15,11 +15,11 @@
 
         public bool HasFocus { get; set; }
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEntry view)
+        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEntry entry)
         {
             canvas.SaveState();
 
-            canvas.FillColor = view.BackgroundColor.WithDefault(Material.Color.Gray5);
+            canvas.FillColor = entry.BackgroundColor.WithDefault(Material.Color.Gray5);
 
             var width = dirtyRect.Width;
 
@@ -33,7 +33,7 @@
             canvas.RestoreState();
         }
 
-        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IEntry view)
+        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IEntry entry)
         {
             canvas.SaveState();
 
@@ -57,9 +57,9 @@
             canvas.RestoreState();
         }
 
-        public void DrawIndicator(ICanvas canvas, RectangleF dirtyRect, IEntry view)
+        public void DrawIndicator(ICanvas canvas, RectangleF dirtyRect, IEntry entry)
         {
-            if (!string.IsNullOrEmpty(VirtualView.Text))
+            if (!string.IsNullOrEmpty(entry.Text))
             {
                 canvas.SaveState();
 
@@ -71,10 +71,10 @@
                 var x = dirtyRect.Width - backgroundMarginX;
                 var y = dirtyRect.Y + backgroundMarginY;
 
-                if (VirtualView.FlowDirection == FlowDirection.RightToLeft)
+                if (entry.FlowDirection == FlowDirection.RightToLeft)
                     x = backgroundMarginX;
 
-                canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Material.Color.Black);
+                canvas.FillColor = entry.BackgroundColor.WithDefault(Material.Color.Black);
                 canvas.Alpha = 0.12f;
 
                 canvas.FillCircle(x, y, radius);
@@ -91,7 +91,7 @@
                 var tX = dirtyRect.Width - iconMarginX;
                 var tY = dirtyRect.Y + iconMarginY;
 
-                if (VirtualView.FlowDirection == FlowDirection.RightToLeft)
+                if (entry.FlowDirection == FlowDirection.RightToLeft)
                 {
                     iconMarginX = 19;
                     tX = iconMarginX;
@@ -102,14 +102,14 @@
                 var vBuilder = new PathBuilder();
                 var path = vBuilder.BuildPath(MaterialEntryIndicatorIcon);
 
-                canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Material.Color.Black);
+                canvas.FillColor = entry.BackgroundColor.WithDefault(Material.Color.Black);
                 canvas.FillPath(path);
 
                 canvas.RestoreState();
             }
         }
 
-        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEntry view)
+        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEntry entry)
         {
             canvas.SaveState();
 
@@ -125,7 +125,7 @@
             var height = dirtyRect.Height;
             var width = dirtyRect.Width;
 
-            canvas.DrawString(VirtualView.Placeholder, x, PlaceholderPosition, width - margin, height, horizontalAlignment, VerticalAlignment.Top);
+            canvas.DrawString(entry.Placeholder, x, PlaceholderPosition, width - margin, height, horizontalAlignment, VerticalAlignment.Top);
 
             canvas.RestoreState();
         }

@@ -11,15 +11,15 @@ using NativeView = Android.Views.View;
 using NativeView = Microsoft.UI.Xaml.FrameworkElement;
 #elif NETSTANDARD || (NET6_0 && !IOS && !ANDROID)
 using NativeView = System.Object;
-# endif
+#endif
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-	public abstract partial class MixedGraphicsControlHandler<TVirtualView, TViewDrawable, TNativeView> : ViewHandler<TVirtualView, TNativeView>, IViewHandler, IMixedGraphicsHandler
+	public abstract partial class MixedGraphicsControlHandler<TViewDrawable, TVirtualView, TNativeView> : ViewHandler<TVirtualView, TNativeView>, IViewHandler, IMixedGraphicsHandler
 		where TVirtualView : class, IView
 		where TViewDrawable : class, IViewDrawable
 #if !NETSTANDARD || IOS || ANDROID || WINDOWS
-		where TNativeView : NativeView
+		where TNativeView : NativeView, IMixedNativeView
 #else
 		where TNativeView : class
 #endif
@@ -115,7 +115,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public void Invalidate()
 		{
-			if (NativeView is IInvalidate invalidatableView)
+			if (NativeView is IInvalidatable invalidatableView)
 				invalidatableView?.Invalidate();
 		}
 
@@ -127,21 +127,15 @@ namespace Microsoft.Maui.Graphics.Controls
 		public override Size GetDesiredSize(double widthConstraint, double heightConstraint) =>
 			Drawable.GetDesiredSize(VirtualView!, widthConstraint, heightConstraint);
 
-        public override void SetVirtualView(IView view)
+		public override void SetVirtualView(IView view)
 		{
 			base.SetVirtualView(view);
 
 			Drawable.View = VirtualView!;
-			SetDrawableIfExists();
+			if (NativeView is IMixedNativeView mnv)
+				mnv.Drawable = this;
 
 			Invalidate();
-		}
-
-		void SetDrawableIfExists()
-        {
-			Type? type = NativeView?.GetType();
-			PropertyInfo? prop = type?.GetProperty("Drawable");
-			prop?.SetValue(NativeView, this, null);
 		}
 
 		public virtual void Draw(ICanvas canvas, RectangleF dirtyRect)
@@ -153,10 +147,24 @@ namespace Microsoft.Maui.Graphics.Controls
 
 			var layers = LayerDrawingOrder();
 			var rect = dirtyRect;
+			bool hasDrawnBase = false;
+			var mixedNativeView = NativeView as IMixedNativeView;
+			var nativeLayers = mixedNativeView?.NativeLayers;
 
 			foreach (var layer in layers)
 			{
-				_drawMapper?.DrawLayer(canvas, rect, Drawable, VirtualView, layer);
+				//This will allow the native layer to handle the layers it can,
+				//i.e: For Entry, the Text layer and Caret is handled by the base drawing.
+				if (nativeLayers.Contains(layer))
+				{
+					if (hasDrawnBase)
+						continue;
+
+					hasDrawnBase = true;
+					mixedNativeView?.DrawBaseLayer(dirtyRect);
+				}
+				else
+					_drawMapper?.DrawLayer(canvas, rect, Drawable, VirtualView, layer);
 			}
 
 			canvas.ResetState();

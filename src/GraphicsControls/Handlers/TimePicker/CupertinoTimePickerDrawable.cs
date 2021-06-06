@@ -4,11 +4,11 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public class CupertinoTimePickerDrawable : ViewDrawable<ITimePicker>, ITimePickerDrawable
     {
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ITimePicker view)
+        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
         {
             canvas.SaveState();
 
-            canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Material.Color.White);
+            canvas.FillColor = timePicker.BackgroundColor.WithDefault(Material.Color.White);
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
@@ -21,7 +21,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, ITimePicker view)
+        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
         {
             canvas.SaveState();
 
@@ -41,12 +41,12 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, ITimePicker view)
+        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
         {
 
         }
 
-        public void DrawTime(ICanvas canvas, RectangleF dirtyRect, ITimePicker view)
+        public void DrawTime(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
         {
             canvas.SaveState();
 
@@ -63,9 +63,12 @@ namespace Microsoft.Maui.Graphics.Controls
             var time = TimeSpan.Zero;
             var date = new DateTime(time.Ticks);
 
-            canvas.DrawString(date.ToString(VirtualView.Format), x, 0, width - margin, height, HorizontalAlignment.Left, VerticalAlignment.Center);
+            canvas.DrawString(date.ToString(timePicker.Format), x, 0, width - margin, height, HorizontalAlignment.Left, VerticalAlignment.Center);
 
             canvas.RestoreState();
         }
+
+        public override Size GetDesiredSize(IView view, double widthConstraint, double heightConstraint) =>
+            new Size(widthConstraint, 36f);
     }
 }

@@ -12,11 +12,11 @@
 
         public RectangleF PlusRectangle { get; set; }
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IStepper view)
+        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
         {
             canvas.SaveState();
 
-            canvas.FillColor = VirtualView.BackgroundColor.WithDefault(VirtualView.IsEnabled ? Cupertino.Color.Fill.Light.Tertiary : Cupertino.Color.Fill.Light.Quaternary);
+            canvas.FillColor = stepper.BackgroundColor.WithDefault(stepper.IsEnabled ? Cupertino.Color.Fill.Light.Tertiary : Cupertino.Color.Fill.Light.Quaternary);
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
@@ -29,7 +29,7 @@
             canvas.RestoreState();
         }
 
-        public void DrawMinus(ICanvas canvas, RectangleF dirtyRect, IStepper view)
+        public void DrawMinus(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
         {
             canvas.SaveState();
 
@@ -50,7 +50,7 @@
             MinusRectangle = new RectangleF(tX, tY, CupertinoStepperHeight / 2, CupertinoStepperHeight / 2);
         }
 
-        public void DrawPlus(ICanvas canvas, RectangleF dirtyRect, IStepper view)
+        public void DrawPlus(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
         {
             canvas.SaveState();
 
@@ -71,7 +71,7 @@
             PlusRectangle = new RectangleF(tX, tY, CupertinoStepperHeight / 2, CupertinoStepperHeight / 2);
         }
 
-        public void DrawSeparator(ICanvas canvas, RectangleF dirtyRect, IStepper view)
+        public void DrawSeparator(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
         {
             canvas.SaveState();
 

@@ -14,11 +14,11 @@ namespace Microsoft.Maui.Graphics.Controls
 		RectangleF touchTargetRect = new RectangleF(0, 0, 44, 44);
 		public RectangleF TouchTargetRect => touchTargetRect;
 
-		public override void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IView view)
+		public virtual void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ISlider slider)
 		{
 			canvas.SaveState();
 
-			canvas.FillColor = VirtualView.MaximumTrackColor.WithDefault(DefaultCupertinoSliderTrackBackgroundColor);
+			canvas.FillColor = slider.MaximumTrackColor.WithDefault(DefaultCupertinoSliderTrackBackgroundColor);
 
 			var x = dirtyRect.X;
 
@@ -35,15 +35,15 @@ namespace Microsoft.Maui.Graphics.Controls
 			canvas.RestoreState();
 		}
 
-		public virtual void DrawTrackProgress(ICanvas canvas, RectangleF dirtyRect, ISlider view)
+		public virtual void DrawTrackProgress(ICanvas canvas, RectangleF dirtyRect, ISlider slider)
 		{
 			canvas.SaveState();
 
-			canvas.FillColor = VirtualView.MinimumTrackColor.WithDefault(VirtualView.IsEnabled ? DefaultCupertinoSliderTrackProgressColor : Cupertino.Color.SystemGray.Light.InactiveGray);
+			canvas.FillColor = slider.MinimumTrackColor.WithDefault(slider.IsEnabled ? DefaultCupertinoSliderTrackProgressColor : Cupertino.Color.SystemGray.Light.InactiveGray);
 
 			var x = dirtyRect.X;
 
-			var value = (VirtualView.Value / VirtualView.Maximum - VirtualView.Minimum).Clamp(0, 1);
+			var value = (slider.Value / slider.Maximum - slider.Minimum).Clamp(0, 1);
 			var width = (float)(dirtyRect.Width * value);
 
 			var height = 1;
@@ -55,17 +55,17 @@ namespace Microsoft.Maui.Graphics.Controls
 			canvas.RestoreState();
 		}
 
-		public virtual void DrawThumb(ICanvas canvas, RectangleF dirtyRect, ISlider view)
+		public virtual void DrawThumb(ICanvas canvas, RectangleF dirtyRect, ISlider slider)
 		{
 			canvas.SaveState();
 
 			float size = 28f;
 			float strokeWidth = 0.5f;
 
-			canvas.StrokeColor = VirtualView.ThumbColor.WithDefault(DefaultCupertinoSliderThumbColor);
+			canvas.StrokeColor = slider.ThumbColor.WithDefault(DefaultCupertinoSliderThumbColor);
 			canvas.StrokeSize = strokeWidth;
 
-			var value = (VirtualView.Value / VirtualView.Maximum - VirtualView.Minimum).Clamp(0, 1);
+			var value = (slider.Value / slider.Maximum - slider.Minimum).Clamp(0, 1);
 			var x = (float)((dirtyRect.Width * value) - (size / 2));
 
 			if (x <= strokeWidth)
@@ -76,7 +76,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
 			var y = (float)((dirtyRect.Height - size) / 2);
 
-			canvas.FillColor = VirtualView.ThumbColor.WithDefault(VirtualView.IsEnabled ? Cupertino.Color.Background.Light.Primary : Cupertino.Color.SystemGray.Light.InactiveGray);
+			canvas.FillColor = slider.ThumbColor.WithDefault(slider.IsEnabled ? Cupertino.Color.Background.Light.Primary : Cupertino.Color.SystemGray.Light.InactiveGray);
 
 			canvas.SetShadow(new SizeF(1, 1), 2, CanvasDefaults.DefaultShadowColor);
 
@@ -88,7 +88,7 @@ namespace Microsoft.Maui.Graphics.Controls
 			canvas.RestoreState();
 		}
 
-		public virtual void DrawText(ICanvas canvas, RectangleF dirtyRect, ISlider text)
+		public virtual void DrawText(ICanvas canvas, RectangleF dirtyRect, ISlider slider)
         {
 
         }

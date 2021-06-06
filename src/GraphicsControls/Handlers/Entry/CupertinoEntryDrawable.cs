@@ -7,11 +7,11 @@
 
         public bool HasFocus { get; set; }
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEntry view)
+        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEntry editor)
         {
             canvas.SaveState();
 
-            canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Material.Color.White);
+            canvas.FillColor = editor.BackgroundColor.WithDefault(Material.Color.White);
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
@@ -24,7 +24,7 @@
             canvas.RestoreState();
         }
 
-        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IEntry view)
+        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IEntry editor)
         {
             canvas.SaveState();
 
@@ -44,18 +44,18 @@
             canvas.RestoreState();
         }
 
-        public void DrawIndicator(ICanvas canvas, RectangleF dirtyRect, IEntry view)
+        public void DrawIndicator(ICanvas canvas, RectangleF dirtyRect, IEntry editor)
         {
 
         }
 
-        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEntry view)
+        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEntry editor)
         {
-            if (string.IsNullOrEmpty(VirtualView.Text))
+            if (string.IsNullOrEmpty(editor.Text))
             {
                 canvas.SaveState();
 
-                canvas.FontColor = VirtualView.TextColor.WithDefault(Material.Color.Black);
+                canvas.FontColor = editor.TextColor.WithDefault(Material.Color.Black);
                 canvas.FontSize = 14f;
 
                 float margin = 8f;
@@ -65,7 +65,7 @@
                 var height = dirtyRect.Height;
                 var width = dirtyRect.Width;
 
-                canvas.DrawString(VirtualView.Placeholder, x, 0, width - margin, height, HorizontalAlignment.Left, VerticalAlignment.Center);
+                canvas.DrawString(editor.Placeholder, x, 0, width - margin, height, HorizontalAlignment.Left, VerticalAlignment.Center);
 
                 canvas.RestoreState();
             }

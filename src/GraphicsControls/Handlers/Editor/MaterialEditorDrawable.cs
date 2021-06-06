@@ -8,11 +8,11 @@
         readonly float PlaceholderPosition = UnfocusedMaterialPlaceholderPosition;
         readonly float PlaceholderFontSize = UnfocusedMaterialPlaceholderFontSize;
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEditor view)
+        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEditor editor)
         {
             canvas.SaveState();
 
-            canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Material.Color.Gray5);
+            canvas.FillColor = editor.BackgroundColor.WithDefault(Material.Color.Gray5);
 
             var width = dirtyRect.Width;
 
@@ -26,7 +26,7 @@
             canvas.RestoreState();
         }
 
-        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IEditor view)
+        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IEditor editor)
         {
             canvas.SaveState();
 
@@ -44,11 +44,11 @@
             canvas.RestoreState();
         }
 
-        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEditor view)
+        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEditor editor)
         {
             canvas.SaveState();
 
-            canvas.FontColor = VirtualView.PlaceholderColor.WithDefault(Material.Color.Dark);
+            canvas.FontColor = editor.PlaceholderColor.WithDefault(Material.Color.Dark);
             canvas.FontSize = PlaceholderFontSize;
 
             float margin = 12f;
@@ -57,7 +57,7 @@
 
             var x = dirtyRect.X + margin;
 
-            if (VirtualView.FlowDirection == FlowDirection.RightToLeft)
+            if (editor.FlowDirection == FlowDirection.RightToLeft)
             {
                 x = dirtyRect.X;
                 horizontalAlignment = HorizontalAlignment.Right;
@@ -66,9 +66,12 @@
             var height = dirtyRect.Height;
             var width = dirtyRect.Width;
 
-            canvas.DrawString(VirtualView.Placeholder, x, PlaceholderPosition, width - margin, height, horizontalAlignment, VerticalAlignment.Top);
+            canvas.DrawString(editor.Placeholder, x, PlaceholderPosition, width - margin, height, horizontalAlignment, VerticalAlignment.Top);
 
             canvas.RestoreState();
         }
+
+        public override Size GetDesiredSize(IView view, double widthConstraint, double heightConstraint) =>
+            new Size(widthConstraint, 114.95d);
     }
 }
