@@ -7,6 +7,20 @@
 			return new GraphicsDatePicker(Context!);
 		}
 
+		protected override void ConnectHandler(GraphicsDatePicker nativeView)
+		{
+			base.ConnectHandler(nativeView);
+
+			nativeView.DateSelected += OnDateSelected;
+		}
+
+		protected override void DisconnectHandler(GraphicsDatePicker nativeView)
+		{
+			base.DisconnectHandler(nativeView);
+
+			nativeView.DateSelected -= OnDateSelected;
+		}
+
 		public static void MapMinimumDate(DatePickerHandler handler, IDatePicker datePicker)
 		{
 			handler.NativeView?.UpdateMinimumDate(datePicker);
@@ -23,6 +37,14 @@
 		{
 			handler.NativeView?.UpdateDate(datePicker);
 			(handler as IGraphicsHandler)?.Invalidate();
+		}
+
+		void OnDateSelected(object? sender, DateSelectedEventArgs e)
+		{
+			if (VirtualView != null)
+				VirtualView.Date = e.SelectedDate;
+
+			Invalidate();
 		}
 	}
 }

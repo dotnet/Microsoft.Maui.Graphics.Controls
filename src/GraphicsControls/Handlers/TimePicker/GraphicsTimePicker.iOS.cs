@@ -51,6 +51,8 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
+        public event EventHandler<TimeSelectedEventArgs>? TimeSelected;
+
         public override CGRect Bounds
         {
             get => base.Bounds;

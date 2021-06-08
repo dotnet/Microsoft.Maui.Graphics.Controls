@@ -6,5 +6,11 @@
         {
             return new GraphicsTimePicker();
         }
+
+        public static void MapTime(TimePickerHandler handler, ITimePicker timePicker)
+        {
+            handler.NativeView?.UpdateTime(timePicker);
+            (handler as IGraphicsHandler)?.Invalidate();
+        }
     }
 }

@@ -68,7 +68,7 @@ namespace Microsoft.Maui.Graphics.Controls
             var height = FluentDatePickerHeight;
             var width = dirtyRect.Width;
 
-            var date = DateTime.Today;
+            var date = datePicker.Date;
 
             canvas.DrawString(date.ToShortDateString(), x, 0, width - margin, height, HorizontalAlignment.Left, VerticalAlignment.Center);
 

@@ -84,7 +84,7 @@ namespace Microsoft.Maui.Graphics.Controls
             var height = FluentTimePickerHeight;
             var divided = FluentDatePickerWidth / 3;
 
-            var time = TimeSpan.Zero;
+            var time = timePicker.Time;
             var date = new DateTime(time.Ticks);
 
             Color textColor;

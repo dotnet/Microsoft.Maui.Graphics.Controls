@@ -9,13 +9,10 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		}
 
-		public static PropertyMapper<ITimePicker> PropertyMapper = new PropertyMapper<ITimePicker>(ViewHandler.Mapper)
+		public static PropertyMapper<ITimePicker, TimePickerHandler> PropertyMapper = new PropertyMapper<ITimePicker, TimePickerHandler>(ViewHandler.Mapper)
 		{
-			Actions =
-			{
-				[nameof(ITimePicker.Format)] = ViewHandler.MapInvalidate,
-				[nameof(ITimePicker.Time)] = ViewHandler.MapInvalidate
-			}
+			[nameof(ITimePicker.Format)] = MapTime,
+			[nameof(ITimePicker.Time)] = MapTime
 		};
 
 		public static DrawMapper<ITimePickerDrawable, ITimePicker> DrawMapper = new DrawMapper<ITimePickerDrawable, ITimePicker>(ViewHandler.DrawMapper)

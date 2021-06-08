@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Microsoft.Maui.Graphics.Controls
+﻿namespace Microsoft.Maui.Graphics.Controls
 {
     public class MaterialDatePickerDrawable : ViewDrawable<IDatePicker>, IDatePickerDrawable
     {
@@ -56,7 +54,7 @@ namespace Microsoft.Maui.Graphics.Controls
             var height = dirtyRect.Height;
             var width = dirtyRect.Width;
 
-            var date = DateTime.Today;
+            var date = datePicker.Date;
 
             canvas.DrawString(date.ToShortDateString(), x, 22f, width - margin, height, horizontalAlignment, VerticalAlignment.Top);
 

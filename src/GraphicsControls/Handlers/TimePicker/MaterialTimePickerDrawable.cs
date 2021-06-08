@@ -89,7 +89,7 @@ namespace Microsoft.Maui.Graphics.Controls
             var height = dirtyRect.Height;
             var width = dirtyRect.Width;
 
-            var time = TimeSpan.Zero;
+            var time = timePicker.Time;
             var date = new DateTime(time.Ticks);
 
             canvas.DrawString(date.ToString(timePicker.Format), x, 22f, width - margin, height, horizontalAlignment, VerticalAlignment.Top);

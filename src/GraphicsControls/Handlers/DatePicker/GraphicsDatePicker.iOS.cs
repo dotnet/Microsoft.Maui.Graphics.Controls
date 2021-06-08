@@ -73,6 +73,8 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
+        public event EventHandler<DateSelectedEventArgs>? DateSelected;
+
         public override CGRect Bounds
         {
             get => base.Bounds;

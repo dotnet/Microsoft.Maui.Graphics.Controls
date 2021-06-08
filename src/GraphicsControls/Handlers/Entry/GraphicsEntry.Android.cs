@@ -1,22 +1,85 @@
 ﻿using Android.Content;
-using Android.Views;
+using Android.Graphics;
+using AndroidX.AppCompat.Widget;
+using Microsoft.Maui.Graphics.Native;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public class GraphicsEntry : View, IMixedNativeView
+    public class GraphicsEntry : AppCompatEditText, IMixedNativeView
     {
+        readonly NativeCanvas _canvas;
+        readonly ScalingCanvas _scalingCanvas;
+        readonly float _scale;
+
+        int _width, _height;
+        Color? _backgroundColor;
+        IDrawable? _drawable;
+
         public GraphicsEntry(Context context) : base(context)
         {
+            _scale = Resources?.DisplayMetrics?.Density ?? 1;
+            _canvas = new NativeCanvas(context);
+            _scalingCanvas = new ScalingCanvas(_canvas);
 
+            Background = null;
         }
 
-        public string[] NativeLayers => throw new System.NotImplementedException();
-
-        public IDrawable Drawable { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-
-        public void DrawBaseLayer(RectangleF dirtyRect)
+        public Color? BackgroundColor
         {
-            throw new System.NotImplementedException();
+            get => _backgroundColor;
+            set
+            {
+                _backgroundColor = value;
+                Invalidate();
+            }
+        }
+
+        public IDrawable? Drawable
+        {
+            get => _drawable;
+            set
+            {
+                _drawable = value;
+                Invalidate();
+            }
+        }
+
+        static readonly string[] DefaultNativeLayers = new[] { nameof(IEntry.Text) };
+
+        public string[] NativeLayers => DefaultNativeLayers;
+
+        public void DrawBaseLayer(RectangleF dirtyRect) { }
+
+        public override void Draw(Canvas? androidCanvas)
+        {
+            if (_drawable == null)
+                return;
+
+            var dirtyRect = new RectangleF(0, 0, _width, _height);
+
+            _canvas.Canvas = androidCanvas;
+
+            if (_backgroundColor != null)
+            {
+                _canvas.FillColor = _backgroundColor;
+                _canvas.FillRectangle(dirtyRect);
+                _canvas.FillColor = Colors.White;
+            }
+
+            _scalingCanvas.ResetState();
+            _scalingCanvas.Scale(_scale, _scale);
+
+            dirtyRect.Height /= _scale;
+            dirtyRect.Width /= _scale;
+            _drawable.Draw(_scalingCanvas, dirtyRect);
+            _canvas.Canvas = null;
+        }
+
+        protected override void OnSizeChanged(int width, int height, int oldWidth, int oldHeight)
+        {
+            base.OnSizeChanged(width, height, oldWidth, oldHeight);
+            _width = width;
+            _height = height;
         }
     }
 }
