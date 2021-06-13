@@ -14,10 +14,10 @@
         {
             canvas.SaveState();
 
-            if (entry.IsEnabled)
-                canvas.FillColor = entry.BackgroundColor.WithDefault(Fluent.Color.Foreground.White);
+            if (entry.Background != null)
+                canvas.SetFillPaint(entry.Background, dirtyRect);
             else
-                canvas.FillColor = Fluent.Color.Background.NeutralLighter.ToColor();
+                canvas.FillColor = entry.IsEnabled ? Fluent.Color.Foreground.White.ToColor() : Fluent.Color.Background.NeutralLighter.ToColor();
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
@@ -70,7 +70,11 @@
                 var vBuilder = new PathBuilder();
                 var path = vBuilder.BuildPath(FluentEntryIndicatorIcon);
 
-                canvas.FillColor = entry.BackgroundColor.WithDefault(Material.Color.Gray1);
+                if (entry.Background != null)
+                    canvas.SetFillPaint(entry.Background, dirtyRect);
+                else
+                    canvas.FillColor = Material.Color.Gray1.ToColor();
+
                 canvas.FillPath(path);
 
                 canvas.RestoreState();

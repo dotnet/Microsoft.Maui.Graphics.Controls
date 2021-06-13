@@ -8,10 +8,10 @@
         {
             canvas.SaveState();
 
-            if (editor.IsEnabled)
-                canvas.FillColor = editor.BackgroundColor.WithDefault(Fluent.Color.Foreground.White);
+            if (editor.Background != null)
+                canvas.SetFillPaint(editor.Background, dirtyRect);
             else
-                canvas.FillColor = Fluent.Color.Background.NeutralLighter.ToColor();
+                canvas.FillColor = editor.IsEnabled ? Fluent.Color.Foreground.White.ToColor() : Fluent.Color.Background.NeutralLighter.ToColor();
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;

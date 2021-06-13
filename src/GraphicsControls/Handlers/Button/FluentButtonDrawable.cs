@@ -11,7 +11,11 @@
             if (button.IsEnabled)
             {
                 canvas.StrokeColor = Colors.Black;
-                canvas.FillColor = button.BackgroundColor.WithDefault(Fluent.Color.Primary.ThemePrimary);
+
+                if (button.Background != null)
+                    canvas.SetFillPaint(button.Background, dirtyRect);
+                else
+                    canvas.FillColor = Fluent.Color.Primary.ThemePrimary.ToColor();
             }
             else
             {

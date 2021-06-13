@@ -27,7 +27,10 @@
         {
             canvas.SaveState();
 
-            canvas.FillColor = progressBar.BackgroundColor.WithDefault(Fluent.Color.Background.NeutralLight);
+            if (progressBar.Background != null)
+                canvas.SetFillPaint(progressBar.Background, dirtyRect);
+            else
+                canvas.FillColor = Fluent.Color.Background.NeutralLight.ToColor();
 
             var x = dirtyRect.X;
             var y = (float)((dirtyRect.Height - MaterialTrackHeight) / 2);

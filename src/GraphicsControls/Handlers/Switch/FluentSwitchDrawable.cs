@@ -15,7 +15,12 @@
                 if (view.IsOn)
                     canvas.FillColor = view.TrackColor.WithDefault(Fluent.Color.Primary.ThemePrimary);
                 else
-                    canvas.FillColor = view.BackgroundColor.WithDefault(Fluent.Color.Primary.ThemePrimary);
+                {
+                    if (view.Background != null)
+                        canvas.SetFillPaint(view.Background, dirtyRect);
+                    else
+                        canvas.FillColor = Fluent.Color.Primary.ThemePrimary.ToColor();
+                }
             }
             else
                 canvas.FillColor = Fluent.Color.Background.NeutralLighter.ToColor();

@@ -134,11 +134,8 @@
       <Project>{8EF59C96-7972-41C6-830B-59FC81B9AD7B}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\maui\src\Compatibility\Core\src\iOS\Compatibility.iOS.csproj">
-      <Project>{271193C1-6E7C-429C-A36D-3F1BE5267231}</Project>
-      <Name>Compatibility.iOS</Name>
-      <IsAppExtension>false</IsAppExtension>
-      <IsWatchApp>false</IsWatchApp>
+    <ProjectReference Include="..\maui\src\Compatibility\Core\src\Compatibility.csproj">
+      <Name>Compatibility</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

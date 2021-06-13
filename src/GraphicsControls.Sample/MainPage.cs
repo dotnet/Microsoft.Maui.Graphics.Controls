@@ -8,6 +8,8 @@ namespace Microsoft.Maui.Graphics.Controls
         {
             BackgroundColor = Colors.White;
 
+            var scrollView = new ScrollView();
+
             var verticalStack = new VerticalStackLayout() { Margin = 12 };
 
             verticalStack.Add(new Label { FontSize = 18, Text = "Microsoft.Maui.Graphics.Controls", Margin = new Thickness(0, 24) });
@@ -32,9 +34,29 @@ namespace Microsoft.Maui.Graphics.Controls
             verticalStack.Add(new Label { FontSize = 9, Text = "Custom CheckBox" });
             verticalStack.Add(new CheckBox { BackgroundColor = Colors.Purple, IsChecked = true });
 
-            // ENTRY
+            //// DATEPICKER
+            verticalStack.Add(new Label { FontSize = 9, Text = "DatePicker" });
+            verticalStack.Add(new DatePicker());
+
+            verticalStack.Add(new Label { FontSize = 9, Text = "Disabled DatePicker" });
+            verticalStack.Add(new DatePicker { IsEnabled = false });
+
+            //// EDITOR
+            verticalStack.Add(new Label { FontSize = 9, Text = "Editor" });
+            verticalStack.Add(new Editor { Placeholder = "Placeholder" });
+
+            verticalStack.Add(new Label { FontSize = 9, Text = "Disabled Editor" });
+            verticalStack.Add(new Editor { IsEnabled = false, Placeholder = "Placeholder" });
+
+            //// ENTRY
             verticalStack.Add(new Label { FontSize = 9, Text = "Entry" });
             verticalStack.Add(new Entry { Placeholder = "Placeholder" });
+
+            verticalStack.Add(new Label { FontSize = 9, Text = "Disabled Entry" });
+            verticalStack.Add(new Entry { IsEnabled = false, Placeholder = "Placeholder" });
+
+            verticalStack.Add(new Label { FontSize = 9, Text = "Custom Entry" });
+            verticalStack.Add(new Entry { BackgroundColor = Colors.LightBlue, Placeholder = "Placeholder" });
 
             // PROGRESSBAR
             verticalStack.Add(new Label { FontSize = 9, Text = "ProgressBar" });
@@ -76,7 +98,16 @@ namespace Microsoft.Maui.Graphics.Controls
             verticalStack.Add(new Label { FontSize = 9, Text = "Custom Switch" });
             verticalStack.Add(new Switch { OnColor = Colors.YellowGreen, ThumbColor = Colors.Green, IsToggled = true });
 
-            Content = verticalStack;
+            // TIMEPICKER
+            verticalStack.Add(new Label { FontSize = 9, Text = "TimePicker" });
+            verticalStack.Add(new TimePicker());
+
+            verticalStack.Add(new Label { FontSize = 9, Text = "Disabled TimePicker" });
+            verticalStack.Add(new TimePicker { IsEnabled = false });
+
+            scrollView.Content = verticalStack;
+
+            Content = scrollView;
         }
     }
 }

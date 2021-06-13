@@ -13,10 +13,10 @@
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
 
-            if (view.IsOn)
-                canvas.FillColor = view.TrackColor.WithDefault(Cupertino.Color.SystemColor.Light.Green);
+            if (view.Background != null)
+                canvas.SetFillPaint(view.Background, dirtyRect);
             else
-                canvas.FillColor = view.BackgroundColor.WithDefault(Cupertino.Color.SystemGray.Light.Gray4);
+                canvas.FillColor = view.IsEnabled ? Cupertino.Color.SystemColor.Light.Green.ToColor() : Cupertino.Color.SystemGray.Light.Gray4.ToColor();
 
             var height = 30;
             var width = CupertinoSwitchBackgroundWidth;

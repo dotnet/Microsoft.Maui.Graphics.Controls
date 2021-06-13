@@ -98,13 +98,12 @@
       <Project>{8EF59C96-7972-41C6-830B-59FC81B9AD7B}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\maui\src\Compatibility\Core\src\Android\Compatibility.Android.csproj">
-      <Project>{F602BE45-8096-4A38-BF1B-28EF078E51E1}</Project>
-      <Name>Compatibility.Android</Name>
-    </ProjectReference>
     <ProjectReference Include="..\maui\src\Compatibility\Core\src\Android.FormsViewGroup\Compatibility.Android.FormsViewGroup.csproj">
       <Project>{FDA97CEE-D0A1-48ED-B555-1E90B7CA1468}</Project>
       <Name>Compatibility.Android.FormsViewGroup</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\maui\src\Compatibility\Core\src\Compatibility.csproj">
+      <Name>Compatibility</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

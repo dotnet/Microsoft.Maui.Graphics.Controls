@@ -19,10 +19,10 @@
         {
             canvas.SaveState();
 
-            if (entry.IsEnabled)
-                canvas.FillColor = entry.BackgroundColor.WithDefault(Material.Color.Gray5);
+            if (entry.Background != null)
+                canvas.SetFillPaint(entry.Background, dirtyRect);
             else
-                canvas.FillColor = entry.BackgroundColor.WithDefault(Material.Color.Gray3);
+                canvas.FillColor = entry.IsEnabled ? Material.Color.Gray5.ToColor() : Material.Color.Gray3.ToColor();
 
             var width = dirtyRect.Width;
 
@@ -77,7 +77,11 @@
                 if (entry.FlowDirection == FlowDirection.RightToLeft)
                     x = backgroundMarginX;
 
-                canvas.FillColor = entry.BackgroundColor.WithDefault(Material.Color.Black);
+                if (entry.Background != null)
+                    canvas.SetFillPaint(entry.Background, dirtyRect);
+                else
+                    canvas.FillColor = Material.Color.Black.ToColor();
+
                 canvas.Alpha = 0.12f;
 
                 canvas.FillCircle(x, y, radius);
@@ -105,7 +109,11 @@
                 var vBuilder = new PathBuilder();
                 var path = vBuilder.BuildPath(MaterialEntryIndicatorIcon);
 
-                canvas.FillColor = entry.BackgroundColor.WithDefault(Material.Color.Black);
+                if (entry.Background != null)
+                    canvas.SetFillPaint(entry.Background, dirtyRect);
+                else
+                    canvas.FillColor = Material.Color.Black.ToColor();
+
                 canvas.FillPath(path);
 
                 canvas.RestoreState();

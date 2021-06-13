@@ -19,7 +19,11 @@
             canvas.SaveState();
 
             canvas.StrokeSize = 1;
-            canvas.FillColor = stepper.BackgroundColor.WithDefault(VirtualView.IsEnabled ? Material.Color.White : Material.Color.Gray6);
+
+            if (stepper.Background != null)
+                canvas.SetFillPaint(stepper.Background, dirtyRect);
+            else
+                canvas.FillColor = stepper.IsEnabled ? Material.Color.White.ToColor() : Material.Color.Gray6.ToColor();
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;

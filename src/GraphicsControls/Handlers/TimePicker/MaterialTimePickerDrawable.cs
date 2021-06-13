@@ -8,10 +8,10 @@ namespace Microsoft.Maui.Graphics.Controls
         {
             canvas.SaveState();
 
-            if (timePicker.IsEnabled)
-                canvas.FillColor = timePicker.BackgroundColor.WithDefault(Material.Color.Gray5);
+            if (timePicker.Background != null)
+                canvas.SetFillPaint(timePicker.Background, dirtyRect);
             else
-                canvas.FillColor = timePicker.BackgroundColor.WithDefault(Material.Color.Gray3);
+                canvas.FillColor = timePicker.IsEnabled ? Material.Color.Gray5.ToColor() : Material.Color.Gray3.ToColor();
 
             var width = dirtyRect.Width;
 

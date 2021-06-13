@@ -9,7 +9,10 @@
         {
             canvas.SaveState();
 
-            canvas.FillColor = button.BackgroundColor.WithDefault(button.IsEnabled ? Material.Color.Blue : Material.Color.Gray3);
+            if (button.Background != null)
+                canvas.SetFillPaint(button.Background, dirtyRect);
+            else
+                canvas.FillColor = button.IsEnabled ? Material.Color.Blue.ToColor() : Material.Color.Gray3.ToColor();
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;

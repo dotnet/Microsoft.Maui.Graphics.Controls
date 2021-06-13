@@ -6,10 +6,10 @@
         {
             canvas.SaveState();
 
-            if (datePicker.IsEnabled)
-                canvas.FillColor = datePicker.BackgroundColor.WithDefault(Material.Color.Gray5);
+            if (datePicker.Background != null)
+                canvas.SetFillPaint(datePicker.Background, dirtyRect);
             else
-                canvas.FillColor = datePicker.BackgroundColor.WithDefault(Material.Color.Gray3);
+                canvas.FillColor = datePicker.IsEnabled ? Material.Color.Gray5.ToColor() : Material.Color.Gray3.ToColor();
 
             var width = dirtyRect.Width;
 

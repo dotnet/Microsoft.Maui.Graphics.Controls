@@ -72,7 +72,7 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        static readonly string[] DefaultNativeLayers = new[] { nameof(IDatePicker.BackgroundColor) };
+        static readonly string[] DefaultNativeLayers = new[] { nameof(IDatePicker.Background) };
 
         public string[] NativeLayers => DefaultNativeLayers;
 

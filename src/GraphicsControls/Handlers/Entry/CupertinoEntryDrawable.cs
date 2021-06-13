@@ -11,7 +11,10 @@
         {
             canvas.SaveState();
 
-            canvas.FillColor = editor.BackgroundColor.WithDefault(Material.Color.White);
+            if (editor.Background != null)
+                canvas.SetFillPaint(editor.Background, dirtyRect);
+            else
+                canvas.FillColor = Material.Color.White.ToColor();
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;

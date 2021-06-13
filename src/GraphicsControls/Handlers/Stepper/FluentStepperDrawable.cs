@@ -16,10 +16,10 @@
         {
             canvas.SaveState();
 
-            if (stepper.IsEnabled)
-                canvas.FillColor = stepper.BackgroundColor.WithDefault(Fluent.Color.Foreground.White);
+            if (stepper.Background != null)
+                canvas.SetFillPaint(stepper.Background, dirtyRect);
             else
-                canvas.FillColor = Fluent.Color.Background.NeutralLighter.ToColor();
+                canvas.FillColor = stepper.IsEnabled ? Fluent.Color.Foreground.White.ToColor() : Fluent.Color.Background.NeutralLighter.ToColor();
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;

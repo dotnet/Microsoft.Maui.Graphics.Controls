@@ -11,10 +11,10 @@ namespace Microsoft.Maui.Graphics.Controls
         {
             canvas.SaveState();
 
-            if (datePicker.IsEnabled)
-                canvas.FillColor = datePicker.BackgroundColor.WithDefault(Fluent.Color.Foreground.White);
+            if (datePicker.Background != null)
+                canvas.SetFillPaint(datePicker.Background, dirtyRect);
             else
-                canvas.FillColor = Fluent.Color.Background.NeutralLighter.ToColor();
+                canvas.FillColor = datePicker.IsEnabled ? Fluent.Color.Foreground.White.ToColor() : Fluent.Color.Background.NeutralLighter.ToColor();
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;

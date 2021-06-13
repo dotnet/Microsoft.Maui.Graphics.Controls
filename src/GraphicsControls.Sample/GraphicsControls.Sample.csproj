@@ -9,14 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\GraphicsControls\GraphicsControls.csproj" />
     <ProjectReference Include="..\maui\src\Core\src\Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.StartsWith('Xamarin.iOS')) == true ">
-    <ProjectReference Include="..\maui\src\Compatibility\Core\src\iOS\Compatibility.iOS.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.StartsWith('MonoAndroid')) == true ">
-    <ProjectReference Include="..\maui\src\Compatibility\Core\src\Android\Compatibility.Android.csproj" />
+    <ProjectReference Include="..\maui\src\Compatibility\Core\src\Compatibility.csproj" />
   </ItemGroup>
 
 </Project>

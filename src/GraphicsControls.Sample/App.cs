@@ -2,16 +2,16 @@
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-	public class MyApp : Application
+    public class MyApp : Application
 	{
 		public MyApp()
 		{
-			
+
 		}
 
-		public override IWindow CreateWindow(IActivationState activationState)
+		protected override IWindow CreateWindow(IActivationState activationState)
 		{
-			return new MainWindow();
+			return new Window(new MainPage());
 		}
 	}
 }

@@ -14,10 +14,10 @@
         {
             canvas.SaveState();
 
-            if (editor.IsEnabled)
-                canvas.FillColor = editor.BackgroundColor.WithDefault(Material.Color.Gray5);
+            if (editor.Background != null)
+                canvas.SetFillPaint(editor.Background, dirtyRect);
             else
-                canvas.FillColor = editor.BackgroundColor.WithDefault(Material.Color.Gray3);
+                canvas.FillColor = editor.IsEnabled ? Material.Color.Gray5.ToColor() : Material.Color.Gray3.ToColor();
 
             var width = dirtyRect.Width;
 

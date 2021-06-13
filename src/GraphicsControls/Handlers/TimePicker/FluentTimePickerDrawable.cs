@@ -11,10 +11,10 @@ namespace Microsoft.Maui.Graphics.Controls
         {
             canvas.SaveState();
 
-            if (timePicker.IsEnabled)
-                canvas.FillColor = timePicker.BackgroundColor.WithDefault(Fluent.Color.Foreground.White);
+            if (timePicker.Background != null)
+                canvas.SetFillPaint(timePicker.Background, dirtyRect);
             else
-                canvas.FillColor = Fluent.Color.Background.NeutralLighter.ToColor();
+                canvas.FillColor = timePicker.IsEnabled ? Fluent.Color.Foreground.White.ToColor() : Fluent.Color.Background.NeutralLighter.ToColor();
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;

@@ -7,8 +7,11 @@
         public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IButton button)
         {
             canvas.SaveState();
-
-            canvas.FillColor = button.BackgroundColor.WithDefault(button.IsEnabled ? Cupertino.Color.SystemColor.Light.Blue : Cupertino.Color.SystemGray.Light.InactiveGray);
+              
+            if (button.Background != null)
+                canvas.SetFillPaint(button.Background, dirtyRect);
+            else
+                canvas.FillColor = button.IsEnabled ? Cupertino.Color.SystemColor.Light.Blue.ToColor() : Cupertino.Color.SystemGray.Light.InactiveGray.ToColor();
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;

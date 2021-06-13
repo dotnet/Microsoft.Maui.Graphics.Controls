@@ -8,7 +8,10 @@ namespace Microsoft.Maui.Graphics.Controls
         {
             canvas.SaveState();
 
-            canvas.FillColor = datePicker.BackgroundColor.WithDefault(Material.Color.White);
+            if (datePicker.Background != null)
+                canvas.SetFillPaint(datePicker.Background, dirtyRect);
+            else
+                canvas.FillColor = Material.Color.White.ToColor();
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;

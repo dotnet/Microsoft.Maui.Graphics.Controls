@@ -18,7 +18,11 @@
             }
             else
             {
-                canvas.FillColor = VirtualView.BackgroundColor.WithDefault(view.IsEnabled ? Material.Color.Gray2 : Material.Color.Gray3);
+                if (view.Background != null)
+                    canvas.SetFillPaint(view.Background, dirtyRect);
+                else
+                    canvas.FillColor = view.IsEnabled ? Material.Color.Gray2.ToColor() : Material.Color.Gray3.ToColor();
+
                 canvas.Alpha = 1.0f;
             }
 

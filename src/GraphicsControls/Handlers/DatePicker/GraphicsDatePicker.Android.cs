@@ -84,7 +84,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public event EventHandler<DateSelectedEventArgs>? DateSelected;
 
-        static readonly string[] DefaultNativeLayers = new[] { nameof(IDatePicker.BackgroundColor) };
+        static readonly string[] DefaultNativeLayers = new[] { nameof(IDatePicker.Background) };
 
         public string[] NativeLayers => DefaultNativeLayers;
 

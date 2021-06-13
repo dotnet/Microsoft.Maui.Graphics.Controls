@@ -16,7 +16,10 @@
         {
             canvas.SaveState();
 
-            canvas.FillColor = stepper.BackgroundColor.WithDefault(stepper.IsEnabled ? Cupertino.Color.Fill.Light.Tertiary : Cupertino.Color.Fill.Light.Quaternary);
+            if (stepper.Background != null)
+                canvas.SetFillPaint(stepper.Background, dirtyRect);
+            else
+                canvas.FillColor = stepper.IsEnabled ? Cupertino.Color.Fill.Light.Tertiary.ToColor() : Cupertino.Color.Fill.Light.Quaternary.ToColor();
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
