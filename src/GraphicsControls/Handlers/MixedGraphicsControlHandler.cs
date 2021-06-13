@@ -1,7 +1,6 @@
 ﻿#nullable enable
 using System;
 using System.Linq;
-using System.Reflection;
 using Microsoft.Maui.Handlers;
 #if __IOS__ || MACCATALYST
 using NativeView = UIKit.UIView;

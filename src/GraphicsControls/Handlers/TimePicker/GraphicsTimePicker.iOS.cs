@@ -196,6 +196,8 @@ namespace Microsoft.Maui.Graphics.Controls
 
             _picker.Date = new DateTime(1, 1, 1).Add(time).ToNSDate();
             _preSelectedDate = _picker.Date;
+
+            TimeSelected?.Invoke(this, new TimeSelectedEventArgs(time));
         }
 
         void Done()

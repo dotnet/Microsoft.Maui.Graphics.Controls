@@ -8,11 +8,16 @@
         readonly float PlaceholderPosition = UnfocusedMaterialPlaceholderPosition;
         readonly float PlaceholderFontSize = UnfocusedMaterialPlaceholderFontSize;
 
+        public bool HasFocus { get; set; }
+
         public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEditor editor)
         {
             canvas.SaveState();
 
-            canvas.FillColor = editor.BackgroundColor.WithDefault(Material.Color.Gray5);
+            if (editor.IsEnabled)
+                canvas.FillColor = editor.BackgroundColor.WithDefault(Material.Color.Gray5);
+            else
+                canvas.FillColor = editor.BackgroundColor.WithDefault(Material.Color.Gray3);
 
             var width = dirtyRect.Width;
 
@@ -32,6 +37,12 @@
 
             var strokeWidth = 1.0f;
             canvas.FillColor = Material.Color.Black.ToColor();
+
+            if (editor.IsEnabled && HasFocus)
+            {
+                strokeWidth = 2.0f;
+                canvas.FillColor = Material.Color.Blue.ToColor();
+            }
 
             var x = dirtyRect.X;
             var y = 112.91f;

@@ -216,6 +216,8 @@ namespace Microsoft.Maui.Graphics.Controls
             var nsDate = date.ToNSDate();
             _picker?.SetDate(nsDate, false);
             _preSelectedDate = nsDate;
+
+            DateSelected?.Invoke(this, new DateSelectedEventArgs(date));
         }
 
         void UpdateMaximumDate(DateTime maximumDate)

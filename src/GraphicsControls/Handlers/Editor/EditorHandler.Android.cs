@@ -6,5 +6,11 @@
 		{
 			return new GraphicsEditor(Context!);
 		}
+
+		public static void MapText(EditorHandler handler, IEditor editor)
+		{
+			handler.NativeView?.UpdateText(editor);
+			(handler as IMixedGraphicsHandler)?.Invalidate();
+		}
 	}
 }

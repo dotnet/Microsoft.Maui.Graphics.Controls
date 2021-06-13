@@ -19,7 +19,10 @@
         {
             canvas.SaveState();
 
-            canvas.FillColor = entry.BackgroundColor.WithDefault(Material.Color.Gray5);
+            if (entry.IsEnabled)
+                canvas.FillColor = entry.BackgroundColor.WithDefault(Material.Color.Gray5);
+            else
+                canvas.FillColor = entry.BackgroundColor.WithDefault(Material.Color.Gray3);
 
             var width = dirtyRect.Width;
 
@@ -40,7 +43,7 @@
             var strokeWidth = 1.0f;
             canvas.FillColor = Material.Color.Black.ToColor();
 
-            if (HasFocus)
+            if (entry.IsEnabled && HasFocus)
             {
                 strokeWidth = 2.0f;
                 canvas.FillColor = Material.Color.Blue.ToColor();
