@@ -11,7 +11,16 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public static PropertyMapper<IEditor, EditorHandler> PropertyMapper = new PropertyMapper<IEditor, EditorHandler>(ViewHandler.Mapper)
 		{
-			[nameof(IEditor.Text)] = MapText
+			[nameof(IEditor.Text)] = MapText,
+			[nameof(IEditor.TextColor)] = MapTextColor,
+			[nameof(IEditor.Placeholder)] = ViewHandler.MapInvalidate,
+			[nameof(IEditor.PlaceholderColor)] = ViewHandler.MapInvalidate,
+			[nameof(IEditor.CharacterSpacing)] = MapCharacterSpacing,
+			[nameof(IEditor.Font)] = MapFont,
+			[nameof(IEditor.IsReadOnly)] = MapIsReadOnly,
+			[nameof(IEditor.IsTextPredictionEnabled)] = MapIsTextPredictionEnabled,
+			[nameof(IEditor.MaxLength)] = MapMaxLength,
+			[nameof(IEditor.Keyboard)] = MapKeyboard
 		};
 
 		public static DrawMapper<IEditorDrawable, IEditor> DrawMapper = new DrawMapper<IEditorDrawable, IEditor>(ViewHandler.DrawMapper)

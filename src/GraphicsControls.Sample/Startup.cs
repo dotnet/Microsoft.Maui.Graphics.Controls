@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Controls.Compatibility;
+﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Compatibility;
 using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Hosting;
 
@@ -9,21 +10,21 @@ namespace Microsoft.Maui.Graphics.Controls
 		public void Configure(IAppHostBuilder appBuilder)
 		{
 			appBuilder
+				.UseMauiApp<MyApp>()
 				.UseFormsCompatibility()
 				.ConfigureMauiHandlers(handlers =>
 				{
-					handlers.AddHandler(typeof(IButton), typeof(ButtonHandler));
-					handlers.AddHandler(typeof(ICheckBox), typeof(CheckBoxHandler));
-					handlers.AddHandler(typeof(IDatePicker), typeof(DatePickerHandler));
-					handlers.AddHandler(typeof(IEditor), typeof(EditorHandler));
-					handlers.AddHandler(typeof(IEntry), typeof(EntryHandler));
-					handlers.AddHandler(typeof(IProgress), typeof(ProgressBarHandler));
-					handlers.AddHandler(typeof(ISlider), typeof(SliderHandler));
-					handlers.AddHandler(typeof(IStepper), typeof(StepperHandler));
-					handlers.AddHandler(typeof(ISwitch), typeof(SwitchHandler));
-					handlers.AddHandler(typeof(ITimePicker), typeof(TimePickerHandler));
-				})
-				.UseMauiApp<MyApp>();
+					handlers.AddHandler(typeof(Button), typeof(ButtonHandler));
+					handlers.AddHandler(typeof(CheckBox), typeof(CheckBoxHandler));
+					handlers.AddHandler(typeof(DatePicker), typeof(DatePickerHandler));
+					handlers.AddHandler(typeof(Editor), typeof(EditorHandler));
+					handlers.AddHandler(typeof(Entry), typeof(EntryHandler));
+					handlers.AddHandler(typeof(ProgressBar), typeof(ProgressBarHandler));
+					handlers.AddHandler(typeof(Slider), typeof(SliderHandler));
+					handlers.AddHandler(typeof(Stepper), typeof(StepperHandler));
+					handlers.AddHandler(typeof(Switch), typeof(SwitchHandler));
+					handlers.AddHandler(typeof(TimePicker), typeof(TimePickerHandler));
+				});
 		}
 	}
 }

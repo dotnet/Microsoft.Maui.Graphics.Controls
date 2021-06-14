@@ -27,8 +27,6 @@ namespace Microsoft.Maui.Graphics.Controls
 		{
 			try
 			{
-				UnFocusOtherGraphicsViews(this);
-
 				if (!IsFirstResponder)
 					BecomeFirstResponder();
 
@@ -82,19 +80,6 @@ namespace Microsoft.Maui.Graphics.Controls
 			catch (Exception exc)
 			{
 				Debug.WriteLine("An unexpected error occured cancelling the touches within the control.", exc);
-			}
-		}
-
-		void UnFocusOtherGraphicsViews(UIView view)
-		{
-			var parent = view.Superview;
-
-			foreach (var child in parent.Subviews)
-			{
-				if (child is NativeGraphicsControlView nativeGraphicsControlView)
-					nativeGraphicsControlView.ResignFirstResponder();
-
-				UnFocusOtherGraphicsViews(child);
 			}
 		}
 	}

@@ -7,5 +7,12 @@ namespace Microsoft.Maui.Graphics.Controls
 		protected override object CreateNativeView() => throw new NotImplementedException();
 
 		public static void MapText(IViewHandler handler, IEditor editor) { }
+		public static void MapTextColor(IViewHandler handler, IEditor editor) { }
+		public static void MapCharacterSpacing(IViewHandler handler, IEditor editor) { }
+		public static void MapFont(IViewHandler handler, IEditor editor) { }
+		public static void MapIsReadOnly(IViewHandler handler, IEditor editor) { }
+		public static void MapIsTextPredictionEnabled(IViewHandler handler, IEditor editor) { }
+		public static void MapMaxLength(IViewHandler handler, IEditor editor) { }
+		public static void MapKeyboard(IViewHandler handler, IEditor editor) { }
 	}
 }
