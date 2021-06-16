@@ -39,6 +39,45 @@ namespace Microsoft.Maui.Graphics.Controls
             (handler as IMixedGraphicsHandler)?.Invalidate();
         }
 
+        [MissingMapper]
+        public static void MapCharacterSpacing(IViewHandler handler, IEntry entry) { }
+
+        [MissingMapper]
+        public static void MapClearButtonVisibility(IViewHandler handler, IEntry entry) { }
+
+        [MissingMapper]
+        public static void MapFont(IViewHandler handler, IEntry entry) { }
+
+        [MissingMapper]
+        public static void MapHorizontalTextAlignment(IViewHandler handler, IEntry entry) { }
+
+        [MissingMapper]
+        public static void MapIsPassword(IViewHandler handler, IEntry entry) { }
+
+        [MissingMapper]
+        public static void MapIsReadOnly(IViewHandler handler, IEntry entry) { }
+
+        [MissingMapper]
+        public static void MapIsTextPredictionEnabled(IViewHandler handler, IEntry entry) { }
+
+        [MissingMapper]
+        public static void MapKeyboard(IViewHandler handler, IEntry entry) { }
+
+        [MissingMapper]
+        public static void MapMaxLength(IViewHandler handler, IEntry entry) { }
+
+        [MissingMapper]
+        public static void MapReturnType(IViewHandler handler, IEntry entry) { }
+
+        [MissingMapper]
+        public static void MapTextColor(IViewHandler handler, IEntry entry) { }
+
+        [MissingMapper]
+        public static void MapCursorPosition(IViewHandler handler, IEntry entry) { }
+
+        [MissingMapper]
+        public static void MapSelectionLength(IViewHandler handler, IEntry entry) { }
+
         void OnEditingChanged(object? sender, EventArgs e) => OnTextChanged();
 
         void OnEditingDidBegin(object? sender, EventArgs e)
