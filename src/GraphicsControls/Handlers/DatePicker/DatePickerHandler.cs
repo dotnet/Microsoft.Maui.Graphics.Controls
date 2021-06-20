@@ -11,6 +11,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public static PropertyMapper<IDatePicker, DatePickerHandler> PropertyMapper = new PropertyMapper<IDatePicker, DatePickerHandler>(ViewHandler.Mapper)
 		{
+			[nameof(IDatePicker.Background)] = ViewHandler.MapInvalidate,
 			[nameof(IDatePicker.MinimumDate)] = MapMinimumDate,
 			[nameof(IDatePicker.MaximumDate)] = MapMaximumDate,
 			[nameof(IDatePicker.Date)] = MapDate

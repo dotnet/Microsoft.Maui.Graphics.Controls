@@ -41,6 +41,9 @@ namespace Microsoft.Maui.Graphics.Controls
             verticalStack.Add(new Label { FontSize = 9, Text = "Disabled DatePicker" });
             verticalStack.Add(new DatePicker { IsEnabled = false });
 
+            verticalStack.Add(new Label { FontSize = 9, Text = "Custom DatePicker" });
+            verticalStack.Add(new DatePicker { BackgroundColor = Colors.LightGreen, TextColor = Colors.White });
+
             //// EDITOR
             verticalStack.Add(new Label { FontSize = 9, Text = "Editor" });
             verticalStack.Add(new Editor { Placeholder = "Placeholder" });
@@ -104,6 +107,9 @@ namespace Microsoft.Maui.Graphics.Controls
 
             verticalStack.Add(new Label { FontSize = 9, Text = "Disabled TimePicker" });
             verticalStack.Add(new TimePicker { IsEnabled = false });
+
+            verticalStack.Add(new Label { FontSize = 9, Text = "Custom TimePicker" });
+            verticalStack.Add(new TimePicker { BackgroundColor = Colors.LightSkyBlue, TextColor = Colors.White });
 
             scrollView.Content = verticalStack;
 

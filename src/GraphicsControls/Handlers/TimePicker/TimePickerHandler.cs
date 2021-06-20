@@ -11,6 +11,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public static PropertyMapper<ITimePicker, TimePickerHandler> PropertyMapper = new PropertyMapper<ITimePicker, TimePickerHandler>(ViewHandler.Mapper)
 		{
+			[nameof(ITimePicker.Background)] = ViewHandler.MapInvalidate,
 			[nameof(ITimePicker.Format)] = MapTime,
 			[nameof(ITimePicker.Time)] = MapTime
 		};

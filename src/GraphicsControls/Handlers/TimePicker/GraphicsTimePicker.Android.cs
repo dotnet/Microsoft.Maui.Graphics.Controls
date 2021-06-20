@@ -63,7 +63,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public event EventHandler<TimeSelectedEventArgs>? TimeSelected;
 
-        static readonly string[] DefaultNativeLayers = new[] { nameof(IDatePicker.Background) };
+        static readonly string[] DefaultNativeLayers = new string[] { };
 
         public string[] NativeLayers => DefaultNativeLayers;
 

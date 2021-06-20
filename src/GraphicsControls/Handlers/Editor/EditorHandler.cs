@@ -11,6 +11,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public static PropertyMapper<IEditor, EditorHandler> PropertyMapper = new PropertyMapper<IEditor, EditorHandler>(ViewHandler.Mapper)
 		{
+			[nameof(IEditor.Background)] = ViewHandler.MapInvalidate,
 			[nameof(IEditor.Text)] = MapText,
 			[nameof(IEditor.TextColor)] = MapTextColor,
 			[nameof(IEditor.Placeholder)] = ViewHandler.MapInvalidate,

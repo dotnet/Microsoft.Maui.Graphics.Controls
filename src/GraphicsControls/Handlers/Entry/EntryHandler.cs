@@ -12,6 +12,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public static PropertyMapper<IEntry, EntryHandler> PropertyMapper = new PropertyMapper<IEntry, EntryHandler>(ViewMapper)
 		{
+			[nameof(IEntry.Background)] = ViewHandler.MapInvalidate,
 			[nameof(IEntry.Text)] = MapText,
 			[nameof(IEntry.CharacterSpacing)] = MapCharacterSpacing,
 			[nameof(IEntry.Font)] = MapFont,
