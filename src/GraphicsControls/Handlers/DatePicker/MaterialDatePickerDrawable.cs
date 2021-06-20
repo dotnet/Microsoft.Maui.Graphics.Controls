@@ -73,7 +73,11 @@
         {
             canvas.SaveState();
 
-            canvas.FontColor = Material.Color.Gray1.ToColor();
+            if (datePicker.TextColor == null)
+                canvas.FontColor = Material.Color.Gray1.ToColor();
+            else
+                canvas.FontColor = datePicker.TextColor.WithAlpha(0.75f);
+
             canvas.FontSize = 12f;
 
             float margin = 12f;

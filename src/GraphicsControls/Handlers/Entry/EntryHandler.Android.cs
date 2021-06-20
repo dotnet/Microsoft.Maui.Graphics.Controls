@@ -1,52 +1,84 @@
-﻿namespace Microsoft.Maui.Graphics.Controls
+﻿using Android.Content.Res;
+
+namespace Microsoft.Maui.Graphics.Controls
 {
     public partial class EntryHandler : MixedGraphicsControlHandler<IEntryDrawable, IEntry, GraphicsEntry>
 	{
+		static ColorStateList? DefaultTextColors { get; set; }
+
 		protected override GraphicsEntry CreateNativeView()
 		{
 			return new GraphicsEntry(Context!);
 		}
 
-		[MissingMapper]
-		public static void MapText(IViewHandler handler, IEntry entry) { }
+        protected override void SetupDefaults(GraphicsEntry nativeView)
+		{
+			DefaultTextColors = nativeView.TextColors;
+
+			base.SetupDefaults(nativeView);
+        }
+
+        public static void MapText(EntryHandler handler, IEntry entry)
+		{
+			handler.NativeView?.UpdateText(entry);
+		}
+
+		public static void MapCharacterSpacing(EntryHandler handler, IEntry entry)
+		{
+			handler.NativeView?.UpdateCharacterSpacing(entry);
+		}
 
 		[MissingMapper]
-		public static void MapCharacterSpacing(IViewHandler handler, IEntry entry) { }
+		public static void MapFont(EntryHandler handler, IEntry entry) { }
 
-		[MissingMapper]
-		public static void MapClearButtonVisibility(IViewHandler handler, IEntry entry) { }
+		public static void MapHorizontalTextAlignment(EntryHandler handler, IEntry entry)
+		{
+			handler.NativeView?.UpdateHorizontalTextAlignment(entry);
+		}
 
-		[MissingMapper]
-		public static void MapFont(IViewHandler handler, IEntry entry) { }
+		public static void MapIsPassword(EntryHandler handler, IEntry entry)
+		{
+			handler.NativeView?.UpdateIsPassword(entry);
+		}
 
-		[MissingMapper]
-		public static void MapHorizontalTextAlignment(IViewHandler handler, IEntry entry) { }
+		public static void MapIsReadOnly(EntryHandler handler, IEntry entry)
+		{
+			handler.NativeView?.UpdateIsReadOnly(entry);
+		}
 
-		[MissingMapper]
-		public static void MapIsPassword(IViewHandler handler, IEntry entry) { }
+		public static void MapIsTextPredictionEnabled(EntryHandler handler, IEntry entry)
+		{
+			handler.NativeView?.UpdateIsTextPredictionEnabled(entry);
+		}
 
-		[MissingMapper]
-		public static void MapIsReadOnly(IViewHandler handler, IEntry entry) { }
+		public static void MapKeyboard(EntryHandler handler, IEntry entry)
+		{
+			handler.NativeView?.UpdateKeyboard(entry);
+		}
 
-		[MissingMapper]
-		public static void MapIsTextPredictionEnabled(IViewHandler handler, IEntry entry) { }
+		public static void MapMaxLength(EntryHandler handler, IEntry entry)
+		{
+			handler.NativeView?.UpdateMaxLength(entry);
+		}
 
-		[MissingMapper]
-		public static void MapKeyboard(IViewHandler handler, IEntry entry) { }
+		public static void MapReturnType(EntryHandler handler, IEntry entry)
+		{
+			handler.NativeView?.UpdateReturnType(entry);
+		}
 
-		[MissingMapper]
-		public static void MapMaxLength(IViewHandler handler, IEntry entry) { }
+		public static void MapTextColor(EntryHandler handler, IEntry entry)
+		{
+			handler.NativeView?.UpdateTextColor(entry, DefaultTextColors);
+		}
 
-		[MissingMapper]
-		public static void MapReturnType(IViewHandler handler, IEntry entry) { }
+		public static void MapCursorPosition(EntryHandler handler, IEntry entry)
+		{
+			handler.NativeView?.UpdateCursorPosition(entry);
+		}
 
-		[MissingMapper]
-		public static void MapTextColor(IViewHandler handler, IEntry entry) { }
-
-		[MissingMapper]
-		public static void MapCursorPosition(IViewHandler handler, IEntry entry) { }
-
-		[MissingMapper]
-		public static void MapSelectionLength(IViewHandler handler, IEntry entry) { }
+		public static void MapSelectionLength(EntryHandler handler, IEntry entry)
+		{
+			handler.NativeView?.UpdateSelectionLength(entry);
+		}
 	}
 }

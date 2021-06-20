@@ -1,10 +1,12 @@
-﻿namespace Microsoft.Maui.Graphics.Controls
+﻿using UIKit;
+
+namespace Microsoft.Maui.Graphics.Controls
 {
     public partial class EditorHandler : MixedGraphicsControlHandler<IEditorDrawable, IEditor, GraphicsEditor>
 	{
 		protected override GraphicsEditor CreateNativeView()
         {
-            return new GraphicsEditor();
+            return new GraphicsEditor { EdgeInsets = new UIEdgeInsets(0, 12, 0, 36) };
 		}
 
 		public static void MapText(EditorHandler handler, IEditor editor)
@@ -13,11 +15,15 @@
 			(handler as IMixedGraphicsHandler)?.Invalidate();
 		}
 
-		[MissingMapper]
-		public static void MapTextColor(EditorHandler handler, IEditor editor) { }
+		public static void MapTextColor(EditorHandler handler, IEditor editor)
+		{
+			handler.NativeView?.UpdateTextColor(editor);
+		}
 
-		[MissingMapper]
-		public static void MapCharacterSpacing(EditorHandler handler, IEditor editor) { }
+		public static void MapCharacterSpacing(EditorHandler handler, IEditor editor)
+		{
+			handler.NativeView?.UpdateCharacterSpacing(editor);
+		}
 
 		[MissingMapper]
 		public static void MapFont(EditorHandler handler, IEditor editor) { }

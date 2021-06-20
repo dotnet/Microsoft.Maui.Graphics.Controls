@@ -47,7 +47,11 @@ namespace Microsoft.Maui.Graphics.Controls
         {
             canvas.SaveState();
 
-            canvas.FontColor = Material.Color.Gray1.ToColor();
+            if (timePicker.TextColor == null)
+                canvas.FontColor = Material.Color.Gray1.ToColor();
+            else
+                canvas.FontColor = timePicker.TextColor.WithAlpha(0.75f);
+            
             canvas.FontSize = 12f;
 
             float margin = 12f;
