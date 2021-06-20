@@ -1,5 +1,4 @@
 ﻿using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.Compatibility;
 using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Hosting;
 
@@ -10,8 +9,7 @@ namespace Microsoft.Maui.Graphics.Controls
 		public void Configure(IAppHostBuilder appBuilder)
 		{
 			appBuilder
-				.UseMauiApp<MyApp>()
-				.UseFormsCompatibility()
+                .UseMauiApp<MyApp>()
 				.ConfigureMauiHandlers(handlers =>
 				{
 					handlers.AddHandler(typeof(Button), typeof(ButtonHandler));
