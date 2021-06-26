@@ -1,4 +1,5 @@
-﻿using UIKit;
+﻿using System;
+using UIKit;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -6,10 +7,28 @@ namespace Microsoft.Maui.Graphics.Controls
 	{
 		protected override GraphicsEditor CreateNativeView()
         {
-            return new GraphicsEditor { EdgeInsets = new UIEdgeInsets(0, 12, 0, 36) };
+            return new GraphicsEditor { EdgeInsets = new UIEdgeInsets(0, 12, 0, 12) };
 		}
 
-		public static void MapText(EditorHandler handler, IEditor editor)
+        protected override void ConnectHandler(GraphicsEditor nativeView)
+        {
+            base.ConnectHandler(nativeView);
+
+			nativeView.EditingDidBegin += OnEditingDidBegin;
+			nativeView.EditingDidEnd += OnEditingEnded;
+			nativeView.Ended += OnEnded;
+		}
+
+        protected override void DisconnectHandler(GraphicsEditor nativeView)
+        {
+            base.DisconnectHandler(nativeView);
+
+			nativeView.EditingDidBegin -= OnEditingDidBegin;
+			nativeView.EditingDidEnd -= OnEditingEnded;
+			nativeView.Ended -= OnEnded;
+		}
+
+        public static void MapText(EditorHandler handler, IEditor editor)
 		{
 			handler.NativeView?.UpdateText(editor);
 			(handler as IMixedGraphicsHandler)?.Invalidate();
@@ -39,5 +58,30 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		[MissingMapper]
 		public static void MapKeyboard(EditorHandler handler, IEditor editor) { }
+
+		void OnEditingDidBegin(object? sender, EventArgs e)
+		{
+			Drawable.HasFocus = true;
+			Invalidate();
+		}
+
+		void OnEditingEnded(object? sender, EventArgs e)
+		{
+			Drawable.HasFocus = false;
+			Invalidate();
+		}
+
+		void OnEnded(object? sender, EventArgs eventArgs)
+		{
+			if (VirtualView == null || NativeView == null)
+				return;
+
+			if (NativeView.Text != VirtualView.Text)
+				VirtualView.Text = NativeView.Text ?? string.Empty;
+
+			// TODO: Update IsFocused property
+
+			VirtualView.Completed();
+		}
 	}
 }

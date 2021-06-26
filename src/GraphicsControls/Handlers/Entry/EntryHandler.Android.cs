@@ -1,4 +1,9 @@
 ﻿using Android.Content.Res;
+using Android.Runtime;
+using Android.Views;
+using Android.Views.InputMethods;
+using Android.Widget;
+using static Android.Widget.TextView;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -6,10 +11,28 @@ namespace Microsoft.Maui.Graphics.Controls
 	{
 		static ColorStateList? DefaultTextColors { get; set; }
 
+		EditorActionListener ActionListener { get; } = new EditorActionListener();
+
 		protected override GraphicsEntry CreateNativeView()
 		{
 			return new GraphicsEntry(Context!);
 		}
+
+        protected override void ConnectHandler(GraphicsEntry nativeView)
+        {
+			ActionListener.Handler = this;
+			nativeView.SetOnEditorActionListener(ActionListener);
+
+			base.ConnectHandler(nativeView);
+        }
+
+        protected override void DisconnectHandler(GraphicsEntry nativeView)
+        {
+			nativeView.SetOnEditorActionListener(null);
+			ActionListener.Handler = null;
+
+			base.DisconnectHandler(nativeView);
+        }
 
         protected override void SetupDefaults(GraphicsEntry nativeView)
 		{
@@ -79,6 +102,23 @@ namespace Microsoft.Maui.Graphics.Controls
 		public static void MapSelectionLength(EntryHandler handler, IEntry entry)
 		{
 			handler.NativeView?.UpdateSelectionLength(entry);
+		}
+
+		class EditorActionListener : Java.Lang.Object, IOnEditorActionListener
+		{
+			public EntryHandler? Handler { get; set; }
+
+			public bool OnEditorAction(TextView? v, [GeneratedEnum] ImeAction actionId, KeyEvent? e)
+			{
+				if (actionId == ImeAction.Done || (actionId == ImeAction.ImeNull && e?.KeyCode == Keycode.Enter && e?.Action == KeyEventActions.Up))
+				{
+					// TODO: Dismiss keyboard for hardware / physical keyboards
+
+					Handler?.VirtualView?.Completed();
+				}
+
+				return true;
+			}
 		}
 	}
 }

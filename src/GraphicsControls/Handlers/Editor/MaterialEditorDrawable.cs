@@ -2,11 +2,11 @@
 {
     public class MaterialEditorDrawable : ViewDrawable<IEditor>, IEditorDrawable
     {
-        const float UnfocusedMaterialPlaceholderFontSize = 16f;
-        const float UnfocusedMaterialPlaceholderPosition = 22f;
+        const float FocusedPlaceholderFontSize = 12f;
+        const float UnfocusedPlaceholderFontSize = 16f;
 
-        readonly float PlaceholderPosition = UnfocusedMaterialPlaceholderPosition;
-        readonly float PlaceholderFontSize = UnfocusedMaterialPlaceholderFontSize;
+        const float FocusedPlaceholderPosition = 6f;
+        const float UnfocusedPlaceholderPosition = 22f;
 
         public bool HasFocus { get; set; }
 
@@ -60,7 +60,10 @@
             canvas.SaveState();
 
             canvas.FontColor = editor.PlaceholderColor.WithDefault(Material.Color.Dark);
-            canvas.FontSize = PlaceholderFontSize;
+
+            bool focusedState = HasFocus || !string.IsNullOrEmpty(editor.Text);
+
+            canvas.FontSize = focusedState ? FocusedPlaceholderFontSize : UnfocusedPlaceholderFontSize;
 
             float margin = 12f;
 
@@ -77,7 +80,7 @@
             var height = dirtyRect.Height;
             var width = dirtyRect.Width;
 
-            canvas.DrawString(editor.Placeholder, x, PlaceholderPosition, width - margin, height, horizontalAlignment, VerticalAlignment.Top);
+            canvas.DrawString(editor.Placeholder, x, focusedState ? FocusedPlaceholderPosition : UnfocusedPlaceholderPosition, width - margin, height, horizontalAlignment, VerticalAlignment.Top);
 
             canvas.RestoreState();
         }

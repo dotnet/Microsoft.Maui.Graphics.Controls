@@ -1,4 +1,5 @@
 ﻿using System;
+using Foundation;
 using UIKit;
 
 namespace Microsoft.Maui.Graphics.Controls
@@ -9,7 +10,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
         protected override GraphicsEntry CreateNativeView()
         {
-            return new GraphicsEntry { EdgeInsets = new UIEdgeInsets(0, 12, 0, 36) };
+            return new GraphicsEntry { EdgeInsets = new UIEdgeInsets(12, 12, 0, 36) };
         }
 
         protected override void ConnectHandler(GraphicsEntry nativeView)
@@ -19,6 +20,7 @@ namespace Microsoft.Maui.Graphics.Controls
             nativeView.EditingChanged += OnEditingChanged;
             nativeView.EditingDidBegin += OnEditingDidBegin;
             nativeView.EditingDidEnd += OnEditingEnded;
+            nativeView.ShouldChangeCharacters += OnShouldChangeCharacters;
         }
 
         protected override void DisconnectHandler(GraphicsEntry nativeView)
@@ -28,6 +30,7 @@ namespace Microsoft.Maui.Graphics.Controls
             nativeView.EditingChanged -= OnEditingChanged;
             nativeView.EditingDidBegin -= OnEditingDidBegin;
             nativeView.EditingDidEnd -= OnEditingEnded;
+            nativeView.ShouldChangeCharacters -= OnShouldChangeCharacters;
         }
 
         protected override void SetupDefaults(GraphicsEntry nativeView)
@@ -35,11 +38,6 @@ namespace Microsoft.Maui.Graphics.Controls
             DefaultTextColor = nativeView.TextColor;
 
             base.SetupDefaults(nativeView);
-        }
-
-        public override bool StartInteraction(PointF[] points)
-        {
-            return base.StartInteraction(points);
         }
 
         public static void MapText(EntryHandler handler, IEntry entry)
@@ -106,7 +104,8 @@ namespace Microsoft.Maui.Graphics.Controls
             handler.NativeView?.UpdateSelectionLength(entry);
         }
 
-        void OnEditingChanged(object? sender, EventArgs e) => OnTextChanged();
+        void OnEditingChanged(object? sender, EventArgs e)
+            => OnTextChanged();
 
         void OnEditingDidBegin(object? sender, EventArgs e)
         {
@@ -134,6 +133,28 @@ namespace Microsoft.Maui.Graphics.Controls
 
             if (mauiText != nativeText)
                 VirtualView.Text = nativeText;
+        }
+
+        bool OnShouldChangeCharacters(UITextField textField, NSRange range, string replacementString)
+        {
+            var currLength = textField?.Text?.Length ?? 0;
+
+            // Fix a crash on undo
+            if (range.Length + range.Location > currLength)
+                return false;
+
+            if (VirtualView == null || NativeView == null)
+                return false;
+
+            if (VirtualView.MaxLength < 0)
+                return true;
+
+            var addLength = replacementString?.Length ?? 0;
+            var remLength = range.Length;
+
+            var newLength = currLength + addLength - remLength;
+
+            return newLength <= VirtualView.MaxLength;
         }
     }
 }

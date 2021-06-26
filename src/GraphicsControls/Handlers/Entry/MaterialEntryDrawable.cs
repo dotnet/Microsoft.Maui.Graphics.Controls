@@ -4,11 +4,11 @@
     {
         const string MaterialEntryIndicatorIcon = "M9.295 7.885C9.68436 8.27436 9.68436 8.90564 9.295 9.295C8.90564 9.68436 8.27436 9.68436 7.885 9.295L5 6.41L2.115 9.295C1.72564 9.68436 1.09436 9.68436 0.705 9.295C0.315639 8.90564 0.315639 8.27436 0.705 7.885L3.59 5L0.705 2.115C0.315639 1.72564 0.31564 1.09436 0.705 0.705C1.09436 0.315639 1.72564 0.315639 2.115 0.705L5 3.59L7.885 0.705C8.27436 0.315639 8.90564 0.31564 9.295 0.705C9.68436 1.09436 9.68436 1.72564 9.295 2.115L6.41 5L9.295 7.885Z";
 
-        const float UnfocusedMaterialPlaceholderFontSize = 16f;
-        const float UnfocusedMaterialPlaceholderPosition = 22f;
+        const float FocusedPlaceholderFontSize = 12f;
+        const float UnfocusedPlaceholderFontSize = 16f;
 
-        readonly float PlaceholderFontSize = UnfocusedMaterialPlaceholderFontSize;
-        readonly float PlaceholderPosition = UnfocusedMaterialPlaceholderPosition;
+        const float FocusedPlaceholderPosition = 6f;
+        const float UnfocusedPlaceholderPosition = 22f;
 
         RectangleF indicatorRect = new RectangleF();
         public RectangleF IndicatorRect => indicatorRect;
@@ -78,7 +78,17 @@
                     x = backgroundMarginX;
 
                 if (entry.Background != null)
-                    canvas.SetFillPaint(entry.Background, dirtyRect);
+                {
+                    var background = entry.Background;
+
+                    if (background is SolidPaint solidPaint)
+                    {
+                        var color = solidPaint.Color.Darker();
+                        canvas.FillColor = color;
+                    }
+                    else
+                        canvas.SetFillPaint(entry.Background, dirtyRect);
+                }
                 else
                     canvas.FillColor = Material.Color.Black.ToColor();
 
@@ -110,7 +120,17 @@
                 var path = vBuilder.BuildPath(MaterialEntryIndicatorIcon);
 
                 if (entry.Background != null)
-                    canvas.SetFillPaint(entry.Background, dirtyRect);
+                {
+                    var background = entry.Background;
+
+                    if (background is SolidPaint solidPaint)
+                    {
+                        var color = solidPaint.Color.Lighter();
+                        canvas.FillColor = color;
+                    }
+                    else
+                        canvas.SetFillPaint(entry.Background, dirtyRect);
+                }
                 else
                     canvas.FillColor = Material.Color.Black.ToColor();
 
@@ -125,7 +145,10 @@
             canvas.SaveState();
 
             canvas.FontColor = Material.Color.Dark.ToColor();
-            canvas.FontSize = PlaceholderFontSize;
+
+            bool focusedState = HasFocus || !string.IsNullOrEmpty(entry.Text);
+
+            canvas.FontSize = focusedState ? FocusedPlaceholderFontSize : UnfocusedPlaceholderFontSize;
 
             float margin = 12f;
 
@@ -136,7 +159,7 @@
             var height = dirtyRect.Height;
             var width = dirtyRect.Width;
 
-            canvas.DrawString(entry.Placeholder, x, PlaceholderPosition, width - margin, height, horizontalAlignment, VerticalAlignment.Top);
+            canvas.DrawString(entry.Placeholder, x, focusedState ? FocusedPlaceholderPosition : UnfocusedPlaceholderPosition, width - margin, height, horizontalAlignment, VerticalAlignment.Top);
 
             canvas.RestoreState();
         }
