@@ -4,116 +4,275 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public class MainPage : ContentPage, IPage
     {
+        readonly Color PageBackgroundColor = Color.FromArgb("#FFFFFF");
+        readonly Color SectionHeaderBackgroundColor = Color.FromArgb("#E9E9E9");
+        readonly Color SectionBackgroundColor = Color.FromArgb("#FAFAFA");
+
         public MainPage()
         {
-            BackgroundColor = Colors.White;
+            BackgroundColor = PageBackgroundColor;
 
             var scrollView = new ScrollView();
 
             var verticalStack = new VerticalStackLayout() { Margin = 12 };
 
-            verticalStack.Add(new Label { FontSize = 18, Text = "Microsoft.Maui.Graphics.Controls", Margin = new Thickness(0, 24) });
+            verticalStack.Add(CreateHeader());
 
-            // BUTTON
-            verticalStack.Add(new Label { FontSize = 9, Text = "Button" });
-            verticalStack.Add(new Button { Text = "Button" });
-
-            verticalStack.Add(new Label { FontSize = 9, Text = "Disabled Button" });
-            verticalStack.Add(new Button { IsEnabled = false, Text = "Disabled Button" });
-
-            verticalStack.Add(new Label { FontSize = 9, Text = "Custom Button" });
-            verticalStack.Add(new Button { BackgroundColor = Colors.Red, TextColor = Colors.Yellow, Text = "Custom Button" });
-
-            // CHECKBOX
-            verticalStack.Add(new Label { FontSize = 9, Text = "CheckBox" });
-            verticalStack.Add(new CheckBox { IsChecked = true });
-
-            verticalStack.Add(new Label { FontSize = 9, Text = "Disabled CheckBox" });
-            verticalStack.Add(new CheckBox { IsEnabled = false, IsChecked = true });
-
-            verticalStack.Add(new Label { FontSize = 9, Text = "Custom CheckBox" });
-            verticalStack.Add(new CheckBox { BackgroundColor = Colors.Purple, IsChecked = true });
-
-            //// DATEPICKER
-            verticalStack.Add(new Label { FontSize = 9, Text = "DatePicker" });
-            verticalStack.Add(new DatePicker());
-
-            verticalStack.Add(new Label { FontSize = 9, Text = "Disabled DatePicker" });
-            verticalStack.Add(new DatePicker { IsEnabled = false });
-
-            verticalStack.Add(new Label { FontSize = 9, Text = "Custom DatePicker" });
-            verticalStack.Add(new DatePicker { BackgroundColor = Colors.LightGreen, TextColor = Colors.White });
-
-            //// EDITOR
-            verticalStack.Add(new Label { FontSize = 9, Text = "Editor" });
-            verticalStack.Add(new Editor { Placeholder = "Placeholder" });
-
-            verticalStack.Add(new Label { FontSize = 9, Text = "Disabled Editor" });
-            verticalStack.Add(new Editor { IsEnabled = false, Placeholder = "Placeholder" });
-
-            //// ENTRY
-            verticalStack.Add(new Label { FontSize = 9, Text = "Entry" });
-            verticalStack.Add(new Entry { Placeholder = "Placeholder" });
-
-            verticalStack.Add(new Label { FontSize = 9, Text = "Disabled Entry" });
-            verticalStack.Add(new Entry { IsEnabled = false, Placeholder = "Placeholder" });
-
-            verticalStack.Add(new Label { FontSize = 9, Text = "Custom Entry" });
-            verticalStack.Add(new Entry { BackgroundColor = Colors.LightBlue, Placeholder = "Placeholder" });
-
-            // PROGRESSBAR
-            verticalStack.Add(new Label { FontSize = 9, Text = "ProgressBar" });
-            verticalStack.Add(new ProgressBar { Progress = 0.5d });
-
-            verticalStack.Add(new Label { FontSize = 9, Text = "Disabled ProgressBar" });
-            verticalStack.Add(new ProgressBar { IsEnabled = false, Progress = 0.5d });
-
-            verticalStack.Add(new Label { FontSize = 9, Text = "Custom ProgressBar" });
-            verticalStack.Add(new ProgressBar { ProgressColor = Colors.Orange, Progress = 0.5d });
-
-            // SLIDER
-            verticalStack.Add(new Label { FontSize = 9, Text = "Slider" });
-            verticalStack.Add(new Slider { Minimum = 0, Maximum = 10, Value = 5 });
-
-            verticalStack.Add(new Label { FontSize = 9, Text = "Disabled Slider" });
-            verticalStack.Add(new Slider { IsEnabled = false, Minimum = 0, Maximum = 10, Value = 5 });
-
-            verticalStack.Add(new Label { FontSize = 9, Text = "Custom Slider" });
-            verticalStack.Add(new Slider { Minimum = 0, MinimumTrackColor = Colors.Orange, Maximum = 10, MaximumTrackColor = Colors.YellowGreen, Value = 5, ThumbColor = Colors.BlueViolet });
-
-            // STEPPER
-            verticalStack.Add(new Label { FontSize = 9, Text = "Stepper" });
-            verticalStack.Add(new Stepper { Minimum = 0, Maximum = 10, Value = 5, Increment = 1 });
-
-            verticalStack.Add(new Label { FontSize = 9, Text = "Disabled Stepper" });
-            verticalStack.Add(new Stepper { IsEnabled = false, Minimum = 0, Maximum = 10, Value = 5, Increment = 1 });
-
-            verticalStack.Add(new Label { FontSize = 9, Text = "Custom Stepper" });
-            verticalStack.Add(new Stepper { BackgroundColor = Colors.CadetBlue, Minimum = 0, Maximum = 10, Value = 5, Increment = 1 });
-
-            // SWITCH
-            verticalStack.Add(new Label { FontSize = 9, Text = "Switch" });
-            verticalStack.Add(new Switch { IsToggled = true });
-
-            verticalStack.Add(new Label { FontSize = 9, Text = "Disabled Switch" });
-            verticalStack.Add(new Switch { IsEnabled = false, IsToggled = true });
-
-            verticalStack.Add(new Label { FontSize = 9, Text = "Custom Switch" });
-            verticalStack.Add(new Switch { OnColor = Colors.YellowGreen, ThumbColor = Colors.Green, IsToggled = true });
-
-            // TIMEPICKER
-            verticalStack.Add(new Label { FontSize = 9, Text = "TimePicker" });
-            verticalStack.Add(new TimePicker());
-
-            verticalStack.Add(new Label { FontSize = 9, Text = "Disabled TimePicker" });
-            verticalStack.Add(new TimePicker { IsEnabled = false });
-
-            verticalStack.Add(new Label { FontSize = 9, Text = "Custom TimePicker" });
-            verticalStack.Add(new TimePicker { BackgroundColor = Colors.LightSkyBlue, TextColor = Colors.White });
+            verticalStack.Add(CreateButton());
+            verticalStack.Add(CreateCheckBox());
+            verticalStack.Add(CreateDatePicker());
+            verticalStack.Add(CreateEditor());
+            verticalStack.Add(CreateEntry());
+            verticalStack.Add(CreateProgressBar());
+            verticalStack.Add(CreateSlider());
+            verticalStack.Add(CreateStepper());
+            verticalStack.Add(CreateSwitch());
+            verticalStack.Add(CreateTimePicker());
 
             scrollView.Content = verticalStack;
 
             Content = scrollView;
+        }
+
+        IView CreateHeader()
+        {
+            var container = new StackLayout();
+
+            container.Add(new Label
+            {
+                FontSize = 18,
+                FontAttributes = FontAttributes.Bold,
+                Text = "Introducing Microsoft.Maui.Graphics.Controls",
+                Margin = new Thickness(0, 24, 0, 0)
+            });
+
+            container.Add(new Label
+            {
+                Text = "A .NET MAUI experiment that offers drawn controls allowing to choose between Cupertino, Fluent and Material."
+            });
+
+            return container;
+        }
+
+        IView CreateContainer(string title, View content)
+        {
+            var contentContainer = new StackLayout
+            {
+                BackgroundColor = SectionBackgroundColor
+            };
+
+            var header = new Label
+            {
+                BackgroundColor = SectionHeaderBackgroundColor,
+                Padding = 12,
+                Text = title
+            };
+
+            contentContainer.Children.Add(header);
+            contentContainer.Children.Add(content);
+
+            var container = new Frame
+            {
+                BackgroundColor = SectionBackgroundColor,
+                IsClippedToBounds = true,
+                CornerRadius = 12,
+                Content = contentContainer,
+                HasShadow = false,
+                Padding = 0,
+                Margin = new Thickness(0, 6)
+            };
+
+            return container;
+        }
+
+        IView CreateButton()
+        {
+            var layout = new StackLayout
+            {
+                Margin = new Thickness(12, 6, 12, 24)
+            };
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Button" });
+            layout.Children.Add(new Button { Text = "Button" });
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Disabled Button" });
+            layout.Children.Add(new Button { IsEnabled = false, Text = "Disabled Button" });
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Custom Button" });
+            layout.Children.Add(new Button { BackgroundColor = Colors.Red, TextColor = Colors.Yellow, Text = "Custom Button" });
+
+            return CreateContainer("Button", layout);
+        }
+
+        IView CreateCheckBox()
+        {
+            var layout = new StackLayout
+            {
+                Margin = new Thickness(12, 6, 12, 24)
+            };
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Default" });
+            layout.Children.Add(new CheckBox { IsChecked = true });
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Disabled" });
+            layout.Children.Add(new CheckBox { IsEnabled = false, IsChecked = true });
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Custom" });
+            layout.Children.Add(new CheckBox { BackgroundColor = Colors.Purple, IsChecked = true });
+
+            return CreateContainer("CheckBox", layout);
+        }
+
+        IView CreateDatePicker()
+        {
+            var layout = new StackLayout
+            {
+                Margin = new Thickness(12, 6, 12, 24)
+            };
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Default" });
+            layout.Children.Add(new DatePicker());
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Disabled" });
+            layout.Children.Add(new DatePicker { IsEnabled = false });
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Custom" });
+            layout.Children.Add(new DatePicker { BackgroundColor = Colors.LightGreen, TextColor = Colors.White });
+
+            return CreateContainer("DatePicker", layout);
+        }
+
+        IView CreateEditor()
+        {
+            var layout = new StackLayout
+            {
+                Margin = new Thickness(12, 6, 12, 24)
+            };
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Default" });
+            layout.Children.Add(new Editor { Placeholder = "Placeholder" });
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Disabled" });
+            layout.Children.Add(new Editor { IsEnabled = false, Placeholder = "Placeholder" });
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Custom" });
+            layout.Children.Add(new Editor { BackgroundColor = Colors.LightPink, TextColor = Colors.DeepPink, Placeholder = "Placeholder", PlaceholderColor = Colors.HotPink });
+
+            return CreateContainer("Editor", layout);
+        }
+
+        IView CreateEntry()
+        {
+            var layout = new StackLayout
+            {
+                Margin = new Thickness(12, 6, 12, 24)
+            };
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Default" });
+            layout.Children.Add(new Entry { Placeholder = "Placeholder" });
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Disabled" });
+            layout.Children.Add(new Entry { IsEnabled = false, Placeholder = "Placeholder" });
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Custom" });
+            layout.Children.Add(new Entry { BackgroundColor = Colors.LightBlue, TextColor = Colors.Blue, Placeholder = "Placeholder", PlaceholderColor = Colors.DarkBlue });
+
+            return CreateContainer("Entry", layout);
+        }
+
+        IView CreateProgressBar()
+        {
+            var layout = new StackLayout
+            {
+                Margin = new Thickness(12, 6, 12, 24)
+            };
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Default" });
+            layout.Children.Add(new ProgressBar { Progress = 0.5d });
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "ProgressBar" });
+            layout.Children.Add(new ProgressBar { IsEnabled = false, Progress = 0.5d });
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "ProgressBar" });
+            layout.Children.Add(new ProgressBar { ProgressColor = Colors.Orange, Progress = 0.5d });
+
+            return CreateContainer("ProgressBar", layout);
+        }
+
+        IView CreateSlider()
+        {
+            var layout = new StackLayout
+            {
+                Margin = new Thickness(12, 6, 12, 24)
+            };
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Default" });
+            layout.Children.Add(new Slider { Minimum = 0, Maximum = 10, Value = 5 });
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Disabled" });
+            layout.Children.Add(new Slider { IsEnabled = false, Minimum = 0, Maximum = 10, Value = 5 });
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Custom" });
+            layout.Children.Add(new Slider { Minimum = 0, MinimumTrackColor = Colors.Orange, Maximum = 10, MaximumTrackColor = Colors.YellowGreen, Value = 5, ThumbColor = Colors.BlueViolet });
+
+            return CreateContainer("Slider", layout);
+        }
+
+        IView CreateStepper()
+        {
+            var layout = new StackLayout
+            {
+                Margin = new Thickness(12, 6, 12, 24)
+            };
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Default" });
+            layout.Children.Add(new Stepper { Minimum = 0, Maximum = 10, Value = 5, Increment = 1 });
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Disabled" });
+            layout.Children.Add(new Stepper { IsEnabled = false, Minimum = 0, Maximum = 10, Value = 5, Increment = 1 });
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Custom" });
+            layout.Children.Add(new Stepper { BackgroundColor = Colors.CadetBlue, Minimum = 0, Maximum = 10, Value = 5, Increment = 1 });
+
+            return CreateContainer("Stepper", layout);
+        }
+
+        IView CreateSwitch()
+        {
+            var layout = new StackLayout
+            {
+                Margin = new Thickness(12, 6, 12, 24)
+            };
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Default" });
+            layout.Children.Add(new Switch { IsToggled = true });
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Disabled" });
+            layout.Children.Add(new Switch { IsEnabled = false, IsToggled = true });
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Custom" });
+            layout.Children.Add(new Switch { OnColor = Colors.YellowGreen, ThumbColor = Colors.Green, IsToggled = true });
+
+            return CreateContainer("Switch", layout);
+        }
+
+        IView CreateTimePicker()
+        {
+            var layout = new StackLayout
+            {
+                Margin = new Thickness(12, 6, 12, 24)
+            };
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Default" });
+            layout.Children.Add(new TimePicker());
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Disabled" });
+            layout.Children.Add(new TimePicker { IsEnabled = false });
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Custom" });
+            layout.Children.Add(new TimePicker { BackgroundColor = Colors.LightSkyBlue, TextColor = Colors.White });
+
+            return CreateContainer("TimePicker", layout);
         }
     }
 }
