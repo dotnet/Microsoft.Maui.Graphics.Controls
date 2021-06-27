@@ -54,7 +54,7 @@
 
         public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEntry editor)
         {
-            if (!HasFocus && string.IsNullOrEmpty(entry.Text))
+            if (!HasFocus && string.IsNullOrEmpty(editor.Text))
             {
                 canvas.SaveState();
 
