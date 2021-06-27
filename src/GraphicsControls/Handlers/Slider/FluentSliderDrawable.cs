@@ -36,7 +36,7 @@ namespace Microsoft.Maui.Graphics.Controls
 			trackRect.X = x;
 			trackRect.Width = width;
 
-			canvas.FillRoundedRectangle(x, y, width, height, 0);
+			canvas.FillRoundedRectangle(x, y, width, height, 4);
 
 			canvas.RestoreState();
 		}
@@ -57,7 +57,7 @@ namespace Microsoft.Maui.Graphics.Controls
 			var x = dirtyRect.X;
 			var y = (float)((dirtyRect.Height - height) / 2);
 
-			canvas.FillRoundedRectangle(x, y, width, height, 0);
+			canvas.FillRoundedRectangle(x, y, width, height, 4);
 
 			canvas.RestoreState();
 		}

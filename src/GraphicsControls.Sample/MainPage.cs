@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Controls;
+﻿using System.Diagnostics;
+using Microsoft.Maui.Controls;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -93,7 +94,15 @@ namespace Microsoft.Maui.Graphics.Controls
             };
 
             layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Button" });
-            layout.Children.Add(new Button { Text = "Button" });
+
+            var defaultButton = new Button { Text = "Button" };
+
+            defaultButton.Clicked += (sender, args) =>
+            {
+                Debug.WriteLine("Button Clicked");
+            };
+
+            layout.Children.Add(defaultButton);
 
             layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Disabled Button" });
             layout.Children.Add(new Button { IsEnabled = false, Text = "Disabled Button" });
@@ -245,13 +254,13 @@ namespace Microsoft.Maui.Graphics.Controls
             };
 
             layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Default" });
-            layout.Children.Add(new Switch { IsToggled = true });
+            layout.Children.Add(new Maui.Controls.Switch { IsToggled = true });
 
             layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Disabled" });
-            layout.Children.Add(new Switch { IsEnabled = false, IsToggled = true });
+            layout.Children.Add(new Maui.Controls.Switch { IsEnabled = false, IsToggled = true });
 
             layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Custom" });
-            layout.Children.Add(new Switch { OnColor = Colors.YellowGreen, ThumbColor = Colors.Green, IsToggled = true });
+            layout.Children.Add(new Maui.Controls.Switch { OnColor = Colors.YellowGreen, ThumbColor = Colors.Green, IsToggled = true });
 
             return CreateContainer("Switch", layout);
         }

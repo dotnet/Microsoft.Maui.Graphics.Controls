@@ -10,15 +10,24 @@ namespace Microsoft.Maui.Graphics.Controls
 
         protected override GraphicsEntry CreateNativeView()
         {
-            return new GraphicsEntry { EdgeInsets = new UIEdgeInsets(12, 12, 0, 36) };
+            UIEdgeInsets edgeInsets;
+
+            if (Drawable is MaterialEntryDrawable)
+                edgeInsets = new UIEdgeInsets(12, 12, 0, 36);
+            else if (Drawable is FluentEntryDrawable)
+                edgeInsets = new UIEdgeInsets(0, 8, 2, 36);
+            else
+                edgeInsets = new UIEdgeInsets();
+
+            return new GraphicsEntry { EdgeInsets = edgeInsets };
         }
 
         protected override void ConnectHandler(GraphicsEntry nativeView)
         {
             base.ConnectHandler(nativeView);
 
+            nativeView.Started += OnStarted;
             nativeView.EditingChanged += OnEditingChanged;
-            nativeView.EditingDidBegin += OnEditingDidBegin;
             nativeView.EditingDidEnd += OnEditingEnded;
             nativeView.ShouldChangeCharacters += OnShouldChangeCharacters;
         }
@@ -27,8 +36,8 @@ namespace Microsoft.Maui.Graphics.Controls
         {
             base.DisconnectHandler(nativeView);
 
+            nativeView.Started -= OnStarted;
             nativeView.EditingChanged -= OnEditingChanged;
-            nativeView.EditingDidBegin -= OnEditingDidBegin;
             nativeView.EditingDidEnd -= OnEditingEnded;
             nativeView.ShouldChangeCharacters -= OnShouldChangeCharacters;
         }
@@ -107,7 +116,7 @@ namespace Microsoft.Maui.Graphics.Controls
         void OnEditingChanged(object? sender, EventArgs e)
             => OnTextChanged();
 
-        void OnEditingDidBegin(object? sender, EventArgs e)
+        void OnStarted(object sender, EventArgs e)
         {
             Drawable.HasFocus = true;
             Invalidate();

@@ -19,7 +19,7 @@
             var width = dirtyRect.Width;
             var height = dirtyRect.Height;
 
-            canvas.FillRoundedRectangle(x, y, width, height, 2);
+            canvas.FillRoundedRectangle(x, y, width, height, 4);
 
             canvas.RestoreState();
         }
@@ -44,12 +44,31 @@
                 canvas.DrawRoundedRectangle(x + strokeWidth / 2, y + strokeWidth / 2, width - strokeWidth, height - strokeWidth, 2);
 
                 canvas.RestoreState();
+
+                canvas.SaveState();
+
+                canvas.FillColor = Fluent.Color.Primary.ThemeDarker.ToColor();
+
+                if (HasFocus)
+                {
+                    strokeWidth = 2.0f;
+                    canvas.FillColor = Fluent.Color.Primary.ThemePrimary.ToColor();
+                }
+
+                x = strokeWidth;
+                y = height - strokeWidth;
+                width -= strokeWidth * 2;
+                height = strokeWidth;
+
+                canvas.FillRoundedRectangle(x, y, width, height, 4);
+
+                canvas.RestoreState();
             }
         }
 
         public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEditor editor)
         {
-            if (string.IsNullOrEmpty(editor.Text))
+            if (!HasFocus && string.IsNullOrEmpty(editor.Text))
             {
                 canvas.SaveState();
 
@@ -75,6 +94,6 @@
         }
 
         public override Size GetDesiredSize(IView view, double widthConstraint, double heightConstraint) =>
-            new Size(widthConstraint, 60.0d);
+            new Size(widthConstraint, 112.0d);
     }
 }

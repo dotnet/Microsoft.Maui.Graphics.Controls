@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Controls;
+﻿using System;
+using Microsoft.Maui.Controls;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -17,28 +18,25 @@ namespace Microsoft.Maui.Graphics.Controls
             return Color.FromArgb(hex);
         }
 
-        public static Color Darker(this Color color, double factor = 0.5)
-        {
-            if (factor < 0 || factor > 1)
-                return color;
+		const float LighterFactor = 1.1f;
+		const float DarkerFactor = 0.9f;
 
-            int r = (int)(factor * color.Red);
-            int g = (int)(factor * color.Green);
-            int b = (int)(factor * color.Blue);
+		public static Color Lighter(this Color color)
+		{
+			return new Color(
+				color.Red * LighterFactor,
+				color.Green * LighterFactor,
+				color.Blue * LighterFactor,
+				color.Alpha);
+		}
 
-            return Color.FromRgb(r, g, b);
-        }
-
-        public static Color Lighter(this Color color, double factor = 0.5)
-        {
-            if (factor < 0 || factor > 1)
-                return color;
-
-            int r = (int)(factor * color.Red + (1 - factor) * 255);
-            int g = (int)(factor * color.Green + (1 - factor) * 255);
-            int b = (int)(factor * color.Blue + (1 - factor) * 255);
-
-            return Color.FromRgb(r, g, b);
-        }
-    }
+		public static Color Darker(this Color color)
+		{
+			return new Color(
+				color.Red * DarkerFactor,
+				color.Green * DarkerFactor,
+				color.Blue * DarkerFactor,
+				color.Alpha);
+		}
+	}
 }

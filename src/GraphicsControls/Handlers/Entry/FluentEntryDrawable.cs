@@ -50,6 +50,25 @@
                 canvas.DrawRoundedRectangle(x + strokeWidth / 2, y + strokeWidth / 2, width - strokeWidth, height - strokeWidth, 2);
 
                 canvas.RestoreState();
+
+                canvas.SaveState();
+
+                canvas.FillColor = Fluent.Color.Primary.ThemeDarker.ToColor();
+
+                if (HasFocus)
+                {
+                    strokeWidth = 2.0f;
+                    canvas.FillColor = Fluent.Color.Primary.ThemePrimary.ToColor();
+                }
+
+                x = strokeWidth;
+                y = height - strokeWidth;
+                width -= strokeWidth * 2;
+                height = strokeWidth;
+
+                canvas.FillRoundedRectangle(x, y, width, height, 4);
+
+                canvas.RestoreState();
             }
         }
 
@@ -85,7 +104,7 @@
 
         public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEntry entry)
         {
-            if (string.IsNullOrEmpty(entry.Text))
+            if (!HasFocus && string.IsNullOrEmpty(entry.Text))
             {
                 canvas.SaveState();
 

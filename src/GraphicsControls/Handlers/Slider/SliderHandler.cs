@@ -37,6 +37,7 @@ namespace Microsoft.Maui.Graphics.Controls
 				"Background",
 				"TrackProgress",
 				"Thumb",
+				"Text",
 			}, "Text").ToArray();
 
 		public override string[] LayerDrawingOrder() =>

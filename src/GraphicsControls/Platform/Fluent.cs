@@ -9,7 +9,7 @@
                 public const string ThemeDarker = "#004578";
                 public const string ThemeDark = "#005a9e";
                 public const string ThemeDarkAlt = "#106ebe";
-                public const string ThemePrimary = "#0078d4";
+                public const string ThemePrimary = "#005EBE";
                 public const string ThemeSecondary = "#2b88d8";
                 public const string ThemeTertiary = "#71afe5";
                 public const string ThemeLight = "#c7e0f4";

@@ -6,25 +6,32 @@ namespace Microsoft.Maui.Graphics.Controls
     public partial class EditorHandler : MixedGraphicsControlHandler<IEditorDrawable, IEditor, GraphicsEditor>
 	{
 		protected override GraphicsEditor CreateNativeView()
-        {
-            return new GraphicsEditor { EdgeInsets = new UIEdgeInsets(0, 12, 0, 12) };
+		{
+			UIEdgeInsets edgeInsets;
+
+			if (Drawable is MaterialEditorDrawable)
+				edgeInsets = new UIEdgeInsets(24, 8, 0, 8);
+			else if (Drawable is FluentEditorDrawable)
+				edgeInsets = new UIEdgeInsets(9, 6, 0, 6);
+			else
+				edgeInsets = new UIEdgeInsets();
+
+			return new GraphicsEditor { EdgeInsets = edgeInsets };
 		}
 
         protected override void ConnectHandler(GraphicsEditor nativeView)
         {
             base.ConnectHandler(nativeView);
 
-			nativeView.EditingDidBegin += OnEditingDidBegin;
-			nativeView.EditingDidEnd += OnEditingEnded;
+            nativeView.Started += OnStarted;
 			nativeView.Ended += OnEnded;
 		}
 
-        protected override void DisconnectHandler(GraphicsEditor nativeView)
+		protected override void DisconnectHandler(GraphicsEditor nativeView)
         {
             base.DisconnectHandler(nativeView);
 
-			nativeView.EditingDidBegin -= OnEditingDidBegin;
-			nativeView.EditingDidEnd -= OnEditingEnded;
+			nativeView.Started -= OnStarted;
 			nativeView.Ended -= OnEnded;
 		}
 
@@ -59,20 +66,17 @@ namespace Microsoft.Maui.Graphics.Controls
 		[MissingMapper]
 		public static void MapKeyboard(EditorHandler handler, IEditor editor) { }
 
-		void OnEditingDidBegin(object? sender, EventArgs e)
+		void OnStarted(object sender, EventArgs e)
 		{
 			Drawable.HasFocus = true;
 			Invalidate();
 		}
 
-		void OnEditingEnded(object? sender, EventArgs e)
+		void OnEnded(object? sender, EventArgs eventArgs)
 		{
 			Drawable.HasFocus = false;
 			Invalidate();
-		}
 
-		void OnEnded(object? sender, EventArgs eventArgs)
-		{
 			if (VirtualView == null || NativeView == null)
 				return;
 

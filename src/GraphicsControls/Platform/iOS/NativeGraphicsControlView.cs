@@ -27,7 +27,7 @@ namespace Microsoft.Maui.Graphics.Controls
 		{
 			try
 			{
-				if (!IsFirstResponder)
+                if (!IsFirstResponder)
 					BecomeFirstResponder();
 
 				var viewPoints = this.GetPointsInView(evt);

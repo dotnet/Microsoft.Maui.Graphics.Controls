@@ -6,7 +6,38 @@
         {
             canvas.SaveState();
 
-            var strokeWidth = 1;
+            var x = dirtyRect.X;
+            var y = dirtyRect.Y;
+
+            var width = dirtyRect.Width;
+            var height = dirtyRect.Height;
+
+            var defaultBackgroundColor = Fluent.Color.Primary.ThemePrimary.ToColor();
+            var disabledColor = Fluent.Color.Background.NeutralLighter.ToColor();
+
+            var backgroundColor = button.IsEnabled ? defaultBackgroundColor : disabledColor;
+
+            if (button.Background != null && button.Background is SolidPaint solidPaint)
+                backgroundColor = solidPaint.Color;
+
+            var border = new LinearGradientPaint
+            {
+                GradientStops = new GradientStop[]
+                {
+                    new GradientStop(0.0f, backgroundColor.Lighter()),
+                    new GradientStop(0.9f, backgroundColor.Darker())
+                },
+                StartPoint = new Point(0, 0),
+                EndPoint = new Point(0, 1)
+            };
+
+            canvas.SetFillPaint(border, dirtyRect);
+
+            canvas.FillRoundedRectangle(x, y, width, height, 4);
+
+            canvas.RestoreState();
+
+            canvas.SaveState();
 
             if (button.IsEnabled)
             {
@@ -15,26 +46,14 @@
                 if (button.Background != null)
                     canvas.SetFillPaint(button.Background, dirtyRect);
                 else
-                    canvas.FillColor = Fluent.Color.Primary.ThemePrimary.ToColor();
+                    canvas.FillColor = defaultBackgroundColor;
             }
             else
-            {
-                var disabledColor = Fluent.Color.Background.NeutralLighter.ToColor();
                 canvas.StrokeColor = canvas.FillColor = disabledColor;
-            }
-
-            canvas.StrokeSize = strokeWidth;
-
-            var x = dirtyRect.X;
-            var y = dirtyRect.Y;
-
-            var width = dirtyRect.Width;
-            var height = dirtyRect.Height;
-
-            canvas.DrawRoundedRectangle(x, y, width, height, 0);
-
+ 
+            var strokeWidth = 1;
             float margin = strokeWidth * 2;
-            canvas.FillRoundedRectangle(x + strokeWidth, y + strokeWidth, width - margin, height - margin, 0);
+            canvas.FillRoundedRectangle(x + strokeWidth, y + strokeWidth, width - margin, height - margin, 4);
 
             canvas.RestoreState();
         }

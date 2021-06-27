@@ -5,19 +5,19 @@ using UIKit;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public class GraphicsEditor : UITextField, IMixedNativeView
+    public class GraphicsEditor : UITextView, IMixedNativeView
     {
         readonly NativeCanvas _canvas;
         CGColorSpace? _colorSpace;
         IDrawable? _drawable;
         CGRect _lastBounds;
+        UIEdgeInsets _eddgeInsets;
 
         public GraphicsEditor()
         {
             _canvas = new NativeCanvas(() => CGColorSpace.CreateDeviceRGB());
 
             EdgeInsets = UIEdgeInsets.Zero;
-            BorderStyle = UITextBorderStyle.None;
             ClipsToBounds = true;
             BackgroundColor = UIColor.Clear;
         }
@@ -34,7 +34,16 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        public UIEdgeInsets EdgeInsets { get; set; }
+        public UIEdgeInsets EdgeInsets
+        {
+            get => _eddgeInsets;
+            set
+            {
+                _eddgeInsets = value;
+
+                TextContainerInset = _eddgeInsets;
+            }
+        }
 
         static readonly string[] DefaultNativeLayers = new[] { nameof(IEntry.Text) };
 
@@ -63,26 +72,7 @@ namespace Microsoft.Maui.Graphics.Controls
                 }
             }
         }
-
-        public override CGRect TextRect(CGRect forBounds)
-        {
-            return base.TextRect(InsetRect(forBounds, EdgeInsets));
-        }
-
-        public override CGRect EditingRect(CGRect forBounds)
-        {
-            return base.EditingRect(InsetRect(forBounds, EdgeInsets));
-        }
-
-        public static CGRect InsetRect(CGRect rect, UIEdgeInsets insets)
-        {
-            return new CGRect(
-                rect.X + insets.Left,
-                rect.Y + insets.Top,
-                rect.Width - insets.Left - insets.Right,
-                rect.Height - insets.Top - insets.Bottom);
-        }
-
+                
         public void DrawBaseLayer(RectangleF dirtyRect)
         {
             base.Draw(dirtyRect);

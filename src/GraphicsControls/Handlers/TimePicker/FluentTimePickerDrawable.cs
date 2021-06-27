@@ -4,7 +4,7 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public class FluentTimePickerDrawable : ViewDrawable<ITimePicker>, ITimePickerDrawable
     {
-        const float FluentTimePickerHeight = 32.0f;
+        const float FluentDatePickerHeight = 32.0f;
         const float FluentDatePickerWidth = 250.0f;
 
         public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
@@ -22,7 +22,7 @@ namespace Microsoft.Maui.Graphics.Controls
             var width = FluentDatePickerWidth;
             var height = dirtyRect.Height;
 
-            canvas.FillRoundedRectangle(x, y, width, height, 2);
+            canvas.FillRoundedRectangle(x, y, width, height, 4);
 
             canvas.RestoreState();
         }
@@ -81,7 +81,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public void DrawTime(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
         {
-            var height = FluentTimePickerHeight;
+            var height = FluentDatePickerHeight;
             var divided = FluentDatePickerWidth / 3;
 
             var time = timePicker.Time;
@@ -125,6 +125,6 @@ namespace Microsoft.Maui.Graphics.Controls
         }
 
         public override Size GetDesiredSize(IView view, double widthConstraint, double heightConstraint) =>
-            new Size(widthConstraint, 32f);
+            new Size(widthConstraint, FluentDatePickerHeight);
     }
 }
