@@ -11,10 +11,15 @@
         {
             canvas.SaveState();
 
-            if (editor.Background != null)
-                canvas.SetFillPaint(editor.Background, dirtyRect);
+            if (editor.IsEnabled)
+            {
+                if (editor.Background != null)
+                    canvas.SetFillPaint(editor.Background, dirtyRect);
+                else
+                    canvas.FillColor = Cupertino.Color.Fill.Light.White.ToColor();
+            }
             else
-                canvas.FillColor = Material.Color.White.ToColor();
+                canvas.FillColor = Cupertino.Color.SystemGray.Light.Gray6.ToColor();
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;

@@ -41,7 +41,7 @@
                 var vBuilder = new PathBuilder();
                 var path = vBuilder.BuildPath(CupertinoCheckBoxMark);
 
-                canvas.StrokeColor = Cupertino.Color.Fill.Light.White.ToColor();
+                canvas.StrokeColor = Cupertino.Color.Fill.Light.WhiteAlt.ToColor();
 
                 canvas.DrawPath(path);
 

@@ -90,7 +90,8 @@
                 public static class Light
                 {
                     public const string Black = "#000000";
-                    public const string White = "#99EBEBF5";
+                    public const string White = "#FFFFFF";
+                    public const string WhiteAlt = "#99EBEBF5";
                     public const string Primary = "#C8C8CA";
                     public const string Secondary = "#CCCCCD";
                     public const string Tertiary = "#D0D0D1";
@@ -102,7 +103,8 @@
                 public static class Dark
                 {
                     public const string Black = "#000000";
-                    public const string White = "#99EBEBF5";
+                    public const string White = "#FFFFFF";
+                    public const string WhiteAlt = "#99EBEBF5";
                     public const string Primary = "#49494C";
                     public const string Secondary = "#464649";
                     public const string Tertiary = "#404042";

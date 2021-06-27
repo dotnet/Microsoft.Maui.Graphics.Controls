@@ -8,10 +8,15 @@ namespace Microsoft.Maui.Graphics.Controls
         {
             canvas.SaveState();
 
-            if (timePicker.Background != null)
-                canvas.SetFillPaint(timePicker.Background, dirtyRect);
+            if (timePicker.IsEnabled)
+            {
+                if (timePicker.Background != null)
+                    canvas.SetFillPaint(timePicker.Background, dirtyRect);
+                else
+                    canvas.FillColor = Cupertino.Color.Fill.Light.White.ToColor();
+            }
             else
-                canvas.FillColor = Material.Color.White.ToColor();
+                canvas.FillColor = Cupertino.Color.SystemGray.Light.Gray6.ToColor();
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;

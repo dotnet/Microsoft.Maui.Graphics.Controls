@@ -8,17 +8,15 @@ namespace Microsoft.Maui.Graphics.Controls
         {
             canvas.SaveState();
 
-            if (datePicker.Background != null)
+            if (datePicker.IsEnabled)
             {
-                var background = datePicker.Background;
-
-                if (background is SolidPaint solidPaint)
-                    canvas.FillColor = solidPaint.ToColor();
+                if (datePicker.Background != null)
+                    canvas.SetFillPaint(datePicker.Background, dirtyRect);
                 else
-                    canvas.SetFillPaint(background, dirtyRect);
+                    canvas.FillColor = Cupertino.Color.Fill.Light.White.ToColor();
             }
             else
-                canvas.FillColor = Material.Color.White.ToColor();
+                canvas.FillColor = Cupertino.Color.SystemGray.Light.Gray6.ToColor();
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
