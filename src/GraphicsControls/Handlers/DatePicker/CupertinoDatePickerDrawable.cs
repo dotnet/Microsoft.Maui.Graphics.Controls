@@ -9,7 +9,14 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.SaveState();
 
             if (datePicker.Background != null)
-                canvas.SetFillPaint(datePicker.Background, dirtyRect);
+            {
+                var background = datePicker.Background;
+
+                if (background is SolidPaint solidPaint)
+                    canvas.FillColor = solidPaint.ToColor();
+                else
+                    canvas.SetFillPaint(background, dirtyRect);
+            }
             else
                 canvas.FillColor = Material.Color.White.ToColor();
 
@@ -19,7 +26,7 @@ namespace Microsoft.Maui.Graphics.Controls
             var width = dirtyRect.Width;
             var height = dirtyRect.Height;
 
-            canvas.FillRoundedRectangle(x, y, width, height, 2);
+            canvas.FillRoundedRectangle(x, y, width, height, 8);
 
             canvas.RestoreState();
         }

@@ -13,6 +13,8 @@ namespace Microsoft.Maui.Graphics.Controls
 				edgeInsets = new UIEdgeInsets(24, 8, 0, 8);
 			else if (Drawable is FluentEditorDrawable)
 				edgeInsets = new UIEdgeInsets(9, 6, 0, 6);
+			else if (Drawable is CupertinoEditorDrawable)
+				edgeInsets = new UIEdgeInsets(8, 4, 0, 4);
 			else
 				edgeInsets = new UIEdgeInsets();
 

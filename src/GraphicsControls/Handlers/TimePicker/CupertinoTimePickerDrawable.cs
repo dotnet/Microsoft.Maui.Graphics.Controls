@@ -19,7 +19,7 @@ namespace Microsoft.Maui.Graphics.Controls
             var width = dirtyRect.Width;
             var height = dirtyRect.Height;
 
-            canvas.FillRoundedRectangle(x, y, width, height, 2);
+            canvas.FillRoundedRectangle(x, y, width, height, 8);
 
             canvas.RestoreState();
         }
