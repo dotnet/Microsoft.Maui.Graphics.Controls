@@ -15,6 +15,6 @@
 		<ProjectReference Include="..\maui\src\Controls\src\Core\Controls.Core.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Graphics" Version="6.0.100-preview.5.229" />
+		<PackageReference Include="Microsoft.Maui.Graphics" Version="6.0.100-preview.5.246" />
 	</ItemGroup>
 </Project>

@@ -5,7 +5,7 @@ using Microsoft.Maui;
 namespace GraphicsControls.Sample.Droid
 {
     [Activity(
-        Label = "GraphicsControls.Sample",
+        Label = "GraphicsControls",
         Icon = "@mipmap/icon",
         Theme = "@style/MainTheme",
         MainLauncher = true,
