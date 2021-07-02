@@ -114,7 +114,11 @@ namespace Microsoft.Maui.Graphics.Controls
 				{
 					// TODO: Dismiss keyboard for hardware / physical keyboards
 
-					Handler?.VirtualView?.Completed();
+					if (Handler != null)
+					{
+						Handler.Drawable.HasFocus = false;
+						Handler.VirtualView?.Completed();
+					}
 				}
 
 				return true;
