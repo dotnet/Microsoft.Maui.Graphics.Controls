@@ -1,3 +1,0 @@
-[submodule "src/maui"]
-	path = src/maui
-	url = https://github.com/dotnet/maui

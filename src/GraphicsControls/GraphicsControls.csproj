@@ -1,20 +1,21 @@
 <Project Sdk="MSBuild.Sdk.Extras">
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.1;netstandard2.0;Xamarin.iOS10;MonoAndroid10.0</TargetFrameworks>
-		<RootNamespace>Microsoft.Maui.Graphics.Controls</RootNamespace>
+    <TargetFrameworks>net6.0-ios;net6.0-android;net6.0-maccatalyst;net6.0-windows10.0.19041</TargetFrameworks>
+    <RootNamespace>Microsoft.Maui.Graphics.Controls</RootNamespace>
 		<AssemblyName>Microsoft.Maui.Graphics.Controls</AssemblyName>
-		<LangVersion>8.0</LangVersion>
+    <LangVersion>8.0</LangVersion>
 		<Nullable>enable</Nullable>
-	</PropertyGroup>
-	<PropertyGroup>
+    <SingleProject>true</SingleProject>
+    <RuntimeIdentifier Condition="'$(TargetFramework)' == 'net6.0-ios'">iossimulator-x64</RuntimeIdentifier>
+    <RuntimeIdentifier Condition="'$(TargetFramework)' == 'net6.0-maccatalyst'">maccatalyst-x64</RuntimeIdentifier>
+    <InvariantGlobalization Condition="'$(TargetFramework)' == 'net6.0-maccatalyst'">true</InvariantGlobalization>
+  </PropertyGroup>
+    <PropertyGroup>
 	   <PackageId>Microsoft.Maui.Graphics.Controls</PackageId>
 	</PropertyGroup>
-	<Import Project="..\maui\.nuspec\Microsoft.Maui.Controls.MultiTargeting.targets" />
-	<ItemGroup>
-		<ProjectReference Include="..\maui\src\Core\src\Core.csproj" />
-		<ProjectReference Include="..\maui\src\Controls\src\Core\Controls.Core.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Graphics" Version="6.0.100-preview.5.246" />
-	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Maui" Version="6.0.100-preview.5.794" />
+    <PackageReference Include="Microsoft.Maui.Graphics" Version="6.0.100-preview.5.246" />
+  </ItemGroup>
+  <Import Project="..\..\Microsoft.Maui.Graphics.Controls.MultiTargeting.targets" />
 </Project>
