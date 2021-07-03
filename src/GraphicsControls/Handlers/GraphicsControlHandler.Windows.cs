@@ -1,14 +1,15 @@
-﻿using Microsoft.Maui.Graphics.Win2D;
-using Microsoft.Maui.Handlers;
+﻿using Microsoft.Maui.Handlers;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public partial class GraphicsControlHandler<TViewDrawable, TVirtualView> : ViewHandler<TVirtualView, W2DGraphicsView>
+    public partial class GraphicsControlHandler<TViewDrawable, TVirtualView> : ViewHandler<TVirtualView, NativeGraphicsControlView>
 	{
-		protected override W2DGraphicsView CreateNativeView() =>
-			new W2DGraphicsView() { Drawable = this };
+		protected override NativeGraphicsControlView CreateNativeView() =>
+			new NativeGraphicsControlView { GraphicsControl = this };
 
-		public void Invalidate() =>
+		public void Invalidate()
+		{
 			NativeView?.Invalidate();
+		}
 	}
 }

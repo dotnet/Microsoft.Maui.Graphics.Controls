@@ -6,7 +6,7 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public class NativeGraphicsControlView : NativeGraphicsView
     {
-        float _density;
+        readonly float _density;
         IGraphicsHandler? _graphicsControl;
         bool _pressedContained;
 
