@@ -2,13 +2,19 @@
 using Microsoft.Maui.Graphics.Win2D;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
+using System;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
     public class GraphicsTimePicker : UserControl, IMixedNativeView
     {
+        TimeSpan _time;
+
+        TimePickerFlyout? _timePickerFlyout;
         CanvasControl? _canvasControl;
         readonly W2DCanvas _canvas = new W2DCanvas();
+
         IDrawable? _drawable;
         RectangleF _dirty;
 
@@ -16,6 +22,17 @@ namespace Microsoft.Maui.Graphics.Controls
         {
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
+            PointerPressed += OnPointerPressed;
+        }
+
+        public TimeSpan Time
+        {
+            get { return _time; }
+            set
+            {
+                _time = value;
+                UpdateTime(_time);
+            }
         }
 
         public IDrawable? Drawable
@@ -27,6 +44,8 @@ namespace Microsoft.Maui.Graphics.Controls
                 Invalidate();
             }
         }
+
+        public event EventHandler<TimeSelectedEventArgs>? TimeSelected;
 
         static readonly string[] DefaultNativeLayers = new string[] { };
 
@@ -41,7 +60,11 @@ namespace Microsoft.Maui.Graphics.Controls
 
         void OnLoaded(object sender, RoutedEventArgs e)
         {
+            _timePickerFlyout = new TimePickerFlyout { Placement = FlyoutPlacementMode.Top };
+            _timePickerFlyout.TimePicked += OnTimePicked;
+
             _canvasControl = new CanvasControl();
+
             _canvasControl.Draw += OnDraw;
             Content = _canvasControl;
         }
@@ -71,6 +94,26 @@ namespace Microsoft.Maui.Graphics.Controls
             _canvas.CanvasSize = new Windows.Foundation.Size(_dirty.Width, _dirty.Height);
             _drawable.Draw(_canvas, _dirty);
             W2DGraphicsService.ThreadLocalCreator = null;
+        }
+
+        void OnPointerPressed(object sender, UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            _timePickerFlyout?.ShowAt(_canvasControl);
+        }
+
+        void OnTimePicked(TimePickerFlyout sender, TimePickedEventArgs args)
+        {
+            UpdateTime(args.NewTime);
+        }
+
+        void UpdateTime(TimeSpan time)
+        {
+            if (_timePickerFlyout == null)
+                return;
+
+            _timePickerFlyout.Time = time;
+
+            TimeSelected?.Invoke(this, new TimeSelectedEventArgs(time));
         }
     }
 }

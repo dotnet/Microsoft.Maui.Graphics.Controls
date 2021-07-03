@@ -51,8 +51,12 @@ namespace Microsoft.Maui.Graphics.Controls
 			handler.NativeView?.UpdateCharacterSpacing(entry);
 		}
 
-		[MissingMapper]
-		public static void MapFont(EntryHandler handler, IEntry entry) { }
+		public static void MapFont(EntryHandler handler, IEntry entry) 
+		{
+			// TODO: Get require service FontManager
+			//IFontManager? fontManager = null;
+			//handler.NativeView?.UpdateFont(editor, fontManager);
+		}
 
 		public static void MapHorizontalTextAlignment(EntryHandler handler, IEntry entry)
 		{
