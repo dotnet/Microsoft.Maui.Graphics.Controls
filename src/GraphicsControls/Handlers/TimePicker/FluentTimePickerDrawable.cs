@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -119,7 +120,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.FontColor = textColor;
             canvas.FontSize = fontSize;
 
-            canvas.DrawString(date.ToString("tt"), divided * 2, 0, divided, height, HorizontalAlignment.Center, VerticalAlignment.Center);
+            canvas.DrawString(date.ToString("tt", CultureInfo.InvariantCulture), divided * 2, 0, divided, height, HorizontalAlignment.Center, VerticalAlignment.Center);
 
             canvas.RestoreState();
         }

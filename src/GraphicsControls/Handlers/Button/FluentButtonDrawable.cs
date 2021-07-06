@@ -13,12 +13,13 @@
             var height = dirtyRect.Height;
 
             var defaultBackgroundColor = Fluent.Color.Primary.ThemePrimary.ToColor();
+
+            if (button.Background != null && button.Background is SolidPaint solidPaint)
+                defaultBackgroundColor = solidPaint.Color;
+
             var disabledColor = Fluent.Color.Background.NeutralLighter.ToColor();
 
             var backgroundColor = button.IsEnabled ? defaultBackgroundColor : disabledColor;
-
-            if (button.Background != null && button.Background is SolidPaint solidPaint)
-                backgroundColor = solidPaint.Color;
 
             var border = new LinearGradientPaint
             {
