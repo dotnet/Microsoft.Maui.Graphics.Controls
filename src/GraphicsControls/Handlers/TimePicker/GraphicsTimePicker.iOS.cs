@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using CoreGraphics;
 using Foundation;
 using Microsoft.Maui.Graphics.Native;
@@ -10,6 +11,7 @@ namespace Microsoft.Maui.Graphics.Controls
     {
         TimeSpan _time;
 
+        IMixedGraphicsHandler? _graphicsControl;
         readonly NativeCanvas _canvas;
 
         UIDatePicker? _picker;
@@ -37,6 +39,12 @@ namespace Microsoft.Maui.Graphics.Controls
                 _time = value;
                 UpdateTime(_time);
             }
+        }
+
+        public IMixedGraphicsHandler? GraphicsControl
+        {
+            get => _graphicsControl;
+            set => Drawable = _graphicsControl = value;
         }
 
         public IDrawable? Drawable
@@ -115,6 +123,22 @@ namespace Microsoft.Maui.Graphics.Controls
             coreGraphics.SetStrokeColorSpace(_colorSpace);
 
             Draw(coreGraphics, dirtyRect.AsRectangleF());
+        }
+
+        public override void TouchesBegan(NSSet touches, UIEvent? evt)
+        {
+            try
+            {
+                if (!IsFirstResponder)
+                    BecomeFirstResponder();
+
+                var viewPoints = this.GetPointsInView(evt);
+                GraphicsControl?.StartInteraction(viewPoints);
+            }
+            catch (Exception exc)
+            {
+                Debug.WriteLine("An unexpected error occured handling a touch event within the control.", exc);
+            }
         }
 
         void Draw(CGContext coreGraphics, RectangleF dirtyRect)

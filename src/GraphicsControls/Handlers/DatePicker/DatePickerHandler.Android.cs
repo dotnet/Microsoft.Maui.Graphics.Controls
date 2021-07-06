@@ -4,7 +4,7 @@
 	{
 		protected override GraphicsDatePicker CreateNativeView()
 		{
-			return new GraphicsDatePicker(Context!);
+			return new GraphicsDatePicker(Context!) { GraphicsControl = this };
 		}
 
 		protected override void ConnectHandler(GraphicsDatePicker nativeView)

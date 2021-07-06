@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using CoreGraphics;
 using Microsoft.Maui.Graphics.Native;
 using UIKit;
@@ -8,10 +9,13 @@ namespace Microsoft.Maui.Graphics.Controls
     public class GraphicsEntry : UITextField, IMixedNativeView
     {
         readonly NativeCanvas _canvas;
+        readonly UITapGestureRecognizer _tapGesture;
+
+        IMixedGraphicsHandler? _graphicsControl;
         CGColorSpace? _colorSpace;
         IDrawable? _drawable;
         CGRect _lastBounds;
-
+   
         public GraphicsEntry()
         {
             _canvas = new NativeCanvas(() => CGColorSpace.CreateDeviceRGB());
@@ -20,6 +24,18 @@ namespace Microsoft.Maui.Graphics.Controls
             BorderStyle = UITextBorderStyle.None;
             ClipsToBounds = true;
             BackgroundColor = UIColor.Clear;
+
+            _tapGesture = new UITapGestureRecognizer(OnTap)
+            {
+                NumberOfTapsRequired = 1
+            };
+            AddGestureRecognizer(_tapGesture);
+        }
+
+        public IMixedGraphicsHandler? GraphicsControl
+        {
+            get => _graphicsControl;
+            set => Drawable = _graphicsControl = value;
         }
 
         public IDrawable? Drawable
@@ -98,8 +114,8 @@ namespace Microsoft.Maui.Graphics.Controls
             var coreGraphics = UIGraphics.GetCurrentContext();
 
             if (_colorSpace == null)
-                 _colorSpace = CGColorSpace.CreateDeviceRGB();
-            
+                _colorSpace = CGColorSpace.CreateDeviceRGB();
+
             coreGraphics.SetFillColorSpace(_colorSpace);
             coreGraphics.SetStrokeColorSpace(_colorSpace);
 
@@ -121,6 +137,24 @@ namespace Microsoft.Maui.Graphics.Controls
             finally
             {
                 _canvas.Context = null;
+            }
+        }
+
+        void OnTap()
+        {
+            try
+            {
+                if (!IsFirstResponder)
+                    BecomeFirstResponder();
+
+                var locationInView = _tapGesture.LocationInView(_tapGesture.View);
+                PointF interceptPoint = locationInView.AsPointF();
+                PointF[] tapPoints = new PointF[] { interceptPoint };
+                GraphicsControl?.StartInteraction(tapPoints);
+            }
+            catch (Exception exc)
+            {
+                Debug.WriteLine("An unexpected error occured handling a touch event within the control.", exc);
             }
         }
     }

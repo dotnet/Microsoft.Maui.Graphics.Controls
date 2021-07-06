@@ -4,7 +4,7 @@
 	{
 		protected override GraphicsEntry CreateNativeView()
 		{
-			return new GraphicsEntry();
+			return new GraphicsEntry() { GraphicsControl = this };
 		}
 
 		[MissingMapper]

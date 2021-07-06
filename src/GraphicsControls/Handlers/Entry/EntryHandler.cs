@@ -62,5 +62,5 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public static void MapDrawIndicator(ICanvas canvas, RectangleF dirtyRect, IEntryDrawable drawable, IEntry view)
 			=> drawable.DrawIndicator(canvas, dirtyRect, view);
-	}
+    }
 }

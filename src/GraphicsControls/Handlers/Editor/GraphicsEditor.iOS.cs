@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using CoreGraphics;
 using Microsoft.Maui.Graphics.Native;
 using UIKit;
@@ -8,7 +9,10 @@ namespace Microsoft.Maui.Graphics.Controls
     public class GraphicsEditor : UITextView, IMixedNativeView
     {
         readonly NativeCanvas _canvas;
+        readonly UITapGestureRecognizer _tapGesture;
+
         CGColorSpace? _colorSpace;
+        IMixedGraphicsHandler? _graphicsControl;
         IDrawable? _drawable;
         CGRect _lastBounds;
         UIEdgeInsets _eddgeInsets;
@@ -19,7 +23,19 @@ namespace Microsoft.Maui.Graphics.Controls
 
             EdgeInsets = UIEdgeInsets.Zero;
             ClipsToBounds = true;
-            BackgroundColor = UIColor.Clear;
+            BackgroundColor = UIColor.Clear; 
+            
+            _tapGesture = new UITapGestureRecognizer(OnTap)
+            {
+                NumberOfTapsRequired = 1
+            };
+            AddGestureRecognizer(_tapGesture);
+        }
+
+        public IMixedGraphicsHandler? GraphicsControl
+        {
+            get => _graphicsControl;
+            set => Drawable = _graphicsControl = value;
         }
 
         public IDrawable? Drawable
@@ -111,6 +127,24 @@ namespace Microsoft.Maui.Graphics.Controls
             finally
             {
                 _canvas.Context = null;
+            }
+        }
+
+        void OnTap()
+        {
+            try
+            {
+                if (!IsFirstResponder)
+                    BecomeFirstResponder();
+
+                var locationInView = _tapGesture.LocationInView(_tapGesture.View);
+                PointF interceptPoint = locationInView.AsPointF();
+                PointF[] tapPoints = new PointF[] { interceptPoint };
+                GraphicsControl?.StartInteraction(tapPoints);
+            }
+            catch (Exception exc)
+            {
+                Debug.WriteLine("An unexpected error occured handling a touch event within the control.", exc);
             }
         }
     }

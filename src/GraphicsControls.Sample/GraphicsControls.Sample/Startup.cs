@@ -12,19 +12,19 @@ namespace GraphicsControls.Sample
         {
             appBuilder
                 .UseMauiApp<App>()
-               .ConfigureMauiHandlers(handlers =>
-               {
-                   handlers.AddHandler(typeof(Button), typeof(ButtonHandler));
-                   handlers.AddHandler(typeof(CheckBox), typeof(CheckBoxHandler));
-                   handlers.AddHandler(typeof(DatePicker), typeof(DatePickerHandler));
-                   handlers.AddHandler(typeof(Editor), typeof(EditorHandler));
-                   handlers.AddHandler(typeof(Entry), typeof(EntryHandler));
-                   handlers.AddHandler(typeof(ProgressBar), typeof(ProgressBarHandler));
-                   handlers.AddHandler(typeof(Slider), typeof(SliderHandler));
-                   handlers.AddHandler(typeof(Stepper), typeof(StepperHandler));
-                   handlers.AddHandler(typeof(Switch), typeof(SwitchHandler));
-                   handlers.AddHandler(typeof(TimePicker), typeof(TimePickerHandler));
-               });
+                .ConfigureMauiHandlers(handlers =>
+                {
+                    handlers.AddHandler(typeof(Button), typeof(ButtonHandler));
+                    handlers.AddHandler(typeof(CheckBox), typeof(CheckBoxHandler));
+                    handlers.AddHandler(typeof(DatePicker), typeof(DatePickerHandler));
+                    handlers.AddHandler(typeof(Editor), typeof(EditorHandler));
+                    handlers.AddHandler(typeof(Entry), typeof(EntryHandler));
+                    handlers.AddHandler(typeof(ProgressBar), typeof(ProgressBarHandler));
+                    handlers.AddHandler(typeof(Slider), typeof(SliderHandler));
+                    handlers.AddHandler(typeof(Stepper), typeof(StepperHandler));
+                    handlers.AddHandler(typeof(Switch), typeof(SwitchHandler));
+                    handlers.AddHandler(typeof(TimePicker), typeof(TimePickerHandler));
+                });
         }
     }
 }

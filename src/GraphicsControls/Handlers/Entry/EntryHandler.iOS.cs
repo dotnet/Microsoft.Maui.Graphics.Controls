@@ -21,7 +21,7 @@ namespace Microsoft.Maui.Graphics.Controls
             else
                 edgeInsets = new UIEdgeInsets();
 
-            return new GraphicsEntry { EdgeInsets = edgeInsets };
+            return new GraphicsEntry {  GraphicsControl = this, EdgeInsets = edgeInsets };
         }
 
         protected override void ConnectHandler(GraphicsEntry nativeView)
@@ -49,6 +49,19 @@ namespace Microsoft.Maui.Graphics.Controls
             DefaultTextColor = nativeView.TextColor;
 
             base.SetupDefaults(nativeView);
+        }
+
+        public override bool StartInteraction(PointF[] points)
+        {
+            if (points.Length > 0)
+            {
+                PointF touchPoint = points[0];
+
+                if (Drawable.IndicatorRect.Contains(touchPoint) && NativeView != null)
+                    NativeView.Text = string.Empty;
+            }
+
+            return base.StartInteraction(points);
         }
 
         public static void MapText(EntryHandler handler, IEntry entry)
@@ -118,7 +131,7 @@ namespace Microsoft.Maui.Graphics.Controls
         void OnEditingChanged(object? sender, EventArgs e)
             => OnTextChanged();
 
-        void OnStarted(object sender, EventArgs e)
+        void OnStarted(object? sender, EventArgs e)
         {
             Drawable.HasFocus = true;
             Invalidate();

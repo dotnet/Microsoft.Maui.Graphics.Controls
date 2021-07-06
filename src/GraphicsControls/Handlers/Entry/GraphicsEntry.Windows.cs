@@ -2,6 +2,8 @@
 using Microsoft.Maui.Graphics.Win2D;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using System;
+using System.Diagnostics;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -9,6 +11,7 @@ namespace Microsoft.Maui.Graphics.Controls
     {
         CanvasControl? _canvasControl;
         readonly W2DCanvas _canvas = new W2DCanvas();
+        IMixedGraphicsHandler? _graphicsControl;
         IDrawable? _drawable;
         RectangleF _dirty;
 
@@ -16,8 +19,15 @@ namespace Microsoft.Maui.Graphics.Controls
         {
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
+            PointerPressed += OnPointerPressed;
         }
 
+        public IMixedGraphicsHandler? GraphicsControl
+        {
+            get => _graphicsControl;
+            set => Drawable = _graphicsControl = value;
+        }
+             
         public IDrawable? Drawable
         {
             get => _drawable;
@@ -71,6 +81,22 @@ namespace Microsoft.Maui.Graphics.Controls
             _canvas.CanvasSize = new Windows.Foundation.Size(_dirty.Width, _dirty.Height);
             _drawable.Draw(_canvas, _dirty);
             W2DGraphicsService.ThreadLocalCreator = null;
+        }
+
+        void OnPointerPressed(object sender, UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            try
+            {
+                var currentPoint = e.GetCurrentPoint(this);
+                var point = currentPoint.Position;
+                PointF[] pressedPoints = new PointF[] { new PointF((float)point.X, (float)point.Y) };
+
+                GraphicsControl?.StartInteraction(pressedPoints);
+            }
+            catch (Exception exc)
+            {
+                Debug.WriteLine("An unexpected error occured handling a touch event within the control.", exc);
+            }
         }
     }
 }

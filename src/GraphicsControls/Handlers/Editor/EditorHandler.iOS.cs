@@ -18,7 +18,7 @@ namespace Microsoft.Maui.Graphics.Controls
 			else
 				edgeInsets = new UIEdgeInsets();
 
-			return new GraphicsEditor { EdgeInsets = edgeInsets };
+			return new GraphicsEditor { GraphicsControl = this, EdgeInsets = edgeInsets };
 		}
 
         protected override void ConnectHandler(GraphicsEditor nativeView)

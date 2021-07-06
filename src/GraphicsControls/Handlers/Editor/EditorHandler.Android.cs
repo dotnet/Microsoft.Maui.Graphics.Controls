@@ -16,6 +16,7 @@ namespace Microsoft.Maui.Graphics.Controls
 		{
 			var nativeEditor = new GraphicsEditor(Context!)
 			{
+				GraphicsControl = this,
 				ImeOptions = ImeAction.Done
 			};
 

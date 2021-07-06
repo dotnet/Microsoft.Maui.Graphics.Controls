@@ -15,7 +15,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		protected override GraphicsEntry CreateNativeView()
 		{
-			return new GraphicsEntry(Context!);
+			return new GraphicsEntry(Context!) { GraphicsControl = this };
 		}
 
         protected override void ConnectHandler(GraphicsEntry nativeView)
@@ -39,9 +39,22 @@ namespace Microsoft.Maui.Graphics.Controls
 			DefaultTextColors = nativeView.TextColors;
 
 			base.SetupDefaults(nativeView);
-        }
+		}
 
-        public static void MapText(EntryHandler handler, IEntry entry)
+		public override bool StartInteraction(PointF[] points)
+		{
+			if (points.Length > 0)
+			{
+				PointF touchPoint = points[0];
+
+				if (Drawable.IndicatorRect.Contains(touchPoint) && NativeView != null)
+					NativeView.Text = string.Empty;
+			}
+
+			return base.StartInteraction(points);
+		}
+
+		public static void MapText(EntryHandler handler, IEntry entry)
 		{
 			handler.NativeView?.UpdateText(entry);
 		}

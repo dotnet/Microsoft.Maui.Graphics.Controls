@@ -4,7 +4,7 @@
 	{
 		protected override GraphicsTimePicker CreateNativeView()
         {
-            return new GraphicsTimePicker();
+            return new GraphicsTimePicker() { GraphicsControl = this };
         }
 
         protected override void ConnectHandler(GraphicsTimePicker nativeView)

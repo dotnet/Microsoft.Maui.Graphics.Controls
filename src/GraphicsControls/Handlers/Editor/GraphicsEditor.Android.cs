@@ -1,5 +1,6 @@
 ﻿using Android.Content;
 using Android.Graphics;
+using Android.Views;
 using AndroidX.AppCompat.Widget;
 using Microsoft.Maui.Graphics.Native;
 
@@ -13,6 +14,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
         int _width, _height;
         Color? _backgroundColor;
+        IMixedGraphicsHandler? _graphicsControl;
         IDrawable? _drawable;
 
         public GraphicsEditor(Context context) : base(context)
@@ -32,6 +34,12 @@ namespace Microsoft.Maui.Graphics.Controls
                 _backgroundColor = value;
                 Invalidate();
             }
+        }
+
+        public IMixedGraphicsHandler? GraphicsControl
+        {
+            get => _graphicsControl;
+            set => Drawable = _graphicsControl = value;
         }
 
         public IDrawable? Drawable
@@ -82,6 +90,23 @@ namespace Microsoft.Maui.Graphics.Controls
             base.OnSizeChanged(width, height, oldWidth, oldHeight);
             _width = width;
             _height = height;
+        }
+
+        public override bool OnTouchEvent(MotionEvent? e)
+        {
+            if (e != null)
+            {
+                var density = Resources?.DisplayMetrics?.Density ?? 1.0f;
+                var interceptPoint = new Point(e.GetX() / density, e.GetY() / density);
+
+                if (e.Action == MotionEventActions.Down)
+                {
+                    PointF[] downPoints = new PointF[] { interceptPoint };
+                    GraphicsControl?.StartInteraction(downPoints);
+                }
+            }
+
+            return base.OnTouchEvent(e);
         }
     }
 }

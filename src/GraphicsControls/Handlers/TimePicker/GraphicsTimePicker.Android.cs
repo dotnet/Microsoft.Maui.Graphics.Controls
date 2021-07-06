@@ -12,6 +12,7 @@ namespace Microsoft.Maui.Graphics.Controls
     {
         TimeSpan _time;
 
+        IMixedGraphicsHandler? _graphicsControl;
         readonly NativeCanvas _canvas;
         readonly ScalingCanvas _scalingCanvas;
         readonly float _scale;
@@ -49,6 +50,12 @@ namespace Microsoft.Maui.Graphics.Controls
                 _backgroundColor = value;
                 Invalidate();
             }
+        }
+
+        public IMixedGraphicsHandler? GraphicsControl
+        {
+            get => _graphicsControl;
+            set => Drawable = _graphicsControl = value;
         }
 
         public IDrawable? Drawable
@@ -117,7 +124,24 @@ namespace Microsoft.Maui.Graphics.Controls
             _height = height;
         }
 
-        void OnTouch(object sender, TouchEventArgs e)
+        public override bool OnTouchEvent(MotionEvent? e)
+        {
+            if (e != null)
+            {
+                var density = Resources?.DisplayMetrics?.Density ?? 1.0f;
+                var interceptPoint = new Point(e.GetX() / density, e.GetY() / density);
+
+                if (e.Action == MotionEventActions.Down)
+                {
+                    PointF[] downPoints = new PointF[] { interceptPoint };
+                    GraphicsControl?.StartInteraction(downPoints);
+                }
+            }
+
+            return base.OnTouchEvent(e);
+        }
+
+        void OnTouch(object? sender, TouchEventArgs e)
         {
             if (e.Event?.Action == MotionEventActions.Up)
             {
@@ -149,7 +173,7 @@ namespace Microsoft.Maui.Graphics.Controls
             TimeSelected?.Invoke(this, new TimeSelectedEventArgs(time));
         }
 
-        void OnTimeSelected(object sender, TimePickerDialog.TimeSetEventArgs e)
+        void OnTimeSelected(object? sender, TimePickerDialog.TimeSetEventArgs e)
         {
             var time = new TimeSpan(e.HourOfDay, e.Minute, 0);
             UpdateTime(time);

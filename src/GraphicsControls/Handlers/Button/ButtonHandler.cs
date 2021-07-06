@@ -31,7 +31,7 @@ namespace Microsoft.Maui.Graphics.Controls
 		public static string[] DefaultButtonLayerDrawingOrder =
 			ViewHandler.DefaultLayerDrawingOrder.ToList().InsertAfter(new string[]
 			{
-				"Track",
+				"Background",
 				"Text",
 			}, "Text").ToArray();
 

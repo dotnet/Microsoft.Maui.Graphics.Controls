@@ -15,6 +15,7 @@ namespace Microsoft.Maui.Graphics.Controls
         CanvasControl? _canvasControl;
         readonly W2DCanvas _canvas = new W2DCanvas();
 
+        IMixedGraphicsHandler? _graphicsControl;
         IDrawable? _drawable;
         RectangleF _dirty;
 
@@ -33,6 +34,12 @@ namespace Microsoft.Maui.Graphics.Controls
                 _time = value;
                 UpdateTime(_time);
             }
+        }
+
+        public IMixedGraphicsHandler? GraphicsControl
+        {
+            get => _graphicsControl;
+            set => Drawable = _graphicsControl = value;
         }
 
         public IDrawable? Drawable

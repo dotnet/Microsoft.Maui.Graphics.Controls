@@ -4,6 +4,7 @@
 	{
 		string[] NativeLayers { get; }
 		IDrawable Drawable { get; set; }
+		IMixedGraphicsHandler? GraphicsControl { get; set; }
 
 		void DrawBaseLayer(RectangleF dirtyRect);
 	}
