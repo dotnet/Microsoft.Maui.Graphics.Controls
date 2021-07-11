@@ -3,6 +3,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
+using static Android.Views.View;
 using static Android.Widget.TextView;
 
 namespace Microsoft.Maui.Graphics.Controls
@@ -12,16 +13,32 @@ namespace Microsoft.Maui.Graphics.Controls
 		static ColorStateList? DefaultTextColors { get; set; }
 
 		EditorActionListener ActionListener { get; } = new EditorActionListener();
+		EntryFocusChangeListener FocusChangeListener { get; } = new EntryFocusChangeListener();
 
 		protected override GraphicsEntry CreateNativeView()
 		{
-			return new GraphicsEntry(Context!) { GraphicsControl = this };
+			var graphicsEntry = new GraphicsEntry(Context!)
+			{ 
+				GraphicsControl = this 
+			};
+			
+			if (Drawable is MaterialEntryDrawable)
+				graphicsEntry.SetPadding(36, 60, 0, 0);
+			else if (Drawable is FluentEntryDrawable)
+				graphicsEntry.SetPadding(24, 12, 0, 0);
+			else if (Drawable is CupertinoEntryDrawable)
+				graphicsEntry.SetPadding(24, 12, 0, 0);
+
+			return graphicsEntry;
 		}
 
         protected override void ConnectHandler(GraphicsEntry nativeView)
         {
 			ActionListener.Handler = this;
+			FocusChangeListener.Handler = this;
+
 			nativeView.SetOnEditorActionListener(ActionListener);
+			nativeView.OnFocusChangeListener = FocusChangeListener;
 
 			base.ConnectHandler(nativeView);
         }
@@ -29,7 +46,10 @@ namespace Microsoft.Maui.Graphics.Controls
         protected override void DisconnectHandler(GraphicsEntry nativeView)
         {
 			nativeView.SetOnEditorActionListener(null);
+			nativeView.OnFocusChangeListener = null;
+
 			ActionListener.Handler = null;
+			FocusChangeListener.Handler = null;
 
 			base.DisconnectHandler(nativeView);
         }
@@ -121,6 +141,11 @@ namespace Microsoft.Maui.Graphics.Controls
 			handler.NativeView?.UpdateSelectionLength(entry);
 		}
 
+		void OnFocusedChange(bool hasFocus)
+		{
+			Drawable.HasFocus = hasFocus;
+		}
+
 		class EditorActionListener : Java.Lang.Object, IOnEditorActionListener
 		{
 			public EntryHandler? Handler { get; set; }
@@ -139,6 +164,16 @@ namespace Microsoft.Maui.Graphics.Controls
 				}
 
 				return true;
+			}
+		}
+
+		class EntryFocusChangeListener : Java.Lang.Object, IOnFocusChangeListener
+		{
+			public EntryHandler? Handler { get; set; }
+
+			public void OnFocusChange(View? v, bool hasFocus)
+			{
+				Handler?.OnFocusedChange(hasFocus);
 			}
 		}
 	}

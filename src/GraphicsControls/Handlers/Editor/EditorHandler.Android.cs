@@ -25,6 +25,13 @@ namespace Microsoft.Maui.Graphics.Controls
 			nativeEditor.TextAlignment = ATextAlignment.ViewStart;
 			nativeEditor.SetHorizontallyScrolling(false);
 
+			if (Drawable is MaterialEditorDrawable)
+				nativeEditor.SetPadding(36, 60, 0, 0);
+			else if (Drawable is FluentEditorDrawable)
+				nativeEditor.SetPadding(24, 12, 0, 0);
+			else if (Drawable is CupertinoEditorDrawable)
+				nativeEditor.SetPadding(24, 12, 0, 0);
+
 			return nativeEditor;
 		}
 
