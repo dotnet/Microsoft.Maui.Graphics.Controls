@@ -56,19 +56,27 @@ namespace Microsoft.Maui.Graphics.Controls
 		[MissingMapper]
 		public static void MapFont(EditorHandler handler, IEditor editor) { }
 
-		[MissingMapper]
-		public static void MapIsReadOnly(EditorHandler handler, IEditor editor) { }
+		public static void MapIsReadOnly(EditorHandler handler, IEditor editor)
+		{
+			handler.NativeView?.UpdateIsReadOnly(editor);
+		}
 
-		[MissingMapper]
-		public static void MapIsTextPredictionEnabled(EditorHandler handler, IEditor editor) { }
+		public static void MapIsTextPredictionEnabled(EditorHandler handler, IEditor editor) 
+		{
+			handler.NativeView?.UpdateIsTextPredictionEnabled(editor);
+		}
 
-		[MissingMapper]
-		public static void MapMaxLength(EditorHandler handler, IEditor editor) { }
+		public static void MapMaxLength(EditorHandler handler, IEditor editor) 
+		{
+			handler.NativeView?.UpdateMaxLength(editor);
+		}
 
-		[MissingMapper]
-		public static void MapKeyboard(EditorHandler handler, IEditor editor) { }
+		public static void MapKeyboard(EditorHandler handler, IEditor editor)
+		{
+			handler.NativeView?.UpdateKeyboard(editor);
+		}
 
-		void OnStarted(object sender, EventArgs e)
+		void OnStarted(object? sender, EventArgs e)
 		{
 			Drawable.HasFocus = true;
 			Invalidate();
