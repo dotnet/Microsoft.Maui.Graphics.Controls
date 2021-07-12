@@ -19,11 +19,11 @@ namespace Microsoft.Maui.Graphics.Controls
 		RectangleF touchTargetRect = new RectangleF(0, 0, 44, 44);
 		public RectangleF TouchTargetRect => touchTargetRect;
 
-		public override void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IView view) 
+		public virtual void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ISlider slider) 
 		{
 			canvas.SaveState();
 
-			canvas.FillColor = VirtualView.MaximumTrackColor.WithDefault(Fluent.Color.Primary.ThemeLight);
+			canvas.FillColor = slider.MaximumTrackColor.WithDefault(Fluent.Color.Primary.ThemeLight);
 
 			var x = dirtyRect.X;
 
@@ -36,20 +36,20 @@ namespace Microsoft.Maui.Graphics.Controls
 			trackRect.X = x;
 			trackRect.Width = width;
 
-			canvas.FillRoundedRectangle(x, y, width, height, 0);
+			canvas.FillRoundedRectangle(x, y, width, height, 4);
 
 			canvas.RestoreState();
 		}
 
-		public virtual void DrawTrackProgress(ICanvas canvas, RectangleF dirtyRect, ISlider view)
+		public virtual void DrawTrackProgress(ICanvas canvas, RectangleF dirtyRect, ISlider slider)
 		{
 			canvas.SaveState();
 
-			canvas.FillColor = VirtualView.MinimumTrackColor.WithDefault(VirtualView.IsEnabled ? Fluent.Color.Primary.ThemePrimary : Fluent.Color.Primary.ThemeSecondary);
+			canvas.FillColor = slider.MinimumTrackColor.WithDefault(slider.IsEnabled ? Fluent.Color.Primary.ThemePrimary : Fluent.Color.Primary.ThemeSecondary);
 
 			stateDefaultValues.TryGetValue("TextSize", out var textSize);
 
-			var value = (VirtualView.Value / VirtualView.Maximum - VirtualView.Minimum).Clamp(0, 1);
+			var value = (slider.Value / slider.Maximum - slider.Minimum).Clamp(0, 1);
 
 			var width = (float)((dirtyRect.Width - (float)textSize - TextMargin) * value);
 			var height = 4;
@@ -57,23 +57,23 @@ namespace Microsoft.Maui.Graphics.Controls
 			var x = dirtyRect.X;
 			var y = (float)((dirtyRect.Height - height) / 2);
 
-			canvas.FillRoundedRectangle(x, y, width, height, 0);
+			canvas.FillRoundedRectangle(x, y, width, height, 4);
 
 			canvas.RestoreState();
 		}
 
-		public virtual void DrawThumb(ICanvas canvas, RectangleF dirtyRect, ISlider view)
+		public virtual void DrawThumb(ICanvas canvas, RectangleF dirtyRect, ISlider slider)
 		{
 			canvas.SaveState();
 
 			var size = 16f;
 			var strokeWidth = 2f;
 
-			canvas.StrokeColor = VirtualView.ThumbColor.WithDefault(Fluent.Color.Primary.ThemePrimary);
+			canvas.StrokeColor = slider.ThumbColor.WithDefault(Fluent.Color.Primary.ThemePrimary);
 
 			canvas.StrokeSize = strokeWidth;
 
-			var value = (VirtualView.Value / VirtualView.Maximum - VirtualView.Minimum).Clamp(0, 1);
+			var value = (slider.Value / slider.Maximum - slider.Minimum).Clamp(0, 1);
 
 			stateDefaultValues.TryGetValue("TextSize", out var textSize);
 			var x = (float)(((dirtyRect.Width - (float)textSize - TextMargin) * value) - (size / 2));
@@ -96,7 +96,7 @@ namespace Microsoft.Maui.Graphics.Controls
 			canvas.RestoreState();
 		}
 
-		public virtual void DrawText(ICanvas canvas, RectangleF dirtyRect, ISlider text)
+		public virtual void DrawText(ICanvas canvas, RectangleF dirtyRect, ISlider slider)
 		{
 			canvas.SaveState();
 
@@ -113,7 +113,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
 			canvas.SetToBoldSystemFont();
 
-			string valueString = VirtualView.Value.Clamp(VirtualView.Minimum, VirtualView.Maximum).ToString("####0.00");
+			string valueString = slider.Value.Clamp(slider.Minimum, slider.Maximum).ToString("####0.00");
 
 			canvas.DrawString(valueString, x, y, (float)textSize, height, GHorizontalAlignment.Left, GVerticalAlignment.Center);
 

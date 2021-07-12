@@ -4,7 +4,7 @@
     {
         const float FluentTrackHeight = 2.0f;
 
-        public void DrawProgress(ICanvas canvas, RectangleF dirtyRect, IProgress view)
+        public void DrawProgress(ICanvas canvas, RectangleF dirtyRect, IProgress progressBar)
         {
             canvas.SaveState();
 
@@ -15,16 +15,19 @@
 
             var width = dirtyRect.Width;
 
-            canvas.FillRoundedRectangle(x, y, (float)(width * VirtualView.Progress), FluentTrackHeight, 0);
+            canvas.FillRoundedRectangle(x, y, (float)(width * progressBar.Progress), FluentTrackHeight, 0);
 
             canvas.RestoreState();
         }
 
-        public void DrawTrack(ICanvas canvas, RectangleF dirtyRect, IProgress view)
+        public void DrawTrack(ICanvas canvas, RectangleF dirtyRect, IProgress progressBar)
         {
             canvas.SaveState();
 
-            canvas.FillColor = VirtualView.BackgroundColor.WithDefault(VirtualView.IsEnabled ? Fluent.Color.Background.NeutralTertiaryAlt : Fluent.Color.Background.NeutralLight);
+            if (progressBar.Background != null)
+                canvas.SetFillPaint(progressBar.Background, dirtyRect);
+            else
+                canvas.FillColor = progressBar.IsEnabled ? Fluent.Color.Background.NeutralTertiaryAlt.ToColor() : Fluent.Color.Background.NeutralLight.ToColor();
 
             var x = dirtyRect.X;
             var y = (float)((dirtyRect.Height - FluentTrackHeight) / 2);

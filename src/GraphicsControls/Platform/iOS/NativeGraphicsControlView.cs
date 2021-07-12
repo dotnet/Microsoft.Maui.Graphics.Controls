@@ -9,7 +9,7 @@ namespace Microsoft.Maui.Graphics.Controls
 {
 	public class NativeGraphicsControlView : NativeGraphicsView
 	{
-        IGraphicsControl? _graphicsControl;
+        IGraphicsHandler? _graphicsControl;
 		bool _pressedContained;
 
 		public NativeGraphicsControlView()
@@ -17,7 +17,7 @@ namespace Microsoft.Maui.Graphics.Controls
 			BackgroundColor = UIColor.Clear;
 		}
 
-		public IGraphicsControl? GraphicsControl
+		public IGraphicsHandler? GraphicsControl
 		{
 			get => _graphicsControl;
 			set => Drawable = _graphicsControl = value;
@@ -27,7 +27,7 @@ namespace Microsoft.Maui.Graphics.Controls
 		{
 			try
 			{
-				if (!IsFirstResponder)
+                if (!IsFirstResponder)
 					BecomeFirstResponder();
 
 				var viewPoints = this.GetPointsInView(evt);

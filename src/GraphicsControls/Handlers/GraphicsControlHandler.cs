@@ -2,7 +2,7 @@
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-	public abstract partial class GraphicsControlHandler<TViewDrawable, TVirtualView> : IGraphicsControl
+	public abstract partial class GraphicsControlHandler<TViewDrawable, TVirtualView> : IGraphicsHandler
 		where TVirtualView : class, IView
 		where TViewDrawable : class, IViewDrawable
 	{
@@ -20,7 +20,7 @@ namespace Microsoft.Maui.Graphics.Controls
 			_drawMapper = drawMapper ?? new DrawMapper<TViewDrawable, TVirtualView>(ViewHandler.DrawMapper);
 		}
 
-		DrawMapper IGraphicsControl.DrawMapper => _drawMapper;
+		DrawMapper IGraphicsHandler.DrawMapper => _drawMapper;
 
 		public RectangleF Bounds { get; private set; }
 
@@ -53,6 +53,7 @@ namespace Microsoft.Maui.Graphics.Controls
 		}
 
 		protected abstract TViewDrawable CreateDrawable();
+
 		public virtual void StartHoverInteraction(PointF[] points)
 		{
 			CurrentTouchPoint = points.FirstOrDefault();

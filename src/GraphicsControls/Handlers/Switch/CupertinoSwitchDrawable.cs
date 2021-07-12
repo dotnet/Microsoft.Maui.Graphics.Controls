@@ -13,10 +13,10 @@
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
 
-            if (VirtualView.IsOn)
-                canvas.FillColor = VirtualView.TrackColor.WithDefault(Cupertino.Color.SystemColor.Light.Green);
+            if (view.Background != null)
+                canvas.SetFillPaint(view.Background, dirtyRect);
             else
-                canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Cupertino.Color.SystemGray.Light.Gray4);
+                canvas.FillColor = view.IsEnabled ? Cupertino.Color.SystemColor.Light.Green.ToColor() : Cupertino.Color.SystemGray.Light.Gray4.ToColor();
 
             var height = 30;
             var width = CupertinoSwitchBackgroundWidth;
@@ -30,7 +30,7 @@
         {
             canvas.SaveState();
 
-            canvas.FillColor = VirtualView.ThumbColor.WithDefault(Fluent.Color.Foreground.White);
+            canvas.FillColor = view.ThumbColor.WithDefault(Fluent.Color.Foreground.White);
 
             var margin = 2;
             var radius = 13;
@@ -39,7 +39,7 @@
 
             canvas.SetShadow(new SizeF(0, 1), 2, CanvasDefaults.DefaultShadowColor);
 
-            var cupertinoThumbPosition = VirtualView.IsOn ? CupertinoThumbOnPosition : CupertinoThumbOffPosition;
+            var cupertinoThumbPosition = view.IsOn ? CupertinoThumbOnPosition : CupertinoThumbOffPosition;
 
             canvas.FillCircle(cupertinoThumbPosition, y, radius);
 

@@ -4,23 +4,23 @@
     {
         const float CupertinoTrackHeight = 4.0f;
 
-        public void DrawProgress(ICanvas canvas, RectangleF dirtyRect, IProgress view)
+        public void DrawProgress(ICanvas canvas, RectangleF dirtyRect, IProgress progressBar)
         {
             canvas.SaveState();
 
-            canvas.FillColor = VirtualView.IsEnabled ? Cupertino.Color.SystemColor.Light.Blue.ToColor() : Cupertino.Color.SystemGray.Light.InactiveGray.ToColor();
+            canvas.FillColor = progressBar.IsEnabled ? Cupertino.Color.SystemColor.Light.Blue.ToColor() : Cupertino.Color.SystemGray.Light.InactiveGray.ToColor();
 
             var x = dirtyRect.X;
             var y = (float)((dirtyRect.Height - CupertinoTrackHeight) / 2);
 
             var width = dirtyRect.Width;
 
-            canvas.FillRoundedRectangle(x, y, (float)(width * VirtualView.Progress), CupertinoTrackHeight, 2);
+            canvas.FillRoundedRectangle(x, y, (float)(width * progressBar.Progress), CupertinoTrackHeight, 2);
 
             canvas.RestoreState();
         }
 
-        public void DrawTrack(ICanvas canvas, RectangleF dirtyRect, IProgress view)
+        public void DrawTrack(ICanvas canvas, RectangleF dirtyRect, IProgress progressBar)
         {
             canvas.SaveState();
 

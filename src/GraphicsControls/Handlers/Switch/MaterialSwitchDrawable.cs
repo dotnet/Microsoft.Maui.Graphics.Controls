@@ -11,14 +11,18 @@
         {
             canvas.SaveState();
 
-            if (VirtualView.IsOn)
+            if (view.IsOn)
             {
-                canvas.FillColor = VirtualView.TrackColor.WithDefault(VirtualView.IsEnabled ? Material.Color.LightBlue : Material.Color.Gray4);
+                canvas.FillColor = view.TrackColor.WithDefault(view.IsEnabled ? Material.Color.LightBlue : Material.Color.Gray4);
                 canvas.Alpha = 0.5f;
             }
             else
             {
-                canvas.FillColor = VirtualView.BackgroundColor.WithDefault(VirtualView.IsEnabled ? Material.Color.Gray2 : Material.Color.Gray3);
+                if (view.Background != null)
+                    canvas.SetFillPaint(view.Background, dirtyRect);
+                else
+                    canvas.FillColor = view.IsEnabled ? Material.Color.Gray2.ToColor() : Material.Color.Gray3.ToColor();
+
                 canvas.Alpha = 1.0f;
             }
 
@@ -39,10 +43,10 @@
         {
             canvas.SaveState();
 
-            if (VirtualView.IsOn)
-                canvas.FillColor = VirtualView.ThumbColor.WithDefault(VirtualView.IsEnabled ? Material.Color.Blue : Material.Color.Gray1);
+            if (view.IsOn)
+                canvas.FillColor = view.ThumbColor.WithDefault(view.IsEnabled ? Material.Color.Blue : Material.Color.Gray1);
             else
-                canvas.FillColor = VirtualView.ThumbColor.WithDefault(VirtualView.IsEnabled ? Material.Color.White : Material.Color.Gray3);
+                canvas.FillColor = view.ThumbColor.WithDefault(view.IsEnabled ? Material.Color.White : Material.Color.Gray3);
 
             var margin = 2;
             var radius = 10;
@@ -51,7 +55,7 @@
 
             canvas.SetShadow(new SizeF(0, 1), 2, CanvasDefaults.DefaultShadowColor);
 
-            var materialThumbPosition = VirtualView.IsOn ? MaterialThumbOnPosition : MaterialThumbOffPosition;
+            var materialThumbPosition = view.IsOn ? MaterialThumbOnPosition : MaterialThumbOffPosition;
             canvas.FillCircle(materialThumbPosition, y, radius);
 
             canvas.RestoreState();

@@ -20,6 +20,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public static DrawMapper<ISliderDrawable, ISlider> DrawMapper = new DrawMapper<ISliderDrawable, ISlider>(ViewHandler.DrawMapper)
 		{
+			["Background"] = MapDrawBackground,
 			["TrackProgress"] = MapDrawTrackProgress,
 			["Thumb"] = MapDrawThumb,
 			["Text"] = MapDrawText
@@ -33,8 +34,10 @@ namespace Microsoft.Maui.Graphics.Controls
 		public static string[] DefaultSliderLayerDrawingOrder =
 			ViewHandler.DefaultLayerDrawingOrder.ToList().InsertAfter(new string[]
 			{
+				"Background",
 				"TrackProgress",
 				"Thumb",
+				"Text",
 			}, "Text").ToArray();
 
 		public override string[] LayerDrawingOrder() =>
@@ -42,6 +45,9 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		protected override ISliderDrawable CreateDrawable() =>
 			new MaterialSliderDrawable();
+
+		public static void MapDrawBackground(ICanvas canvas, RectangleF dirtyRect, ISliderDrawable drawable, ISlider view)
+			=> drawable.DrawBackground(canvas, dirtyRect, view);
 
 		public static void MapDrawThumb(ICanvas canvas, RectangleF dirtyRect, ISliderDrawable drawable, ISlider view)
 			=> drawable.DrawThumb(canvas, dirtyRect, view);

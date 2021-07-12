@@ -12,14 +12,14 @@
 
         public RectangleF PlusRectangle { get; set; }
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IStepper view)
+        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
         {
             canvas.SaveState();
 
-            if (VirtualView.IsEnabled)
-                canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Fluent.Color.Foreground.White);
+            if (stepper.Background != null)
+                canvas.SetFillPaint(stepper.Background, dirtyRect);
             else
-                canvas.FillColor = Fluent.Color.Background.NeutralLighter.ToColor();
+                canvas.FillColor = stepper.IsEnabled ? Fluent.Color.Foreground.White.ToColor() : Fluent.Color.Background.NeutralLighter.ToColor();
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
@@ -32,7 +32,7 @@
             canvas.RestoreState();
         }
 
-        public void DrawMinus(ICanvas canvas, RectangleF dirtyRect, IStepper view)
+        public void DrawMinus(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
         {
             canvas.SaveState();
 
@@ -45,7 +45,7 @@
             var vBuilder = new PathBuilder();
             var path = vBuilder.BuildPath(FluentStepperDownIcon);
 
-            if (VirtualView.IsEnabled)
+            if (stepper.IsEnabled)
                 canvas.FillColor = Fluent.Color.Foreground.Black.ToColor();
             else
                 canvas.FillColor = Fluent.Color.Foreground.NeutralTertiary.ToColor();
@@ -58,7 +58,7 @@
             MinusRectangle = new RectangleF(tX - touchMargin, FluentStepperHeight / 2, FluentStepperHeight / 2 + touchMargin, FluentStepperHeight / 2);
         }
 
-        public void DrawPlus(ICanvas canvas, RectangleF dirtyRect, IStepper view)
+        public void DrawPlus(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
         {
             canvas.SaveState();
 
@@ -71,7 +71,7 @@
             var vBuilder = new PathBuilder();
             var path = vBuilder.BuildPath(FluentStepperUpIcon);
 
-            if (VirtualView.IsEnabled)
+            if (stepper.IsEnabled)
                 canvas.FillColor = Fluent.Color.Foreground.Black.ToColor();
             else
                 canvas.FillColor = Fluent.Color.Foreground.NeutralTertiary.ToColor();
@@ -84,9 +84,9 @@
             PlusRectangle = new RectangleF(tX - touchMargin, 0, FluentStepperHeight / 2 + touchMargin, FluentStepperHeight / 2);
         }
 
-        public void DrawSeparator(ICanvas canvas, RectangleF dirtyRect, IStepper view)
+        public void DrawSeparator(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
         {
-            if (VirtualView.IsEnabled)
+            if (stepper.IsEnabled)
             {
                 canvas.SaveState();
 
@@ -107,11 +107,11 @@
             }
         }
 
-        public void DrawText(ICanvas canvas, RectangleF dirtyRect, IStepper view)
+        public void DrawText(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
         {
             canvas.SaveState();
 
-            if (VirtualView.IsEnabled)
+            if (stepper.IsEnabled)
                 canvas.FontColor = Fluent.Color.Foreground.Black.ToColor();
             else
                 canvas.FontColor = Fluent.Color.Foreground.NeutralTertiary.ToColor();
@@ -123,7 +123,7 @@
             var height = FluentStepperHeight;
             var width = dirtyRect.Width;
 
-            canvas.DrawString(VirtualView.Value.ToString(), margin, 0, width - margin, height, HorizontalAlignment.Left, VerticalAlignment.Center);
+            canvas.DrawString(stepper.Value.ToString(), margin, 0, width - margin, height, HorizontalAlignment.Left, VerticalAlignment.Center);
 
             canvas.RestoreState();
         }

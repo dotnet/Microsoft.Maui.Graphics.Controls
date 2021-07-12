@@ -10,12 +10,17 @@
         {
             canvas.SaveState();
 
-            if (VirtualView.IsEnabled)
+            if (view.IsEnabled)
             {
-                if (VirtualView.IsOn)
-                    canvas.FillColor = VirtualView.TrackColor.WithDefault(Fluent.Color.Primary.ThemePrimary);
+                if (view.IsOn)
+                    canvas.FillColor = view.TrackColor.WithDefault(Fluent.Color.Primary.ThemePrimary);
                 else
-                    canvas.FillColor = VirtualView.BackgroundColor.WithDefault(Fluent.Color.Primary.ThemePrimary);
+                {
+                    if (view.Background != null)
+                        canvas.SetFillPaint(view.Background, dirtyRect);
+                    else
+                        canvas.FillColor = Fluent.Color.Primary.ThemePrimary.ToColor();
+                }
             }
             else
                 canvas.FillColor = Fluent.Color.Background.NeutralLighter.ToColor();
@@ -35,14 +40,14 @@
         {
             canvas.SaveState();
 
-            canvas.FillColor = VirtualView.ThumbColor.WithDefault(Fluent.Color.Foreground.White);
+            canvas.FillColor = view.ThumbColor.WithDefault(Fluent.Color.Foreground.White);
 
             var margin = 4;
             var radius = 6;
 
             var y = dirtyRect.Y + margin + radius;
 
-            var fluentThumbPosition = VirtualView.IsOn ? FluentThumbOnPosition : FluentThumbOffPosition;
+            var fluentThumbPosition = view.IsOn ? FluentThumbOnPosition : FluentThumbOffPosition;
             canvas.FillCircle(fluentThumbPosition, y, radius);
 
             canvas.RestoreState();

@@ -4,7 +4,7 @@
     {
         const string MaterialCheckBoxMark = "M13.3516 1.35156L5 9.71094L0.648438 5.35156L1.35156 4.64844L5 8.28906L12.6484 0.648438L13.3516 1.35156Z";
     
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ICheckBox view)
+        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ICheckBox checkBox)
         {
             canvas.SaveState();
 
@@ -13,9 +13,9 @@
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
 
-            if (VirtualView.IsChecked)
+            if (checkBox.IsChecked)
             {
-                if (VirtualView.IsEnabled)
+                if (checkBox.IsEnabled)
                     canvas.FillColor = Material.Color.Blue.ToColor();
                 else
                     canvas.FillColor = Material.Color.Gray3.ToColor();
@@ -34,9 +34,9 @@
             canvas.RestoreState();
         }
 
-        public void DrawMark(ICanvas canvas, RectangleF dirtyRect, ICheckBox view)
+        public void DrawMark(ICanvas canvas, RectangleF dirtyRect, ICheckBox checkBox)
         {
-            if (VirtualView.IsChecked)
+            if (checkBox.IsChecked)
             {
                 canvas.SaveState();
 
@@ -56,7 +56,7 @@
             }
         }
 
-        public void DrawText(ICanvas canvas, RectangleF dirtyRect, ICheckBox view)
+        public void DrawText(ICanvas canvas, RectangleF dirtyRect, ICheckBox checkBox)
         {
 
         }

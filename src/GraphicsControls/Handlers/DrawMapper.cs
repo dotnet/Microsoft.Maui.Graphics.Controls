@@ -18,6 +18,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
 			return true;
 		}
+
 		public bool DrawLayer(ICanvas canvas, RectangleF dirtyRect, IViewDrawable drawable, IView virtualView, string property)
 		{
 			if (virtualView == null)

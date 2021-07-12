@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "GraphicsControls.Sample.WinUI": {
+      "commandName": "AppContainer"
+    }
+  }
+}

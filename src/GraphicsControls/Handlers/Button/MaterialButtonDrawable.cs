@@ -5,11 +5,19 @@
         const float MaterialBackgroundHeight = 36f;
         const float MaterialDefaultCornerRadius = 2.0f;
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IButton view)
+        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IButton button)
         {
             canvas.SaveState();
 
-            canvas.FillColor = VirtualView.BackgroundColor.WithDefault(VirtualView.IsEnabled ? Material.Color.Blue : Material.Color.Gray3);
+            if (button.IsEnabled)
+            {
+                if (button.Background != null)
+                    canvas.SetFillPaint(button.Background, dirtyRect);
+                else
+                    canvas.FillColor = Material.Color.Blue.ToColor();
+            }
+            else
+                canvas.FillColor = Material.Color.Gray3.ToColor();
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
@@ -21,13 +29,13 @@
             canvas.RestoreState();
         }
 
-        public void DrawText(ICanvas canvas, RectangleF dirtyRect, IButton view)
+        public void DrawText(ICanvas canvas, RectangleF dirtyRect, IButton button)
         {
             canvas.SaveState();
 
             canvas.FontName = "Roboto";
 
-            canvas.FontColor = VirtualView.TextColor.WithDefault(VirtualView.IsEnabled ? Material.Color.White : Material.Color.Gray1);
+            canvas.FontColor = button.TextColor.WithDefault(button.IsEnabled ? Material.Color.White : Material.Color.Gray1);
 
             canvas.FontSize = Material.Font.Button;
 
@@ -36,7 +44,7 @@
 
             var width = dirtyRect.Width;
 
-            canvas.DrawString(VirtualView.Text.ToUpper(), x, y, width, MaterialBackgroundHeight, HorizontalAlignment.Center, VerticalAlignment.Center);
+            canvas.DrawString(button.Text.ToUpper(), x, y, width, MaterialBackgroundHeight, HorizontalAlignment.Center, VerticalAlignment.Center);
 
             canvas.RestoreState();
         }

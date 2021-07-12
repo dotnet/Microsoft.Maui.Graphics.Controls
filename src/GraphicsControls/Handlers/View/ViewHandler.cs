@@ -43,7 +43,7 @@
 			Actions =
 			{
 				[nameof(IView.AutomationId)] = MapInvalidate,
-				[nameof(IView.BackgroundColor)] = MapInvalidate,
+				[nameof(IView.Background)] = MapInvalidate,
 				[nameof(IView.IsEnabled)] = MapInvalidate,
 				[nameof(IText.Text)] = MapInvalidate,
 				[nameof(IText.Font)] = MapInvalidate,
@@ -51,6 +51,6 @@
 		};
 
 		public static void MapInvalidate(IViewHandler handler, IView view) =>
-			(handler as IGraphicsControl)?.Invalidate();
+			(handler as IGraphicsHandler)?.Invalidate();
 	}
 }

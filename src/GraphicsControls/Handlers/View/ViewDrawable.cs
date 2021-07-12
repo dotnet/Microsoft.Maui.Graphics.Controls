@@ -3,21 +3,22 @@
     public class ViewDrawable<TVirtualView> : ViewDrawable, IViewDrawable<TVirtualView>
 		where TVirtualView : IView
 	{
-
 		public TVirtualView VirtualView { get => (TVirtualView)View; set => View = value; }
 	}
 
 	public class ViewDrawable : IViewDrawable
 	{
 		public IView View { get; set; }
+
 		public ControlState CurrentState { get; set; }
 
 		public virtual void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IView view)
 		{
-			if (view.BackgroundColor == null)
+			if (view.Background == null)
 				return;
 
-			canvas.FillColor = view.BackgroundColor;
+			canvas.SetFillPaint(view.Background, dirtyRect);
+
 			canvas.DrawRectangle(dirtyRect);
 		}
 

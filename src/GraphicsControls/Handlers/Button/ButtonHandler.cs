@@ -8,7 +8,7 @@ namespace Microsoft.Maui.Graphics.Controls
 		{
 			Actions =
 			{
-				[nameof(IButton.BackgroundColor)] = ViewHandler.MapInvalidate,
+				[nameof(IButton.Background)] = ViewHandler.MapInvalidate,
 				[nameof(IButton.Text)] = ViewHandler.MapInvalidate,
 				[nameof(IButton.TextColor)] = ViewHandler.MapInvalidate,
 				[nameof(IButton.Font)] = ViewHandler.MapInvalidate,
@@ -31,7 +31,7 @@ namespace Microsoft.Maui.Graphics.Controls
 		public static string[] DefaultButtonLayerDrawingOrder =
 			ViewHandler.DefaultLayerDrawingOrder.ToList().InsertAfter(new string[]
 			{
-				"Track",
+				"Background",
 				"Text",
 			}, "Text").ToArray();
 

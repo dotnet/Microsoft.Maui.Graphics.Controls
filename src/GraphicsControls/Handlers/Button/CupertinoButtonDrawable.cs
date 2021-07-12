@@ -4,11 +4,14 @@
     {
         const float CupertinoDefaultCornerRadius = 2.0f;
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IButton view)
+        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IButton button)
         {
             canvas.SaveState();
-
-            canvas.FillColor = VirtualView.BackgroundColor.WithDefault(VirtualView.IsEnabled ? Cupertino.Color.SystemColor.Light.Blue : Cupertino.Color.SystemGray.Light.InactiveGray);
+              
+            if (button.Background != null)
+                canvas.SetFillPaint(button.Background, dirtyRect);
+            else
+                canvas.FillColor = button.IsEnabled ? Cupertino.Color.SystemColor.Light.Blue.ToColor() : Cupertino.Color.SystemGray.Light.InactiveGray.ToColor();
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
@@ -21,17 +24,17 @@
             canvas.RestoreState();
         }
 
-        public void DrawText(ICanvas canvas, RectangleF dirtyRect, IButton view)
+        public void DrawText(ICanvas canvas, RectangleF dirtyRect, IButton button)
         {
             canvas.SaveState();
 
-            canvas.FontColor = VirtualView.TextColor.WithDefault(Cupertino.Color.Label.Light.White);
+            canvas.FontColor = button.TextColor.WithDefault(Cupertino.Color.Label.Light.White);
             canvas.FontSize = 17f;
 
             var height = dirtyRect.Height;
             var width = dirtyRect.Width;
 
-            canvas.DrawString(VirtualView.Text, 0, 0, width, height, HorizontalAlignment.Center, VerticalAlignment.Center);
+            canvas.DrawString(button.Text, 0, 0, width, height, HorizontalAlignment.Center, VerticalAlignment.Center);
 
             canvas.RestoreState();
         }
