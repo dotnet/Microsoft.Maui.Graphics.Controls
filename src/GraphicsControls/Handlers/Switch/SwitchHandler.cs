@@ -46,7 +46,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public override bool StartInteraction(PointF[] points)
 		{
-			if (VirtualView != null && VirtualView.IsEnabled)
+			if (VirtualView != null)
 			{
 				VirtualView.IsOn = !VirtualView.IsOn;
 				Invalidate();
