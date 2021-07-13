@@ -147,7 +147,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public override bool OnTouchEvent(MotionEvent? e)
         {
-            if (e != null)
+            if (e != null && Enabled)
             {
                 var density = Resources?.DisplayMetrics?.Density ?? 1.0f;
                 var interceptPoint = new Point(e.GetX() / density, e.GetY() / density);
