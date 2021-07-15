@@ -50,10 +50,11 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public static readonly PropertyMapper<IView> Mapper = new PropertyMapper<IView>(Handlers.ViewHandler.ViewMapper)
 		{
-			[nameof(IView.AutomationId)] = MapInvalidate,
+			[nameof(IView.AutomationId)] = MapAutomationId,
 			[nameof(IView.Background)] = MapInvalidate,
 			[nameof(IView.IsEnabled)] = MapIsEnabled,
 			[nameof(IView.Frame)] = MapInvalidate,
+			[nameof(IView.Semantics)] = MapSemantics,
 			[nameof(IText.Text)] = MapInvalidate,
 			[nameof(IText.Font)] = MapInvalidate
 		};
@@ -61,11 +62,21 @@ namespace Microsoft.Maui.Graphics.Controls
 		public static void MapInvalidate(IViewHandler handler, IView view) =>
 			(handler as IGraphicsHandler)?.Invalidate();
 
+		public static void MapAutomationId(IViewHandler handler, IView view)
+		{
+			((NativeView?)handler.NativeView)?.UpdateAutomationId(view);
+		}
+		
 		public static void MapIsEnabled(IViewHandler handler, IView view)
         {
 			((NativeView?)handler.NativeView)?.UpdateIsEnabled(view);
 
 			(handler as IGraphicsHandler)?.Invalidate();
+		}
+
+		public static void MapSemantics(IViewHandler handler, IView view)
+		{
+			((NativeView?)handler.NativeView)?.UpdateSemantics(view);
 		}
 	}
 }
