@@ -17,19 +17,21 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		protected override GraphicsEntry CreateNativeView()
 		{
-			var graphicsEntry = new GraphicsEntry(Context!)
+			var nativeView = new GraphicsEntry(Context!)
 			{ 
 				GraphicsControl = this 
 			};
 			
 			if (Drawable is MaterialEntryDrawable)
-				graphicsEntry.SetPadding(36, 60, 0, 0);
+				nativeView.SetPadding(36, 60, 0, 0);
 			else if (Drawable is FluentEntryDrawable)
-				graphicsEntry.SetPadding(24, 12, 0, 0);
+				nativeView.SetPadding(24, 12, 0, 0);
 			else if (Drawable is CupertinoEntryDrawable)
-				graphicsEntry.SetPadding(24, 12, 0, 0);
+				nativeView.SetPadding(24, 12, 0, 0);
 
-			return graphicsEntry;
+			DefaultTextColors = nativeView.TextColors;
+
+			return nativeView;
 		}
 
         protected override void ConnectHandler(GraphicsEntry nativeView)
@@ -53,13 +55,6 @@ namespace Microsoft.Maui.Graphics.Controls
 
 			base.DisconnectHandler(nativeView);
         }
-
-        protected override void SetupDefaults(GraphicsEntry nativeView)
-		{
-			DefaultTextColors = nativeView.TextColors;
-
-			base.SetupDefaults(nativeView);
-		}
 
 		public override bool StartInteraction(PointF[] points)
 		{

@@ -6,6 +6,8 @@
         const float FluentThumbOnPosition = 30f;
         const float FluentSwitchBackgroundWidth = 40;
 
+        public double AnimationPercent { get; set; }
+
         public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ISwitch view)
         {
             canvas.SaveState();

@@ -6,6 +6,8 @@
         const float CupertinoThumbOnPosition = 36f;
         const float CupertinoSwitchBackgroundWidth = 51;
 
+        public double AnimationPercent { get; set; }
+
         public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ISwitch view)
         {
             canvas.SaveState();
