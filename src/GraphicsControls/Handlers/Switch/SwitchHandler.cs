@@ -64,19 +64,17 @@ namespace Microsoft.Maui.Graphics.Controls
 
         void UpdateIsOn()
         {
-            if (_hasSetState)
+            if (_animationManager == null)
+                _animationManager = MauiContext?.Services.GetRequiredService<IAnimationManager>();
+
+            if (!_hasSetState)
             {
                 _hasSetState = true;
                 Drawable.AnimationPercent = VirtualView.IsOn ? 1 : 0;
                 Invalidate();
             }
             else
-            {
-                if (_animationManager == null)
-                    _animationManager = MauiContext?.Services.GetRequiredService<IAnimationManager>();
-
-                AnimateToggle();
-            }
+                AnimateToggle();           
         }
 
         void AnimateToggle()
@@ -88,7 +86,7 @@ namespace Microsoft.Maui.Graphics.Controls
             {
                 Drawable.AnimationPercent = start.Lerp(end, progress);
                 Invalidate();
-            }));
+            }, duration: 0.1, easing: Easing.Linear));
         }
     }
 }

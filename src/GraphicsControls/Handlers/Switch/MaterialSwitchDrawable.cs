@@ -56,7 +56,8 @@ namespace Microsoft.Maui.Graphics.Controls
 
             canvas.SetShadow(new SizeF(0, 1), 2, CanvasDefaults.DefaultShadowColor);
 
-            var materialThumbPosition = view.IsOn ? MaterialThumbOnPosition : MaterialThumbOffPosition;
+            var materialThumbPosition = MaterialThumbOffPosition.Lerp(MaterialThumbOnPosition, AnimationPercent);
+                     
             canvas.FillCircle(materialThumbPosition, y, radius);
 
             canvas.RestoreState();
