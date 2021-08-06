@@ -1,9 +1,13 @@
-﻿using System.Linq;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Maui.Animations;
+using System.Linq;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
     public partial class EditorHandler
     {
+        IAnimationManager? _animationManager;
+
         public EditorHandler() : base(DrawMapper, PropertyMapper)
         {
 
@@ -53,5 +57,20 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public static void MapDrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEditorDrawable drawable, IEditor view)
             => drawable.DrawPlaceholder(canvas, dirtyRect, view);
+
+        internal void AnimatePlaceholder()
+        {
+            if (_animationManager == null)
+                _animationManager = MauiContext?.Services.GetRequiredService<IAnimationManager>();
+
+            float start = Drawable.HasFocus ? 0 : 1;
+            float end = Drawable.HasFocus ? 1 : 0;
+
+            _animationManager?.Add(new Animation(callback: (progress) =>
+            {
+                Drawable.AnimationPercent = start.Lerp(end, progress);
+                Invalidate();
+            }, duration: 0.1, easing: Easing.Linear));
+        }
     }
 }

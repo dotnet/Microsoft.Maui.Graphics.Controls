@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Maui.Graphics.Controls
+﻿using Microsoft.Maui.Animations;
+
+namespace Microsoft.Maui.Graphics.Controls
 {
     public class MaterialEntryDrawable : ViewDrawable<IEntry>, IEntryDrawable
     {
@@ -14,6 +16,8 @@
         public RectangleF IndicatorRect => indicatorRect;
 
         public bool HasFocus { get; set; }
+
+        public double AnimationPercent { get; set; }
 
         public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEntry entry)
         {
@@ -146,9 +150,9 @@
 
             canvas.FontColor = Material.Color.Dark.ToColor();
 
-            bool focusedState = HasFocus || !string.IsNullOrEmpty(entry.Text);
+            var materialPlaceholderFontSize = UnfocusedPlaceholderFontSize.Lerp(FocusedPlaceholderFontSize, AnimationPercent);
 
-            canvas.FontSize = focusedState ? FocusedPlaceholderFontSize : UnfocusedPlaceholderFontSize;
+            canvas.FontSize = materialPlaceholderFontSize;
 
             float margin = 12f;
 
@@ -159,7 +163,9 @@
             var height = dirtyRect.Height;
             var width = dirtyRect.Width;
 
-            canvas.DrawString(entry.Placeholder, x, focusedState ? FocusedPlaceholderPosition : UnfocusedPlaceholderPosition, width - margin, height, horizontalAlignment, VerticalAlignment.Top);
+            var materialPlaceholderPosition = UnfocusedPlaceholderPosition.Lerp(FocusedPlaceholderPosition, AnimationPercent);
+
+            canvas.DrawString(entry.Placeholder, x, materialPlaceholderPosition, width - margin, height, horizontalAlignment, VerticalAlignment.Top);
 
             canvas.RestoreState();
         }

@@ -96,6 +96,8 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		void OnFocusedChange(bool hasFocus)
 		{
+			AnimatePlaceholder();
+
 			if (!hasFocus)
 				VirtualView?.Completed();
 		}

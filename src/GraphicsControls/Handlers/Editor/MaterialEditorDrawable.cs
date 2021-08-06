@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Maui.Graphics.Controls
+﻿using Microsoft.Maui.Animations;
+
+namespace Microsoft.Maui.Graphics.Controls
 {
     public class MaterialEditorDrawable : ViewDrawable<IEditor>, IEditorDrawable
     {
@@ -9,6 +11,7 @@
         const float UnfocusedPlaceholderPosition = 22f;
 
         public bool HasFocus { get; set; }
+        public double AnimationPercent { get; set; }
 
         public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEditor editor)
         {
@@ -61,9 +64,9 @@
 
             canvas.FontColor = editor.PlaceholderColor.WithDefault(Material.Color.Dark);
 
-            bool focusedState = HasFocus || !string.IsNullOrEmpty(editor.Text);
+            var materialPlaceholderFontSize = UnfocusedPlaceholderFontSize.Lerp(FocusedPlaceholderFontSize, AnimationPercent);
 
-            canvas.FontSize = focusedState ? FocusedPlaceholderFontSize : UnfocusedPlaceholderFontSize;
+            canvas.FontSize = materialPlaceholderFontSize;
 
             float margin = 12f;
 
@@ -80,7 +83,9 @@
             var height = dirtyRect.Height;
             var width = dirtyRect.Width;
 
-            canvas.DrawString(editor.Placeholder, x, focusedState ? FocusedPlaceholderPosition : UnfocusedPlaceholderPosition, width - margin, height, horizontalAlignment, VerticalAlignment.Top);
+            var materialPlaceholderPosition = UnfocusedPlaceholderPosition.Lerp(FocusedPlaceholderPosition, AnimationPercent);
+
+            canvas.DrawString(editor.Placeholder, x, materialPlaceholderPosition, width - margin, height, horizontalAlignment, VerticalAlignment.Top);
 
             canvas.RestoreState();
         }

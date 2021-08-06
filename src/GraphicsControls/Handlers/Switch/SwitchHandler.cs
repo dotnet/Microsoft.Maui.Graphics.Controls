@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿#nullable enable
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Animations;
 using System.Linq;
 
@@ -64,9 +65,6 @@ namespace Microsoft.Maui.Graphics.Controls
 
         void UpdateIsOn()
         {
-            if (_animationManager == null)
-                _animationManager = MauiContext?.Services.GetRequiredService<IAnimationManager>();
-
             if (!_hasSetState)
             {
                 _hasSetState = true;
@@ -77,8 +75,11 @@ namespace Microsoft.Maui.Graphics.Controls
                 AnimateToggle();           
         }
 
-        void AnimateToggle()
+        internal void AnimateToggle()
         {
+            if (_animationManager == null)
+                _animationManager = MauiContext?.Services.GetRequiredService<IAnimationManager>();
+
             float start = VirtualView.IsOn ? 0 : 1;
             float end = VirtualView.IsOn ? 1 : 0;
 
