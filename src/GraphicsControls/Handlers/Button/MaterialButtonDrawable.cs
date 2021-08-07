@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Maui.Graphics.Controls
+﻿using Microsoft.Maui.Controls;
+
+namespace Microsoft.Maui.Graphics.Controls
 {
     public class MaterialButtonDrawable : ViewDrawable<IButton>, IButtonDrawable
     {
@@ -17,7 +19,12 @@
                     canvas.FillColor = Material.Color.Blue.ToColor();
             }
             else
-                canvas.FillColor = Material.Color.Gray3.ToColor();
+            {
+                if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                    canvas.FillColor = Material.Color.Light.Gray3.ToColor();
+                else
+                    canvas.FillColor = Material.Color.Dark.Gray4.ToColor();
+            }
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
@@ -35,7 +42,7 @@
 
             canvas.FontName = "Roboto";
 
-            canvas.FontColor = button.TextColor.WithDefault(button.IsEnabled ? Material.Color.White : Material.Color.Gray1);
+            canvas.FontColor = button.TextColor.WithDefault(button.IsEnabled ? Material.Color.White : Material.Color.Light.Gray1);
 
             canvas.FontSize = Material.Font.Button;
 

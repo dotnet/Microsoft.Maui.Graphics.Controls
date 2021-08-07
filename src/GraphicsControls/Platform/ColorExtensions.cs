@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Maui.Controls;
+﻿using Microsoft.Maui.Controls;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -13,7 +12,20 @@ namespace Microsoft.Maui.Graphics.Controls
                 return Color.FromArgb(defaultColor);
         }
 
-        public static Color ToColor(this string hex)
+		public static Color WithDefault(this Color color, string defaultLightColor, string defaultDarkColor)
+		{
+			if (!color.IsDefault())
+				return color;
+			else
+			{
+				if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+					return Color.FromArgb(defaultLightColor);
+				else
+					return Color.FromArgb(defaultDarkColor);
+			}
+		}
+
+		public static Color ToColor(this string hex)
         {
             return Color.FromArgb(hex);
         }

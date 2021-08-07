@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Maui.Graphics.Controls
+﻿using Microsoft.Maui.Controls;
+
+namespace Microsoft.Maui.Graphics.Controls
 {
     public class MaterialDatePickerDrawable : ViewDrawable<IDatePicker>, IDatePickerDrawable
     {
@@ -9,7 +11,12 @@
             if (datePicker.Background != null)
                 canvas.SetFillPaint(datePicker.Background, dirtyRect);
             else
-                canvas.FillColor = datePicker.IsEnabled ? Material.Color.Gray5.ToColor() : Material.Color.Gray3.ToColor();
+            {
+                if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                    canvas.FillColor = datePicker.IsEnabled ? Material.Color.Light.Gray5.ToColor() : Material.Color.Light.Gray3.ToColor();
+                else
+                    canvas.FillColor = datePicker.IsEnabled ? Material.Color.Dark.Gray5.ToColor() : Material.Color.Dark.Gray3.ToColor();
+            }
 
             var width = dirtyRect.Width;
 
@@ -28,7 +35,7 @@
             canvas.SaveState();
 
             var strokeWidth = 1.0f;
-            canvas.FillColor = Material.Color.Black.ToColor();
+            canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Material.Color.Black.ToColor() : Material.Color.Light.Gray6.ToColor().WithAlpha(0.5f);
 
             var x = dirtyRect.X;
             var y = 53.91f;
@@ -45,7 +52,7 @@
         {
             canvas.SaveState();
 
-            canvas.FontColor = datePicker.TextColor.WithDefault(Material.Color.Dark);
+            canvas.FontColor = datePicker.TextColor.WithDefault(Material.Color.DarkBackground, Material.Color.LightBackground);
             canvas.FontSize = 16f;
 
             float margin = 12f;
@@ -74,7 +81,12 @@
             canvas.SaveState();
 
             if (datePicker.TextColor == null)
-                canvas.FontColor = Material.Color.Gray1.ToColor();
+            {
+                if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                    canvas.FontColor = Material.Color.Light.Gray1.ToColor();
+                else
+                    canvas.FontColor = Material.Color.Light.Gray6.ToColor();
+            }
             else
                 canvas.FontColor = datePicker.TextColor.WithAlpha(0.75f);
 

@@ -8,13 +8,23 @@ namespace GraphicsControls.Sample
 {
     public class MainPage : ContentPage
     {
-        readonly Color PageBackgroundColor = Color.FromArgb("#FFFFFF");
-        readonly Color SectionHeaderBackgroundColor = Color.FromArgb("#E9E9E9");
-        readonly Color SectionBackgroundColor = Color.FromArgb("#FAFAFA");
+        // LIGHT THEME
+        readonly Color LightPageBackgroundColor = Color.FromArgb("#FFFFFF");
+        readonly Color LightSectionHeaderBackgroundColor = Color.FromArgb("#E9E9E9");
+        readonly Color LightSectionBackgroundColor = Color.FromArgb("#FAFAFA");
+        readonly Color LightTextColor = Color.FromArgb("#000000");
+
+        // DARK THEME
+        readonly Color DarkPageBackgroundColor = Color.FromArgb("#121212");
+        readonly Color DarkSectionHeaderBackgroundColor = Color.FromArgb("#1E1E1E");
+        readonly Color DarkSectionBackgroundColor = Color.FromArgb("#333333");
+        readonly Color DarkTextColor = Color.FromArgb("#FFFFFF");
 
         public MainPage()
         {
-            BackgroundColor = PageBackgroundColor;
+            Application.Current.UserAppTheme = OSAppTheme.Light;
+
+            this.SetAppThemeColor(BackgroundColorProperty, LightPageBackgroundColor, DarkPageBackgroundColor);
 
             var scrollView = new ScrollView();
 
@@ -42,49 +52,56 @@ namespace GraphicsControls.Sample
         {
             var container = new StackLayout();
 
-            container.Add(new Label
+            var titleLabel = new Label
             {
                 FontSize = 18,
                 FontAttributes = FontAttributes.Bold,
                 Text = "Introducing Microsoft.Maui.Graphics.Controls",
-                TextColor = Colors.Black,
                 Margin = new Thickness(0, 24, 0, 0)
-            });
+            };
 
-            container.Add(new Label
+            titleLabel.TextColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? LightTextColor : DarkTextColor;
+
+            container.Add(titleLabel);
+
+            var subTitleLabel = new Label
             {
-                Text = "A .NET MAUI experiment that offers drawn controls allowing to choose between Cupertino, Fluent and Material.",
-                TextColor = Colors.Black
-            });
+                Text = "A .NET MAUI experiment that offers drawn controls allowing to choose between Cupertino, Fluent and Material."
+            };
+
+            subTitleLabel.TextColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? LightTextColor : DarkTextColor;
+
+            container.Add(subTitleLabel);
 
             return container;
         }
 
         IView CreateContainer(string title, View content)
         {
-            var contentContainer = new StackLayout
-            {
-                BackgroundColor = SectionBackgroundColor
-            };
+            var contentContainer = new StackLayout();
+
+            contentContainer.SetAppThemeColor(BackgroundColorProperty, LightSectionBackgroundColor, DarkSectionBackgroundColor);
 
             var header = new Label
             {
-                BackgroundColor = SectionHeaderBackgroundColor,
                 Padding = 12,
-                Text = title,
-                TextColor = Colors.Black
+                Text = title
             };
+
+            header.SetAppThemeColor(BackgroundColorProperty, LightSectionHeaderBackgroundColor, DarkSectionHeaderBackgroundColor);
+            header.TextColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? LightTextColor : DarkTextColor;
 
             contentContainer.Children.Add(header);
             contentContainer.Children.Add(content);
 
             var container = new Grid
             {
-                BackgroundColor = SectionBackgroundColor,
                 IsClippedToBounds = true,
                 Padding = 0,
                 Margin = new Thickness(0, 6)
             };
+
+            container.SetAppThemeColor(BackgroundColorProperty, LightSectionBackgroundColor, DarkSectionBackgroundColor);
 
             container.Children.Add(contentContainer);
 

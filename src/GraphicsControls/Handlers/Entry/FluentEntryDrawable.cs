@@ -94,7 +94,7 @@
                 if (entry.Background != null)
                     canvas.SetFillPaint(entry.Background, dirtyRect);
                 else
-                    canvas.FillColor = Material.Color.Gray1.ToColor();
+                    canvas.FillColor = Material.Color.Light.Gray1.ToColor();
 
                 canvas.FillPath(path);
 

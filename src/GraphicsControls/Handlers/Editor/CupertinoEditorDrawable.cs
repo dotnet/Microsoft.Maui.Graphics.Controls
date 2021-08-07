@@ -36,7 +36,7 @@
 
             var strokeWidth = 1.0f;
 
-            canvas.StrokeColor = Material.Color.Gray3.ToColor();
+            canvas.StrokeColor = Material.Color.Light.Gray3.ToColor();
             canvas.StrokeSize = strokeWidth;
 
             var x = dirtyRect.X;
