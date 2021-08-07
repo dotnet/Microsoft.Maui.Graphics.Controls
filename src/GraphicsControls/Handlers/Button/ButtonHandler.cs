@@ -91,7 +91,11 @@ namespace Microsoft.Maui.Graphics.Controls
 			{
 				Drawable.AnimationPercent = start.Lerp(end, progress);
 				Invalidate();
-			}, duration: 0.3, easing: Easing.SinInOut));
+			}, duration: 0.3, easing: Easing.SinInOut, 
+			finished: () =>
+			{
+				Drawable.AnimationPercent = 0;
+			}));
 		}
 	}
 }

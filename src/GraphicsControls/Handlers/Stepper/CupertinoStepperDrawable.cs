@@ -8,8 +8,9 @@
         const float CupertinoStepperHeight = 28.0f;
         const float CupertinoStepperWidth = 100.0f;
 
+        public PointF TouchPoint { get; set; }
+        public double AnimationPercent { get; set; }
         public RectangleF MinusRectangle { get; set; }
-
         public RectangleF PlusRectangle { get; set; }
 
         public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)

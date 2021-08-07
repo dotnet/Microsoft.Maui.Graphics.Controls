@@ -2,6 +2,8 @@
 {
     public interface IStepperDrawable : IViewDrawable<IStepper>
     {
+        PointF TouchPoint { get; set; }
+        double AnimationPercent { get; set; }
         RectangleF MinusRectangle { get; }
         RectangleF PlusRectangle { get; }
 
