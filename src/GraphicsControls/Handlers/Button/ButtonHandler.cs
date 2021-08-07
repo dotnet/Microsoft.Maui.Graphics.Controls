@@ -1,9 +1,13 @@
-﻿using System.Linq;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Maui.Animations;
+using System.Linq;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
     public class ButtonHandler : GraphicsControlHandler<IButtonDrawable, IButton>
     {
+		IAnimationManager? _animationManager;
+
 		public static PropertyMapper<IButton> PropertyMapper = new PropertyMapper<IButton>(ViewHandler.Mapper)
 		{
 			Actions =
@@ -49,8 +53,12 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public override bool StartInteraction(PointF[] points)
         {
+			Drawable.TouchPoint = points[0];
+
 			if (VirtualView != null)
 			{
+				AnimateRippleEffect();
+
 				VirtualView.Pressed();
 				VirtualView.Clicked();
 			}
@@ -67,5 +75,23 @@ namespace Microsoft.Maui.Graphics.Controls
 
             base.EndInteraction(points, inside);
         }
-    }
+
+		internal void AnimateRippleEffect()
+		{
+			if (!(Drawable is MaterialButtonDrawable))
+				return;
+
+			if (_animationManager == null)
+				_animationManager = MauiContext?.Services.GetRequiredService<IAnimationManager>();
+
+			float start = 0;
+			float end = 1;
+
+			_animationManager?.Add(new Animation(callback: (progress) =>
+			{
+				Drawable.AnimationPercent = start.Lerp(end, progress);
+				Invalidate();
+			}, duration: 0.3, easing: Easing.SinInOut));
+		}
+	}
 }

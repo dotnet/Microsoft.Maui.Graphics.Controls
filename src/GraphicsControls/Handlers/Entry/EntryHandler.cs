@@ -69,6 +69,9 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		internal void AnimatePlaceholder()
 		{
+			if (!(Drawable is MaterialEntryDrawable))
+				return;
+
 			if (_animationManager == null)
 				_animationManager = MauiContext?.Services.GetRequiredService<IAnimationManager>();
 
