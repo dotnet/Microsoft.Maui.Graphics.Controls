@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Maui.Graphics.Controls
+﻿using Microsoft.Maui.Animations;
+
+namespace Microsoft.Maui.Graphics.Controls
 {
     public class MaterialStepperDrawable : ViewDrawable<IStepper>, IStepperDrawable
     {
@@ -10,8 +12,9 @@
         const float MaterialButtonMargin = 6.0f;
         const float MaterialButtonCornerRadius = 6.0f;
 
+        public PointF TouchPoint { get; set; }
+        public double AnimationPercent { get; set; }
         public RectangleF MinusRectangle { get; set; }
-
         public RectangleF PlusRectangle { get; set; }
 
         public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
@@ -42,6 +45,8 @@
             canvas.FillRoundedRectangle(x, y, width, height, MaterialButtonCornerRadius);     
 
             canvas.RestoreState();
+
+            DrawRippleEffect(canvas, dirtyRect, stepper);
         }
 
         public void DrawMinus(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
@@ -116,6 +121,36 @@
         public void DrawText(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
         {
         
+        }
+
+        internal void DrawRippleEffect(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
+        {
+            RectangleF rect = RectangleF.Zero;
+
+            if (MinusRectangle.Contains(TouchPoint))
+                rect = MinusRectangle;
+
+            if (PlusRectangle.Contains(TouchPoint))
+                rect = PlusRectangle;
+
+            if (rect != RectangleF.Zero)
+            {
+                canvas.SaveState();
+
+                canvas.ClipRectangle(rect);
+
+                canvas.FillColor = Material.Color.White.ToColor().WithAlpha(0.75f);
+
+                canvas.Alpha = 0.25f;
+
+                float minimumRippleEffectSize = 0.0f;
+
+                var rippleEffectSize = minimumRippleEffectSize.Lerp(rect.Width, AnimationPercent);
+
+                canvas.FillCircle((float)TouchPoint.X, (float)TouchPoint.Y, rippleEffectSize);
+
+                canvas.RestoreState();
+            }
         }
     }
 }

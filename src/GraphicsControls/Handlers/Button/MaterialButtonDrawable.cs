@@ -1,9 +1,14 @@
-﻿namespace Microsoft.Maui.Graphics.Controls
+﻿using Microsoft.Maui.Animations;
+
+namespace Microsoft.Maui.Graphics.Controls
 {
     public class MaterialButtonDrawable : ViewDrawable<IButton>, IButtonDrawable
     {
         const float MaterialBackgroundHeight = 36f;
         const float MaterialDefaultCornerRadius = 2.0f;
+
+        public PointF TouchPoint { get; set; }
+        public double AnimationPercent { get; set; }
 
         public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IButton button)
         {
@@ -27,6 +32,8 @@
             canvas.FillRoundedRectangle(x, y, width, MaterialBackgroundHeight, MaterialDefaultCornerRadius);
 
             canvas.RestoreState();
+
+            DrawRippleEffect(canvas, dirtyRect, button);
         }
 
         public void DrawText(ICanvas canvas, RectangleF dirtyRect, IButton button)
@@ -47,6 +54,28 @@
             canvas.DrawString(button.Text.ToUpper(), x, y, width, MaterialBackgroundHeight, HorizontalAlignment.Center, VerticalAlignment.Center);
 
             canvas.RestoreState();
+        }
+
+        internal void DrawRippleEffect(ICanvas canvas, RectangleF dirtyRect, IButton button)
+        {
+            if (dirtyRect.Contains(TouchPoint))
+            {
+                canvas.SaveState();
+
+                canvas.ClipRectangle(dirtyRect);
+
+                canvas.FillColor = Material.Color.White.ToColor().WithAlpha(0.75f);
+
+                canvas.Alpha = 0.25f;
+
+                float minimumRippleEffectSize = 0.0f;
+
+                var rippleEffectSize = minimumRippleEffectSize.Lerp(dirtyRect.Width, AnimationPercent);
+
+                canvas.FillCircle((float)TouchPoint.X, (float)TouchPoint.Y, rippleEffectSize);
+
+                canvas.RestoreState();
+            }
         }
 
         public override Size GetDesiredSize(IView view, double widthConstraint, double heightConstraint) =>

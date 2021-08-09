@@ -1,180 +1,220 @@
 ﻿using Android.Content.Res;
 using Android.Runtime;
+using Android.Text;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
+using Java.Util.Regex;
 using static Android.Views.View;
 using static Android.Widget.TextView;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
     public partial class EntryHandler : MixedGraphicsControlHandler<IEntryDrawable, IEntry, GraphicsEntry>
-	{
-		static ColorStateList? DefaultTextColors { get; set; }
+    {
+        static ColorStateList? DefaultTextColors { get; set; }
 
-		EditorActionListener ActionListener { get; } = new EditorActionListener();
-		EntryFocusChangeListener FocusChangeListener { get; } = new EntryFocusChangeListener();
+        TextWatcher Watcher { get; } = new TextWatcher();
+        EditorActionListener ActionListener { get; } = new EditorActionListener();
+        EntryFocusChangeListener FocusChangeListener { get; } = new EntryFocusChangeListener();
 
-		protected override GraphicsEntry CreateNativeView()
-		{
-			var graphicsEntry = new GraphicsEntry(Context!)
-			{ 
-				GraphicsControl = this 
-			};
-			
-			if (Drawable is MaterialEntryDrawable)
-				graphicsEntry.SetPadding(36, 60, 0, 0);
-			else if (Drawable is FluentEntryDrawable)
-				graphicsEntry.SetPadding(24, 12, 0, 0);
-			else if (Drawable is CupertinoEntryDrawable)
-				graphicsEntry.SetPadding(24, 12, 0, 0);
+        protected override GraphicsEntry CreateNativeView()
+        {
+            var nativeView = new GraphicsEntry(Context!)
+            {
+                GraphicsControl = this
+            };
 
-			return graphicsEntry;
-		}
+            if (Drawable is MaterialEntryDrawable)
+                nativeView.SetPadding(36, 60, 0, 0);
+            else if (Drawable is FluentEntryDrawable)
+                nativeView.SetPadding(24, 12, 0, 0);
+            else if (Drawable is CupertinoEntryDrawable)
+                nativeView.SetPadding(24, 12, 0, 0);
+
+            DefaultTextColors = nativeView.TextColors;
+
+            return nativeView;
+        }
 
         protected override void ConnectHandler(GraphicsEntry nativeView)
         {
-			ActionListener.Handler = this;
-			FocusChangeListener.Handler = this;
+            Watcher.Handler = this;
+            ActionListener.Handler = this;
+            FocusChangeListener.Handler = this;
 
-			nativeView.SetOnEditorActionListener(ActionListener);
-			nativeView.OnFocusChangeListener = FocusChangeListener;
+            nativeView.AddTextChangedListener(Watcher);
+            nativeView.SetOnEditorActionListener(ActionListener);
+            nativeView.OnFocusChangeListener = FocusChangeListener;
 
-			base.ConnectHandler(nativeView);
+            base.ConnectHandler(nativeView);
         }
 
         protected override void DisconnectHandler(GraphicsEntry nativeView)
         {
-			nativeView.SetOnEditorActionListener(null);
-			nativeView.OnFocusChangeListener = null;
+            nativeView.RemoveTextChangedListener(Watcher);
+            nativeView.SetOnEditorActionListener(null);
+            nativeView.OnFocusChangeListener = null;
 
-			ActionListener.Handler = null;
-			FocusChangeListener.Handler = null;
+            Watcher.Handler = null;
+            ActionListener.Handler = null;
+            FocusChangeListener.Handler = null;
 
-			base.DisconnectHandler(nativeView);
+            base.DisconnectHandler(nativeView);
         }
 
-        protected override void SetupDefaults(GraphicsEntry nativeView)
-		{
-			DefaultTextColors = nativeView.TextColors;
+        public override bool StartInteraction(PointF[] points)
+        {
+            if (points.Length > 0)
+            {
+                PointF touchPoint = points[0];
 
-			base.SetupDefaults(nativeView);
-		}
+                if (Drawable.IndicatorRect.Contains(touchPoint) && NativeView != null)
+                    NativeView.Text = string.Empty;
+            }
 
-		public override bool StartInteraction(PointF[] points)
-		{
-			if (points.Length > 0)
-			{
-				PointF touchPoint = points[0];
+            return base.StartInteraction(points);
+        }
 
-				if (Drawable.IndicatorRect.Contains(touchPoint) && NativeView != null)
-					NativeView.Text = string.Empty;
-			}
+        public static void MapText(EntryHandler handler, IEntry entry)
+        {
+            handler.NativeView?.UpdateText(entry);
+        }
 
-			return base.StartInteraction(points);
-		}
+        public static void MapCharacterSpacing(EntryHandler handler, IEntry entry)
+        {
+            handler.NativeView?.UpdateCharacterSpacing(entry);
+        }
 
-		public static void MapText(EntryHandler handler, IEntry entry)
-		{
-			handler.NativeView?.UpdateText(entry);
-		}
+        public static void MapFont(EntryHandler handler, IEntry entry)
+        {
+            // TODO: Get require service FontManager
+            //IFontManager? fontManager = null;
+            //handler.NativeView?.UpdateFont(editor, fontManager);
+        }
 
-		public static void MapCharacterSpacing(EntryHandler handler, IEntry entry)
-		{
-			handler.NativeView?.UpdateCharacterSpacing(entry);
-		}
+        public static void MapHorizontalTextAlignment(EntryHandler handler, IEntry entry)
+        {
+            handler.NativeView?.UpdateHorizontalTextAlignment(entry);
+        }
 
-		public static void MapFont(EntryHandler handler, IEntry entry) 
-		{
-			// TODO: Get require service FontManager
-			//IFontManager? fontManager = null;
-			//handler.NativeView?.UpdateFont(editor, fontManager);
-		}
+        public static void MapIsPassword(EntryHandler handler, IEntry entry)
+        {
+            handler.NativeView?.UpdateIsPassword(entry);
+        }
 
-		public static void MapHorizontalTextAlignment(EntryHandler handler, IEntry entry)
-		{
-			handler.NativeView?.UpdateHorizontalTextAlignment(entry);
-		}
+        public static void MapIsReadOnly(EntryHandler handler, IEntry entry)
+        {
+            handler.NativeView?.UpdateIsReadOnly(entry);
+        }
 
-		public static void MapIsPassword(EntryHandler handler, IEntry entry)
-		{
-			handler.NativeView?.UpdateIsPassword(entry);
-		}
+        public static void MapIsTextPredictionEnabled(EntryHandler handler, IEntry entry)
+        {
+            handler.NativeView?.UpdateIsTextPredictionEnabled(entry);
+        }
 
-		public static void MapIsReadOnly(EntryHandler handler, IEntry entry)
-		{
-			handler.NativeView?.UpdateIsReadOnly(entry);
-		}
+        public static void MapKeyboard(EntryHandler handler, IEntry entry)
+        {
+            handler.NativeView?.UpdateKeyboard(entry);
+        }
 
-		public static void MapIsTextPredictionEnabled(EntryHandler handler, IEntry entry)
-		{
-			handler.NativeView?.UpdateIsTextPredictionEnabled(entry);
-		}
+        public static void MapMaxLength(EntryHandler handler, IEntry entry)
+        {
+            handler.NativeView?.UpdateMaxLength(entry);
+        }
 
-		public static void MapKeyboard(EntryHandler handler, IEntry entry)
-		{
-			handler.NativeView?.UpdateKeyboard(entry);
-		}
+        public static void MapReturnType(EntryHandler handler, IEntry entry)
+        {
+            handler.NativeView?.UpdateReturnType(entry);
+        }
 
-		public static void MapMaxLength(EntryHandler handler, IEntry entry)
-		{
-			handler.NativeView?.UpdateMaxLength(entry);
-		}
+        public static void MapTextColor(EntryHandler handler, IEntry entry)
+        {
+            handler.NativeView?.UpdateTextColor(entry, DefaultTextColors);
+        }
 
-		public static void MapReturnType(EntryHandler handler, IEntry entry)
-		{
-			handler.NativeView?.UpdateReturnType(entry);
-		}
+        public static void MapCursorPosition(EntryHandler handler, IEntry entry)
+        {
+            handler.NativeView?.UpdateCursorPosition(entry);
+        }
 
-		public static void MapTextColor(EntryHandler handler, IEntry entry)
-		{
-			handler.NativeView?.UpdateTextColor(entry, DefaultTextColors);
-		}
+        public static void MapSelectionLength(EntryHandler handler, IEntry entry)
+        {
+            handler.NativeView?.UpdateSelectionLength(entry);
+        }
 
-		public static void MapCursorPosition(EntryHandler handler, IEntry entry)
-		{
-			handler.NativeView?.UpdateCursorPosition(entry);
-		}
+        void OnTextChanged(string? text)
+        {
+            if (VirtualView == null || NativeView == null)
+                return;
 
-		public static void MapSelectionLength(EntryHandler handler, IEntry entry)
-		{
-			handler.NativeView?.UpdateSelectionLength(entry);
-		}
+            // Even though <null> is technically different to "", it has no
+            // functional difference to apps. Thus, hide it.
+            var mauiText = VirtualView.Text ?? string.Empty;
+            var nativeText = text ?? string.Empty;
 
-		void OnFocusedChange(bool hasFocus)
-		{
-			Drawable.HasFocus = hasFocus;
-		}
+            if (mauiText != nativeText)
+                VirtualView.Text = nativeText;
+        }
 
-		class EditorActionListener : Java.Lang.Object, IOnEditorActionListener
-		{
-			public EntryHandler? Handler { get; set; }
+        void OnFocusedChange(bool hasFocus)
+        {
+            Drawable.HasFocus = hasFocus;
 
-			public bool OnEditorAction(TextView? v, [GeneratedEnum] ImeAction actionId, KeyEvent? e)
-			{
-				if (actionId == ImeAction.Done || (actionId == ImeAction.ImeNull && e?.KeyCode == Keycode.Enter && e?.Action == KeyEventActions.Up))
-				{
-					// TODO: Dismiss keyboard for hardware / physical keyboards
+            AnimatePlaceholder();
+        }
 
-					if (Handler != null)
-					{
-						Handler.Drawable.HasFocus = false;
-						Handler.VirtualView?.Completed();
-					}
-				}
+        class TextWatcher : Java.Lang.Object, ITextWatcher
+        {
+            public EntryHandler? Handler { get; set; }
 
-				return true;
-			}
-		}
+            void ITextWatcher.AfterTextChanged(IEditable? s)
+            {
+            }
 
-		class EntryFocusChangeListener : Java.Lang.Object, IOnFocusChangeListener
-		{
-			public EntryHandler? Handler { get; set; }
+            void ITextWatcher.BeforeTextChanged(Java.Lang.ICharSequence? s, int start, int count, int after)
+            {
+            }
 
-			public void OnFocusChange(View? v, bool hasFocus)
-			{
-				Handler?.OnFocusedChange(hasFocus);
-			}
-		}
-	}
+            void ITextWatcher.OnTextChanged(Java.Lang.ICharSequence? s, int start, int before, int count)
+            {
+                // We are replacing 0 characters with 0 characters, so skip
+                if (before == 0 && count == 0)
+                    return;
+
+                Handler?.OnTextChanged(s?.ToString());
+            }
+        }
+
+        class EditorActionListener : Java.Lang.Object, IOnEditorActionListener
+        {
+            public EntryHandler? Handler { get; set; }
+
+            public bool OnEditorAction(TextView? v, [GeneratedEnum] ImeAction actionId, KeyEvent? e)
+            {
+                if (actionId == ImeAction.Done || (actionId == ImeAction.ImeNull && e?.KeyCode == Keycode.Enter && e?.Action == KeyEventActions.Up))
+                {
+                    // TODO: Dismiss keyboard for hardware / physical keyboards
+
+                    if (Handler != null)
+                    {
+                        Handler.Drawable.HasFocus = false;
+                        Handler.VirtualView?.Completed();
+                    }
+                }
+
+                return true;
+            }
+        }
+
+        class EntryFocusChangeListener : Java.Lang.Object, IOnFocusChangeListener
+        {
+            public EntryHandler? Handler { get; set; }
+
+            public void OnFocusChange(View? v, bool hasFocus)
+            {
+                Handler?.OnFocusedChange(hasFocus);
+            }
+        }
+    }
 }

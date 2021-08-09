@@ -21,7 +21,12 @@ namespace Microsoft.Maui.Graphics.Controls
             else
                 edgeInsets = new UIEdgeInsets();
 
-            return new GraphicsEntry {  GraphicsControl = this, EdgeInsets = edgeInsets };
+            var nativeView = new GraphicsEntry {  GraphicsControl = this, EdgeInsets = edgeInsets };
+
+            DefaultTextColor = nativeView.TextColor;
+
+            return nativeView;
+        
         }
 
         protected override void ConnectHandler(GraphicsEntry nativeView)
@@ -42,13 +47,6 @@ namespace Microsoft.Maui.Graphics.Controls
             nativeView.EditingChanged -= OnEditingChanged;
             nativeView.EditingDidEnd -= OnEditingEnded;
             nativeView.ShouldChangeCharacters -= OnShouldChangeCharacters;
-        }
-
-        protected override void SetupDefaults(GraphicsEntry nativeView)
-        {
-            DefaultTextColor = nativeView.TextColor;
-
-            base.SetupDefaults(nativeView);
         }
 
         public override bool StartInteraction(PointF[] points)

@@ -3,6 +3,7 @@
     public class CupertinoEditorDrawable : ViewDrawable<IEditor>, IEditorDrawable
     {
         public bool HasFocus { get; set; }
+        public double AnimationPercent { get; set; }
 
         public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEditor editor)
         {

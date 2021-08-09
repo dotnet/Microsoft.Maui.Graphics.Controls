@@ -10,6 +10,8 @@
 
         public bool HasFocus { get; set; }
 
+        public double AnimationPercent { get; set; }
+
         public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEntry entry)
         {
             canvas.SaveState();

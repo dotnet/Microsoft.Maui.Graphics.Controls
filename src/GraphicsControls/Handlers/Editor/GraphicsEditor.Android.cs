@@ -12,6 +12,7 @@ namespace Microsoft.Maui.Graphics.Controls
         readonly ScalingCanvas _scalingCanvas;
         readonly float _scale;
 
+        bool _pressedContained;
         int _width, _height;
         Color? _backgroundColor;
         IMixedGraphicsHandler? _graphicsControl;
@@ -99,10 +100,26 @@ namespace Microsoft.Maui.Graphics.Controls
                 var density = Resources?.DisplayMetrics?.Density ?? 1.0f;
                 var interceptPoint = new Point(e.GetX() / density, e.GetY() / density);
 
-                if (e.Action == MotionEventActions.Down)
+                switch (e.Action)
                 {
-                    PointF[] downPoints = new PointF[] { interceptPoint };
-                    GraphicsControl?.StartInteraction(downPoints);
+                    case MotionEventActions.Down:
+                        PointF[] downPoints = new PointF[] { interceptPoint };
+                        GraphicsControl?.StartInteraction(downPoints);
+                        _pressedContained = true;
+                        break;
+                    case MotionEventActions.Move:
+                        PointF[] movePoints = new PointF[] { interceptPoint };
+                        _pressedContained = GraphicsControl?.PointsContained(movePoints) ?? false;
+                        GraphicsControl?.DragInteraction(movePoints);
+                        break;
+                    case MotionEventActions.Up:
+                        PointF[] upPoints = new PointF[] { interceptPoint };
+                        GraphicsControl?.EndInteraction(upPoints, _pressedContained);
+                        break;
+                    case MotionEventActions.Cancel:
+                        _pressedContained = false;
+                        GraphicsControl?.CancelInteraction();
+                        break;
                 }
             }
 

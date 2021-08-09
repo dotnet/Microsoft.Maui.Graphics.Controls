@@ -1,7 +1,7 @@
 {
   "profiles": {
     "GraphicsControls.Sample.WinUI": {
-      "commandName": "AppContainer"
+      "commandName": "MsixPackage"
     }
   }
 }

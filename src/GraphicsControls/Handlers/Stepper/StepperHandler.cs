@@ -1,9 +1,13 @@
-﻿using System.Linq;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Maui.Animations;
+using System.Linq;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
     public class StepperHandler : GraphicsControlHandler<IStepperDrawable, IStepper>
     {
+		IAnimationManager? _animationManager;
+
 		public static PropertyMapper<IStepper> PropertyMapper = new PropertyMapper<IStepper>(ViewHandler.Mapper)
 		{
 			Actions =
@@ -67,13 +71,43 @@ namespace Microsoft.Maui.Graphics.Controls
 
 			var point = points[0];
 
+			Drawable.TouchPoint = point;
+
 			if (Drawable.MinusRectangle.Contains(point))
+			{
+				AnimateRippleEffect();
 				VirtualView.Value -= VirtualView.Interval;
+			}
 
 			if (Drawable.PlusRectangle.Contains(point))
+			{
+				AnimateRippleEffect();
 				VirtualView.Value += VirtualView.Interval;
+			}
 
 			return base.StartInteraction(points);
 		}
-    }
+
+		internal void AnimateRippleEffect()
+		{
+			if (!(Drawable is MaterialStepperDrawable))
+				return;
+
+			if (_animationManager == null)
+				_animationManager = MauiContext?.Services.GetRequiredService<IAnimationManager>();
+
+			float start = 0;
+			float end = 1;
+
+			_animationManager?.Add(new Animation(callback: (progress) =>
+			{
+				Drawable.AnimationPercent = start.Lerp(end, progress);
+				Invalidate();
+			}, duration: 0.3, easing: Easing.SinInOut,
+			finished: () =>
+			{
+				Drawable.AnimationPercent = 0;
+			}));
+		}
+	}
 }

@@ -59,22 +59,22 @@ namespace Microsoft.Maui.Graphics.Controls
 			[nameof(IText.Font)] = MapInvalidate
 		};
 
-		public static void MapInvalidate(IViewHandler handler, IView view) =>
+		public static void MapInvalidate(IElementHandler handler, IView view) =>
 			(handler as IGraphicsHandler)?.Invalidate();
 
-		public static void MapAutomationId(IViewHandler handler, IView view)
+		public static void MapAutomationId(IElementHandler handler, IView view)
 		{
 			((NativeView?)handler.NativeView)?.UpdateAutomationId(view);
 		}
 		
-		public static void MapIsEnabled(IViewHandler handler, IView view)
+		public static void MapIsEnabled(IElementHandler handler, IView view)
         {
 			((NativeView?)handler.NativeView)?.UpdateIsEnabled(view);
 
 			(handler as IGraphicsHandler)?.Invalidate();
 		}
 
-		public static void MapSemantics(IViewHandler handler, IView view)
+		public static void MapSemantics(IElementHandler handler, IView view)
 		{
 			((NativeView?)handler.NativeView)?.UpdateSemantics(view);
 		}
