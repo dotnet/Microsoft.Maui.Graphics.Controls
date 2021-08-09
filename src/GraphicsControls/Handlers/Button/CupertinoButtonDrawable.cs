@@ -4,6 +4,9 @@
     {
         const float CupertinoDefaultCornerRadius = 2.0f;
 
+        public PointF TouchPoint { get; set; }
+        public double AnimationPercent { get; set; }
+
         public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IButton button)
         {
             canvas.SaveState();

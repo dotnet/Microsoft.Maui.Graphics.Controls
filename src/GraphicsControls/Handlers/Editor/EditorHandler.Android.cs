@@ -14,25 +14,27 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		protected override GraphicsEditor CreateNativeView()
 		{
-			var nativeEditor = new GraphicsEditor(Context!)
+			var nativeView = new GraphicsEditor(Context!)
 			{
 				GraphicsControl = this,
 				ImeOptions = ImeAction.Done
 			};
 
-			nativeEditor.SetSingleLine(false);
-			nativeEditor.Gravity = GravityFlags.Top;
-			nativeEditor.TextAlignment = ATextAlignment.ViewStart;
-			nativeEditor.SetHorizontallyScrolling(false);
+			nativeView.SetSingleLine(false);
+			nativeView.Gravity = GravityFlags.Top;
+			nativeView.TextAlignment = ATextAlignment.ViewStart;
+			nativeView.SetHorizontallyScrolling(false);
 
 			if (Drawable is MaterialEditorDrawable)
-				nativeEditor.SetPadding(36, 60, 0, 0);
+				nativeView.SetPadding(36, 60, 0, 0);
 			else if (Drawable is FluentEditorDrawable)
-				nativeEditor.SetPadding(24, 12, 0, 0);
+				nativeView.SetPadding(24, 12, 0, 0);
 			else if (Drawable is CupertinoEditorDrawable)
-				nativeEditor.SetPadding(24, 12, 0, 0);
+				nativeView.SetPadding(24, 12, 0, 0);
 
-			return nativeEditor;
+			DefaultTextColors = nativeView.TextColors;
+
+			return nativeView;
 		}
 
 		protected override void ConnectHandler(GraphicsEditor nativeView)
@@ -48,13 +50,6 @@ namespace Microsoft.Maui.Graphics.Controls
 
 			FocusChangeListener.Handler = null;
 		}
-
-		protected override void SetupDefaults(GraphicsEditor nativeView)
-        {
-			DefaultTextColors = nativeView.TextColors;
-
-			base.SetupDefaults(nativeView);
-        }
 
         public static void MapText(EditorHandler handler, IEditor editor)
 		{
@@ -101,6 +96,8 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		void OnFocusedChange(bool hasFocus)
 		{
+			AnimatePlaceholder();
+
 			if (!hasFocus)
 				VirtualView?.Completed();
 		}

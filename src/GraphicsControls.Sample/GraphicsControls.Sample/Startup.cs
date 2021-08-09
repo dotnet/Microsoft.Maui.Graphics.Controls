@@ -3,6 +3,8 @@ using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Hosting;
 using Microsoft.Maui.Graphics.Controls.Hosting;
 
+[assembly: XamlCompilationAttribute(XamlCompilationOptions.Compile)]
+
 namespace GraphicsControls.Sample
 {
     public class Startup : IStartup

@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Maui.Graphics.Controls
+﻿using Microsoft.Maui.Animations;
+
+namespace Microsoft.Maui.Graphics.Controls
 {
     public class MaterialSwitchDrawable : ViewDrawable<ISwitch>, ISwitchDrawable
     {
@@ -7,24 +9,23 @@
         const float MaterialSwitchBackgroundWidth = 34;
         const float MaterialSwitchBackgroundMargin = 5;
 
+        public double AnimationPercent { get; set; }
+
         public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ISwitch view)
         {
             canvas.SaveState();
 
             if (view.IsOn)
-            {
                 canvas.FillColor = view.TrackColor.WithDefault(view.IsEnabled ? Material.Color.LightBlue : Material.Color.Gray4);
-                canvas.Alpha = 0.5f;
-            }
             else
             {
                 if (view.Background != null)
                     canvas.SetFillPaint(view.Background, dirtyRect);
                 else
                     canvas.FillColor = view.IsEnabled ? Material.Color.Gray2.ToColor() : Material.Color.Gray3.ToColor();
-
-                canvas.Alpha = 1.0f;
             }
+
+            canvas.Alpha = 1.0f.Lerp(0.5f, AnimationPercent);
 
             var margin = MaterialSwitchBackgroundMargin;
 
@@ -55,7 +56,8 @@
 
             canvas.SetShadow(new SizeF(0, 1), 2, CanvasDefaults.DefaultShadowColor);
 
-            var materialThumbPosition = view.IsOn ? MaterialThumbOnPosition : MaterialThumbOffPosition;
+            var materialThumbPosition = MaterialThumbOffPosition.Lerp(MaterialThumbOnPosition, AnimationPercent);
+                     
             canvas.FillCircle(materialThumbPosition, y, radius);
 
             canvas.RestoreState();
