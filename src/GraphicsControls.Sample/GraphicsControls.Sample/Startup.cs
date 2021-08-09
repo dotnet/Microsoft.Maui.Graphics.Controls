@@ -2,6 +2,7 @@
 using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Hosting;
 using Microsoft.Maui.Graphics.Controls.Hosting;
+using Microsoft.Maui.Controls.Xaml;
 
 [assembly: XamlCompilationAttribute(XamlCompilationOptions.Compile)]
 
