@@ -6,10 +6,7 @@ namespace Microsoft.Maui.Graphics.Controls
 	{
 		public static PropertyMapper<ICheckBox> PropertyMapper = new PropertyMapper<ICheckBox>(ViewHandler.Mapper)
 		{
-			Actions =
-			{
-				[nameof(ICheckBox.IsChecked)] = ViewHandler.MapInvalidate
-			}
+			[nameof(ICheckBox.IsChecked)] = ViewHandler.MapInvalidate
 		};
 
 		public static DrawMapper<ICheckBoxDrawable, ICheckBox> DrawMapper = new DrawMapper<ICheckBoxDrawable, ICheckBox>(ViewHandler.DrawMapper)

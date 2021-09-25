@@ -15,7 +15,7 @@
 	   <PackageId>Microsoft.Maui.Graphics.Controls</PackageId>
 	</PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Maui.Graphics" Version="6.0.100-preview.6.299" />
+    <PackageReference Include="Microsoft.Maui.Graphics" Version="6.0.100-rc.1.382" />
   </ItemGroup>
   <Import Project="..\..\Microsoft.Maui.Graphics.Controls.MultiTargeting.targets" />
 </Project>

@@ -3,10 +3,12 @@
 	<PropertyGroup>
 		<!-- iOS, Android, MacCatalyst -->
 		<TargetFrameworks>net6.0-ios;net6.0-android;net6.0-maccatalyst</TargetFrameworks>
+		<RuntimeIdentifiers Condition="$(TargetFramework.Contains('-android'))">android-arm;android-arm64;android-x86;android-x64</RuntimeIdentifiers>
 		<OutputType>Exe</OutputType>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
 		<RootNamespace>GraphicsControls.Sample</RootNamespace>
+		<EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
 
 		<!-- Display name -->
 		<ApplicationTitle>GraphicsControls.Sample</ApplicationTitle>

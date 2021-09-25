@@ -81,7 +81,6 @@ namespace GraphicsControls.Sample
             var container = new Grid
             {
                 BackgroundColor = SectionBackgroundColor,
-                IsClippedToBounds = true,
                 Padding = 0,
                 Margin = new Thickness(0, 6)
             };

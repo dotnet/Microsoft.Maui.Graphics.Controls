@@ -4,7 +4,6 @@ using Android.Text;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
-using Java.Util.Regex;
 using static Android.Views.View;
 using static Android.Widget.TextView;
 
