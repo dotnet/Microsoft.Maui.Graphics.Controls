@@ -33,8 +33,8 @@
 				return;
 
 			canvas.FontColor = text.TextColor ?? Colors.Black;
-			canvas.FontName = text.Font.FontFamily;
-			canvas.FontSize = (float)text.Font.FontSize;
+			canvas.FontName = text.Font.Family;
+			canvas.FontSize = (float)text.Font.Size;
 
 			var horizontal =
 				((text as ITextAlignment)?.HorizontalTextAlignment ?? TextAlignment.Center) switch

@@ -10,13 +10,10 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public static PropertyMapper<IStepper> PropertyMapper = new PropertyMapper<IStepper>(ViewHandler.Mapper)
 		{
-			Actions =
-			{
-				[nameof(IStepper.Minimum)] = ViewHandler.MapInvalidate,
-				[nameof(IStepper.Maximum)] = ViewHandler.MapInvalidate,
-				[nameof(IStepper.Interval)] = ViewHandler.MapInvalidate,
-				[nameof(IStepper.Value)] = ViewHandler.MapInvalidate
-			}
+			[nameof(IStepper.Minimum)] = ViewHandler.MapInvalidate,
+			[nameof(IStepper.Maximum)] = ViewHandler.MapInvalidate,
+			[nameof(IStepper.Interval)] = ViewHandler.MapInvalidate,
+			[nameof(IStepper.Value)] = ViewHandler.MapInvalidate
 		};
 
 		public static DrawMapper<IStepperDrawable, IStepper> DrawMapper = new DrawMapper<IStepperDrawable, IStepper>(ViewHandler.DrawMapper)

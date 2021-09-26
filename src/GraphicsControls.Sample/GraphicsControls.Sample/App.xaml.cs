@@ -8,6 +8,7 @@ namespace GraphicsControls.Sample
         {
             InitializeComponent();
 
+            //MainPage = new CustomControlsPage();
             MainPage = new MainPage();
         }
     }
