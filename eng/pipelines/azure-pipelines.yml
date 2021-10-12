@@ -122,7 +122,8 @@ stages:
             inputs:
               command: 'pack'
               packagesToPack: '$(GraphicsControlsLibraryProject)'
-              arguments: '--no-build -c $(BuildConfiguration) /p:PackageOutputPath="$(build.artifactstagingdirectory)/nuget/${{ BuildCondition }}'
+              packDirectory: '$(build.artifactstagingdirectory)/nuget/${{ BuildCondition }}'
+              arguments: '-c $(BuildConfiguration)'
           - task: CopyFiles@2
             displayName: 'Copy Files dlls'
             inputs:
