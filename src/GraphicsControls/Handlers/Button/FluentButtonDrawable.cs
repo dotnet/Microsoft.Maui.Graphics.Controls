@@ -67,7 +67,10 @@
             canvas.SaveState();
 
             if (button.IsEnabled)
-                canvas.FontColor = button.TextColor.WithDefault(Fluent.Color.Foreground.White);
+            {
+                var textColor = (button as ITextStyle)?.TextColor;
+                canvas.FontColor = textColor?.WithDefault(Fluent.Color.Foreground.White);
+            }
             else
                 canvas.FontColor = Fluent.Color.Foreground.NeutralPrimary.ToColor();
 
@@ -76,7 +79,8 @@
             var height = dirtyRect.Height;
             var width = dirtyRect.Width;
 
-            canvas.DrawString(button.Text, 0, 0, width, height, HorizontalAlignment.Center, VerticalAlignment.Center);
+            var text = (button as IText)?.Text;
+            canvas.DrawString(text, 0, 0, width, height, HorizontalAlignment.Center, VerticalAlignment.Center);
 
             canvas.RestoreState();
         }

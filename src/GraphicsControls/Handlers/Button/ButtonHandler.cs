@@ -11,10 +11,10 @@ namespace Microsoft.Maui.Graphics.Controls
 		public static PropertyMapper<IButton> PropertyMapper = new PropertyMapper<IButton>(ViewHandler.Mapper)
 		{
 			[nameof(IButton.Background)] = ViewHandler.MapInvalidate,
-			[nameof(IButton.Text)] = ViewHandler.MapInvalidate,
-			[nameof(IButton.TextColor)] = ViewHandler.MapInvalidate,
-			[nameof(IButton.Font)] = ViewHandler.MapInvalidate,
-			[nameof(IButton.CharacterSpacing)] = ViewHandler.MapInvalidate,
+			[nameof(IText.Text)] = ViewHandler.MapInvalidate,
+			[nameof(ITextStyle.TextColor)] = ViewHandler.MapInvalidate,
+			[nameof(ITextStyle.Font)] = ViewHandler.MapInvalidate,
+			[nameof(ITextStyle.CharacterSpacing)] = ViewHandler.MapInvalidate,
 			[nameof(IButton.Padding)] = ViewHandler.MapInvalidate
 		};
 
