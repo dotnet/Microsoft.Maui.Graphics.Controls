@@ -42,8 +42,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
             canvas.FontName = "Roboto";
 
-            var textColor = (button as ITextStyle)?.TextColor;
-            canvas.FontColor = textColor?.WithDefault(button.IsEnabled ? Material.Color.White : Material.Color.Gray1);
+            canvas.FontColor = button.TextColor.WithDefault(button.IsEnabled ? Material.Color.White : Material.Color.Gray1);
 
             canvas.FontSize = Material.Font.Button;
 
@@ -52,8 +51,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
             var width = dirtyRect.Width;
 
-            var text = (button as IText)?.Text;
-            canvas.DrawString(text?.ToUpper(), x, y, width, MaterialBackgroundHeight, HorizontalAlignment.Center, VerticalAlignment.Center);
+            canvas.DrawString(button.Text.ToUpper(), x, y, width, MaterialBackgroundHeight, HorizontalAlignment.Center, VerticalAlignment.Center);
 
             canvas.RestoreState();
         }
