@@ -22,6 +22,7 @@ namespace GraphicsControls.Sample
                 {
                     handlers.AddHandler(typeof(CustomSliderDrawable), typeof(CustomSliderDrawableHandler));
                     handlers.AddHandler(typeof(CustomSliderMapper), typeof(CustomSliderMapperHandler));
+                    handlers.AddHandler(typeof(DrawCustomSlider), typeof(DrawCustomSliderHandler));
                 });
 
             return appBuilder.Build();

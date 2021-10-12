@@ -26,6 +26,7 @@ namespace Microsoft.Maui.Graphics.Controls.Hosting
                 handlers.AddHandler(typeof(DatePicker), typeof(DatePickerHandler));
                 handlers.AddHandler(typeof(Editor), typeof(EditorHandler));
                 handlers.AddHandler(typeof(Entry), typeof(EntryHandler));
+                handlers.AddHandler(typeof(GraphicsView), typeof(GraphicsViewHandler));
                 handlers.AddHandler(typeof(ProgressBar), typeof(ProgressBarHandler));
                 handlers.AddHandler(typeof(Slider), typeof(SliderHandler));
                 handlers.AddHandler(typeof(Stepper), typeof(StepperHandler));
@@ -35,5 +36,5 @@ namespace Microsoft.Maui.Graphics.Controls.Hosting
 
             return builder;
         }
-	}
+    }
 }
