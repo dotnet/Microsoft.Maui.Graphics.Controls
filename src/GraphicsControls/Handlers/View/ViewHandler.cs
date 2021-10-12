@@ -10,7 +10,7 @@ using NativeView = System.Object;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public class ViewHandler
+    public abstract class ViewHandler
 	{
 		public static string[] DefaultLayerDrawingOrder = new string[]
 		{
@@ -48,7 +48,7 @@ namespace Microsoft.Maui.Graphics.Controls
 		public static void DrawOverlay(ICanvas canvas, RectangleF dirtyRect, IViewDrawable drawable, IView view) =>
 			drawable.DrawOverlay(canvas, dirtyRect, view);
 
-		public static readonly PropertyMapper<IView> Mapper = new PropertyMapper<IView>(Handlers.ViewHandler.ViewMapper)
+		public static readonly PropertyMapper<IView, IElementHandler> Mapper = new PropertyMapper<IView, IElementHandler>(Handlers.ViewHandler.ViewMapper)
 		{
 			[nameof(IView.AutomationId)] = MapAutomationId,
 			[nameof(IView.Background)] = MapInvalidate,

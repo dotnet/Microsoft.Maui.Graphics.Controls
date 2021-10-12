@@ -71,6 +71,11 @@ namespace Microsoft.Maui.Graphics.Controls
 		{
 			if (!(Drawable is MaterialEntryDrawable))
 				return;
+			
+			bool hasText = !string.IsNullOrEmpty(VirtualView.Text);
+
+			if (hasText)
+				return;
 
 			if (_animationManager == null)
 				_animationManager = MauiContext?.Services.GetRequiredService<IAnimationManager>();
