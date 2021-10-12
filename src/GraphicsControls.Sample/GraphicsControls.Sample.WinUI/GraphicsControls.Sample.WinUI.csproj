@@ -34,10 +34,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.ProjectReunion" Version="0.8.0" />
-		<PackageReference Include="Microsoft.ProjectReunion.Foundation" Version="0.8.0" />
-		<PackageReference Include="Microsoft.ProjectReunion.WinUI" Version="0.8.0" />
-		<PackageReference Include="Microsoft.ProjectReunion.InteractiveExperiences" Version="0.8.0" NoWarn="NU1701" />
+		<PackageReference Include="Microsoft.ProjectReunion" Version="0.8.5" />
+		<PackageReference Include="Microsoft.ProjectReunion.Foundation" Version="0.8.5" />
+		<PackageReference Include="Microsoft.ProjectReunion.WinUI" Version="0.8.5" />
+		<PackageReference Include="Microsoft.ProjectReunion.InteractiveExperiences" Version="0.8.5" NoWarn="NU1701" />
 	</ItemGroup>
 
 	<ItemGroup>

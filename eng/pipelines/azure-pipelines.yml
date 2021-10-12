@@ -86,55 +86,69 @@ stages:
           variables:
               buildConfiguration : '${{ BuildCondition }}'
           steps:
-            - checkout: self
-              clean: true
-              submodules: true 
-            - task: NuGetCommand@2
-              inputs:
-                command: 'restore'
-                restoreSolution: '$(GraphicsControlsSln)'
-                feedsToUse: 'config'
-                nugetConfigPath: 'NuGet.config'
+          - task: UseDotNet@2
+            displayName: 'Install .NET SDK'
+            inputs:
+              version: '$(DOTNET_VERSION)'
+              includePreviewVersions: true
+          - task: CmdLine@2
+            displayName: 'Install .NET MAUI workload'
+            inputs:
+              script: 'dotnet workload install maui'
+          - task: JavaToolInstaller@0
+            displayName: 'Install Java SDK 11.0'
+            inputs:
+              versionSpec: '11'
+              jdkArchitectureOption: 'x64'
+              jdkSourceOption: 'PreInstalled'
+          - checkout: self
+            clean: true
+            submodules: true
+          - task: DotNetCoreCLI@2
+            displayName: 'Restore NuGet Packages'
+            inputs:
+              command: 'restore'
+              projects: $(GraphicsControlsSln)
+              feedsToUse: 'config'
+              nugetConfigPath: 'NuGet.config'
+          - task: DotNetCoreCLI@2
+            displayName: 'Build Library Project'
+            inputs:
+              command: 'build'
+              projects: '$(GraphicsControlsLibraryProject)'
+              arguments: '-c $(BuildConfiguration) -bl:$(build.artifactstagingdirectory)/${{BuildCondition}}/win_build_${{ BuildCondition }}.binlog'
+          - task: DotNetCoreCLI@2
+            displayName: 'Pack Library Project'
+            inputs:
+              command: 'pack'
+              packagesToPack: '$(GraphicsControlsLibraryProject)'
+              packDirectory: '$(build.artifactstagingdirectory)/nuget/${{ BuildCondition }}'
+              arguments: '-c $(BuildConfiguration)'
+          - task: CopyFiles@2
+            displayName: 'Copy Files dlls'
+            inputs:
+              Contents: src/**/bin/**/*.dll
+              TargetFolder: '$(build.artifactstagingdirectory)/${{ BuildCondition }}'
 
-            - task: MSBuild@1
-              displayName: 'Build sln'
-              inputs:
-                solution: $(GraphicsControlsSln)            
-                configuration: $(BuildConfiguration)
-                msbuildArguments: -bl:$(build.artifactstagingdirectory)/${{BuildCondition}}/win_build_${{ BuildCondition }}.binlog
-            
-            - task: MSBuild@1
-              displayName: 'Pack sln'
-              inputs:
-                solution: $(GraphicsControlsLibraryProject)            
-                configuration: $(BuildConfiguration)
-                msbuildArguments: -t:pack /p:PackageOutputPath="$(build.artifactstagingdirectory)/nuget/${{ BuildCondition }}"
+          - task: CopyFiles@2
+            displayName: 'Copy nupkg'
+            inputs:
+              Contents: artifacts/*.nupkg 
+              flattenFolders: true
+              TargetFolder: '$(build.artifactstagingdirectory)/nuget/${{ BuildCondition }}/'
+          
+          - task: CopyFiles@2
+            displayName: 'Copy SignList.xml Files'
+            inputs:
+              Contents: eng/automation/SignList.xml
+              TargetFolder: '$(Build.ArtifactStagingDirectory)/nuget/${{ BuildCondition }}'
+              flattenFolders: true
 
-            - task: CopyFiles@2
-              displayName: 'Copy Files dlls'
-              inputs:
-                Contents: src/**/bin/**/*.dll
-                TargetFolder: '$(build.artifactstagingdirectory)/${{ BuildCondition }}'
-
-            - task: CopyFiles@2
-              displayName: 'Copy nupkg'
-              inputs:
-                Contents: artifacts/*.nupkg 
-                flattenFolders: true
-                TargetFolder: '$(build.artifactstagingdirectory)/nuget/${{ BuildCondition }}/'
-            
-            - task: CopyFiles@2
-              displayName: 'Copy SignList.xml Files'
-              inputs:
-                Contents: eng/automation/SignList.xml
-                TargetFolder: '$(Build.ArtifactStagingDirectory)/nuget/${{ BuildCondition }}'
-                flattenFolders: true
-  
-            - task: PublishBuildArtifacts@1
-              displayName: 'Publish Artifact: win_build'
-              condition: always()
-              inputs:
-                ArtifactName: win_build
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish Artifact: win_build'
+            condition: always()
+            inputs:
+              ArtifactName: win_build
 
 
   # only sign using the private server
