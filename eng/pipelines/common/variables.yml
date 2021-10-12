@@ -6,7 +6,7 @@ variables:
 - name: DOTNET_SKIP_FIRST_TIME_EXPERIENCE
   value: true
 - name: DOTNET_VERSION
-  value: 5.0.102
+  value: 6.0.x
 - name: GraphicsControlsSln
   value: '**/GraphicsControls.sln'
 - name: GraphicsControlsLibraryProject
