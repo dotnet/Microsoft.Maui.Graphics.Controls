@@ -10,7 +10,7 @@ using NativeView = System.Object;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public class ViewHandler
+    public abstract class ViewHandler
 	{
 		public static string[] DefaultLayerDrawingOrder = new string[]
 		{

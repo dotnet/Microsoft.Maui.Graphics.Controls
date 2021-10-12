@@ -9,7 +9,7 @@
 		<SingleProject>true</SingleProject>
 		<RootNamespace>GraphicsControls.Sample</RootNamespace>
 		<EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
-		
+
 		<!-- Display name -->
 		<ApplicationTitle>GraphicsControls.Sample</ApplicationTitle>
 

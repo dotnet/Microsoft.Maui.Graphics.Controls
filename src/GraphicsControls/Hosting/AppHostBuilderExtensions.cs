@@ -19,7 +19,7 @@ namespace Microsoft.Maui.Graphics.Controls.Hosting
             GraphicsPlatform.RegisterGlobalService(W2DGraphicsService.Instance);
 #endif
 
-            builder.ConfigureMauiHandlers(handlers =>          
+            builder.ConfigureMauiHandlers(handlers =>    
             {
                 handlers.AddHandler(typeof(Button), typeof(ButtonHandler));
                 handlers.AddHandler(typeof(CheckBox), typeof(CheckBoxHandler));
@@ -31,7 +31,7 @@ namespace Microsoft.Maui.Graphics.Controls.Hosting
                 handlers.AddHandler(typeof(Slider), typeof(SliderHandler));
                 handlers.AddHandler(typeof(Stepper), typeof(StepperHandler));
                 handlers.AddHandler(typeof(Switch), typeof(SwitchHandler));
-                handlers.AddHandler(typeof(TimePicker), typeof(TimePickerHandler));          
+                handlers.AddHandler(typeof(TimePicker), typeof(TimePickerHandler));
             });
 
             return builder;

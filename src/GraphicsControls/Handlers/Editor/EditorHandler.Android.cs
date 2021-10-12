@@ -1,4 +1,5 @@
 ﻿using Android.Content.Res;
+using Android.Text;
 using Android.Views;
 using Android.Views.InputMethods;
 using static Android.Views.View;
@@ -42,13 +43,17 @@ namespace Microsoft.Maui.Graphics.Controls
 			FocusChangeListener.Handler = this;
 
 			nativeView.OnFocusChangeListener = FocusChangeListener;
+
+			nativeView.TextChanged += OnTextChanged;
 		}
 
 		protected override void DisconnectHandler(GraphicsEditor nativeView)
 		{
 			nativeView.OnFocusChangeListener = null;
 
-			FocusChangeListener.Handler = null;
+			FocusChangeListener.Handler = null; 
+			
+			nativeView.TextChanged -= OnTextChanged;
 		}
 
         public static void MapText(EditorHandler handler, IEditor editor)
@@ -100,6 +105,12 @@ namespace Microsoft.Maui.Graphics.Controls
 
 			if (!hasFocus)
 				VirtualView?.Completed();
+		}
+
+		void OnTextChanged(object? sender, TextChangedEventArgs e)
+		{
+			if (VirtualView is ITextInput textInput)
+				textInput.UpdateText(e);
 		}
 
 		class EditorFocusChangeListener : Java.Lang.Object, IOnFocusChangeListener
