@@ -14,6 +14,8 @@ namespace GraphicsControls.Sample
 
         public MainPage()
         {
+            Application.Current.UserAppTheme = OSAppTheme.Dark;
+
             BackgroundColor = PageBackgroundColor;
 
             var scrollView = new ScrollView();

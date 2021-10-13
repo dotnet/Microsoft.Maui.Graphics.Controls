@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Animations;
+using Microsoft.Maui.Controls;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -22,7 +23,12 @@ namespace Microsoft.Maui.Graphics.Controls
                     canvas.FillColor = Material.Color.Blue.ToColor();
             }
             else
-                canvas.FillColor = Material.Color.Gray3.ToColor();
+            {
+                if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                    canvas.FillColor = Material.Color.Light.Gray3.ToColor();
+                else
+                    canvas.FillColor = Material.Color.Dark.Gray4.ToColor();
+            }
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;

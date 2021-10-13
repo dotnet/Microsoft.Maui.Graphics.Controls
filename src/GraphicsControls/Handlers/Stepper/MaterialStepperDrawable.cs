@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Animations;
+using Microsoft.Maui.Controls;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -26,7 +27,12 @@ namespace Microsoft.Maui.Graphics.Controls
             if (stepper.Background != null)
                 canvas.SetFillPaint(stepper.Background, dirtyRect);
             else
-                canvas.FillColor = stepper.IsEnabled ? Material.Color.White.ToColor() : Material.Color.Gray6.ToColor();
+            {
+                if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                    canvas.FillColor = stepper.IsEnabled ? Material.Color.White.ToColor() : Material.Color.Light.Gray6.ToColor();
+                else
+                    canvas.FillColor = stepper.IsEnabled ? Material.Color.Dark.Gray1.ToColor().WithAlpha(0.25f) : Material.Color.Dark.Gray2.ToColor().WithAlpha(0.25f);
+            }
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
@@ -54,7 +60,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.SaveState();
 
             canvas.StrokeSize = 1;
-            canvas.StrokeColor = Material.Color.Gray6.ToColor();
+            canvas.StrokeColor = Application.Current?.RequestedTheme == OSAppTheme.Light ? Material.Color.Light.Gray6.ToColor() : Material.Color.Dark.Gray6.ToColor();
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
@@ -69,10 +75,10 @@ namespace Microsoft.Maui.Graphics.Controls
             var vBuilder = new PathBuilder();
             var path = vBuilder.BuildPath(MaterialStepperMinusIcon);
 
-            if (VirtualView.IsEnabled)
-                canvas.FillColor = Material.Color.Black.ToColor();
+            if (stepper.IsEnabled)
+                canvas.FillColor = Application.Current?.RequestedTheme == OSAppTheme.Light ? Material.Color.Black.ToColor() : Material.Color.White.ToColor().WithAlpha(0.5f);
             else
-                canvas.FillColor = Material.Color.Gray3.ToColor();
+                canvas.FillColor = Application.Current?.RequestedTheme == OSAppTheme.Light ? Material.Color.Light.Gray3.ToColor() : Material.Color.White.ToColor().WithAlpha(0.25f);
 
             canvas.FillPath(path);
 
@@ -86,7 +92,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.SaveState();
 
             canvas.StrokeSize = 1;
-            canvas.StrokeColor = Material.Color.Gray6.ToColor();
+            canvas.StrokeColor = Application.Current?.RequestedTheme == OSAppTheme.Light ? Material.Color.Light.Gray6.ToColor() : Material.Color.Dark.Gray6.ToColor();
 
             var x = MaterialStepperWidth / 2 + MaterialButtonMargin;
             var y = dirtyRect.Y;
@@ -102,9 +108,9 @@ namespace Microsoft.Maui.Graphics.Controls
             var path = vBuilder.BuildPath(MaterialStepperPlusIcon);
 
             if (stepper.IsEnabled)
-                canvas.FillColor = Material.Color.Black.ToColor();
+                canvas.FillColor = Application.Current?.RequestedTheme == OSAppTheme.Light ? Material.Color.Black.ToColor() : Material.Color.White.ToColor().WithAlpha(0.5f);
             else
-                canvas.FillColor = Material.Color.Gray3.ToColor();
+                canvas.FillColor = Application.Current?.RequestedTheme == OSAppTheme.Light ? Material.Color.Light.Gray3.ToColor() : Material.Color.White.ToColor().WithAlpha(0.25f);
 
             canvas.FillPath(path);
 
