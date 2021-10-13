@@ -7,7 +7,7 @@ namespace GraphicsControls.Sample
     {
         public CustomNavigationPage(Page page) : base(page)
         {
-            BarBackgroundColor = SampleColors.AccentColor;
+            this.SetAppThemeColor(BackgroundColorProperty, SampleColors.LightAccentColor, SampleColors.DarkAccentColor);
             BarTextColor = Colors.White;
         }
     }

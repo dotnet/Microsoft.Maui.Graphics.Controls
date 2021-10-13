@@ -11,7 +11,9 @@ namespace GraphicsControls.Sample
         {
             Title = "GraphicsControls";
 
-            BackgroundColor = SampleColors.PageBackgroundColor;
+            Application.Current.UserAppTheme = OSAppTheme.Light;
+
+            this.SetAppThemeColor(BackgroundColorProperty, SampleColors.LightPageBackgroundColor, SampleColors.DarkPageBackgroundColor);
 
             var scrollView = new ScrollView();
 
@@ -42,21 +44,27 @@ namespace GraphicsControls.Sample
         {
             var container = new StackLayout();
 
-            container.Add(new Label
+            var title = new Label
             {
                 FontSize = 24,
                 FontAttributes = FontAttributes.Bold,
                 Text = "Introducing Microsoft.Maui.Graphics.Controls",
-                TextColor = Colors.Black,
                 Margin = new Thickness(0, 12)
-            });
+            };
 
-            container.Add(new Label
+            title.SetAppThemeColor(Label.TextColorProperty, SampleColors.LightTextColor, SampleColors.DarkTextColor);
+
+            container.Add(title);
+
+            var subTitle = new Label
             {
                 FontSize = 16,
-                Text = "A .NET MAUI experiment that offers drawn controls allowing to choose between Cupertino, Fluent and Material.",
-                TextColor = Colors.Black
-            });
+                Text = "A .NET MAUI experiment that offers drawn controls allowing to choose between Cupertino, Fluent and Material."
+            };
+
+            subTitle.SetAppThemeColor(Label.TextColorProperty, SampleColors.LightTextColor, SampleColors.DarkTextColor);
+
+            container.Add(subTitle);
 
             return container;
         }
@@ -72,9 +80,10 @@ namespace GraphicsControls.Sample
 
             var galleryInfo = new Label
             {
-                TextColor = Colors.Black,
                 Text = "Next, you can access a gallery where you can test all the drawn controls. The Gallery is available in both C# and XAML so feel free to explore the option you prefer."
             };
+
+            galleryInfo.SetAppThemeColor(Label.TextColorProperty, SampleColors.LightTextColor, SampleColors.DarkTextColor);
 
             layout.Children.Add(galleryInfo);
 
@@ -85,12 +94,13 @@ namespace GraphicsControls.Sample
 
             var cSharpFrame = new Frame
             {
-                BackgroundColor = SampleColors.SectionBackgroundColor,
                 CornerRadius = 12,
                 HeightRequest = 150,
                 WidthRequest = 150,
                 Margin = new Thickness(0, 6, 6, 0)
             };
+
+            cSharpFrame.SetAppThemeColor(BackgroundColorProperty, SampleColors.LightSectionBackgroundColor, SampleColors.DarkSectionBackgroundColor);
 
             var cSharpGesture = new TapGestureRecognizer();
             cSharpGesture.Tapped += OnCSharpGestureTapped;
@@ -99,22 +109,24 @@ namespace GraphicsControls.Sample
             var cSharpLabel = new Label
             {
                 Text = "C#",
-                TextColor = Colors.Purple,
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.Center
             };
+
+            cSharpLabel.SetAppThemeColor(Label.TextColorProperty, SampleColors.LightAccentColor, SampleColors.DarkAccentColor);
 
             cSharpFrame.Content = cSharpLabel;
 
             var xamlFrame = new Frame
             {
-                BackgroundColor = SampleColors.SectionBackgroundColor,
                 CornerRadius = 12,
                 HeightRequest = 150,
                 WidthRequest = 150,
                 Margin = new Thickness(0, 6, 6, 0)
-            }; 
-            
+            };
+
+            xamlFrame.SetAppThemeColor(BackgroundColorProperty, SampleColors.LightSectionBackgroundColor, SampleColors.DarkSectionBackgroundColor);
+
             var xamlGesture = new TapGestureRecognizer();
             xamlGesture.Tapped += OnXamlGestureTapped;
             xamlFrame.GestureRecognizers.Add(xamlGesture);
@@ -122,10 +134,11 @@ namespace GraphicsControls.Sample
             var xamlLabel = new Label
             {
                 Text = "XAML",
-                TextColor = Colors.Purple,
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.Center
             };
+
+            xamlLabel.SetAppThemeColor(Label.TextColorProperty, SampleColors.LightAccentColor, SampleColors.DarkAccentColor);
 
             xamlFrame.Content = xamlLabel;
 
@@ -139,21 +152,23 @@ namespace GraphicsControls.Sample
 
             var customizeInfo = new Label
             {
-                TextColor = Colors.Black,
                 Text = "Also, there is an an example where learn how to customize existing controls as well as create new drawn controls."
-            }; 
-            
+            };
+
+            customizeInfo.SetAppThemeColor(Label.TextColorProperty, SampleColors.LightTextColor, SampleColors.DarkTextColor);
+
             layout.Children.Add(customizeInfo);
 
             var customizeLayout = new Grid();
 
             var customizeFrame = new Frame
             {
-                BackgroundColor = SampleColors.SectionBackgroundColor,
                 CornerRadius = 12,
                 HeightRequest = 150,
                 Margin = new Thickness(0, 6, 6, 0)
             };
+
+            customizeFrame.SetAppThemeColor(BackgroundColorProperty, SampleColors.LightSectionBackgroundColor, SampleColors.DarkSectionBackgroundColor);
 
             var customizeGesture = new TapGestureRecognizer();
             customizeGesture.Tapped += OnCustomizeGestureTapped;
@@ -162,10 +177,11 @@ namespace GraphicsControls.Sample
             var customizeLabel = new Label
             {
                 Text = "Customize or Create custom drawn controls",
-                TextColor = Colors.Purple,
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.Center
             };
+
+            customizeLabel.SetAppThemeColor(Label.TextColorProperty, SampleColors.LightAccentColor, SampleColors.DarkAccentColor);
 
             customizeFrame.Content = customizeLabel;
 
@@ -187,6 +203,8 @@ namespace GraphicsControls.Sample
                 HorizontalOptions = LayoutOptions.Center,
                 TextColor = Colors.Black
             };
+
+            footer.SetAppThemeColor(Label.TextColorProperty, SampleColors.LightTextColor, SampleColors.DarkTextColor);
 
             return footer;
         }

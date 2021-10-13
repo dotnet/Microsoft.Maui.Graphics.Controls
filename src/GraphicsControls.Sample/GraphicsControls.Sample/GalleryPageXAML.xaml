@@ -3,13 +3,23 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="GraphicsControls.Sample.GalleryPageXAML"
+    BackgroundColor="{AppThemeBinding Dark={StaticResource DarkPageBackgroundColor}, Light={StaticResource LightPageBackgroundColor}}"
     Title="XAML Gallery">
     <ContentPage.Resources>
         <ResourceDictionary>
 
-            <Color x:Key="SectionBackgroundColor">#FAFAFA</Color>
-            <Color x:Key="SectionHeaderBackgroundColor">#E9E9E9</Color>
-
+            <!-- LIGHT -->
+            <Color x:Key="LightPageBackgroundColor">#FFFFFF</Color>
+            <Color x:Key="LightSectionBackgroundColor">#FAFAFA</Color>
+            <Color x:Key="LightSectionHeaderBackgroundColor">#E9E9E9</Color>
+            <Color x:Key="LightTextColor">#000000</Color>
+            
+            <!-- DARK -->
+            <Color x:Key="DarkPageBackgroundColor">#000000</Color>
+            <Color x:Key="DarkSectionBackgroundColor">#333333</Color>
+            <Color x:Key="DarkSectionHeaderBackgroundColor">#1E1E1E</Color>
+            <Color x:Key="DarkTextColor">#FFFFFF</Color>
+            
             <Style x:Key="InfoLabel" TargetType="Label">
                 <Setter Property="FontSize" Value="9" />
                 <Setter Property="TextColor" Value="Gray" />
@@ -23,14 +33,14 @@
                 Margin="12">
                 <!-- BUTTON -->
                 <StackLayout
-                    BackgroundColor="{StaticResource SectionBackgroundColor}">
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}">
                     <Label 
-                        BackgroundColor="{StaticResource SectionHeaderBackgroundColor}"
-                        TextColor="Black"
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionHeaderBackgroundColor}, Light={StaticResource LightSectionHeaderBackgroundColor}}"
+                        TextColor="{AppThemeBinding Dark={StaticResource DarkTextColor}, Light={StaticResource LightTextColor}}"
                         Text="Button"
                         Padding="12"/>
                     <Grid
-                        BackgroundColor="{StaticResource SectionBackgroundColor}"
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}"
                         Margin="0, 6"
                         Padding="0">
                         <StackLayout
@@ -46,14 +56,14 @@
                 </StackLayout>
                 <!-- CHECKBOX -->
                 <StackLayout
-                    BackgroundColor="{StaticResource SectionBackgroundColor}">
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}">
                     <Label 
-                        BackgroundColor="{StaticResource SectionHeaderBackgroundColor}"
-                        TextColor="Black"
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionHeaderBackgroundColor}, Light={StaticResource LightSectionHeaderBackgroundColor}}"
+                        TextColor="{AppThemeBinding Dark={StaticResource DarkTextColor}, Light={StaticResource LightTextColor}}"
                         Text="CheckBox"
                         Padding="12"/>
                     <Grid
-                        BackgroundColor="{StaticResource SectionBackgroundColor}"
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}"
                         Margin="0, 6"
                         Padding="0">
                         <StackLayout
@@ -69,14 +79,14 @@
                 </StackLayout>
                 <!-- DATEPICKER -->
                 <StackLayout
-                    BackgroundColor="{StaticResource SectionBackgroundColor}">
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}">
                     <Label 
-                        BackgroundColor="{StaticResource SectionHeaderBackgroundColor}"
-                        TextColor="Black"
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionHeaderBackgroundColor}, Light={StaticResource LightSectionHeaderBackgroundColor}}"
+                        TextColor="{AppThemeBinding Dark={StaticResource DarkTextColor}, Light={StaticResource LightTextColor}}"
                         Text="DatePicker"
                         Padding="12"/>
                     <Grid
-                        BackgroundColor="{StaticResource SectionBackgroundColor}"
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}"
                         Margin="0, 6"
                         Padding="0">
                         <StackLayout
@@ -92,14 +102,14 @@
                 </StackLayout>
                 <!-- EDITOR -->
                 <StackLayout
-                    BackgroundColor="{StaticResource SectionBackgroundColor}">
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}">
                     <Label 
-                        BackgroundColor="{StaticResource SectionHeaderBackgroundColor}"
-                        TextColor="Black"
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionHeaderBackgroundColor}, Light={StaticResource LightSectionHeaderBackgroundColor}}"
+                        TextColor="{AppThemeBinding Dark={StaticResource DarkTextColor}, Light={StaticResource LightTextColor}}"
                         Text="Editor"
                         Padding="12"/>
                     <Grid
-                        BackgroundColor="{StaticResource SectionBackgroundColor}"
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}"
                         Margin="0, 6"
                         Padding="0">
                         <StackLayout
@@ -115,14 +125,14 @@
                 </StackLayout>
                 <!-- ENTRY -->
                 <StackLayout
-                    BackgroundColor="{StaticResource SectionBackgroundColor}">
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}">
                     <Label 
-                        BackgroundColor="{StaticResource SectionHeaderBackgroundColor}"
-                        TextColor="Black"
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionHeaderBackgroundColor}, Light={StaticResource LightSectionHeaderBackgroundColor}}"
+                        TextColor="{AppThemeBinding Dark={StaticResource DarkTextColor}, Light={StaticResource LightTextColor}}"
                         Text="Entry"
                         Padding="12"/>
                     <Grid
-                        BackgroundColor="{StaticResource SectionBackgroundColor}"
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}"
                         Margin="0, 6"
                         Padding="0">
                         <StackLayout
@@ -138,14 +148,14 @@
                 </StackLayout>
                 <!-- PROGRESSBAR -->
                 <StackLayout
-                    BackgroundColor="{StaticResource SectionBackgroundColor}">
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}">
                     <Label 
-                        BackgroundColor="{StaticResource SectionHeaderBackgroundColor}"
-                        TextColor="Black"
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionHeaderBackgroundColor}, Light={StaticResource LightSectionHeaderBackgroundColor}}"
+                        TextColor="{AppThemeBinding Dark={StaticResource DarkTextColor}, Light={StaticResource LightTextColor}}"
                         Text="ProgressBar"
                         Padding="12"/>
                     <Grid
-                        BackgroundColor="{StaticResource SectionBackgroundColor}"
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}"
                         Margin="0, 6"
                         Padding="0">
                         <StackLayout
@@ -161,14 +171,14 @@
                 </StackLayout>
                 <!-- SLIDER -->
                 <StackLayout
-                    BackgroundColor="{StaticResource SectionBackgroundColor}">
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}">
                     <Label 
-                        BackgroundColor="{StaticResource SectionHeaderBackgroundColor}"
-                        TextColor="Black"
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionHeaderBackgroundColor}, Light={StaticResource LightSectionHeaderBackgroundColor}}"
+                        TextColor="{AppThemeBinding Dark={StaticResource DarkTextColor}, Light={StaticResource LightTextColor}}"
                         Text="Slider"
                         Padding="12"/>
                     <Grid
-                        BackgroundColor="{StaticResource SectionBackgroundColor}"
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}"
                         Margin="0, 6"
                         Padding="0">
                         <StackLayout
@@ -184,14 +194,14 @@
                 </StackLayout>
                 <!-- STEPPER -->
                 <StackLayout
-                    BackgroundColor="{StaticResource SectionBackgroundColor}">
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}">
                     <Label 
-                        BackgroundColor="{StaticResource SectionHeaderBackgroundColor}"
-                        TextColor="Black"
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionHeaderBackgroundColor}, Light={StaticResource LightSectionHeaderBackgroundColor}}"
+                        TextColor="{AppThemeBinding Dark={StaticResource DarkTextColor}, Light={StaticResource LightTextColor}}"
                         Text="Stepper"
                         Padding="12"/>
                     <Grid
-                        BackgroundColor="{StaticResource SectionBackgroundColor}"
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}"
                         Margin="0, 6"
                         Padding="0">
                         <StackLayout
@@ -207,14 +217,14 @@
                 </StackLayout>
                 <!-- SWITCH -->
                 <StackLayout
-                    BackgroundColor="{StaticResource SectionBackgroundColor}">
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}">
                     <Label 
-                        BackgroundColor="{StaticResource SectionHeaderBackgroundColor}"
-                        TextColor="Black"
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionHeaderBackgroundColor}, Light={StaticResource LightSectionHeaderBackgroundColor}}"
+                        TextColor="{AppThemeBinding Dark={StaticResource DarkTextColor}, Light={StaticResource LightTextColor}}"
                         Text="Switch"
                         Padding="12"/>
                     <Grid
-                        BackgroundColor="{StaticResource SectionBackgroundColor}"
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}"
                         Margin="0, 6"
                         Padding="0">
                         <StackLayout
@@ -230,14 +240,14 @@
                 </StackLayout>
                 <!-- TIMEPICKER -->
                 <StackLayout
-                    BackgroundColor="{StaticResource SectionBackgroundColor}">
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}">
                     <Label 
-                        BackgroundColor="{StaticResource SectionHeaderBackgroundColor}"
-                        TextColor="Black"
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionHeaderBackgroundColor}, Light={StaticResource LightSectionHeaderBackgroundColor}}"
+                        TextColor="{AppThemeBinding Dark={StaticResource DarkTextColor}, Light={StaticResource LightTextColor}}"
                         Text="TimePicker"
                         Padding="12"/>
                     <Grid
-                        BackgroundColor="{StaticResource SectionBackgroundColor}"
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}"
                         Margin="0, 6"
                         Padding="0">
                         <StackLayout

@@ -11,7 +11,7 @@ namespace GraphicsControls.Sample
         {
             Title = "Customize using Microsoft.Maui.Graphics.Controls";
 
-            BackgroundColor = SampleColors.PageBackgroundColor;
+            this.SetAppThemeColor(BackgroundColorProperty, SampleColors.LightPageBackgroundColor, SampleColors.DarkPageBackgroundColor);
 
             var scrollView = new ScrollView();
 
@@ -29,28 +29,29 @@ namespace GraphicsControls.Sample
 
         IView CreateContainer(string title, View content)
         {
-            var contentContainer = new StackLayout
-            {
-                BackgroundColor = SampleColors.SectionBackgroundColor
-            };
+            var contentContainer = new StackLayout();
+
+            contentContainer.SetAppThemeColor(BackgroundColorProperty, SampleColors.LightSectionBackgroundColor, SampleColors.DarkSectionBackgroundColor);
 
             var header = new Label
             {
-                BackgroundColor = SampleColors.SectionHeaderBackgroundColor,
                 Padding = 12,
-                Text = title,
-                TextColor = Colors.Black
+                Text = title
             };
+
+            header.SetAppThemeColor(BackgroundColorProperty, SampleColors.LightSectionHeaderBackgroundColor, SampleColors.DarkSectionHeaderBackgroundColor);
+            header.SetAppThemeColor(Label.TextColorProperty, SampleColors.LightTextColor, SampleColors.DarkTextColor);
 
             contentContainer.Children.Add(header);
             contentContainer.Children.Add(content);
 
             var container = new Grid
             {
-                BackgroundColor = SampleColors.SectionBackgroundColor,
                 Padding = 0,
                 Margin = new Thickness(0, 6)
             };
+
+            container.SetAppThemeColor(BackgroundColorProperty, SampleColors.LightSectionBackgroundColor, SampleColors.DarkSectionBackgroundColor);
 
             container.Children.Add(contentContainer);
 
@@ -78,6 +79,7 @@ namespace GraphicsControls.Sample
             return CreateContainer("DrawCustomSlider", layout);
         }
 
+        /*
         IView CreateCustomSliderMapper()
         {
             var layout = new StackLayout
@@ -98,6 +100,7 @@ namespace GraphicsControls.Sample
 
             return CreateContainer("CustomSliderMapper", layout);
         }
+        */
 
         IView CreateCustomSliderDrawable()
         {
