@@ -7,7 +7,7 @@ namespace Microsoft.Maui.Graphics.Controls
     {
         public static Color WithDefault(this Color color, string defaultColor)
         {
-            if (!color.IsDefault())
+            if (color != null && !color.IsDefault())
                 return color;
             else
                 return Color.FromArgb(defaultColor);

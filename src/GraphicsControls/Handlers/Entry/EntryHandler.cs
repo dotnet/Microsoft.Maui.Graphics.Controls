@@ -71,7 +71,7 @@ namespace Microsoft.Maui.Graphics.Controls
 		{
 			if (!(Drawable is MaterialEntryDrawable))
 				return;
-			
+
 			bool hasText = !string.IsNullOrEmpty(VirtualView.Text);
 
 			if (hasText)
