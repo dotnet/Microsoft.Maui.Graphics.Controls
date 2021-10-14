@@ -12,7 +12,10 @@
 		{
 			canvas.SaveState();
 
-			canvas.FillColor = slider.MaximumTrackColor.WithDefault(VirtualView.IsEnabled ? Material.Color.LightBlue : Material.Color.Gray3);
+			if (slider.IsEnabled)
+				canvas.FillColor = slider.MaximumTrackColor.WithDefault(Material.Color.LightBlue);
+			else
+				canvas.FillColor = slider.MaximumTrackColor.WithDefault(Material.Color.Light.Gray3, Material.Color.Dark.Gray3);
 
 			var x = dirtyRect.X;
 
@@ -32,8 +35,11 @@
 		public virtual void DrawTrackProgress(ICanvas canvas, RectangleF dirtyRect, ISlider slider)
 		{
 			canvas.SaveState();
-
-			canvas.FillColor = slider.MinimumTrackColor.WithDefault(slider.IsEnabled ? Material.Color.Blue : Material.Color.Gray1);
+			
+			if (slider.IsEnabled)
+				canvas.FillColor = slider.MinimumTrackColor.WithDefault(Material.Color.Blue);
+			else
+				canvas.FillColor = slider.MinimumTrackColor.WithDefault(Material.Color.Light.Gray1, Material.Color.Dark.Gray1);
 
 			var x = dirtyRect.X;
 
@@ -66,7 +72,10 @@
 
 			var y = (float)((dirtyRect.Height - MaterialFloatThumb) / 2);
 
-			canvas.FillColor = slider.ThumbColor.WithDefault(slider.IsEnabled ? Material.Color.Blue : Material.Color.Gray1);
+			if (slider.IsEnabled)
+				canvas.FillColor = slider.ThumbColor.WithDefault(Material.Color.Blue);
+			else
+				canvas.FillColor = slider.ThumbColor.WithDefault(Material.Color.Light.Gray1, Material.Color.Dark.Gray1);
 
 			touchTargetRect.Center(new PointF(x, y));
 

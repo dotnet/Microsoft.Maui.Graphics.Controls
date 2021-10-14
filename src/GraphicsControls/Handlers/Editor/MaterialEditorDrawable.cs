@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Animations;
+using Microsoft.Maui.Controls;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -20,7 +21,12 @@ namespace Microsoft.Maui.Graphics.Controls
             if (editor.Background != null)
                 canvas.SetFillPaint(editor.Background, dirtyRect);
             else
-                canvas.FillColor = editor.IsEnabled ? Material.Color.Gray5.ToColor() : Material.Color.Gray3.ToColor();
+            {
+                if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                    canvas.FillColor = editor.IsEnabled ? Material.Color.Light.Gray5.ToColor() : Material.Color.Light.Gray3.ToColor();
+                else
+                    canvas.FillColor = editor.IsEnabled ? Material.Color.Dark.Gray5.ToColor() : Material.Color.Dark.Gray3.ToColor();
+            }
 
             const float cornerRadius = 4.0f;
 
@@ -40,7 +46,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.SaveState();
 
             var strokeWidth = 1.0f;
-            canvas.FillColor = Material.Color.Black.ToColor();
+            canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Material.Color.Black.ToColor() : Material.Color.Light.Gray6.ToColor().WithAlpha(0.5f);
 
             if (editor.IsEnabled && HasFocus)
             {
@@ -63,7 +69,7 @@ namespace Microsoft.Maui.Graphics.Controls
         {
             canvas.SaveState();
 
-            canvas.FontColor = editor.PlaceholderColor.WithDefault(Material.Color.Dark);
+            canvas.FontColor = editor.PlaceholderColor.WithDefault(Material.Color.DarkBackground, Material.Color.LightBackground);
 
             var materialPlaceholderFontSize = UnfocusedPlaceholderFontSize.Lerp(FocusedPlaceholderFontSize, AnimationPercent);
 

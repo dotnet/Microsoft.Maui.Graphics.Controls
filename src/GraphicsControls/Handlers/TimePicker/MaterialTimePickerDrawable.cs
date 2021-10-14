@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Maui.Controls;
+using System;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -11,7 +12,12 @@ namespace Microsoft.Maui.Graphics.Controls
             if (timePicker.Background != null)
                 canvas.SetFillPaint(timePicker.Background, dirtyRect);
             else
-                canvas.FillColor = timePicker.IsEnabled ? Material.Color.Gray5.ToColor() : Material.Color.Gray3.ToColor();
+            {
+                if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                    canvas.FillColor = timePicker.IsEnabled ? Material.Color.Light.Gray5.ToColor() : Material.Color.Light.Gray3.ToColor();
+                else
+                    canvas.FillColor = timePicker.IsEnabled ? Material.Color.Dark.Gray5.ToColor() : Material.Color.Dark.Gray3.ToColor();
+            }
 
             const float cornerRadius = 4.0f;
 
@@ -31,7 +37,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.SaveState();
 
             var strokeWidth = 1.0f;
-            canvas.FillColor = Material.Color.Black.ToColor();
+            canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Material.Color.Black.ToColor() : Material.Color.Light.Gray6.ToColor().WithAlpha(0.5f);
 
             var x = dirtyRect.X;
             var y = 53.91f;
@@ -49,7 +55,12 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.SaveState();
 
             if (timePicker.TextColor == null)
-                canvas.FontColor = Material.Color.Gray1.ToColor();
+            {
+                if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                    canvas.FontColor = Material.Color.Light.Gray1.ToColor();
+                else
+                    canvas.FontColor = Material.Color.Light.Gray6.ToColor();
+            }
             else
                 canvas.FontColor = timePicker.TextColor.WithAlpha(0.75f);
             
@@ -79,7 +90,7 @@ namespace Microsoft.Maui.Graphics.Controls
         {
             canvas.SaveState();
 
-            canvas.FontColor = timePicker.TextColor.WithDefault(Material.Color.Dark);
+            canvas.FontColor = timePicker.TextColor.WithDefault(Material.Color.DarkBackground, Material.Color.LightBackground);
             canvas.FontSize = 16f;
 
             float margin = 12f;
