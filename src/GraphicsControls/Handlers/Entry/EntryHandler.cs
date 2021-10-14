@@ -7,11 +7,17 @@ namespace Microsoft.Maui.Graphics.Controls
 {
 	public partial class EntryHandler
 	{
+		readonly DrawableType _drawableType;
 		IAnimationManager? _animationManager;
 
 		public EntryHandler() : base(DrawMapper, PropertyMapper)
 		{
 
+		}
+
+		public EntryHandler(DrawableType drawableType) : base(DrawMapper, PropertyMapper)
+		{
+			_drawableType = drawableType;
 		}
 
 		public static PropertyMapper<IEntry, EntryHandler> PropertyMapper = new PropertyMapper<IEntry, EntryHandler>(ViewMapper)
@@ -52,8 +58,19 @@ namespace Microsoft.Maui.Graphics.Controls
 		public override string[] LayerDrawingOrder() =>
 			DefaultEntryLayerDrawingOrder;
 
-		protected override IEntryDrawable CreateDrawable() =>
-			new MaterialEntryDrawable();
+		protected override IEntryDrawable CreateDrawable()
+		{
+			switch (_drawableType)
+			{
+				default:
+				case DrawableType.Material:
+					return new MaterialEntryDrawable();
+				case DrawableType.Cupertino:
+					return new CupertinoEntryDrawable();
+				case DrawableType.Fluent:
+					return new FluentEntryDrawable();
+			}
+		}
 
 		public static void MapDrawBackground(ICanvas canvas, RectangleF dirtyRect, IEntryDrawable drawable, IEntry view)
 			=> drawable.DrawBackground(canvas, dirtyRect, view);

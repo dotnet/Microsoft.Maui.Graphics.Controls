@@ -6,7 +6,18 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public class StepperHandler : GraphicsControlHandler<IStepperDrawable, IStepper>
     {
+		readonly DrawableType _drawableType;
 		IAnimationManager? _animationManager;
+
+		public StepperHandler() : base(DrawMapper, PropertyMapper)
+		{
+
+		}
+
+		public StepperHandler(DrawableType drawableType) : base(DrawMapper, PropertyMapper)
+		{
+			_drawableType = drawableType;
+		}
 
 		public static PropertyMapper<IStepper> PropertyMapper = new PropertyMapper<IStepper>(ViewHandler.Mapper)
 		{
@@ -25,11 +36,6 @@ namespace Microsoft.Maui.Graphics.Controls
 			["Text"] = MapDrawText
 		};
 
-		public StepperHandler() : base(DrawMapper, PropertyMapper)
-		{
-
-		}
-
 		public static string[] DefaultStepperLayerDrawingOrder =
 			ViewHandler.DefaultLayerDrawingOrder.ToList().InsertAfter(new string[]
 			{
@@ -43,8 +49,19 @@ namespace Microsoft.Maui.Graphics.Controls
 		public override string[] LayerDrawingOrder() =>
 			DefaultStepperLayerDrawingOrder;
 
-		protected override IStepperDrawable CreateDrawable() =>
-			new MaterialStepperDrawable();
+		protected override IStepperDrawable CreateDrawable()
+		{
+			switch (_drawableType)
+			{
+				default:
+				case DrawableType.Material:
+					return new MaterialStepperDrawable();
+				case DrawableType.Cupertino:
+					return new CupertinoStepperDrawable();
+				case DrawableType.Fluent:
+					return new FluentStepperDrawable();
+			}
+		}
 
 		public static void MapDrawBackground(ICanvas canvas, RectangleF dirtyRect, IStepperDrawable drawable, IStepper view)
 			=> drawable.DrawBackground(canvas, dirtyRect, view);

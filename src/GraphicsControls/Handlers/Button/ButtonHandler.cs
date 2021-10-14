@@ -4,9 +4,20 @@ using System.Linq;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public class ButtonHandler : GraphicsControlHandler<IButtonDrawable, IButton>
-    {
+	public class ButtonHandler : GraphicsControlHandler<IButtonDrawable, IButton>
+	{
+        readonly DrawableType _drawableType;
 		IAnimationManager? _animationManager;
+
+		public ButtonHandler() : base(DrawMapper, PropertyMapper)
+		{
+
+		}
+
+		public ButtonHandler(DrawableType drawableType) : base(DrawMapper, PropertyMapper)
+		{
+			_drawableType = drawableType;
+		}
 
 		public static PropertyMapper<IButton> PropertyMapper = new PropertyMapper<IButton>(ViewHandler.Mapper)
 		{
@@ -24,11 +35,6 @@ namespace Microsoft.Maui.Graphics.Controls
 			["Text"] = MapDrawText
 		};
 
-		public ButtonHandler() : base(DrawMapper, PropertyMapper)
-		{
-
-		}
-
 		public static string[] DefaultButtonLayerDrawingOrder =
 			ViewHandler.DefaultLayerDrawingOrder.ToList().InsertAfter(new string[]
 			{
@@ -39,8 +45,19 @@ namespace Microsoft.Maui.Graphics.Controls
 		public override string[] LayerDrawingOrder() =>
 			DefaultButtonLayerDrawingOrder;
 
-		protected override IButtonDrawable CreateDrawable() =>
-			new MaterialButtonDrawable();
+		protected override IButtonDrawable CreateDrawable()
+		{
+			switch (_drawableType)
+			{
+				default:
+				case DrawableType.Material:
+					return new MaterialButtonDrawable();
+				case DrawableType.Cupertino:
+					return new CupertinoButtonDrawable();
+				case DrawableType.Fluent:
+					return new FluentButtonDrawable();
+			}
+		}
 
 		public static void MapDrawBackground(ICanvas canvas, RectangleF dirtyRect, IButtonDrawable drawable, IButton view)
 			=> drawable.DrawBackground(canvas, dirtyRect, view);

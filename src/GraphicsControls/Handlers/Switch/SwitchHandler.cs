@@ -7,8 +7,19 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public class SwitchHandler : GraphicsControlHandler<ISwitchDrawable, ISwitch>
     {
+        readonly DrawableType _drawableType;
         bool _hasSetState;
         IAnimationManager? _animationManager;
+
+        public SwitchHandler() : base(DrawMapper, PropertyMapper)
+        {
+
+        }
+
+        public SwitchHandler(DrawableType drawableType) : base(DrawMapper, PropertyMapper)
+        {
+            _drawableType = drawableType;
+        }
 
         public static PropertyMapper<ISwitch, SwitchHandler> PropertyMapper = new PropertyMapper<ISwitch, SwitchHandler>(ViewHandler.Mapper)
         {
@@ -23,11 +34,6 @@ namespace Microsoft.Maui.Graphics.Controls
             ["Thumb"] = MapDrawThumb
         };
 
-        public SwitchHandler() : base(DrawMapper, PropertyMapper)
-        {
-
-        }
-
         public static string[] DefaultSwitchLayerDrawingOrder =
             ViewHandler.DefaultLayerDrawingOrder.ToList().InsertAfter(new string[]
             {
@@ -38,8 +44,19 @@ namespace Microsoft.Maui.Graphics.Controls
         public override string[] LayerDrawingOrder() =>
             DefaultSwitchLayerDrawingOrder;
 
-        protected override ISwitchDrawable CreateDrawable() =>
-            new MaterialSwitchDrawable();
+        protected override ISwitchDrawable CreateDrawable()
+        {
+            switch (_drawableType)
+            {
+                default:
+                case DrawableType.Material:
+                    return new MaterialSwitchDrawable();
+                case DrawableType.Cupertino:
+                    return new CupertinoSwitchDrawable();
+                case DrawableType.Fluent:
+                    return new FluentSwitchDrawable();
+            }
+        }
 
         public static void MapDrawBackground(ICanvas canvas, RectangleF dirtyRect, ISwitchDrawable drawable, ISwitch view)
             => drawable.DrawBackground(canvas, dirtyRect, view);

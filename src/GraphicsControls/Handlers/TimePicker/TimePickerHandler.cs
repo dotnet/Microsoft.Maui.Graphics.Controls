@@ -4,9 +4,16 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public partial class TimePickerHandler
 	{
+		readonly DrawableType _drawableType;
+
 		public TimePickerHandler() : base(DrawMapper, PropertyMapper)
 		{
 
+		}
+
+		public TimePickerHandler(DrawableType drawableType) : base(DrawMapper, PropertyMapper)
+		{
+			_drawableType = drawableType;
 		}
 
 		public static PropertyMapper<ITimePicker, TimePickerHandler> PropertyMapper = new PropertyMapper<ITimePicker, TimePickerHandler>(ViewHandler.Mapper)
@@ -36,8 +43,19 @@ namespace Microsoft.Maui.Graphics.Controls
 		public override string[] LayerDrawingOrder() =>
 			DefaultTimePickerLayerDrawingOrder;
 
-		protected override ITimePickerDrawable CreateDrawable() =>
-			new MaterialTimePickerDrawable();
+		protected override ITimePickerDrawable CreateDrawable()
+		{
+			switch (_drawableType)
+			{
+				default:
+				case DrawableType.Material:
+					return new MaterialTimePickerDrawable();
+				case DrawableType.Cupertino:
+					return new CupertinoTimePickerDrawable();
+				case DrawableType.Fluent:
+					return new FluentTimePickerDrawable();
+			}
+		}
 
 		public static void MapDrawBackground(ICanvas canvas, RectangleF dirtyRect, ITimePickerDrawable drawable, ITimePicker view)
 			=> drawable.DrawBackground(canvas, dirtyRect, view);

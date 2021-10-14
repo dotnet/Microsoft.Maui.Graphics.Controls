@@ -4,7 +4,18 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public class SliderHandler : GraphicsControlHandler<ISliderDrawable, ISlider>
 	{
+		readonly DrawableType _drawableType;
 		bool _isTracking;
+
+		public SliderHandler() : base(DrawMapper, PropertyMapper)
+		{
+
+		}
+
+		public SliderHandler(DrawableType drawableType) : base(DrawMapper, PropertyMapper)
+		{
+			_drawableType = drawableType;
+		}
 
 		public static PropertyMapper<ISlider> PropertyMapper = new PropertyMapper<ISlider>(ViewHandler.Mapper)
 		{
@@ -23,11 +34,6 @@ namespace Microsoft.Maui.Graphics.Controls
 			["Text"] = MapDrawText
 		};
 
-		public SliderHandler() : base(DrawMapper, PropertyMapper)
-		{
-
-		}
-
 		public static string[] DefaultSliderLayerDrawingOrder =
 			ViewHandler.DefaultLayerDrawingOrder.ToList().InsertAfter(new string[]
 			{
@@ -40,8 +46,19 @@ namespace Microsoft.Maui.Graphics.Controls
 		public override string[] LayerDrawingOrder() =>
 			DefaultSliderLayerDrawingOrder;
 
-		protected override ISliderDrawable CreateDrawable() =>
-			new MaterialSliderDrawable();
+		protected override ISliderDrawable CreateDrawable()
+		{
+			switch (_drawableType)
+			{
+				default:
+				case DrawableType.Material:
+					return new MaterialSliderDrawable();
+				case DrawableType.Cupertino:
+					return new CupertinoSliderDrawable();
+				case DrawableType.Fluent:
+					return new FluentSliderDrawable();
+			}
+		}
 
 		public static void MapDrawBackground(ICanvas canvas, RectangleF dirtyRect, ISliderDrawable drawable, ISlider view)
 			=> drawable.DrawBackground(canvas, dirtyRect, view);

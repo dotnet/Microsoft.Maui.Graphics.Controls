@@ -1,5 +1,5 @@
-﻿using Microsoft.Maui;
-using Microsoft.Maui.Controls.Hosting;
+﻿using Microsoft.Maui.Controls.Hosting;
+using Microsoft.Maui.Graphics.Controls;
 using Microsoft.Maui.Graphics.Controls.Hosting;
 using Microsoft.Maui.Controls.Xaml;
 using Microsoft.Maui.Hosting;
@@ -17,7 +17,7 @@ namespace GraphicsControls.Sample
 
             appBuilder
                 .UseMauiApp<App>()
-                .ConfigureGraphicsControls()
+                .ConfigureGraphicsControls(DrawableType.Material)               
                 .ConfigureMauiHandlers(handlers =>
                 {
                     handlers.AddHandler(typeof(CustomSliderDrawable), typeof(CustomSliderDrawableHandler));

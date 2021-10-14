@@ -4,6 +4,18 @@ namespace Microsoft.Maui.Graphics.Controls
 {
 	public class CheckBoxHandler : GraphicsControlHandler<ICheckBoxDrawable, ICheckBox>
 	{
+		readonly DrawableType _drawableType;
+
+		public CheckBoxHandler() : base(DrawMapper, PropertyMapper)
+		{
+
+		}
+
+		public CheckBoxHandler(DrawableType drawableType) : base(DrawMapper, PropertyMapper)
+		{
+			_drawableType = drawableType;
+		}
+
 		public static PropertyMapper<ICheckBox> PropertyMapper = new PropertyMapper<ICheckBox>(ViewHandler.Mapper)
 		{
 			[nameof(ICheckBox.IsChecked)] = ViewHandler.MapInvalidate
@@ -16,11 +28,6 @@ namespace Microsoft.Maui.Graphics.Controls
 			["Text"] = MapDrawText
 		};
 
-		public CheckBoxHandler() : base(DrawMapper, PropertyMapper)
-		{
-
-		}
-
 		public static string[] DefaultCheckBoxLayerDrawingOrder =
 			ViewHandler.DefaultLayerDrawingOrder.ToList().InsertAfter(new string[]
 			{
@@ -31,8 +38,19 @@ namespace Microsoft.Maui.Graphics.Controls
 		public override string[] LayerDrawingOrder() =>
 			DefaultCheckBoxLayerDrawingOrder;
 
-		protected override ICheckBoxDrawable CreateDrawable() =>
-			new MaterialCheckBoxDrawable();
+		protected override ICheckBoxDrawable CreateDrawable()
+		{
+			switch (_drawableType)
+			{
+				default:
+				case DrawableType.Material:
+					return new MaterialCheckBoxDrawable();
+				case DrawableType.Cupertino:
+					return new CupertinoCheckBoxDrawable();
+				case DrawableType.Fluent:
+					return new FluentCheckBoxDrawable();
+			}
+		}
 
 		public static void MapDrawBackground(ICanvas canvas, RectangleF dirtyRect, ICheckBoxDrawable drawable, ICheckBox view)
 			=> drawable.DrawBackground(canvas, dirtyRect, view);
