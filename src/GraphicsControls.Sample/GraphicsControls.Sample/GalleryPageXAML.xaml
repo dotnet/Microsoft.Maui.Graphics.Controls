@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="GraphicsControls.Sample.GalleryPageXAML"
+    BackgroundColor="{AppThemeBinding Dark={StaticResource DarkPageBackgroundColor}, Light={StaticResource LightPageBackgroundColor}}"
+    Title="XAML Gallery">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <!-- LIGHT -->
+            <Color x:Key="LightPageBackgroundColor">#FFFFFF</Color>
+            <Color x:Key="LightSectionBackgroundColor">#FAFAFA</Color>
+            <Color x:Key="LightSectionHeaderBackgroundColor">#E9E9E9</Color>
+            <Color x:Key="LightTextColor">#000000</Color>
+            
+            <!-- DARK -->
+            <Color x:Key="DarkPageBackgroundColor">#000000</Color>
+            <Color x:Key="DarkSectionBackgroundColor">#333333</Color>
+            <Color x:Key="DarkSectionHeaderBackgroundColor">#1E1E1E</Color>
+            <Color x:Key="DarkTextColor">#FFFFFF</Color>
+            
+            <Style x:Key="InfoLabel" TargetType="Label">
+                <Setter Property="FontSize" Value="9" />
+                <Setter Property="TextColor" Value="Gray" />
+            </Style>
+            
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout
+                Margin="12">
+                <!-- BUTTON -->
+                <StackLayout
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}">
+                    <Label 
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionHeaderBackgroundColor}, Light={StaticResource LightSectionHeaderBackgroundColor}}"
+                        TextColor="{AppThemeBinding Dark={StaticResource DarkTextColor}, Light={StaticResource LightTextColor}}"
+                        Text="Button"
+                        Padding="12"/>
+                    <Grid
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}"
+                        Margin="0, 6"
+                        Padding="0">
+                        <StackLayout
+                            Margin="12, 6, 12, 24">
+                            <Label Text="Default Button" Style="{StaticResource InfoLabel}"/>
+                            <Button Text="Button" />
+                            <Label Text="Disabled Button" Style="{StaticResource InfoLabel}"/>
+                            <Button Text="Disabled Button" IsEnabled="False" />
+                            <Label Text="Custom Button" Style="{StaticResource InfoLabel}"/>
+                            <Button Text="Custom Button" BackgroundColor="Red" TextColor="Yellow" />
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+                <!-- CHECKBOX -->
+                <StackLayout
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}">
+                    <Label 
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionHeaderBackgroundColor}, Light={StaticResource LightSectionHeaderBackgroundColor}}"
+                        TextColor="{AppThemeBinding Dark={StaticResource DarkTextColor}, Light={StaticResource LightTextColor}}"
+                        Text="CheckBox"
+                        Padding="12"/>
+                    <Grid
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}"
+                        Margin="0, 6"
+                        Padding="0">
+                        <StackLayout
+                            Margin="12, 6, 12, 24">
+                            <Label Text="Default Button" Style="{StaticResource InfoLabel}"/>
+                            <CheckBox IsChecked="True" />
+                            <Label Text="Disabled Button" Style="{StaticResource InfoLabel}"/>
+                            <CheckBox IsChecked="True" IsEnabled="False" />
+                            <Label Text="Custom Button" Style="{StaticResource InfoLabel}"/>
+                            <CheckBox IsChecked="True" BackgroundColor="Purple" />
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+                <!-- DATEPICKER -->
+                <StackLayout
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}">
+                    <Label 
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionHeaderBackgroundColor}, Light={StaticResource LightSectionHeaderBackgroundColor}}"
+                        TextColor="{AppThemeBinding Dark={StaticResource DarkTextColor}, Light={StaticResource LightTextColor}}"
+                        Text="DatePicker"
+                        Padding="12"/>
+                    <Grid
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}"
+                        Margin="0, 6"
+                        Padding="0">
+                        <StackLayout
+                            Margin="12, 6, 12, 24">
+                            <Label Text="Default Button" Style="{StaticResource InfoLabel}"/>
+                            <DatePicker />
+                            <Label Text="Disabled Button" Style="{StaticResource InfoLabel}"/>
+                            <DatePicker IsEnabled="False" />
+                            <Label Text="Custom Button" Style="{StaticResource InfoLabel}"/>
+                            <DatePicker BackgroundColor="LightGreen" TextColor="White" />
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+                <!-- EDITOR -->
+                <StackLayout
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}">
+                    <Label 
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionHeaderBackgroundColor}, Light={StaticResource LightSectionHeaderBackgroundColor}}"
+                        TextColor="{AppThemeBinding Dark={StaticResource DarkTextColor}, Light={StaticResource LightTextColor}}"
+                        Text="Editor"
+                        Padding="12"/>
+                    <Grid
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}"
+                        Margin="0, 6"
+                        Padding="0">
+                        <StackLayout
+                            Margin="12, 6, 12, 24">
+                            <Label Text="Default Button" Style="{StaticResource InfoLabel}"/>
+                            <Editor Placeholder="Placeholder" />
+                            <Label Text="Disabled Button" Style="{StaticResource InfoLabel}"/>
+                            <Editor Placeholder="Placeholder" IsEnabled="False" />
+                            <Label Text="Custom Button" Style="{StaticResource InfoLabel}"/>
+                            <Editor Placeholder="Placeholder" BackgroundColor="LightPink" TextColor="DeepPink" PlaceholderColor="HotPink" />
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+                <!-- ENTRY -->
+                <StackLayout
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}">
+                    <Label 
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionHeaderBackgroundColor}, Light={StaticResource LightSectionHeaderBackgroundColor}}"
+                        TextColor="{AppThemeBinding Dark={StaticResource DarkTextColor}, Light={StaticResource LightTextColor}}"
+                        Text="Entry"
+                        Padding="12"/>
+                    <Grid
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}"
+                        Margin="0, 6"
+                        Padding="0">
+                        <StackLayout
+                            Margin="12, 6, 12, 24">
+                            <Label Text="Default Button" Style="{StaticResource InfoLabel}"/>
+                            <Entry Placeholder="Placeholder" />
+                            <Label Text="Disabled Button" Style="{StaticResource InfoLabel}"/>
+                            <Entry Placeholder="Placeholder" IsEnabled="False" />
+                            <Label Text="Custom Button" Style="{StaticResource InfoLabel}"/>
+                            <Entry Placeholder="Placeholder" BackgroundColor="LightBlue" TextColor="Blue" PlaceholderColor="DarkBlue" />
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+                <!-- PROGRESSBAR -->
+                <StackLayout
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}">
+                    <Label 
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionHeaderBackgroundColor}, Light={StaticResource LightSectionHeaderBackgroundColor}}"
+                        TextColor="{AppThemeBinding Dark={StaticResource DarkTextColor}, Light={StaticResource LightTextColor}}"
+                        Text="ProgressBar"
+                        Padding="12"/>
+                    <Grid
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}"
+                        Margin="0, 6"
+                        Padding="0">
+                        <StackLayout
+                            Margin="12, 6, 12, 24">
+                            <Label Text="Default Button" Style="{StaticResource InfoLabel}"/>
+                            <ProgressBar Progress="0.5" />
+                            <Label Text="Disabled Button" Style="{StaticResource InfoLabel}"/>
+                            <ProgressBar Progress="0.5" IsEnabled="False" />
+                            <Label Text="Custom Button" Style="{StaticResource InfoLabel}"/>
+                            <ProgressBar Progress="0.5" ProgressColor="Orange" />
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+                <!-- SLIDER -->
+                <StackLayout
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}">
+                    <Label 
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionHeaderBackgroundColor}, Light={StaticResource LightSectionHeaderBackgroundColor}}"
+                        TextColor="{AppThemeBinding Dark={StaticResource DarkTextColor}, Light={StaticResource LightTextColor}}"
+                        Text="Slider"
+                        Padding="12"/>
+                    <Grid
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}"
+                        Margin="0, 6"
+                        Padding="0">
+                        <StackLayout
+                            Margin="12, 6, 12, 24">
+                            <Label Text="Default Button" Style="{StaticResource InfoLabel}"/>
+                            <Slider Minimum="0" Maximum="10" Value="5" />
+                            <Label Text="Disabled Button" Style="{StaticResource InfoLabel}"/>
+                            <Slider Minimum="0" Maximum="10" Value="5" IsEnabled="False" />
+                            <Label Text="Custom Button" Style="{StaticResource InfoLabel}"/>
+                            <Slider Minimum="0" MinimumTrackColor="Orange" Maximum="10" MaximumTrackColor="YellowGreen" Value="5" ThumbColor="BlueViolet" />
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+                <!-- STEPPER -->
+                <StackLayout
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}">
+                    <Label 
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionHeaderBackgroundColor}, Light={StaticResource LightSectionHeaderBackgroundColor}}"
+                        TextColor="{AppThemeBinding Dark={StaticResource DarkTextColor}, Light={StaticResource LightTextColor}}"
+                        Text="Stepper"
+                        Padding="12"/>
+                    <Grid
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}"
+                        Margin="0, 6"
+                        Padding="0">
+                        <StackLayout
+                            Margin="12, 6, 12, 24">
+                            <Label Text="Default Button" Style="{StaticResource InfoLabel}"/>
+                            <Stepper Minimum="0" Maximum="10" Value="5" />
+                            <Label Text="Disabled Button" Style="{StaticResource InfoLabel}"/>
+                            <Stepper Minimum="0" Maximum="10" Value="5" IsEnabled="False" />
+                            <Label Text="Custom Button" Style="{StaticResource InfoLabel}"/>
+                            <Stepper BackgroundColor="CadetBlue" Minimum="0" Maximum="10" Value="5" />
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+                <!-- SWITCH -->
+                <StackLayout
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}">
+                    <Label 
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionHeaderBackgroundColor}, Light={StaticResource LightSectionHeaderBackgroundColor}}"
+                        TextColor="{AppThemeBinding Dark={StaticResource DarkTextColor}, Light={StaticResource LightTextColor}}"
+                        Text="Switch"
+                        Padding="12"/>
+                    <Grid
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}"
+                        Margin="0, 6"
+                        Padding="0">
+                        <StackLayout
+                            Margin="12, 6, 12, 24">
+                            <Label Text="Default Button" Style="{StaticResource InfoLabel}"/>
+                            <Switch IsToggled="True" />
+                            <Label Text="Disabled Button" Style="{StaticResource InfoLabel}"/>
+                            <Switch IsToggled="True" IsEnabled="False" />
+                            <Label Text="Custom Button" Style="{StaticResource InfoLabel}"/>
+                            <Switch IsToggled="True" OnColor="YellowGreen" ThumbColor="Green" />
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+                <!-- TIMEPICKER -->
+                <StackLayout
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}">
+                    <Label 
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionHeaderBackgroundColor}, Light={StaticResource LightSectionHeaderBackgroundColor}}"
+                        TextColor="{AppThemeBinding Dark={StaticResource DarkTextColor}, Light={StaticResource LightTextColor}}"
+                        Text="TimePicker"
+                        Padding="12"/>
+                    <Grid
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}"
+                        Margin="0, 6"
+                        Padding="0">
+                        <StackLayout
+                            Margin="12, 6, 12, 24">
+                            <Label Text="Default Button" Style="{StaticResource InfoLabel}"/>
+                            <TimePicker />
+                            <Label Text="Disabled Button" Style="{StaticResource InfoLabel}"/>
+                            <TimePicker IsEnabled="False" />
+                            <Label Text="Custom Button" Style="{StaticResource InfoLabel}"/>
+                            <TimePicker BackgroundColor="LightSkyBlue" />
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -7,20 +7,16 @@ namespace GraphicsControls.Sample
 {
     public class CustomControlsPage : ContentPage
     {
-        readonly Color PageBackgroundColor = Color.FromArgb("#FFFFFF");
-        readonly Color SectionHeaderBackgroundColor = Color.FromArgb("#E9E9E9");
-        readonly Color SectionBackgroundColor = Color.FromArgb("#FAFAFA");
-
         public CustomControlsPage()
         {
-            BackgroundColor = PageBackgroundColor;
+            Title = "Customize using Microsoft.Maui.Graphics.Controls";
+
+            this.SetAppThemeColor(BackgroundColorProperty, SampleColors.LightPageBackgroundColor, SampleColors.DarkPageBackgroundColor);
 
             var scrollView = new ScrollView();
 
             var verticalStack = new StackLayout() { Margin = 12 };
             
-            verticalStack.Add(CreateHeader());
-
             verticalStack.Add(CreateDrawCustomSlider());
             //verticalStack.Add(CreateCustomSliderMapper());
             verticalStack.Add(CreateCustomSliderDrawable());
@@ -31,52 +27,31 @@ namespace GraphicsControls.Sample
             Content = scrollView;
         }
 
-        IView CreateHeader()
-        {
-            var container = new StackLayout();
-
-            container.Add(new Label
-            {
-                FontSize = 18,
-                FontAttributes = FontAttributes.Bold,
-                Text = "Customize using Microsoft.Maui.Graphics.Controls",
-                TextColor = Colors.Black,
-                Margin = new Thickness(0, 24, 0, 0)
-            });
-
-            container.Add(new Label
-            {
-                Text = "An example where learn how to customize existing controls as well as create new drawn controls.",
-                TextColor = Colors.Black
-            });
-
-            return container;
-        }
-
         IView CreateContainer(string title, View content)
         {
-            var contentContainer = new StackLayout
-            {
-                BackgroundColor = SectionBackgroundColor
-            };
+            var contentContainer = new StackLayout();
+
+            contentContainer.SetAppThemeColor(BackgroundColorProperty, SampleColors.LightSectionBackgroundColor, SampleColors.DarkSectionBackgroundColor);
 
             var header = new Label
             {
-                BackgroundColor = SectionHeaderBackgroundColor,
                 Padding = 12,
-                Text = title,
-                TextColor = Colors.Black
+                Text = title
             };
+
+            header.SetAppThemeColor(BackgroundColorProperty, SampleColors.LightSectionHeaderBackgroundColor, SampleColors.DarkSectionHeaderBackgroundColor);
+            header.SetAppThemeColor(Label.TextColorProperty, SampleColors.LightTextColor, SampleColors.DarkTextColor);
 
             contentContainer.Children.Add(header);
             contentContainer.Children.Add(content);
 
             var container = new Grid
             {
-                BackgroundColor = SectionBackgroundColor,
                 Padding = 0,
                 Margin = new Thickness(0, 6)
             };
+
+            container.SetAppThemeColor(BackgroundColorProperty, SampleColors.LightSectionBackgroundColor, SampleColors.DarkSectionBackgroundColor);
 
             container.Children.Add(contentContainer);
 
@@ -104,6 +79,7 @@ namespace GraphicsControls.Sample
             return CreateContainer("DrawCustomSlider", layout);
         }
 
+        /*
         IView CreateCustomSliderMapper()
         {
             var layout = new StackLayout
@@ -124,6 +100,7 @@ namespace GraphicsControls.Sample
 
             return CreateContainer("CustomSliderMapper", layout);
         }
+        */
 
         IView CreateCustomSliderDrawable()
         {
