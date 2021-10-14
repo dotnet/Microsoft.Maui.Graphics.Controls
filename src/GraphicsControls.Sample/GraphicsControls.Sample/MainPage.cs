@@ -18,7 +18,7 @@ namespace GraphicsControls.Sample
 
             var scrollView = new ScrollView();
 
-            var verticalStack = new StackLayout() { Margin = 12 };
+            var verticalStack = new StackLayout() { Margin = 2 };
 
             verticalStack.Add(CreateHeader());
 
@@ -44,17 +44,19 @@ namespace GraphicsControls.Sample
 
             container.Add(new Label
             {
-                FontSize = 18,
+                FontSize = 24,
                 FontAttributes = FontAttributes.Bold,
                 Text = "Introducing Microsoft.Maui.Graphics.Controls",
                 TextColor = Colors.Black,
-                Margin = new Thickness(0, 24, 0, 0)
+                Margin = new Thickness(6, 24, 6, 12)
             });
 
             container.Add(new Label
             {
+                FontSize = 16,
                 Text = "A .NET MAUI experiment that offers drawn controls allowing to choose between Cupertino, Fluent and Material.",
-                TextColor = Colors.Black
+                TextColor = Colors.Black,
+                Margin = new Thickness(6, 0)
             });
 
             return container;

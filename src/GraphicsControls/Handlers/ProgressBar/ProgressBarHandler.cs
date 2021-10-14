@@ -4,6 +4,18 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public class ProgressBarHandler : GraphicsControlHandler<IProgressBarDrawable, IProgress>
     {
+		readonly DrawableType _drawableType;
+
+		public ProgressBarHandler() : base(DrawMapper, PropertyMapper)
+		{
+
+		}
+
+		public ProgressBarHandler(DrawableType drawableType) : base(DrawMapper, PropertyMapper)
+		{
+			_drawableType = drawableType;
+		}
+
 		public static PropertyMapper<IProgress> PropertyMapper = new PropertyMapper<IProgress>(ViewHandler.Mapper)
 		{
 			[nameof(IProgress.Progress)] = ViewHandler.MapInvalidate
@@ -15,11 +27,6 @@ namespace Microsoft.Maui.Graphics.Controls
 			["Progress"] = MapDrawProgress
 		};
 
-		public ProgressBarHandler() : base(DrawMapper, PropertyMapper)
-		{
-
-		}
-
 		public static string[] DefaultProgressBarLayerDrawingOrder =
 			ViewHandler.DefaultLayerDrawingOrder.ToList().InsertAfter(new string[]
 			{
@@ -30,8 +37,19 @@ namespace Microsoft.Maui.Graphics.Controls
 		public override string[] LayerDrawingOrder() =>
 			DefaultProgressBarLayerDrawingOrder;
 
-		protected override IProgressBarDrawable CreateDrawable() =>
-			new MaterialProgressBarDrawable();
+		protected override IProgressBarDrawable CreateDrawable()
+		{
+			switch (_drawableType)
+			{
+				default:
+				case DrawableType.Material:
+					return new MaterialProgressBarDrawable();
+				case DrawableType.Cupertino:
+					return new CupertinoProgressBarDrawable();
+				case DrawableType.Fluent:
+					return new FluentProgressBarDrawable();
+			}
+		}
 
 		public static void MapDrawTrack(ICanvas canvas, RectangleF dirtyRect, IProgressBarDrawable drawable, IProgress view)
 			=> drawable.DrawTrack(canvas, dirtyRect, view);

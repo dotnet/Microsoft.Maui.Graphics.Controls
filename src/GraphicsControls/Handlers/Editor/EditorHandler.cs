@@ -6,11 +6,17 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public partial class EditorHandler
     {
+        readonly DrawableType _drawableType;
         IAnimationManager? _animationManager;
 
         public EditorHandler() : base(DrawMapper, PropertyMapper)
         {
 
+        }
+
+        public EditorHandler(DrawableType drawableType) : base(DrawMapper, PropertyMapper)
+        {
+            _drawableType = drawableType;
         }
 
         public static PropertyMapper<IEditor, EditorHandler> PropertyMapper = new PropertyMapper<IEditor, EditorHandler>(ViewHandler.Mapper)
@@ -46,8 +52,19 @@ namespace Microsoft.Maui.Graphics.Controls
         public override string[] LayerDrawingOrder() =>
             DefaultEditorLayerDrawingOrder;
 
-        protected override IEditorDrawable CreateDrawable() =>
-            new MaterialEditorDrawable();
+        protected override IEditorDrawable CreateDrawable()
+        {
+            switch (_drawableType)
+            {
+                default:
+                case DrawableType.Material:
+                    return new MaterialEditorDrawable();
+                case DrawableType.Cupertino:
+                    return new CupertinoEditorDrawable();
+                case DrawableType.Fluent:
+                    return new FluentEditorDrawable();
+            }
+        }
 
         public static void MapDrawBackground(ICanvas canvas, RectangleF dirtyRect, IEditorDrawable drawable, IEditor view)
             => drawable.DrawBackground(canvas, dirtyRect, view);

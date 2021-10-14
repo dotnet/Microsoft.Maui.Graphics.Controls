@@ -4,9 +4,16 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public partial class DatePickerHandler
 	{
+		readonly DrawableType _drawableType;
+
 		public DatePickerHandler() : base(DrawMapper, PropertyMapper)
 		{
 
+		}
+
+		public DatePickerHandler(DrawableType drawableType) : base(DrawMapper, PropertyMapper)
+		{
+			_drawableType = drawableType;
 		}
 
 		public static PropertyMapper<IDatePicker, DatePickerHandler> PropertyMapper = new PropertyMapper<IDatePicker, DatePickerHandler>(ViewHandler.Mapper)
@@ -39,8 +46,19 @@ namespace Microsoft.Maui.Graphics.Controls
 		public override string[] LayerDrawingOrder() =>
 			DefaultDatePickerLayerDrawingOrder;
 
-		protected override IDatePickerDrawable CreateDrawable() =>
-			new MaterialDatePickerDrawable();
+		protected override IDatePickerDrawable CreateDrawable()
+		{
+			switch (_drawableType)
+			{
+				default:
+				case DrawableType.Material:
+					return new MaterialDatePickerDrawable();
+				case DrawableType.Cupertino:
+					return new CupertinoDatePickerDrawable();
+				case DrawableType.Fluent:
+					return new FluentDatePickerDrawable();
+			}
+		}
 
 		public static void MapDrawBackground(ICanvas canvas, RectangleF dirtyRect, IDatePickerDrawable drawable, IDatePicker view)
 			=> drawable.DrawBackground(canvas, dirtyRect, view);
