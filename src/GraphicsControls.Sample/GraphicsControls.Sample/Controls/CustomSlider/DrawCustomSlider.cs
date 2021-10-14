@@ -31,8 +31,7 @@ namespace GraphicsControls.Sample.Controls
 
 			string valueString = VirtualView.Value.ToString("####0.00");
 
-			const float margin = 12.0f;
-			canvas.DrawString(valueString, x, y, width - margin, height, HorizontalAlignment.Right, VerticalAlignment.Top);
+			canvas.DrawString(valueString, x, y, width, height, HorizontalAlignment.Right, VerticalAlignment.Top);
 
 			canvas.RestoreState(); 
 			

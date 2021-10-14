@@ -30,7 +30,7 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout
-                Margin="12">
+                Margin="2">
                 <!-- BUTTON -->
                 <StackLayout
                     BackgroundColor="{AppThemeBinding Dark={StaticResource DarkSectionBackgroundColor}, Light={StaticResource LightSectionBackgroundColor}}">
