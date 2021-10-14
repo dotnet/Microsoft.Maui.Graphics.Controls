@@ -48,6 +48,7 @@ namespace GraphicsControls.Sample
             {
                 FontSize = 24,
                 FontAttributes = FontAttributes.Bold,
+                TextColor = SampleColors.LightTextColor,
                 Text = "Introducing Microsoft.Maui.Graphics.Controls",
                 Margin = new Thickness(0, 12)
             };
@@ -59,6 +60,7 @@ namespace GraphicsControls.Sample
             var subTitle = new Label
             {
                 FontSize = 16,
+                TextColor = SampleColors.LightTextColor,
                 Text = "A .NET MAUI experiment that offers drawn controls allowing to choose between Cupertino, Fluent and Material."
             };
 
@@ -80,6 +82,7 @@ namespace GraphicsControls.Sample
 
             var galleryInfo = new Label
             {
+                TextColor = SampleColors.LightTextColor,
                 Text = "Next, you can access a gallery where you can test all the drawn controls. The Gallery is available in both C# and XAML so feel free to explore the option you prefer."
             };
 
@@ -109,6 +112,7 @@ namespace GraphicsControls.Sample
             var cSharpLabel = new Label
             {
                 Text = "C#",
+                TextColor = SampleColors.LightSectionBackgroundColor,
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.Center
             };
@@ -134,6 +138,7 @@ namespace GraphicsControls.Sample
             var xamlLabel = new Label
             {
                 Text = "XAML",
+                TextColor = SampleColors.LightSectionBackgroundColor,
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.Center
             };
@@ -152,6 +157,7 @@ namespace GraphicsControls.Sample
 
             var customizeInfo = new Label
             {
+                TextColor = SampleColors.LightTextColor,
                 Text = "Also, there is an an example where learn how to customize existing controls as well as create new drawn controls."
             };
 
@@ -177,6 +183,7 @@ namespace GraphicsControls.Sample
             var customizeLabel = new Label
             {
                 Text = "Customize or Create custom drawn controls",
+                TextColor = SampleColors.LightSectionBackgroundColor,
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.Center
             };
@@ -201,7 +208,7 @@ namespace GraphicsControls.Sample
                 FontSize = 10,
                 Text = "Microsoft Corporation 2021",
                 HorizontalOptions = LayoutOptions.Center,
-                TextColor = Colors.Black
+                TextColor = SampleColors.LightTextColor
             };
 
             footer.SetAppThemeColor(Label.TextColorProperty, SampleColors.LightTextColor, SampleColors.DarkTextColor);

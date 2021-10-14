@@ -43,6 +43,7 @@ namespace GraphicsControls.Sample
             var header = new Label
             {
                 Padding = 12,
+                TextColor = SampleColors.LightTextColor,
                 Text = title
             };
 
