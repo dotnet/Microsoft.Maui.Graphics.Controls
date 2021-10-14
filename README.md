@@ -30,6 +30,24 @@ If you want to try it out, add the nightly feed to your [NuGet sources](https://
 </configuration>
 ```
 
+After adding the Microsoft.Maui.Graphics.Controls package, modify the MauiProgram class to register the drawn control handlers:
+
+```csharp
+public static class MauiProgram
+{
+    public static MauiApp CreateMauiApp()
+    {
+        var appBuilder = MauiApp.CreateBuilder();
+
+        appBuilder
+            .UseMauiApp<App>()
+            .ConfigureGraphicsControls());
+
+        return appBuilder.Build();
+    }
+}
+```
+
 ## What controls are available?
 
 Currently, the following controls are available:

@@ -15,7 +15,7 @@ namespace GraphicsControls.Sample
 
             var scrollView = new ScrollView();
 
-            var verticalStack = new StackLayout() { Margin = 12 };
+            var verticalStack = new StackLayout() { Margin = 2 };
             
             verticalStack.Add(CreateDrawCustomSlider());
             //verticalStack.Add(CreateCustomSliderMapper());
