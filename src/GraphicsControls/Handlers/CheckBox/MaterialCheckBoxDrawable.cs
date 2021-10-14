@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Maui.Graphics.Controls
+﻿using Microsoft.Maui.Controls;
+
+namespace Microsoft.Maui.Graphics.Controls
 {
     public class MaterialCheckBoxDrawable : ViewDrawable<ICheckBox>, ICheckBoxDrawable
     {
@@ -18,7 +20,12 @@
                 if (checkBox.IsEnabled)
                     canvas.FillColor = Material.Color.Blue.ToColor();
                 else
-                    canvas.FillColor = Material.Color.Gray3.ToColor();
+                {
+                    if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                        canvas.FillColor = Material.Color.Light.Gray3.ToColor();
+                    else
+                        canvas.FillColor = Material.Color.Dark.Gray3.ToColor();
+                }
 
                 canvas.FillRoundedRectangle(x, y, size, size, 2);
             }
@@ -27,7 +34,12 @@
                 var strokeWidth = 2;
 
                 canvas.StrokeSize = strokeWidth;
-                canvas.StrokeColor = Material.Color.Gray1.ToColor();
+
+                if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                    canvas.StrokeColor = Material.Color.Light.Gray1.ToColor();
+                else
+                    canvas.StrokeColor = Material.Color.Dark.Gray1.ToColor();
+
                 canvas.DrawRoundedRectangle(x + strokeWidth / 2, y + strokeWidth / 2, size - strokeWidth, size - strokeWidth, 2);
             }
 
@@ -48,7 +60,12 @@
                 if (VirtualView.IsEnabled)
                     canvas.StrokeColor = Material.Color.White.ToColor();
                 else
-                    canvas.StrokeColor = Material.Color.Gray1.ToColor();
+                {
+                    if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                        canvas.StrokeColor = Material.Color.Light.Gray1.ToColor();
+                    else
+                        canvas.StrokeColor = Material.Color.Dark.Gray6.ToColor();
+                }
 
                 canvas.DrawPath(path);
 

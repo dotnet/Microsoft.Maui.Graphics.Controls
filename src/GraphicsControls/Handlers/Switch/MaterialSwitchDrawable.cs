@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Animations;
+using Microsoft.Maui.Controls;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -16,13 +17,23 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.SaveState();
 
             if (view.IsOn)
-                canvas.FillColor = view.TrackColor.WithDefault(view.IsEnabled ? Material.Color.LightBlue : Material.Color.Gray4);
+            {
+                if (view.IsEnabled)
+                    canvas.FillColor = view.TrackColor.WithDefault(Material.Color.LightBlue);
+                else
+                    canvas.FillColor = view.TrackColor.WithDefault(Material.Color.Light.Gray4, Material.Color.Dark.Gray4);
+            }
             else
             {
                 if (view.Background != null)
                     canvas.SetFillPaint(view.Background, dirtyRect);
                 else
-                    canvas.FillColor = view.IsEnabled ? Material.Color.Gray2.ToColor() : Material.Color.Gray3.ToColor();
+                {
+                    if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                        canvas.FillColor = view.IsEnabled ? Material.Color.Light.Gray2.ToColor() : Material.Color.Light.Gray3.ToColor();
+                    else
+                        canvas.FillColor = view.IsEnabled ? Material.Color.Dark.Gray2.ToColor() : Material.Color.Dark.Gray3.ToColor();
+                }
             }
 
             canvas.Alpha = 1.0f.Lerp(0.5f, AnimationPercent);
@@ -45,9 +56,19 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.SaveState();
 
             if (view.IsOn)
-                canvas.FillColor = view.ThumbColor.WithDefault(view.IsEnabled ? Material.Color.Blue : Material.Color.Gray1);
+            {
+                if (view.IsEnabled)
+                    canvas.FillColor = view.ThumbColor.WithDefault(Material.Color.Blue);
+                else
+                    canvas.FillColor = view.ThumbColor.WithDefault(Material.Color.Light.Gray1, Material.Color.Dark.Gray1);
+            }
             else
-                canvas.FillColor = view.ThumbColor.WithDefault(view.IsEnabled ? Material.Color.White : Material.Color.Gray3);
+            {
+                if (view.IsEnabled)
+                    canvas.FillColor = view.ThumbColor.WithDefault(Material.Color.White, Material.Color.Black);
+                else
+                    canvas.FillColor = view.ThumbColor.WithDefault(Material.Color.Light.Gray1, Material.Color.Dark.Gray1);
+            }
 
             var margin = 2;
             var radius = 10;

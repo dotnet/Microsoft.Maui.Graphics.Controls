@@ -29,9 +29,29 @@
             public const string Gray6 = "#F2F2F7";
 
             public const string Black = "#000000";
-            public const string Dark = "#1F1F1F";
+            public const string DarkBackground = "#1F1F1F";
             public const string White = "#FFFFFF";
-            public const string Light = "#E3E3E3";
+            public const string LightBackground = "#E3E3E3"; 
+            
+            public static class Light
+            {
+                public const string Gray1 = "#8E8E93";
+                public const string Gray2 = "#C7C7CC";
+                public const string Gray3 = "#D1D1D6";
+                public const string Gray4 = "#E5E5EA";
+                public const string Gray5 = "#EFEFF4";
+                public const string Gray6 = "#F2F2F7";
+            }
+
+            public static class Dark
+            {
+                public const string Gray1 = "#121212";
+                public const string Gray2 = "#1e1e1e";
+                public const string Gray3 = "#222222";
+                public const string Gray4 = "#242424";
+                public const string Gray5 = "#272727";
+                public const string Gray6 = "#2c2c2c";
+            }
         }
 
         public static class Font

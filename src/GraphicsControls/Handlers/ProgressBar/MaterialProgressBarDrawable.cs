@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Maui.Graphics.Controls
+﻿using Microsoft.Maui.Controls;
+
+namespace Microsoft.Maui.Graphics.Controls
 {
     public class MaterialProgressBarDrawable : ViewDrawable<IProgress>, IProgressBarDrawable
     {
@@ -11,7 +13,12 @@
             if (progressBar.IsEnabled)
                 canvas.FillColor = Material.Color.Blue.ToColor();
             else
-                canvas.FillColor = Material.Color.Gray3.ToColor();
+            {
+                if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                    canvas.FillColor = Material.Color.Light.Gray3.ToColor();
+                else
+                    canvas.FillColor = Material.Color.Dark.Gray6.ToColor();
+            }
 
             var x = dirtyRect.X;
             var y = (float)((dirtyRect.Height - MaterialTrackHeight) / 2);
@@ -30,7 +37,12 @@
             if (progressBar.Background != null)
                 canvas.SetFillPaint(progressBar.Background, dirtyRect);
             else
-                canvas.FillColor = Fluent.Color.Background.NeutralLight.ToColor();
+            {
+                if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                    canvas.FillColor = Fluent.Color.Background.NeutralLight.ToColor();
+                else
+                    canvas.FillColor = Fluent.Color.Background.NeutralDark.ToColor();
+            }
 
             var x = dirtyRect.X;
             var y = (float)((dirtyRect.Height - MaterialTrackHeight) / 2);
