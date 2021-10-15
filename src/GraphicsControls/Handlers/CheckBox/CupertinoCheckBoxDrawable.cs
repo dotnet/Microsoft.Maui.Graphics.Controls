@@ -15,7 +15,12 @@
 
             if (checkBox.IsChecked)
             {
-                canvas.FillColor = checkBox.IsEnabled ? Cupertino.Color.SystemColor.Light.Blue.ToColor() : Cupertino.Color.SystemGray.Light.InactiveGray.ToColor();
+                Color fillColor = checkBox.IsEnabled ? Cupertino.Color.SystemColor.Light.Blue.ToColor() : Cupertino.Color.SystemGray.Light.InactiveGray.ToColor();
+
+                if (checkBox.Foreground is SolidPaint solidPaint)
+                    fillColor = solidPaint.Color;
+
+                canvas.FillColor = fillColor;
                 canvas.FillEllipse(x, y, size, size);
             }
             else

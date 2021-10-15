@@ -107,7 +107,7 @@ namespace GraphicsControls.Sample
             layout.Children.Add(new CheckBox { IsEnabled = false, IsChecked = true });
 
             layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "Custom" });
-            layout.Children.Add(new CheckBox { BackgroundColor = Colors.Purple, IsChecked = true });
+            layout.Children.Add(new CheckBox { Color = Colors.Purple, IsChecked = true });
 
             return CreateContainer("CheckBox", layout);
         }

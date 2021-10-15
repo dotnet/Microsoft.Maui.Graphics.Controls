@@ -16,7 +16,14 @@
             if (checkBox.IsChecked)
             {
                 if (checkBox.IsEnabled)
-                    canvas.FillColor = Fluent.Color.Primary.ThemePrimary.ToColor();
+                {
+                    Color fillColor = Fluent.Color.Primary.ThemePrimary.ToColor();
+
+                    if (checkBox.Foreground is SolidPaint solidPaint)
+                        fillColor = solidPaint.Color;
+
+                    canvas.FillColor = fillColor;
+                }
                 else
                     canvas.FillColor = Fluent.Color.Background.NeutralQuaternaryAlt.ToColor();
 

@@ -18,7 +18,14 @@ namespace Microsoft.Maui.Graphics.Controls
             if (checkBox.IsChecked)
             {
                 if (checkBox.IsEnabled)
-                    canvas.FillColor = Material.Color.Blue.ToColor();
+                {
+                    Color fillColor = Material.Color.Blue.ToColor();
+
+                    if (checkBox.Foreground is SolidPaint solidPaint)
+                        fillColor = solidPaint.Color;
+
+                    canvas.FillColor = fillColor;
+                }
                 else
                 {
                     if (Application.Current?.RequestedTheme == OSAppTheme.Light)
