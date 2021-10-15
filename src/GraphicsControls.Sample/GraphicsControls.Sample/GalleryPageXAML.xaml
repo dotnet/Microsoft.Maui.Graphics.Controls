@@ -73,7 +73,7 @@
                             <Label Text="Disabled Button" Style="{StaticResource InfoLabel}"/>
                             <CheckBox IsChecked="True" IsEnabled="False" />
                             <Label Text="Custom Button" Style="{StaticResource InfoLabel}"/>
-                            <CheckBox IsChecked="True" BackgroundColor="Purple" />
+                            <CheckBox IsChecked="True" Color="Purple" />
                         </StackLayout>
                     </Grid>
                 </StackLayout>
