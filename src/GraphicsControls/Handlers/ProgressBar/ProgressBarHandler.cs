@@ -18,7 +18,8 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public static PropertyMapper<IProgress> PropertyMapper = new PropertyMapper<IProgress>(ViewHandler.Mapper)
 		{
-			[nameof(IProgress.Progress)] = ViewHandler.MapInvalidate
+			[nameof(IProgress.Progress)] = ViewHandler.MapInvalidate,
+			[nameof(IProgress.ProgressColor)] = ViewHandler.MapInvalidate
 		};
 
 		public static DrawMapper<IProgressBarDrawable, IProgress> DrawMapper = new DrawMapper<IProgressBarDrawable, IProgress>(ViewHandler.DrawMapper)

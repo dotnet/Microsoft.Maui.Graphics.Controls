@@ -8,7 +8,7 @@
         {
             canvas.SaveState();
 
-            canvas.FillColor = Fluent.Color.Primary.ThemePrimary.ToColor();
+            canvas.FillColor = progressBar.ProgressColor.WithDefault(Fluent.Color.Primary.ThemePrimary);
 
             var x = dirtyRect.X;
             var y = (float)((dirtyRect.Height - FluentTrackHeight) / 2);
