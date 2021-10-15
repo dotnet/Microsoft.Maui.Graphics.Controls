@@ -50,7 +50,7 @@ namespace Microsoft.Maui.Graphics.Controls
                 }
             }
 
-            return base.OnTouchEvent(e);
+            return true;
         }
     }
 }
