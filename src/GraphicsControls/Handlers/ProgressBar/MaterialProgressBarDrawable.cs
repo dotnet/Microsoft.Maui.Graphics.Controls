@@ -11,7 +11,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.SaveState();
 
             if (progressBar.IsEnabled)
-                canvas.FillColor = Material.Color.Blue.ToColor();
+                canvas.FillColor = progressBar.ProgressColor.WithDefault(Material.Color.Blue);
             else
             {
                 if (Application.Current?.RequestedTheme == OSAppTheme.Light)

@@ -8,7 +8,7 @@
         {
             canvas.SaveState();
 
-            canvas.FillColor = progressBar.IsEnabled ? Cupertino.Color.SystemColor.Light.Blue.ToColor() : Cupertino.Color.SystemGray.Light.InactiveGray.ToColor();
+            canvas.FillColor = progressBar.ProgressColor.WithDefault(progressBar.IsEnabled ? Cupertino.Color.SystemColor.Light.Blue : Cupertino.Color.SystemGray.Light.InactiveGray);
 
             var x = dirtyRect.X;
             var y = (float)((dirtyRect.Height - CupertinoTrackHeight) / 2);
