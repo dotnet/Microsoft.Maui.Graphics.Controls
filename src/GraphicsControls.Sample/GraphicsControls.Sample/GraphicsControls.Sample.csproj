@@ -17,7 +17,7 @@
 		<ApplicationId>com.companyname.GraphicsControls.Sample</ApplicationId>
 
 		<!-- Versions -->
-		<ApplicationVersion>1.0</ApplicationVersion>
+		<ApplicationVersion>1</ApplicationVersion>
 		<AndroidVersionCode>1</AndroidVersionCode>
 	</PropertyGroup>
 

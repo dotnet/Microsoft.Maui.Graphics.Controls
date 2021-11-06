@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using System;
+using WSize = Windows.Foundation.Size;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -124,7 +125,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
             W2DGraphicsService.ThreadLocalCreator = sender;
             _canvas.Session = args.DrawingSession;
-            _canvas.CanvasSize = new Windows.Foundation.Size(_dirty.Width, _dirty.Height);
+            _canvas.CanvasSize = new WSize(_dirty.Width, _dirty.Height);
             _drawable.Draw(_canvas, _dirty);
             W2DGraphicsService.ThreadLocalCreator = null;
         }
