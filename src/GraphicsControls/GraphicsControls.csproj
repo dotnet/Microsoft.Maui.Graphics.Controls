@@ -1,10 +1,10 @@
-<Project Sdk="MSBuild.Sdk.Extras">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
 	<PropertyGroup>
     <TargetFrameworks>net6.0-ios;net6.0-android;net6.0-maccatalyst;net6.0-windows10.0.19041</TargetFrameworks>
     <RootNamespace>Microsoft.Maui.Graphics.Controls</RootNamespace>	
     <AssemblyName>Microsoft.Maui.Graphics.Controls</AssemblyName>
     <LangVersion>8.0</LangVersion>
-		<Nullable>enable</Nullable>
+	<Nullable>enable</Nullable>
     <UseMaui>true</UseMaui>
     <SingleProject>true</SingleProject>
   </PropertyGroup>
