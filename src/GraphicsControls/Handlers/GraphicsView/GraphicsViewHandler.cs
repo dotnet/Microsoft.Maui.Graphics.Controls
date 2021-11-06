@@ -4,12 +4,18 @@
     {
 		public static IPropertyMapper<IGraphicsView, GraphicsViewHandler> GraphicsViewMapper = new PropertyMapper<IGraphicsView, GraphicsViewHandler>(ViewMapper);
 
-		public GraphicsViewHandler() : base(GraphicsViewMapper)
+		public static CommandMapper<IGraphicsView, GraphicsViewHandler> GraphicsViewCommandMapper = new CommandMapper<IGraphicsView, GraphicsViewHandler>(ViewCommandMapper)
+		{
+			[nameof(IGraphicsView.Invalidate)] = MapInvalidate
+		};
+
+		public GraphicsViewHandler() : base(GraphicsViewMapper, GraphicsViewCommandMapper)
 		{
 
 		}
 
-		public GraphicsViewHandler(IPropertyMapper mapper) : base(mapper ?? GraphicsViewMapper)
+		public GraphicsViewHandler(IPropertyMapper? mapper = null, CommandMapper? commandMapper = null)
+			: base(mapper ?? GraphicsViewMapper, commandMapper ?? GraphicsViewCommandMapper)
 		{
 
 		}

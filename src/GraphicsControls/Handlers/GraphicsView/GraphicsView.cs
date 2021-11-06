@@ -25,7 +25,12 @@ namespace Microsoft.Maui.Graphics.Controls
         [EditorBrowsable(EditorBrowsableState.Never)]
         public event EventHandler Invalidated;
 
-        public void InvalidateDraw() => Invalidated?.Invoke(this, EventArgs.Empty);
+        public void Invalidate()
+        {
+            Handler?.Invoke(nameof(IGraphicsView.Invalidate));
+            
+            Invalidated?.Invoke(this, EventArgs.Empty);
+        }
 
         public virtual void Draw(ICanvas canvas, RectangleF dirtyRect)
         {
@@ -76,14 +81,14 @@ namespace Microsoft.Maui.Graphics.Controls
         {
             GraphicsLayers.Add(layer);
 
-            InvalidateDraw();
+            Invalidate();
         }
 
         public void AddLayer(int index, string layer)
         {
             GraphicsLayers.Insert(index, layer);
 
-            InvalidateDraw();
+            Invalidate();
         }
 
         public void RemoveLayer(string layerName)
@@ -94,7 +99,7 @@ namespace Microsoft.Maui.Graphics.Controls
                 {
                     GraphicsLayers.RemoveAt(i);
 
-                    InvalidateDraw();
+                    Invalidate();
 
                     break;
                 }
@@ -105,7 +110,7 @@ namespace Microsoft.Maui.Graphics.Controls
         {
             GraphicsLayers.RemoveAt(index);
 
-            InvalidateDraw();
+            Invalidate();
         }
     }
 }

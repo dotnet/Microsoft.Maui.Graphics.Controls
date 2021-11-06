@@ -34,6 +34,11 @@ namespace Microsoft.Maui.Graphics.Controls
             nativeView.ViewDetachedFromWindow -= OnViewDetachedFromWindow; 
             nativeView.Touch -= OnTouch;
         }
+        
+        public static void MapInvalidate(GraphicsViewHandler handler, IGraphicsView graphicsView, object? arg)
+        {
+            handler.NativeView?.Invalidate();
+        }
 
         void OnViewAttachedToWindow(object? sender, View.ViewAttachedToWindowEventArgs e)
         {

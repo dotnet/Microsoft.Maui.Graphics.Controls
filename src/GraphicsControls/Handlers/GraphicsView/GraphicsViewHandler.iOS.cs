@@ -108,6 +108,11 @@ namespace Microsoft.Maui.Graphics.Controls
             nativeView.TouchMove -= OnTouchMove;
             nativeView.TouchUp -= OnTouchUp;
         }
+        
+        public static void MapInvalidate(GraphicsViewHandler handler, IGraphicsView graphicsView, object? arg)
+        {
+            handler.NativeView?.InvalidateDrawable();
+        }
 
         void OnViewLoadedObserver(NSObservedChange nSObservedChange)
         {

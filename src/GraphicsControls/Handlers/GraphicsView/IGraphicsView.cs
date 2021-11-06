@@ -11,6 +11,8 @@ namespace Microsoft.Maui.Graphics.Controls
         event EventHandler TouchMove;
         event EventHandler TouchUp;
 
+        void Invalidate();
+
         void Load();
         void Unload();
 
