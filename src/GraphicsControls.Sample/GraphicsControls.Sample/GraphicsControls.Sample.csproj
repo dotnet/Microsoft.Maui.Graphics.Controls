@@ -10,7 +10,8 @@
 		<SingleProject>true</SingleProject>
 		<RootNamespace>GraphicsControls.Sample</RootNamespace>
 		<EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
-
+		<WindowsPackageType>MSIX</WindowsPackageType>
+		
 		<!-- Display name -->
 		<ApplicationTitle>GraphicsControls.Sample</ApplicationTitle>
 
@@ -47,13 +48,13 @@
 	
 	<ItemGroup Condition="$(TargetFramework.Contains('-windows'))">
 		<!-- Required - WinUI does not yet have buildTransitive for everything -->
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0-preview3" />
+		<PackageReference Include="Microsoft.WindowsAppSDK" />
 		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.0.29-preview3" />
 	</ItemGroup>
 
 	<PropertyGroup Condition="$(TargetFramework.Contains('-windows'))">
 		<OutputType>WinExe</OutputType>
-		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+		<RuntimeIdentifier>win10-x64</RuntimeIdentifier>
 	</PropertyGroup>
 
 	<ItemGroup>
