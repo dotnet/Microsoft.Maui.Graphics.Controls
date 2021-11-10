@@ -20,7 +20,6 @@ namespace Microsoft.Maui.Graphics.Controls
 		public static PropertyMapper<ISlider> PropertyMapper = new PropertyMapper<ISlider>(ViewHandler.Mapper)
 		{
 			[nameof(ISlider.Value)] = ViewHandler.MapInvalidate,
-			[nameof(ISlider.Value)] = ViewHandler.MapInvalidate,
 			[nameof(ISlider.ThumbColor)] = ViewHandler.MapInvalidate,
 			[nameof(ISlider.MaximumTrackColor)] = ViewHandler.MapInvalidate,
 			[nameof(ISlider.MinimumTrackColor)] = ViewHandler.MapInvalidate,

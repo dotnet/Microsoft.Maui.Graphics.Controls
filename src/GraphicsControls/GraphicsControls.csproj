@@ -4,7 +4,7 @@
     <RootNamespace>Microsoft.Maui.Graphics.Controls</RootNamespace>	
     <AssemblyName>Microsoft.Maui.Graphics.Controls</AssemblyName>
     <LangVersion>8.0</LangVersion>
-		<Nullable>enable</Nullable>
+    <Nullable>enable</Nullable>
     <UseMaui>true</UseMaui>
     <SingleProject>true</SingleProject>
   </PropertyGroup>
