@@ -20,6 +20,7 @@ namespace GraphicsControls.Sample
             verticalStack.Add(CreateDrawCustomSlider());
             //verticalStack.Add(CreateCustomSliderMapper());
             verticalStack.Add(CreateCustomSliderDrawable());
+            verticalStack.Add(CreateColorPicker());
             verticalStack.Add(CreatePersona());
 
             scrollView.Content = verticalStack;
@@ -122,6 +123,25 @@ namespace GraphicsControls.Sample
             layout.Children.Add(customSliderMapper);
 
             return CreateContainer("CustomSliderDrawable", layout);
+        }
+
+        IView CreateColorPicker()
+        {
+            var layout = new StackLayout
+            {
+                Margin = new Thickness(12, 6, 12, 24)
+            };
+
+            layout.Children.Add(new Label { FontSize = 9, TextColor = Colors.Gray, Text = "ColorPicker" });
+
+            var colorPicker = new ColorPicker
+            {
+                Margin = new Thickness(0, 6)
+            };
+
+            layout.Children.Add(colorPicker);
+
+            return CreateContainer("ColorPicker", layout);
         }
 
         IView CreatePersona()

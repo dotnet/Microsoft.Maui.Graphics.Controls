@@ -32,6 +32,11 @@ namespace Microsoft.Maui.Graphics.Controls
             nativeView.PointerReleased -= OnPointerReleased;
             nativeView.PointerCanceled -= OnPointerCanceled;
         }
+        
+        public static void MapInvalidate(GraphicsViewHandler handler, IGraphicsView graphicsView, object? arg)
+        {
+            handler.NativeView?.Invalidate();
+        }
 
         void OnPointerPressed(object sender, PointerRoutedEventArgs e)
         {
