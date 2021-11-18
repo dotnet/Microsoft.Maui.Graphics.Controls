@@ -70,7 +70,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public static void MapCharacterSpacing(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateIsPassword(entry);
+            handler.NativeView?.UpdateCharacterSpacing(entry);
         }
 
         [MissingMapper]

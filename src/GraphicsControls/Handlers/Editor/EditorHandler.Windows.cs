@@ -1,34 +1,83 @@
-﻿namespace Microsoft.Maui.Graphics.Controls
+﻿using Microsoft.UI.Xaml;
+
+namespace Microsoft.Maui.Graphics.Controls
 {
     public partial class EditorHandler : MixedGraphicsControlHandler<IEditorDrawable, IEditor, GraphicsEditor>
     {
-		protected override GraphicsEditor CreateNativeView()
-		{
-			return new GraphicsEditor { GraphicsControl = this };
-		}
+        protected override GraphicsEditor CreateNativeView()
+        {
+            return new GraphicsEditor { GraphicsControl = this };
+        }
 
-		[MissingMapper]
-		public static void MapText(EditorHandler handler, IEditor editor) { }
+        protected override void ConnectHandler(GraphicsEditor nativeView)
+        {
+            if (nativeView.TextBox != null)
+            {
+                nativeView.TextBox.TextChanged += OnTextChanged;
+                nativeView.LostFocus += OnLostFocus;
+            }
 
-		[MissingMapper]
-		public static void MapTextColor(EditorHandler handler, IEditor editor) { }
+            base.ConnectHandler(nativeView);
+        }
 
-		[MissingMapper]
-		public static void MapCharacterSpacing(EditorHandler handler, IEditor editor) { }
+        protected override void DisconnectHandler(GraphicsEditor nativeView)
+        {
+            if (nativeView.TextBox != null)
+            {
+                nativeView.TextBox.TextChanged -= OnTextChanged;
+                nativeView.TextBox.LostFocus -= OnLostFocus;
+            }
 
-		[MissingMapper]
-		public static void MapFont(EditorHandler handler, IEditor editor) { }
+            base.DisconnectHandler(nativeView);
+        }
 
-		[MissingMapper]
-		public static void MapIsReadOnly(EditorHandler handler, IEditor editor) { }
+        public static void MapText(EditorHandler handler, IEditor editor)
+        {
+            handler.NativeView?.TextBox?.UpdateText(editor);
+            (handler as IMixedGraphicsHandler)?.Invalidate();
+        }
 
-		[MissingMapper]
-		public static void MapIsTextPredictionEnabled(EditorHandler handler, IEditor editor) { }
+        public static void MapTextColor(EditorHandler handler, IEditor editor)
+        {
+            handler.NativeView?.TextBox?.UpdateTextColor(editor);
+        }
 
-		[MissingMapper]
-		public static void MapMaxLength(EditorHandler handler, IEditor editor) { }
+        public static void MapCharacterSpacing(EditorHandler handler, IEditor editor)
+        {
+            handler.NativeView?.TextBox?.UpdateCharacterSpacing(editor);
+        }
 
-		[MissingMapper]
-		public static void MapKeyboard(EditorHandler handler, IEditor editor) { }
-	}
+        [MissingMapper]
+        public static void MapFont(EditorHandler handler, IEditor editor) { }
+
+        public static void MapIsReadOnly(EditorHandler handler, IEditor editor)
+        {
+            handler.NativeView?.TextBox?.UpdateIsReadOnly(editor);
+        }
+
+        public static void MapIsTextPredictionEnabled(EditorHandler handler, IEditor editor)
+        {
+            handler.NativeView?.TextBox?.UpdateIsTextPredictionEnabled(editor);
+        }
+
+        public static void MapMaxLength(EditorHandler handler, IEditor editor)
+        {
+            handler.NativeView?.TextBox?.UpdateMaxLength(editor);
+        }
+
+        public static void MapKeyboard(EditorHandler handler, IEditor editor)
+        {
+            handler.NativeView?.TextBox?.UpdateKeyboard(editor);
+        }
+
+        void OnTextChanged(object sender, UI.Xaml.Controls.TextChangedEventArgs args)
+        {
+            VirtualView?.UpdateText(NativeView.TextBox?.Text);
+        }
+
+        void OnLostFocus(object? sender, RoutedEventArgs e)
+        {
+            VirtualView?.Completed();
+        }
+    }
 }

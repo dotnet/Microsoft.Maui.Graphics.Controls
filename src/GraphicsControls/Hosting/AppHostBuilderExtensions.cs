@@ -2,6 +2,7 @@
 using Microsoft.Maui.Hosting;
 using System;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Maui.LifecycleEvents;
 
 #if __ANDROID__ || __IOS__ || MACCATALYST
 using Microsoft.Maui.Graphics.Native;
@@ -21,10 +22,26 @@ namespace Microsoft.Maui.Graphics.Controls.Hosting
             GraphicsPlatform.RegisterGlobalService(W2DGraphicsService.Instance);
 #endif
 
-            builder.ConfigureMauiHandlers(handlers =>
-            {
-                handlers.AddGraphicsControlsHandlers(drawableType);
-            });
+            builder
+                .ConfigureMauiHandlers(handlers =>
+                {
+                    handlers.AddGraphicsControlsHandlers(drawableType);
+                })
+                .ConfigureLifecycleEvents(lifecycle =>
+                {
+#if WINDOWS
+					lifecycle
+						.AddWindows(windows => windows
+							.OnLaunched((app, e) =>
+						{
+                            // Register Windows Resource Dictionaries
+                        	MauiWinUIApplication.Current.Resources.MergedDictionaries.Add(new UI.Xaml.ResourceDictionary
+                            {
+                                 Source = new Uri("/Microsoft.Maui.Graphics.Controls;component/Platform/Windows/Styles/Resources.xaml", UriKind.RelativeOrAbsolute)
+                            });
+                        }));
+#endif
+                });
 
             return builder;
         }

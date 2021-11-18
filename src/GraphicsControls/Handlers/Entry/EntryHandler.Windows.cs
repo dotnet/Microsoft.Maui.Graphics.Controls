@@ -1,52 +1,144 @@
-﻿namespace Microsoft.Maui.Graphics.Controls
+﻿using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
+using System;
+using Windows.System;
+
+namespace Microsoft.Maui.Graphics.Controls
 {
     public partial class EntryHandler : MixedGraphicsControlHandler<IEntryDrawable, IEntry, GraphicsEntry>
-	{
-		protected override GraphicsEntry CreateNativeView()
-		{
-			return new GraphicsEntry() { GraphicsControl = this };
-		}
+    {
+        protected override GraphicsEntry CreateNativeView()
+        {
+            return new GraphicsEntry() { GraphicsControl = this };
+        }
 
-		[MissingMapper]
-		public static void MapText(EntryHandler handler, IEntry entry) { }
+        protected override void ConnectHandler(GraphicsEntry nativeView)
+        {
+            if (nativeView.TextBox != null)
+            {
+                nativeView.TextBox.KeyUp += OnNativeKeyUp;
+                nativeView.TextBox.TextChanged += TextChanged;
+                nativeView.TextBox.CursorPositionChanged += OnCursorPositionChanged;
+                nativeView.TextBox.SelectionLengthChanged += OnSelectionLengthChanged;
+            }
 
-		[MissingMapper]
-		public static void MapCharacterSpacing(EntryHandler handler, IEntry entry) { }
+            base.ConnectHandler(nativeView);
+        }
 
-		[MissingMapper]
-		public static void MapClearButtonVisibility(EntryHandler handler, IEntry entry) { }
+        protected override void DisconnectHandler(GraphicsEntry nativeView)
+        {
+            if (nativeView.TextBox != null)
+            {
+                nativeView.TextBox.KeyUp -= OnNativeKeyUp;
+                nativeView.TextBox.TextChanged -= TextChanged;
+                nativeView.TextBox.CursorPositionChanged -= OnCursorPositionChanged;
+                nativeView.TextBox.SelectionLengthChanged -= OnSelectionLengthChanged;
+            }
 
-		[MissingMapper]
-		public static void MapFont(EntryHandler handler, IEntry entry) { }
+            base.DisconnectHandler(nativeView);
+        }
 
-		[MissingMapper]
-		public static void MapHorizontalTextAlignment(EntryHandler handler, IEntry entry) { }
+        public static void MapText(EntryHandler handler, IEntry entry)
+        {
+            handler.NativeView?.TextBox?.UpdateText(entry);
+            (handler as IMixedGraphicsHandler)?.Invalidate();
+        }
 
-		[MissingMapper]
-		public static void MapIsPassword(EntryHandler handler, IEntry entry) { }
+        public static void MapCharacterSpacing(EntryHandler handler, IEntry entry)
+        {
+            handler.NativeView?.TextBox?.UpdateCharacterSpacing(entry);
+        }
 
-		[MissingMapper]
-		public static void MapIsReadOnly(EntryHandler handler, IEntry entry) { }
+        public static void MapClearButtonVisibility(EntryHandler handler, IEntry entry)
+        {
+            handler.NativeView?.TextBox?.UpdateClearButtonVisibility(entry);
+        }
 
-		[MissingMapper]
-		public static void MapIsTextPredictionEnabled(EntryHandler handler, IEntry entry) { }
+        [MissingMapper]
+        public static void MapFont(EntryHandler handler, IEntry entry) { }
 
-		[MissingMapper]
-		public static void MapKeyboard(EntryHandler handler, IEntry entry) { }
+        public static void MapHorizontalTextAlignment(EntryHandler handler, IEntry entry)
+        {
+            handler.NativeView?.TextBox?.UpdateHorizontalTextAlignment(entry);
+        }
 
-		[MissingMapper]
-		public static void MapMaxLength(EntryHandler handler, IEntry entry) { }
+        public static void MapIsPassword(EntryHandler handler, IEntry entry)
+        {
+            handler.NativeView?.TextBox?.UpdateIsPassword(entry);
+        }
 
-		[MissingMapper]
-		public static void MapReturnType(EntryHandler handler, IEntry entry) { }
+        public static void MapIsReadOnly(EntryHandler handler, IEntry entry)
+        {
+            handler.NativeView?.TextBox?.UpdateIsReadOnly(entry);
+        }
 
-		[MissingMapper]
-		public static void MapTextColor(EntryHandler handler, IEntry entry) { }
+        public static void MapIsTextPredictionEnabled(EntryHandler handler, IEntry entry)
+        {
+            handler.NativeView?.TextBox?.UpdateIsTextPredictionEnabled(entry);
+        }
 
-		[MissingMapper]
-		public static void MapCursorPosition(EntryHandler handler, IEntry entry) { }
+        public static void MapKeyboard(EntryHandler handler, IEntry entry)
+        {
+            handler.NativeView?.TextBox?.UpdateKeyboard(entry);
+        }
 
-		[MissingMapper]
-		public static void MapSelectionLength(EntryHandler handler, IEntry entry) { }
-	}
+        public static void MapMaxLength(EntryHandler handler, IEntry entry)
+        {
+            handler.NativeView?.TextBox?.UpdateMaxLength(entry);
+        }
+
+        public static void MapReturnType(EntryHandler handler, IEntry entry)
+        {
+            handler.NativeView?.TextBox?.UpdateReturnType(entry);
+        }
+
+        public static void MapTextColor(EntryHandler handler, IEntry entry)
+        {
+            handler.NativeView?.TextBox?.UpdateTextColor(entry);
+        }
+
+        [MissingMapper]
+        public static void MapCursorPosition(EntryHandler handler, IEntry entry) { }
+
+        [MissingMapper]
+        public static void MapSelectionLength(EntryHandler handler, IEntry entry) { }
+
+        void OnNativeKeyUp(object? sender, KeyRoutedEventArgs args)
+        {
+            if (args?.Key != VirtualKey.Enter)
+                return;
+
+            if (VirtualView?.ReturnType == ReturnType.Next)
+            {
+                NativeView?.TryMoveFocus(FocusNavigationDirection.Next);
+            }
+            else
+            {
+                // TODO: Hide the soft keyboard; this matches the behavior of .NET MAUI on Android/iOS
+            }
+
+            VirtualView?.Completed();
+        }
+
+        void TextChanged(object sender, TextChangedEventArgs args)
+        {
+            VirtualView?.UpdateText(NativeView.TextBox?.Text);
+        }
+
+        void OnCursorPositionChanged(object? sender, EventArgs e)
+        {
+            if (NativeView.TextBox == null)
+                return;
+
+            VirtualView.CursorPosition = NativeView.TextBox.CursorPosition;
+        }
+
+        void OnSelectionLengthChanged(object? sender, EventArgs e)
+        {
+            if (NativeView.TextBox == null)
+                return;
+
+            VirtualView.SelectionLength = NativeView.TextBox.ViewSelectionLength;
+        }
+    }
 }

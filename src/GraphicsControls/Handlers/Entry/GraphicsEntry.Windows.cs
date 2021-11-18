@@ -10,14 +10,23 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public class GraphicsEntry : UserControl, IMixedNativeView
     {
-        CanvasControl? _canvasControl;
-        readonly W2DCanvas _canvas = new W2DCanvas();
+        MauiTextBox _textBox;
+        readonly W2DCanvas _canvas;
+        
+        CanvasControl? _canvasControl; 
         IMixedGraphicsHandler? _graphicsControl;
         IDrawable? _drawable;
         RectangleF _dirty;
 
         public GraphicsEntry()
         {
+            _textBox = new MauiTextBox
+            {
+                Style = Application.Current.Resources["GraphicsMauiTextBoxStyle"] as Style
+            };
+
+            _canvas = new W2DCanvas();
+
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
             PointerPressed += OnPointerPressed;
@@ -39,6 +48,12 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
+        public MauiTextBox? TextBox
+        {
+            get => _textBox;
+            set => _textBox = value;
+        }
+
         static readonly string[] DefaultNativeLayers = new[] { nameof(IEntry.Text) };
 
         public string[] NativeLayers => DefaultNativeLayers;
@@ -52,9 +67,17 @@ namespace Microsoft.Maui.Graphics.Controls
 
         void OnLoaded(object sender, RoutedEventArgs e)
         {
+            Grid content = new Grid();
+
             _canvasControl = new CanvasControl();
             _canvasControl.Draw += OnDraw;
-            Content = _canvasControl;
+
+            content.Children.Add(_canvasControl);
+            content.Children.Add(_textBox);
+
+            Content = content;
+
+            Invalidate();
         }
 
         void OnUnloaded(object sender, RoutedEventArgs e)
@@ -62,6 +85,7 @@ namespace Microsoft.Maui.Graphics.Controls
             // Explicitly remove references to allow the Win2D controls to get garbage collected
             if (_canvasControl != null)
             {
+                _canvasControl.Draw -= OnDraw;
                 _canvasControl.RemoveFromVisualTree();
                 _canvasControl = null;
             }
