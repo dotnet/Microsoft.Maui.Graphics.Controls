@@ -9,13 +9,27 @@ namespace Microsoft.Maui.Graphics.Controls
     {
         protected override GraphicsEntry CreateNativeView()
         {
-            return new GraphicsEntry() { GraphicsControl = this };
+            UI.Xaml.Thickness margin;
+
+            // TODO: Set the correct margin in every Drawable.
+            if (Drawable is MaterialEntryDrawable)
+                margin = new UI.Xaml.Thickness();
+            else if (Drawable is FluentEntryDrawable)
+                margin = new UI.Xaml.Thickness();
+            else if (Drawable is CupertinoEntryDrawable)
+                margin = new UI.Xaml.Thickness();
+            else
+                margin = new UI.Xaml.Thickness();
+
+            return new GraphicsEntry() { GraphicsControl = this, Margin = margin };
         }
 
         protected override void ConnectHandler(GraphicsEntry nativeView)
         {
             if (nativeView.TextBox != null)
             {
+                nativeView.TextBox.GotFocus += OnFocusChanged;
+                nativeView.TextBox.LostFocus += OnFocusChanged;
                 nativeView.TextBox.KeyUp += OnNativeKeyUp;
                 nativeView.TextBox.TextChanged += TextChanged;
                 nativeView.TextBox.CursorPositionChanged += OnCursorPositionChanged;
@@ -29,6 +43,8 @@ namespace Microsoft.Maui.Graphics.Controls
         {
             if (nativeView.TextBox != null)
             {
+                nativeView.TextBox.GotFocus -= OnFocusChanged;
+                nativeView.TextBox.LostFocus -= OnFocusChanged;
                 nativeView.TextBox.KeyUp -= OnNativeKeyUp;
                 nativeView.TextBox.TextChanged -= TextChanged;
                 nativeView.TextBox.CursorPositionChanged -= OnCursorPositionChanged;
@@ -103,6 +119,16 @@ namespace Microsoft.Maui.Graphics.Controls
         [MissingMapper]
         public static void MapSelectionLength(EntryHandler handler, IEntry entry) { }
 
+        void OnFocusChanged(object sender, RoutedEventArgs e)
+        {
+            if (Handler != null)
+            {
+                Handler.Drawable.HasFocus = hasFocus;
+
+                Handler.OnFocusedChange(hasFocus);
+            }
+        }
+
         void OnNativeKeyUp(object? sender, KeyRoutedEventArgs args)
         {
             if (args?.Key != VirtualKey.Enter)
@@ -122,7 +148,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
         void TextChanged(object sender, TextChangedEventArgs args)
         {
-            VirtualView?.UpdateText(NativeView.TextBox?.Text);
+            VirtualView?.UpdateText(NativeView.TextBox?.Text ?? String.Empty);
         }
 
         void OnCursorPositionChanged(object? sender, EventArgs e)

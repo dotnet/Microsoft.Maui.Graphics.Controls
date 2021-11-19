@@ -33,12 +33,14 @@ namespace Microsoft.Maui.Graphics.Controls.Hosting
 					lifecycle
 						.AddWindows(windows => windows
 							.OnLaunched((app, e) =>
-						{
-                            // Register Windows Resource Dictionaries
-                        	MauiWinUIApplication.Current.Resources.MergedDictionaries.Add(new UI.Xaml.ResourceDictionary
-                            {
-                                 Source = new Uri("/Microsoft.Maui.Graphics.Controls;component/Platform/Windows/Styles/Resources.xaml", UriKind.RelativeOrAbsolute)
-                            });
+						{	
+                            var dictionaries = UI.Xaml.Application.Current?.Resources?.MergedDictionaries;
+
+				            if (dictionaries != null)
+				            {
+                                // TODO: Fix issue having Windows XAML files under the Windows Platform folder
+                       	        //ResourceDictionaryExtensions.AddResources("GraphicsControlsResources", "ms-appx:///Microsoft.Maui.Graphics.Controls/Platform/Windows/Styles/Resources.xbf");
+                            }
                         }));
 #endif
                 });

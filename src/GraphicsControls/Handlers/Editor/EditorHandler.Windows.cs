@@ -6,15 +6,28 @@ namespace Microsoft.Maui.Graphics.Controls
     {
         protected override GraphicsEditor CreateNativeView()
         {
-            return new GraphicsEditor { GraphicsControl = this };
+            UI.Xaml.Thickness margin;
+
+            // TODO: Set the correct margin in every Drawable.
+            if (Drawable is MaterialEditorDrawable)
+                margin = new UI.Xaml.Thickness();
+            else if (Drawable is FluentEditorDrawable)
+                margin = new UI.Xaml.Thickness();
+            else if (Drawable is CupertinoEditorDrawable)
+                margin = new UI.Xaml.Thickness();
+            else
+                margin = new UI.Xaml.Thickness();
+
+            return new GraphicsEditor { GraphicsControl = this, Margin = margin };
         }
 
         protected override void ConnectHandler(GraphicsEditor nativeView)
         {
             if (nativeView.TextBox != null)
             {
-                nativeView.TextBox.TextChanged += OnTextChanged;
-                nativeView.LostFocus += OnLostFocus;
+                nativeView.TextBox.TextChanged += OnFocusChanged;
+                nativeView.TextBox.GotFocus += OnFocusChanged;
+                nativeView.TextBox.LostFocus += OnFocusChanged;
             }
 
             base.ConnectHandler(nativeView);
@@ -25,7 +38,8 @@ namespace Microsoft.Maui.Graphics.Controls
             if (nativeView.TextBox != null)
             {
                 nativeView.TextBox.TextChanged -= OnTextChanged;
-                nativeView.TextBox.LostFocus -= OnLostFocus;
+                nativeView.TextBox.GotFocus -= OnFocusChanged;
+                nativeView.TextBox.LostFocus -= OnFocusChanged;
             }
 
             base.DisconnectHandler(nativeView);
@@ -72,12 +86,17 @@ namespace Microsoft.Maui.Graphics.Controls
 
         void OnTextChanged(object sender, UI.Xaml.Controls.TextChangedEventArgs args)
         {
-            VirtualView?.UpdateText(NativeView.TextBox?.Text);
+            VirtualView?.UpdateText(NativeView.TextBox?.Text ?? String.Empty);
         }
 
-        void OnLostFocus(object? sender, RoutedEventArgs e)
+        void OnFocusChanged(object sender, RoutedEventArgs e)
         {
-            VirtualView?.Completed();
+            if (Handler != null)
+            {
+                Handler.Drawable.HasFocus = hasFocus;
+
+                Handler.OnFocusedChange(hasFocus);
+            }
         }
     }
 }
