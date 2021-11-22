@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Maui.Graphics.Controls.Hosting;
+using System;
 using UIKit;
 
 namespace Microsoft.Maui.Graphics.Controls
@@ -53,8 +54,12 @@ namespace Microsoft.Maui.Graphics.Controls
 			handler.NativeView?.UpdateCharacterSpacing(editor);
 		}
 
-		[MissingMapper]
-		public static void MapFont(EditorHandler handler, IEditor editor) { }
+		public static void MapFont(EditorHandler handler, IEditor editor) 
+		{
+			var fontManager = handler.GetRequiredService<IFontManager>();
+
+			handler.NativeView?.UpdateFont(editor, fontManager);
+		}
 
 		public static void MapIsReadOnly(EditorHandler handler, IEditor editor)
 		{

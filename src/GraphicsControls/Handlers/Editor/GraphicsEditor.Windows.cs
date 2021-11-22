@@ -1,4 +1,5 @@
-﻿using Microsoft.Graphics.Canvas.UI.Xaml;
+﻿#nullable enable
+using Microsoft.Graphics.Canvas.UI.Xaml;
 using Microsoft.Maui.Graphics.Win2D;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;

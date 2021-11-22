@@ -4,6 +4,7 @@ using Android.Text;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
+using Microsoft.Maui.Graphics.Controls.Hosting;
 using static Android.Views.View;
 using static Android.Widget.TextView;
 
@@ -87,9 +88,9 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public static void MapFont(EntryHandler handler, IEntry entry)
         {
-            // TODO: Get require service FontManager
-            //IFontManager? fontManager = null;
-            //handler.NativeView?.UpdateFont(editor, fontManager);
+            var fontManager = handler.GetRequiredService<IFontManager>();
+
+            handler.NativeView?.UpdateFont(entry, fontManager);
         }
 
         public static void MapHorizontalTextAlignment(EntryHandler handler, IEntry entry)

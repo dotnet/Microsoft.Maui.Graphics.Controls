@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -84,19 +85,20 @@ namespace Microsoft.Maui.Graphics.Controls
             handler.NativeView?.TextBox?.UpdateKeyboard(editor);
         }
 
-        void OnTextChanged(object sender, UI.Xaml.Controls.TextChangedEventArgs args)
+        void OnTextChanged(object sender, TextChangedEventArgs args)
         {
-            VirtualView?.UpdateText(NativeView.TextBox?.Text ?? String.Empty);
+            VirtualView?.UpdateText(NativeView.TextBox?.Text ?? string.Empty);
         }
 
         void OnFocusChanged(object sender, RoutedEventArgs e)
         {
-            if (Handler != null)
-            {
-                Handler.Drawable.HasFocus = hasFocus;
+            var mauiTextBox = sender as MauiTextBox;
 
-                Handler.OnFocusedChange(hasFocus);
-            }
+            if (mauiTextBox == null)
+                return;
+
+            Drawable.HasFocus = mauiTextBox.FocusState != FocusState.Unfocused; 
+            Invalidate();
         }
     }
 }

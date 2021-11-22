@@ -1,5 +1,6 @@
 ﻿using System;
 using Foundation;
+using Microsoft.Maui.Graphics.Controls.Hosting;
 using UIKit;
 
 namespace Microsoft.Maui.Graphics.Controls
@@ -73,8 +74,12 @@ namespace Microsoft.Maui.Graphics.Controls
             handler.NativeView?.UpdateCharacterSpacing(entry);
         }
 
-        [MissingMapper]
-        public static void MapFont(IViewHandler handler, IEntry entry) { }
+        public static void MapFont(IViewHandler handler, IEntry entry) 
+        {
+            var fontManager = handler.GetRequiredService<IFontManager>();
+
+            handler.NativeView?.UpdateFont(entry, fontManager);
+        }
 
         public static void MapHorizontalTextAlignment(EntryHandler handler, IEntry entry)
         {

@@ -2,6 +2,7 @@
 using Android.Text;
 using Android.Views;
 using Android.Views.InputMethods;
+using Microsoft.Maui.Graphics.Controls.Hosting;
 using static Android.Views.View;
 using ATextAlignment = Android.Views.TextAlignment;
 
@@ -74,9 +75,9 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public static void MapFont(EditorHandler handler, IEditor editor)
 		{
-			// TODO: Get require service FontManager
-			//IFontManager? fontManager = null;
-			//handler.NativeView?.UpdateFont(editor, fontManager);
+			var fontManager = handler.GetRequiredService<IFontManager>();
+
+			handler.NativeView?.UpdateFont(editor, fontManager);
 		}
 
 		public static void MapIsReadOnly(EditorHandler handler, IEditor editor)

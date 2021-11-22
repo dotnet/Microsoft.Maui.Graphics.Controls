@@ -13,7 +13,7 @@
 		<ApplicationTitle>GraphicsControls.Sample</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.GraphicsControls.Sample</ApplicationId>
+		<ApplicationId>com.microsoft.GraphicsControls.Sample</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationVersion>1</ApplicationVersion>

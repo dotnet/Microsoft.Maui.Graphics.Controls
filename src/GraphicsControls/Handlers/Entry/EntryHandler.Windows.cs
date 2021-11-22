@@ -1,4 +1,6 @@
-﻿using Microsoft.UI.Xaml.Controls;
+﻿using Microsoft.Maui.Graphics.Controls.Hosting;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using System;
 using Windows.System;
@@ -70,8 +72,12 @@ namespace Microsoft.Maui.Graphics.Controls
             handler.NativeView?.TextBox?.UpdateClearButtonVisibility(entry);
         }
 
-        [MissingMapper]
-        public static void MapFont(EntryHandler handler, IEntry entry) { }
+        public static void MapFont(EntryHandler handler, IEntry entry) 
+        {
+            var fontManager = handler.GetRequiredService<IFontManager>();
+
+            handler.NativeView?.UpdateFont(entry, fontManager);
+        }
 
         public static void MapHorizontalTextAlignment(EntryHandler handler, IEntry entry)
         {
@@ -121,12 +127,13 @@ namespace Microsoft.Maui.Graphics.Controls
 
         void OnFocusChanged(object sender, RoutedEventArgs e)
         {
-            if (Handler != null)
-            {
-                Handler.Drawable.HasFocus = hasFocus;
+            var mauiTextBox = sender as MauiTextBox;
 
-                Handler.OnFocusedChange(hasFocus);
-            }
+            if (mauiTextBox == null)
+                return;
+
+            Drawable.HasFocus = mauiTextBox.FocusState != FocusState.Unfocused;
+            Invalidate();
         }
 
         void OnNativeKeyUp(object? sender, KeyRoutedEventArgs args)
