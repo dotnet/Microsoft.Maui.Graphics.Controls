@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Microsoft.Maui.Graphics.Controls
+﻿namespace Microsoft.Maui.Graphics.Controls
 {
     public class CupertinoSliderDrawable : ViewDrawable<ISlider>, ISliderDrawable
 	{
@@ -8,13 +6,15 @@ namespace Microsoft.Maui.Graphics.Controls
 		const string DefaultCupertinoSliderTrackProgressColor = "#007AFF";
 		const string DefaultCupertinoSliderThumbColor = "#161313";
 
+		public bool IsDragging { get; set; }
+
 		RectangleF trackRect = new RectangleF();
 		public RectangleF TrackRect => trackRect;
 
 		RectangleF touchTargetRect = new RectangleF(0, 0, 44, 44);
 		public RectangleF TouchTargetRect => touchTargetRect;
 
-		public virtual void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ISlider slider)
+        public virtual void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ISlider slider)
 		{
 			canvas.SaveState();
 

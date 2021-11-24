@@ -4,38 +4,94 @@
     {
         public static class Color
         {
-            public static class Primary
+            public static class Light
             {
-                public const string ThemeDarker = "#004578";
-                public const string ThemeDark = "#005a9e";
-                public const string ThemeDarkAlt = "#106ebe";
-                public const string ThemePrimary = "#005EBE";
-                public const string ThemeSecondary = "#2b88d8";
-                public const string ThemeTertiary = "#71afe5";
-                public const string ThemeLight = "#c7e0f4";
-                public const string ThemeLighter = "#deecf9";
-                public const string ThemeLighterAlt = "#eff6fc";
+                public static class Accent
+                {
+                    public static string Primary = "#005FB8";
+                    public static string Secondary = "#E6005FB8";
+                    public static string Tertiary = "#CC005FB8";
+                    public static string Disabled = "#C8C8C8";
+                }
+
+                public static class Foreground
+                {
+                    public static string Primary = "#E3000000";
+                    public static string Secondary = "#6E6E6E";
+                    public static string Tertiary = "#70000000";
+                    public static string Disabled = "#AAAAAA";
+                }
+
+                public static class Background
+                {
+                    public static string Transparent = "#FFFFFFFF";
+                    public static string Default = "#B3FFFFFF";
+                    public static string Secondary = "#80F9F9F9";
+                    public static string Tertiary = "#4DF9F9F9";
+                    public static string Disabled = "#4DF9F9F9";
+                }
+
+                public static class Control
+                {
+                    public static class Background
+                    {
+                        public static string Default = "#FEFEFE";
+                        public static string Secondary = "#F9F9F9";
+                        public static string Tertiary = "#FAFAFA";
+                        public static string Disabled = "#FAFAFA";
+                    }
+
+                    public static class Border
+                    {
+                        public static string Default = "#E1E1E1";
+                        public static string Disabled = "#D8D8D8";
+                    }
+                }
             }
 
-            public static class Foreground
+            public static class Dark
             {
-                public const string Black = "#000000";
-                public const string NeutralDark = "#201f1e";
-                public const string NeutralPrimary = "#323130";
-                public const string NeutralPrimaryAlt = "#3b3a39";
-                public const string NeutralSecondary = "#605e5c";
-                public const string NeutralTertiary = "#a19f9d";
-                public const string White = "#ffffff";
-            }
+                public static class Accent
+                {
+                    public static string Primary = "#99EBFF";
+                    public static string Secondary = "#99EBFF";
+                    public static string Tertiary = "#60CDFF";
+                    public static string Disabled = "#54FFFFFF";
+                }
 
-            public static class Background
-            {
-                public const string NeutralTertiaryAlt = "#c8c6c4";
-                public const string NeutralDark = "#201f1e";
-                public const string NeutralQuaternaryAlt = "#e1dfdd";
-                public const string NeutralLight = "#edebe9";
-                public const string NeutralLighter = "#f3f2f1";
-                public const string NeutralLighterAlt = "#faf9f8";
+                public static class Foreground
+                {
+                    public static string Primary = "#E3FFFFFF";
+                    public static string Secondary = "#CFCFCF";
+                    public static string Tertiary = "#70FFFFFF";
+                    public static string Disabled = "#D0D0D0";
+                }
+
+                public static class Background
+                {
+                    public static string Transparent = "#FF000000";
+                    public static string Default = "##191919";
+                    public static string Secondary = "#80000000";
+                    public static string Tertiary = "#4D000000";
+                    public static string Disabled = "#4D000000";
+                }
+
+                public static class Control
+                {
+                    public static class Background
+                    {
+                        public static string Default = "#2A2A2A";
+                        public static string Secondary = "#2F2F2F";
+                        public static string Tertiary = "#232323";
+                        public static string Disabled = "#333333";
+                    }
+
+                    public static class Border
+                    {
+                        public static string Default = "#303030";
+                        public static string Disabled = "#323232";
+                    }
+                }
             }
         }
 

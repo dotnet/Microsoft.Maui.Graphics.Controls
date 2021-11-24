@@ -32,7 +32,7 @@
         {
             canvas.SaveState();
 
-            canvas.FillColor = view.ThumbColor.WithDefault(Fluent.Color.Foreground.White);
+            canvas.FillColor = view.ThumbColor.WithDefault(Cupertino.Color.Label.Dark.Primary);
 
             var margin = 2;
             var radius = 13;

@@ -18,7 +18,7 @@ namespace GraphicsControls.Sample.Controls
         {			
 			canvas.SaveState();
 
-			canvas.FontColor = Fluent.Color.Foreground.Black.ToColor();
+			canvas.FontColor = Fluent.Color.Light.Foreground.Primary.ToColor();
 			canvas.FontSize = 8f;
 
 			var height = dirtyRect.Height;

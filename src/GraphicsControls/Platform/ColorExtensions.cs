@@ -51,5 +51,14 @@ namespace Microsoft.Maui.Graphics.Controls
                 color.Blue * DarkerFactor,
                 color.Alpha);
         }
+
+        public static Color ContrastColor(this Color color)
+        {
+            // Calculate the perceptive luminance (aka luma) - human eye favors green color 
+            double luma = ((0.299 * color.Red) + (0.587 * color.Green) + (0.114 * color.Blue)) / 255;
+
+            // Return black for bright colors, white for dark colors
+            return luma > 0.5 ? Colors.Black : Colors.White;
+        }
     }
 }
