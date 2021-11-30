@@ -5,7 +5,6 @@ namespace Microsoft.Maui.Graphics.Controls
     public class SliderHandler : GraphicsControlHandler<ISliderDrawable, ISlider>
 	{
 		readonly DrawableType _drawableType;
-		bool _isTracking;
 
 		public SliderHandler() : base(DrawMapper, PropertyMapper)
 		{
@@ -76,7 +75,7 @@ namespace Microsoft.Maui.Graphics.Controls
 			if (VirtualView == null || !VirtualView.IsEnabled)
 				return false;
 
-			_isTracking = Drawable.TouchTargetRect.Contains(points);
+			Drawable.IsDragging = Drawable.TouchTargetRect.Contains(points);
 
 			UpdateValue(points[0]);
 
@@ -85,7 +84,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public override void DragInteraction(PointF[] points)
 		{
-			if (!_isTracking)
+			if (!Drawable.IsDragging)
 				return;
 
 			if (VirtualView == null || !VirtualView.IsEnabled)
@@ -100,7 +99,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public override void EndInteraction(PointF[] points, bool inside)
 		{
-			_isTracking = false;
+			Drawable.IsDragging = false;
 			VirtualView?.DragCompleted();
 
 			base.EndInteraction(points, inside);
@@ -108,7 +107,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public override void CancelInteraction()
 		{
-			_isTracking = false;
+			Drawable.IsDragging = false;
 			base.CancelInteraction();
 		}
 

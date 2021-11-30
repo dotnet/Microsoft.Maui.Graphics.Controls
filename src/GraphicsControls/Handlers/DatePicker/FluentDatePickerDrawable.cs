@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Maui.Graphics.Controls
+﻿using Microsoft.Maui.Controls;
+
+namespace Microsoft.Maui.Graphics.Controls
 {
     public class FluentDatePickerDrawable : ViewDrawable<IDatePicker>, IDatePickerDrawable
     {
@@ -12,7 +14,12 @@
             if (datePicker.Background != null)
                 canvas.SetFillPaint(datePicker.Background, dirtyRect);
             else
-                canvas.FillColor = datePicker.IsEnabled ? Fluent.Color.Foreground.White.ToColor() : Fluent.Color.Background.NeutralLighter.ToColor();
+            {
+                if (datePicker.IsEnabled)
+                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Background.Default.ToColor() : Fluent.Color.Dark.Control.Background.Default.ToColor();
+                else
+                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Background.Disabled.ToColor() : Fluent.Color.Dark.Control.Background.Disabled.ToColor();
+            }
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
@@ -27,25 +34,26 @@
 
         public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IDatePicker datePicker)
         {
+            canvas.SaveState();
+
+            var strokeWidth = 1.0f;
+
             if (datePicker.IsEnabled)
-            {
-                canvas.SaveState();
+                canvas.StrokeColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Border.Default.ToColor() : Fluent.Color.Dark.Control.Border.Default.ToColor();
+            else
+                canvas.StrokeColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Border.Disabled.ToColor() : Fluent.Color.Dark.Control.Border.Disabled.ToColor();
 
-                var strokeWidth = 1.0f;
-                      
-                canvas.StrokeColor = Fluent.Color.Foreground.NeutralSecondary.ToColor();
-                canvas.StrokeSize = strokeWidth;
+            canvas.StrokeSize = strokeWidth;
 
-                var x = dirtyRect.X;
-                var y = dirtyRect.Y;
+            var x = dirtyRect.X;
+            var y = dirtyRect.Y;
 
-                var width = dirtyRect.Width;
-                var height = dirtyRect.Height;
+            var width = dirtyRect.Width;
+            var height = dirtyRect.Height;
 
-                canvas.DrawRoundedRectangle(x + strokeWidth / 2, y + strokeWidth / 2, width - strokeWidth, height - strokeWidth, 2);
+            canvas.DrawRoundedRectangle(x + strokeWidth / 2, y + strokeWidth / 2, width - strokeWidth, height - strokeWidth, 2);
 
-                canvas.RestoreState();
-            }
+            canvas.RestoreState();
         }
 
         public void DrawDate(ICanvas canvas, RectangleF dirtyRect, IDatePicker datePicker)
@@ -53,9 +61,9 @@
             canvas.SaveState();
 
             if (datePicker.IsEnabled)
-                canvas.FontColor = datePicker.TextColor.WithDefault(Fluent.Color.Foreground.Black);
+                canvas.FontColor = datePicker.TextColor.WithDefault(Fluent.Color.Light.Foreground.Primary, Fluent.Color.Dark.Foreground.Primary);
             else
-                canvas.FontColor = datePicker.TextColor.WithDefault(Fluent.Color.Foreground.NeutralTertiary);
+                canvas.FontColor = datePicker.TextColor.WithDefault(Fluent.Color.Light.Foreground.Disabled, Fluent.Color.Dark.Foreground.Disabled);
 
             canvas.FontSize = 14f;
 
@@ -83,7 +91,11 @@
             var vBuilder = new PathBuilder();
             var path = vBuilder.BuildPath(FluentDatePickerIcon);
 
-            canvas.FillColor = Fluent.Color.Foreground.NeutralSecondary.ToColor();
+            if (datePicker.IsEnabled)
+                canvas.FillColor = datePicker.TextColor.WithDefault(Fluent.Color.Light.Foreground.Secondary, Fluent.Color.Dark.Foreground.Secondary);
+            else
+                canvas.FillColor = datePicker.TextColor.WithDefault(Fluent.Color.Light.Foreground.Disabled, Fluent.Color.Dark.Foreground.Disabled);
+
             canvas.FillPath(path);
 
             canvas.RestoreState();

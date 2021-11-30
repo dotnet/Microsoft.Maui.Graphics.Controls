@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Maui.Controls;
+using System;
 using System.Globalization;
 
 namespace Microsoft.Maui.Graphics.Controls
@@ -15,7 +16,12 @@ namespace Microsoft.Maui.Graphics.Controls
             if (timePicker.Background != null)
                 canvas.SetFillPaint(timePicker.Background, dirtyRect);
             else
-                canvas.FillColor = timePicker.IsEnabled ? Fluent.Color.Foreground.White.ToColor() : Fluent.Color.Background.NeutralLighter.ToColor();
+            {
+                if (timePicker.IsEnabled)
+                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Background.Default.ToColor() : Fluent.Color.Dark.Control.Background.Default.ToColor();
+                else
+                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Background.Disabled.ToColor() : Fluent.Color.Dark.Control.Background.Disabled.ToColor();
+            }
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
@@ -30,49 +36,57 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
         {
+            canvas.SaveState();
+
+            Color strokeColor;
+            var strokeWidth = 1.0f;
+
             if (timePicker.IsEnabled)
             {
-                canvas.SaveState();
-
-                var strokeWidth = 1.0f;
-
-                canvas.StrokeColor = Fluent.Color.Foreground.NeutralSecondary.ToColor();
-                canvas.StrokeSize = strokeWidth;
-
-                var x = dirtyRect.X;
-                var y = dirtyRect.Y;
-
-                var width = FluentDatePickerWidth;
-                var height = dirtyRect.Height;
-
-                canvas.DrawRoundedRectangle(x + strokeWidth / 2, y + strokeWidth / 2, width - strokeWidth, height - strokeWidth, 2);
-
-                canvas.RestoreState();
-
-                var divided = FluentDatePickerWidth / 3;
-
-                canvas.SaveState();
-
-                canvas.StrokeColor = Fluent.Color.Foreground.NeutralSecondary.ToColor();
-                canvas.StrokeSize = strokeWidth;
-
-                canvas.Alpha = 0.5f;
-
-                canvas.DrawLine(new PointF(divided, 0), new PointF(divided, dirtyRect.Height));
-
-                canvas.RestoreState();
-
-                canvas.SaveState();
-
-                canvas.StrokeColor = Fluent.Color.Foreground.NeutralSecondary.ToColor();
-                canvas.StrokeSize = strokeWidth;
-
-                canvas.Alpha = 0.5f;
-
-                canvas.DrawLine(new PointF(divided * 2, 0), new PointF(divided * 2, dirtyRect.Height));
-
-                canvas.RestoreState();
+                if (timePicker.TextColor != null)
+                    strokeColor = timePicker.TextColor;
+                else
+                    strokeColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Border.Default.ToColor() : Fluent.Color.Dark.Control.Border.Default.ToColor();
             }
+            else
+                strokeColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Border.Disabled.ToColor() : Fluent.Color.Dark.Control.Border.Disabled.ToColor();
+
+            canvas.StrokeSize = strokeWidth;
+            canvas.StrokeColor = strokeColor;
+
+            var x = dirtyRect.X;
+            var y = dirtyRect.Y;
+
+            var width = FluentDatePickerWidth;
+            var height = dirtyRect.Height;
+
+            canvas.DrawRoundedRectangle(x + strokeWidth / 2, y + strokeWidth / 2, width - strokeWidth, height - strokeWidth, 2);
+
+            canvas.RestoreState();
+
+            var divided = FluentDatePickerWidth / 3;
+
+            canvas.SaveState();
+                        
+            canvas.StrokeSize = strokeWidth;
+            canvas.StrokeColor = strokeColor;
+
+            canvas.Alpha = 0.5f;
+
+            canvas.DrawLine(new PointF(divided, 0), new PointF(divided, dirtyRect.Height));
+
+            canvas.RestoreState();
+
+            canvas.SaveState();
+
+            canvas.StrokeSize = strokeWidth;
+            canvas.StrokeColor = strokeColor;
+
+            canvas.Alpha = 0.5f;
+
+            canvas.DrawLine(new PointF(divided * 2, 0), new PointF(divided * 2, dirtyRect.Height));
+
+            canvas.RestoreState();
         }
 
         public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
@@ -91,9 +105,9 @@ namespace Microsoft.Maui.Graphics.Controls
             Color textColor;
 
             if (timePicker.IsEnabled)
-                textColor = Fluent.Color.Foreground.Black.ToColor();
+                textColor = timePicker.TextColor.WithDefault(Fluent.Color.Light.Foreground.Primary, Fluent.Color.Dark.Foreground.Primary);
             else
-                textColor = Fluent.Color.Foreground.NeutralTertiary.ToColor();
+                textColor = timePicker.TextColor.WithDefault(Fluent.Color.Light.Foreground.Disabled, Fluent.Color.Dark.Foreground.Disabled);
 
             float fontSize = 14f;
 

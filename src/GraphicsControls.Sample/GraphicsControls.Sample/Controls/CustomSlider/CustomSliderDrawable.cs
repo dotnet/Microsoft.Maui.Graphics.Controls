@@ -17,6 +17,8 @@ namespace GraphicsControls.Sample.Controls
 
     public class CustomDrawable : ViewDrawable<ISlider>, ISliderDrawable
     {
+        public bool IsDragging { get; set; }
+
         RectangleF trackRect = new RectangleF();
         public RectangleF TrackRect => trackRect;
 

@@ -124,7 +124,7 @@ namespace GraphicsControls.Sample.Controls
         {
             canvas.SaveState();
 
-            canvas.FontColor = Color.FromArgb(Fluent.Color.Foreground.White);
+            canvas.FontColor = Color.FromArgb(Fluent.Color.Dark.Foreground.Primary);
 
             canvas.FontSize = AvatarSize.GetInitialsFontSize();
 

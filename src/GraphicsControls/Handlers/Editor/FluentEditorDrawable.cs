@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Maui.Graphics.Controls
+﻿using Microsoft.Maui.Controls;
+
+namespace Microsoft.Maui.Graphics.Controls
 {
     public class FluentEditorDrawable : ViewDrawable<IEditor>, IEditorDrawable
     {
@@ -9,11 +11,28 @@
         {
             canvas.SaveState();
 
-            if (editor.Background != null)
-                canvas.SetFillPaint(editor.Background, dirtyRect);
-            else
-                canvas.FillColor = editor.IsEnabled ? Fluent.Color.Foreground.White.ToColor() : Fluent.Color.Background.NeutralLighter.ToColor();
+            Color? backgroundColor = null;
 
+            if (editor.Background is SolidPaint solidBackground)
+                backgroundColor = solidBackground.Color;
+
+            if (backgroundColor != null)
+            {
+                canvas.FillColor = backgroundColor;
+            }
+            else
+            {
+                if (editor.Background != null)
+                    canvas.SetFillPaint(editor.Background, dirtyRect);
+                else
+                {
+                    if (editor.IsEnabled)
+                        canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Background.Default.ToColor() : Fluent.Color.Dark.Control.Background.Default.ToColor();
+                    else
+                        canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Background.Disabled.ToColor() : Fluent.Color.Dark.Control.Background.Disabled.ToColor();
+                }
+            }
+         
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
 
@@ -27,33 +46,37 @@
 
         public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IEditor editor)
         {
+            canvas.SaveState();
+
+            var strokeWidth = 1.0f;
+
+            canvas.StrokeSize = strokeWidth;
+
+            if (editor.IsEnabled)
+                canvas.StrokeColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Border.Default.ToColor() : Fluent.Color.Dark.Control.Border.Default.ToColor();
+            else
+                canvas.StrokeColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Border.Disabled.ToColor() : Fluent.Color.Dark.Control.Border.Disabled.ToColor();
+
+            var x = dirtyRect.X;
+            var y = dirtyRect.Y;
+
+            var width = dirtyRect.Width;
+            var height = dirtyRect.Height;
+
+            canvas.DrawRoundedRectangle(x + strokeWidth / 2, y + strokeWidth / 2, width - strokeWidth, height - strokeWidth, 2);
+
+            canvas.RestoreState();
+
             if (editor.IsEnabled)
             {
                 canvas.SaveState();
 
-                var strokeWidth = 1.0f;
-
-                canvas.StrokeColor = Fluent.Color.Foreground.NeutralSecondary.ToColor();
-                canvas.StrokeSize = strokeWidth;
-
-                var x = dirtyRect.X;
-                var y = dirtyRect.Y;
-
-                var width = dirtyRect.Width;
-                var height = dirtyRect.Height;
-
-                canvas.DrawRoundedRectangle(x + strokeWidth / 2, y + strokeWidth / 2, width - strokeWidth, height - strokeWidth, 2);
-
-                canvas.RestoreState();
-
-                canvas.SaveState();
-
-                canvas.FillColor = Fluent.Color.Primary.ThemeDarker.ToColor();
+                canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Foreground.Primary.ToColor() : Fluent.Color.Dark.Foreground.Primary.ToColor();
 
                 if (HasFocus)
                 {
                     strokeWidth = 2.0f;
-                    canvas.FillColor = Fluent.Color.Primary.ThemePrimary.ToColor();
+                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Accent.Primary.ToColor() : Fluent.Color.Dark.Accent.Primary.ToColor();
                 }
 
                 x = strokeWidth;
@@ -74,9 +97,9 @@
                 canvas.SaveState();
 
                 if (editor.IsEnabled)
-                    canvas.FontColor = editor.PlaceholderColor.WithDefault(Fluent.Color.Foreground.Black);
+                    canvas.FontColor = editor.PlaceholderColor.WithDefault(Fluent.Color.Light.Foreground.Secondary, Fluent.Color.Dark.Foreground.Secondary);
                 else
-                    canvas.FontColor = Fluent.Color.Foreground.NeutralTertiary.ToColor();
+                    canvas.FontColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Foreground.Disabled.ToColor() : Fluent.Color.Dark.Foreground.Disabled.ToColor();
 
                 canvas.FontSize = 14f;
 

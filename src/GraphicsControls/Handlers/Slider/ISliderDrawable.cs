@@ -2,6 +2,7 @@
 {
     public interface ISliderDrawable : IViewDrawable<ISlider>
 	{
+		bool IsDragging { get; set; }
 		RectangleF TrackRect { get; }
 		RectangleF TouchTargetRect { get; }
 

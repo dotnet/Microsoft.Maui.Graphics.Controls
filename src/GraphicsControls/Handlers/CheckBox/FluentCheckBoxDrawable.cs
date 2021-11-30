@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Maui.Graphics.Controls
+﻿using Microsoft.Maui.Controls;
+
+namespace Microsoft.Maui.Graphics.Controls
 {
     public class FluentCheckBoxDrawable : ViewDrawable<ICheckBox>, ICheckBoxDrawable
     {
@@ -17,7 +19,7 @@
             {
                 if (checkBox.IsEnabled)
                 {
-                    Color fillColor = Fluent.Color.Primary.ThemePrimary.ToColor();
+                    Color fillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Accent.Primary.ToColor() : Fluent.Color.Dark.Accent.Primary.ToColor();
 
                     if (checkBox.Foreground is SolidPaint solidPaint)
                         fillColor = solidPaint.Color;
@@ -25,7 +27,7 @@
                     canvas.FillColor = fillColor;
                 }
                 else
-                    canvas.FillColor = Fluent.Color.Background.NeutralQuaternaryAlt.ToColor();
+                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Accent.Disabled.ToColor() : Fluent.Color.Dark.Accent.Disabled.ToColor();
 
                 canvas.FillRoundedRectangle(x, y, size, size, 3);
             }
@@ -36,9 +38,9 @@
                 canvas.StrokeSize = strokeWidth;
 
                 if (checkBox.IsEnabled)
-                    canvas.StrokeColor = Color.FromArgb("#8A8A8A");
+                    canvas.StrokeColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Border.Default.ToColor() : Fluent.Color.Dark.Control.Border.Default.ToColor();
                 else
-                    canvas.FillColor = Fluent.Color.Background.NeutralLighter.ToColor();
+                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Background.Secondary.ToColor() : Fluent.Color.Dark.Control.Background.Secondary.ToColor();
 
                 canvas.DrawRoundedRectangle(x + strokeWidth / 2, y + strokeWidth / 2, size - strokeWidth, size - strokeWidth, 3);
             }

@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Maui.Graphics.Controls
+﻿using Microsoft.Maui.Controls;
+
+namespace Microsoft.Maui.Graphics.Controls
 {
     public class FluentButtonDrawable : ViewDrawable<IButton>, IButtonDrawable
     {
@@ -15,16 +17,16 @@
             var width = dirtyRect.Width;
             var height = dirtyRect.Height;
 
-            var defaultBackgroundColor = Fluent.Color.Primary.ThemePrimary.ToColor();
+            var defaultBackgroundColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Background.Default.ToColor() : Fluent.Color.Dark.Control.Background.Default.ToColor();
 
             if (button.Background != null && button.Background is SolidPaint solidPaint)
                 defaultBackgroundColor = solidPaint.Color;
 
-            var disabledColor = Fluent.Color.Background.NeutralLighter.ToColor();
+            var disabledColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Background.Disabled.ToColor() : Fluent.Color.Dark.Control.Background.Disabled.ToColor();
 
             var backgroundColor = button.IsEnabled ? defaultBackgroundColor : disabledColor;
 
-            var border = new LinearGradientPaint
+            var fill = new LinearGradientPaint
             {
                 GradientStops = new GradientStop[]
                 {
@@ -35,9 +37,13 @@
                 EndPoint = new Point(0, 1)
             };
 
-            canvas.SetFillPaint(border, dirtyRect);
+            canvas.SetFillPaint(fill, dirtyRect);
 
             canvas.FillRoundedRectangle(x, y, width, height, 4);
+
+            canvas.StrokeColor = Fluent.Color.Light.Control.Border.Default.ToColor();
+
+            canvas.DrawRoundedRectangle(x, y, width, height, 4);
 
             canvas.RestoreState();
 
@@ -66,13 +72,12 @@
         {
             canvas.SaveState();
 
+            var textColor = (button as ITextStyle)?.TextColor;
+
             if (button.IsEnabled)
-            {
-                var textColor = (button as ITextStyle)?.TextColor;
-                canvas.FontColor = textColor?.WithDefault(Fluent.Color.Foreground.White);
-            }
+                canvas.FontColor = textColor?.WithDefault(Fluent.Color.Light.Foreground.Primary, Fluent.Color.Dark.Foreground.Primary);
             else
-                canvas.FontColor = Fluent.Color.Foreground.NeutralPrimary.ToColor();
+                canvas.FontColor = textColor?.WithDefault(Fluent.Color.Light.Foreground.Disabled, Fluent.Color.Dark.Foreground.Disabled);
 
             canvas.FontSize = 14f;
 

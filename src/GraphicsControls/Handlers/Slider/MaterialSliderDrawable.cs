@@ -2,6 +2,8 @@
 {
 	public class MaterialSliderDrawable : ViewDrawable<ISlider>, ISliderDrawable
 	{
+		public bool IsDragging { get; set; }
+
 		RectangleF trackRect = new RectangleF();
 		public RectangleF TrackRect => trackRect;
 

@@ -39,9 +39,9 @@ namespace Microsoft.Maui.Graphics.Controls
             else
             {
                 if (Application.Current?.RequestedTheme == OSAppTheme.Light)
-                    canvas.FillColor = Fluent.Color.Background.NeutralLight.ToColor();
+                    canvas.FillColor = Material.Color.Gray4.ToColor();
                 else
-                    canvas.FillColor = Fluent.Color.Background.NeutralDark.ToColor();
+                    canvas.FillColor = Material.Color.Gray2.ToColor();
             }
 
             var x = dirtyRect.X;

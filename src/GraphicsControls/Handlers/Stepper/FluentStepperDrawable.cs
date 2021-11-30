@@ -1,4 +1,6 @@
-﻿namespace Microsoft.Maui.Graphics.Controls
+﻿using Microsoft.Maui.Controls;
+
+namespace Microsoft.Maui.Graphics.Controls
 {
     public class FluentStepperDrawable : ViewDrawable<IStepper>, IStepperDrawable
     {
@@ -20,7 +22,12 @@
             if (stepper.Background != null)
                 canvas.SetFillPaint(stepper.Background, dirtyRect);
             else
-                canvas.FillColor = stepper.IsEnabled ? Fluent.Color.Foreground.White.ToColor() : Fluent.Color.Background.NeutralLighter.ToColor();
+            {
+                if (stepper.IsEnabled)
+                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Background.Default.ToColor() : Fluent.Color.Dark.Control.Background.Default.ToColor();
+                else
+                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Background.Disabled.ToColor() : Fluent.Color.Dark.Control.Background.Disabled.ToColor();
+            }
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
@@ -46,10 +53,20 @@
             var vBuilder = new PathBuilder();
             var path = vBuilder.BuildPath(FluentStepperDownIcon);
 
-            if (stepper.IsEnabled)
-                canvas.FillColor = Fluent.Color.Foreground.Black.ToColor();
+            Color? backgroundColor = null;
+
+            if (stepper.Background is SolidPaint solidBackground)
+                backgroundColor = solidBackground.Color;
+
+            if (backgroundColor != null)
+                canvas.FillColor = backgroundColor.ContrastColor();
             else
-                canvas.FillColor = Fluent.Color.Foreground.NeutralTertiary.ToColor();
+            {
+                if (stepper.IsEnabled)
+                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Foreground.Secondary.ToColor() : Fluent.Color.Dark.Foreground.Secondary.ToColor();
+                else
+                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Foreground.Disabled.ToColor() : Fluent.Color.Dark.Foreground.Disabled.ToColor();
+            }
 
             canvas.FillPath(path);
 
@@ -72,10 +89,20 @@
             var vBuilder = new PathBuilder();
             var path = vBuilder.BuildPath(FluentStepperUpIcon);
 
-            if (stepper.IsEnabled)
-                canvas.FillColor = Fluent.Color.Foreground.Black.ToColor();
+            Color? backgroundColor = null;
+
+            if (stepper.Background is SolidPaint solidBackground)
+                backgroundColor = solidBackground.Color;
+
+            if (backgroundColor != null)
+                canvas.FillColor = backgroundColor.ContrastColor();
             else
-                canvas.FillColor = Fluent.Color.Foreground.NeutralTertiary.ToColor();
+            {
+                if (stepper.IsEnabled)
+                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Foreground.Secondary.ToColor() : Fluent.Color.Dark.Foreground.Secondary.ToColor();
+                else
+                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Foreground.Disabled.ToColor() : Fluent.Color.Dark.Foreground.Disabled.ToColor();
+            }
 
             canvas.FillPath(path);
 
@@ -87,13 +114,17 @@
 
         public void DrawSeparator(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
         {
-            if (stepper.IsEnabled)
+            if (stepper.Background == null)
             {
                 canvas.SaveState();
 
                 var strokeWidth = 1.0f;
 
-                canvas.StrokeColor = Fluent.Color.Foreground.NeutralSecondary.ToColor();
+                if (stepper.IsEnabled)
+                    canvas.StrokeColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Border.Default.ToColor() : Fluent.Color.Dark.Control.Border.Default.ToColor();
+                else
+                    canvas.StrokeColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Border.Disabled.ToColor() : Fluent.Color.Dark.Control.Border.Disabled.ToColor();
+
                 canvas.StrokeSize = strokeWidth;
 
                 var x = dirtyRect.X;
@@ -112,10 +143,20 @@
         {
             canvas.SaveState();
 
-            if (stepper.IsEnabled)
-                canvas.FontColor = Fluent.Color.Foreground.Black.ToColor();
+            Color? backgroundColor = null;
+
+            if (stepper.Background is SolidPaint solidBackground)
+                backgroundColor = solidBackground.Color;
+
+            if (backgroundColor != null)
+                canvas.FontColor = backgroundColor.ContrastColor();
             else
-                canvas.FontColor = Fluent.Color.Foreground.NeutralTertiary.ToColor();
+            {
+                if (stepper.IsEnabled)
+                    canvas.FontColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Foreground.Secondary.ToColor() : Fluent.Color.Dark.Foreground.Secondary.ToColor();
+                else
+                    canvas.FontColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Foreground.Disabled.ToColor() : Fluent.Color.Dark.Foreground.Disabled.ToColor();
+            }
 
             canvas.FontSize = 14f;
 
