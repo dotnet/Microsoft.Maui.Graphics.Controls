@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Maui.Platform;
+using System;
 using UIKit;
 
 namespace Microsoft.Maui.Graphics.Controls

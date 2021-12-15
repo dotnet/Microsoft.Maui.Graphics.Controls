@@ -1,4 +1,6 @@
-﻿#if __IOS__ || MACCATALYST
+﻿using Microsoft.Maui.Platform;
+
+#if __IOS__ || MACCATALYST
 using NativeView = UIKit.UIView;
 #elif MONOANDROID
 using NativeView = Android.Views.View;

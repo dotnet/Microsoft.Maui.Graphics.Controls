@@ -2,6 +2,7 @@
 using Android.Text;
 using Android.Views;
 using Android.Views.InputMethods;
+using Microsoft.Maui.Platform;
 using static Android.Views.View;
 using ATextAlignment = Android.Views.TextAlignment;
 
