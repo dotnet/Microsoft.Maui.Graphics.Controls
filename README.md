@@ -41,7 +41,7 @@ public static class MauiProgram
 
         appBuilder
             .UseMauiApp<App>()
-            .ConfigureGraphicsControls());
+            .ConfigureGraphicsControls();
 
         return appBuilder.Build();
     }
