@@ -7,7 +7,7 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="56dcbb67-4ab8-4d34-950e-1ba70ee4a762"
+    Name="606C8AB4-5534-4DD4-ABD8-07D4B8E10706"
     Publisher="CN=User Name"
     Version="1.0.0.0" />
 
@@ -31,7 +31,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="GraphicsControls"
+        DisplayName="GraphicsControls.Sample"
         Description="GraphicsControls.Sample"
         BackgroundColor="transparent"
         Square150x150Logo="Assets\appiconMediumTile.png"

@@ -1,11 +1,6 @@
-﻿using Microsoft.Maui.Controls.Hosting;
+﻿using GraphicsControls.Sample.Controls;
 using Microsoft.Maui.Graphics.Controls;
 using Microsoft.Maui.Graphics.Controls.Hosting;
-using Microsoft.Maui.Controls.Xaml;
-using Microsoft.Maui.Hosting;
-using GraphicsControls.Sample.Controls;
-
-[assembly: XamlCompilationAttribute(XamlCompilationOptions.Compile)]
 
 namespace GraphicsControls.Sample
 {
@@ -13,11 +8,11 @@ namespace GraphicsControls.Sample
     {
         public static MauiApp CreateMauiApp()
         {
-            var appBuilder = MauiApp.CreateBuilder();
+            var builder = MauiApp.CreateBuilder();
 
-            appBuilder
+            builder
                 .UseMauiApp<App>()
-                .ConfigureGraphicsControls(DrawableType.Material)               
+                .ConfigureGraphicsControls(DrawableType.Material)
                 .ConfigureMauiHandlers(handlers =>
                 {
                     handlers.AddHandler(typeof(CustomSliderDrawable), typeof(CustomSliderDrawableHandler));
@@ -25,7 +20,7 @@ namespace GraphicsControls.Sample
                     handlers.AddHandler(typeof(DrawCustomSlider), typeof(DrawCustomSliderHandler));
                 });
 
-            return appBuilder.Build();
+            return builder.Build();
         }
     }
 }

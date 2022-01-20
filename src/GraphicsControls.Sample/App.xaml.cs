@@ -1,6 +1,4 @@
-﻿using Application = Microsoft.Maui.Controls.Application;
-
-namespace GraphicsControls.Sample
+﻿namespace GraphicsControls.Sample
 {
     public partial class App : Application
     {
@@ -8,7 +6,6 @@ namespace GraphicsControls.Sample
         {
             InitializeComponent();
 
-            //MainPage = new CustomControlsPage();
             MainPage = new CustomNavigationPage(new MainPage());
         }
     }
