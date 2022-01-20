@@ -1,7 +1,0 @@
-{
-  "profiles": {
-    "GraphicsControls.Sample.WinUI": {
-      "commandName": "MsixPackage"
-    }
-  }
-}
