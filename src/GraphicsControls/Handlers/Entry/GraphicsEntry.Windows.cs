@@ -77,11 +77,9 @@ namespace Microsoft.Maui.Graphics.Controls
             _dirty.Width = (float)sender.ActualWidth;
             _dirty.Height = (float)sender.ActualHeight;
 
-            W2DGraphicsService.ThreadLocalCreator = sender;
             _canvas.Session = args.DrawingSession;
             _canvas.CanvasSize = new WSize(_dirty.Width, _dirty.Height);
             _drawable.Draw(_canvas, _dirty);
-            W2DGraphicsService.ThreadLocalCreator = null;
         }
 
         void OnPointerPressed(object sender, UI.Xaml.Input.PointerRoutedEventArgs e)

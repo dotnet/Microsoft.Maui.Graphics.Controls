@@ -33,7 +33,6 @@
 				return;
 
 			canvas.FontColor = text.TextColor ?? Colors.Black;
-			canvas.FontName = text.Font.Family;
 			canvas.FontSize = (float)text.Font.Size;
 
 			var horizontal =

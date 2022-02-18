@@ -1,15 +1,15 @@
 ﻿using Android.Views;
-using Microsoft.Maui.Graphics.Native;
+using Microsoft.Maui.Graphics.Platform;
 using Microsoft.Maui.Handlers;
 using APointF = Android.Graphics.PointF;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public partial class GraphicsViewHandler : ViewHandler<IGraphicsView, NativeGraphicsView>
+    public partial class GraphicsViewHandler : ViewHandler<IGraphicsView, PlatformGraphicsView>
     {
-        protected override NativeGraphicsView CreateNativeView()
+        protected override PlatformGraphicsView CreateNativeView()
         {
-            var nativeGraphicsView = new NativeGraphicsView(Context)
+            var nativeGraphicsView = new PlatformGraphicsView(Context)
             {
                 Drawable = VirtualView
             };
@@ -17,7 +17,7 @@ namespace Microsoft.Maui.Graphics.Controls
             return nativeGraphicsView;
         }
 
-        protected override void ConnectHandler(NativeGraphicsView nativeView)
+        protected override void ConnectHandler(PlatformGraphicsView nativeView)
         {
             base.ConnectHandler(nativeView);
 
@@ -26,7 +26,7 @@ namespace Microsoft.Maui.Graphics.Controls
             nativeView.Touch += OnTouch;
         }
 
-        protected override void DisconnectHandler(NativeGraphicsView nativeView)
+        protected override void DisconnectHandler(PlatformGraphicsView nativeView)
         {
             base.DisconnectHandler(nativeView); 
             

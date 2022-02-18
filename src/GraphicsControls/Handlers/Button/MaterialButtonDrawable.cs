@@ -46,8 +46,6 @@ namespace Microsoft.Maui.Graphics.Controls
         {
             canvas.SaveState();
 
-            canvas.FontName = "Roboto";
-
             var textColor = (button as ITextStyle)?.TextColor;
             canvas.FontColor = textColor?.WithDefault(button.IsEnabled ? Material.Color.White : Material.Color.Gray1);
 

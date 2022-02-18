@@ -27,8 +27,6 @@ namespace GraphicsControls.Sample.Controls
 			var x = dirtyRect.X;
 			var y = dirtyRect.Y;
 
-			canvas.SetToBoldSystemFont();
-
 			string valueString = VirtualView.Value.ToString("####0.00");
 
 			canvas.DrawString(valueString, x, y, width, height, HorizontalAlignment.Right, VerticalAlignment.Top);

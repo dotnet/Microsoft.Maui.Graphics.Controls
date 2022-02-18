@@ -161,8 +161,6 @@ namespace Microsoft.Maui.Graphics.Controls
             var x = (float)(width - (float)textSize + TextMargin);
             var y = 2;
 
-            canvas.SetToBoldSystemFont();
-
             string valueString = slider.Value.Clamp(slider.Minimum, slider.Maximum).ToString("####0.00");
 
             canvas.DrawString(valueString, x, y, (float)textSize, height, GHorizontalAlignment.Left, GVerticalAlignment.Center);

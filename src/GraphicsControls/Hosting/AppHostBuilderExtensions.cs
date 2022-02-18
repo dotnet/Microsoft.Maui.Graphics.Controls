@@ -1,13 +1,6 @@
 ﻿using Microsoft.Maui.Controls;
 using Microsoft.Maui.Hosting;
-using System;
 using Microsoft.Extensions.DependencyInjection;
-
-#if __ANDROID__ || __IOS__ || MACCATALYST
-using Microsoft.Maui.Graphics.Native;
-#elif WINDOWS
-using Microsoft.Maui.Graphics.Win2D;
-#endif
 
 namespace Microsoft.Maui.Graphics.Controls.Hosting
 {
@@ -15,12 +8,6 @@ namespace Microsoft.Maui.Graphics.Controls.Hosting
     {
         public static MauiAppBuilder ConfigureGraphicsControls(this MauiAppBuilder builder, DrawableType drawableType = DrawableType.Material)
         {
-#if __ANDROID__ || __IOS__ || __MACCATALYST__
-            GraphicsPlatform.RegisterGlobalService(NativeGraphicsService.Instance);
-#elif WINDOWS
-            GraphicsPlatform.RegisterGlobalService(W2DGraphicsService.Instance);
-#endif
-
             builder.ConfigureMauiHandlers(handlers =>
             {
                 handlers.AddGraphicsControlsHandlers(drawableType);

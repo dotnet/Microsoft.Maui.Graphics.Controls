@@ -1,5 +1,5 @@
 ﻿using Foundation;
-using Microsoft.Maui.Graphics.Native;
+using Microsoft.Maui.Graphics.Platform;
 using Microsoft.Maui.Handlers;
 using System;
 using UIKit;
@@ -16,7 +16,7 @@ namespace Microsoft.Maui.Graphics.Controls
         public Point Point { get; set; }
     }
 
-    public class TouchNativeGraphicsView : NativeGraphicsView
+    public class TouchNativeGraphicsView : PlatformGraphicsView
     {
         public event EventHandler<TouchEventArgs> TouchDown;
         public event EventHandler<TouchEventArgs> TouchMove;
