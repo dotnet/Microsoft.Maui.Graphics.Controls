@@ -2,20 +2,20 @@
 using System.Diagnostics;
 using CoreGraphics;
 using Foundation;
-using Microsoft.Maui.Graphics.Native;
+using Microsoft.Maui.Graphics.Platform;
 using Microsoft.Maui.Platform;
 using UIKit;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public class GraphicsDatePicker : UIView, IMixedNativeView
+    public class GraphicsDatePicker : UIView, IMixedPlatformView
     {
         DateTime _date;
         DateTime _minimumDate;
         DateTime _maximumDate;
 
         IMixedGraphicsHandler? _graphicsControl;
-        readonly NativeCanvas _canvas;
+        readonly PlatformCanvas _canvas;
 
         UIDatePicker? _picker;
         NoCaretField? _entry;
@@ -27,7 +27,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public GraphicsDatePicker()
         {
-            _canvas = new NativeCanvas(() => CGColorSpace.CreateDeviceRGB());
+            _canvas = new PlatformCanvas(() => CGColorSpace.CreateDeviceRGB());
 
             BackgroundColor = UIColor.Clear;
 
@@ -103,16 +103,16 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        static readonly string[] DefaultNativeLayers = new string[] { };
+        static readonly string[] DefaultPlatformLayers = new string[] { };
 
-        public string[] NativeLayers => DefaultNativeLayers;
+        public string[] PlatformLayers => DefaultPlatformLayers;
 
         public void Invalidate()
         {
             SetNeedsDisplay();
         }
 
-        public void DrawBaseLayer(RectangleF dirtyRect)
+        public void DrawBaseLayer(RectF dirtyRect)
         {
             base.Draw(dirtyRect);
         }
@@ -164,7 +164,7 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        void Draw(CGContext coreGraphics, RectangleF dirtyRect)
+        void Draw(CGContext coreGraphics, RectF dirtyRect)
         {
             _canvas.Context = coreGraphics;
 
@@ -174,7 +174,8 @@ namespace Microsoft.Maui.Graphics.Controls
             }
             catch (Exception exc)
             {
-                Logger.Error("An unexpected error occurred rendering the drawing.", exc);
+                //TODO: Add Logger Back
+                //Logger.Error("An unexpected error occurred rendering the drawing.", exc);
             }
             finally
             {

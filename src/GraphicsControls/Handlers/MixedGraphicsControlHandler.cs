@@ -3,24 +3,24 @@ using System;
 using System.Linq;
 using Microsoft.Maui.Handlers;
 #if __IOS__ || MACCATALYST
-using NativeView = UIKit.UIView;
+using PlatformView = UIKit.UIView;
 #elif MONOANDROID
-using NativeView = Android.Views.View;
+using PlatformView = Android.Views.View;
 #elif WINDOWS
-using NativeView = Microsoft.UI.Xaml.FrameworkElement;
+using PlatformView = Microsoft.UI.Xaml.FrameworkElement;
 #elif NETSTANDARD || (NET6_0 && !IOS && !ANDROID)
-using NativeView = System.Object;
+using PlatformView = System.Object;
 #endif
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-	public abstract partial class MixedGraphicsControlHandler<TViewDrawable, TVirtualView, TNativeView> : ViewHandler<TVirtualView, TNativeView>, IViewHandler, IMixedGraphicsHandler
+	public abstract partial class MixedGraphicsControlHandler<TViewDrawable, TVirtualView, TPlatformView> : ViewHandler<TVirtualView, TPlatformView>, IViewHandler, IMixedGraphicsHandler
 		where TVirtualView : class, IView
 		where TViewDrawable : class, IViewDrawable
 #if !NETSTANDARD || IOS || ANDROID || WINDOWS
-		where TNativeView : NativeView, IMixedNativeView
+		where TPlatformView : PlatformView, IMixedPlatformView
 #else
-		where TNativeView : class
+		where TPlatformView : class
 #endif
 	{
 		TViewDrawable? _drawable;
@@ -39,7 +39,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		DrawMapper IMixedGraphicsHandler.DrawMapper => _drawMapper;
 
-		public RectangleF Bounds { get; private set; }
+		public RectF Bounds { get; private set; }
 
 		public bool TouchEnabled { get; set; } = true;
 
@@ -114,11 +114,11 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public void Invalidate()
 		{
-			if (NativeView is IInvalidatable invalidatableView)
+			if (PlatformView is IInvalidatable invalidatableView)
 				invalidatableView?.Invalidate();
 		}
 
-		public virtual void Resized(RectangleF bounds)
+		public virtual void Resized(RectF bounds)
 		{
 			Bounds = bounds;
 		}
@@ -131,13 +131,13 @@ namespace Microsoft.Maui.Graphics.Controls
 			base.SetVirtualView(view);
 
 			Drawable.View = VirtualView!;
-			if (NativeView is IMixedNativeView mnv)
+			if (PlatformView is IMixedPlatformView mnv)
 				mnv.Drawable = this;
 
 			Invalidate();
 		}
 
-		public virtual void Draw(ICanvas canvas, RectangleF dirtyRect)
+		public virtual void Draw(ICanvas canvas, RectF dirtyRect)
 		{
 			if (VirtualView == null || _drawMapper == null)
 				return;
@@ -147,8 +147,8 @@ namespace Microsoft.Maui.Graphics.Controls
 			var layers = LayerDrawingOrder();
 			var rect = dirtyRect;
 			bool hasDrawnBase = false;
-			var mixedNativeView = NativeView as IMixedNativeView;
-			var nativeLayers = mixedNativeView?.NativeLayers;
+			var mixedPlatformView = PlatformView as IMixedPlatformView;
+			var nativeLayers = mixedPlatformView?.PlatformLayers;
 
 			foreach (var layer in layers)
 			{
@@ -160,7 +160,7 @@ namespace Microsoft.Maui.Graphics.Controls
 						continue;
 
 					hasDrawnBase = true;
-					mixedNativeView?.DrawBaseLayer(dirtyRect);
+					mixedPlatformView?.DrawBaseLayer(dirtyRect);
 				}
 				else
 					_drawMapper?.DrawLayer(canvas, rect, Drawable, VirtualView, layer);

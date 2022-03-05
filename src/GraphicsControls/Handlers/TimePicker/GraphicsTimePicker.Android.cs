@@ -4,16 +4,16 @@ using Android.Content;
 using Android.Graphics;
 using Android.Text.Format;
 using Android.Views;
-using Microsoft.Maui.Graphics.Native;
+using Microsoft.Maui.Graphics.Platform;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public class GraphicsTimePicker : View, IMixedNativeView
+    public class GraphicsTimePicker : View, IMixedPlatformView
     {
         TimeSpan _time;
 
         IMixedGraphicsHandler? _graphicsControl;
-        readonly NativeCanvas _canvas;
+        readonly PlatformCanvas _canvas;
         readonly ScalingCanvas _scalingCanvas;
         readonly float _scale;
 
@@ -26,7 +26,7 @@ namespace Microsoft.Maui.Graphics.Controls
         public GraphicsTimePicker(Context context) : base(context)
         {
             _scale = Resources?.DisplayMetrics?.Density ?? 1;
-            _canvas = new NativeCanvas(context);
+            _canvas = new PlatformCanvas(context);
             _scalingCanvas = new ScalingCanvas(_canvas);
 
             Touch += OnTouch;
@@ -70,11 +70,11 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public event EventHandler<TimeSelectedEventArgs>? TimeSelected;
 
-        static readonly string[] DefaultNativeLayers = new string[] { };
+        static readonly string[] DefaultPlatformLayers = new string[] { };
 
-        public string[] NativeLayers => DefaultNativeLayers;
+        public string[] PlatformLayers => DefaultPlatformLayers;
 
-        public void DrawBaseLayer(RectangleF dirtyRect) { }
+        public void DrawBaseLayer(RectF dirtyRect) { }
 
         protected override void Dispose(bool disposing)
         {
@@ -97,7 +97,7 @@ namespace Microsoft.Maui.Graphics.Controls
             if (_drawable == null)
                 return;
 
-            var dirtyRect = new RectangleF(0, 0, _width, _height);
+            var dirtyRect = new RectF(0, 0, _width, _height);
 
             _canvas.Canvas = androidCanvas;
 

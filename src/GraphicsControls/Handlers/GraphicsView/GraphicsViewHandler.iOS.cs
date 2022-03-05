@@ -1,5 +1,5 @@
 ﻿using Foundation;
-using Microsoft.Maui.Graphics.Native;
+using Microsoft.Maui.Graphics.Platform;
 using Microsoft.Maui.Handlers;
 using System;
 using UIKit;
@@ -16,7 +16,7 @@ namespace Microsoft.Maui.Graphics.Controls
         public Point Point { get; set; }
     }
 
-    public class TouchNativeGraphicsView : NativeGraphicsView
+    public class TouchPlatformGraphicsView : PlatformGraphicsView
     {
         public event EventHandler<TouchEventArgs> TouchDown;
         public event EventHandler<TouchEventArgs> TouchMove;
@@ -67,15 +67,15 @@ namespace Microsoft.Maui.Graphics.Controls
         }
     }
 
-    public partial class GraphicsViewHandler : ViewHandler<IGraphicsView, TouchNativeGraphicsView>
+    public partial class GraphicsViewHandler : ViewHandler<IGraphicsView, TouchPlatformGraphicsView>
     {
         const NSKeyValueObservingOptions observingOptions = NSKeyValueObservingOptions.Initial | NSKeyValueObservingOptions.OldNew | NSKeyValueObservingOptions.Prior;
 
         IDisposable? _isLoadedObserverDisposable;
 
-        protected override TouchNativeGraphicsView CreateNativeView()
+        protected override TouchPlatformGraphicsView CreatePlatformView()
         {
-            var nativeGraphicsView = new TouchNativeGraphicsView
+            var nativeGraphicsView = new TouchPlatformGraphicsView
             {
                 UserInteractionEnabled = true,
                 BackgroundColor = UIColor.Clear,
@@ -85,7 +85,7 @@ namespace Microsoft.Maui.Graphics.Controls
             return nativeGraphicsView;
         }
 
-        protected override void ConnectHandler(TouchNativeGraphicsView nativeView)
+        protected override void ConnectHandler(TouchPlatformGraphicsView nativeView)
         {
             base.ConnectHandler(nativeView);
 
@@ -97,7 +97,7 @@ namespace Microsoft.Maui.Graphics.Controls
             nativeView.TouchUp += OnTouchUp;
         }
 
-        protected override void DisconnectHandler(TouchNativeGraphicsView nativeView)
+        protected override void DisconnectHandler(TouchPlatformGraphicsView nativeView)
         {
             base.DisconnectHandler(nativeView);
 
@@ -111,7 +111,7 @@ namespace Microsoft.Maui.Graphics.Controls
         
         public static void MapInvalidate(GraphicsViewHandler handler, IGraphicsView graphicsView, object? arg)
         {
-            handler.NativeView?.InvalidateDrawable();
+            handler.PlatformView?.InvalidateDrawable();
         }
 
         void OnViewLoadedObserver(NSObservedChange nSObservedChange)

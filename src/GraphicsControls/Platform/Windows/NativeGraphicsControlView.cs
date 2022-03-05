@@ -6,13 +6,13 @@ using System.Diagnostics;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public class NativeGraphicsControlView : UserControl
+    public class PlatformGraphicsControlView : UserControl
     {
         readonly W2DGraphicsView _w2DGraphicsView;
         IGraphicsHandler? _graphicsControl;
         bool _pressedContained;
 
-        public NativeGraphicsControlView()
+        public PlatformGraphicsControlView()
         {
             _w2DGraphicsView = new W2DGraphicsView();
 

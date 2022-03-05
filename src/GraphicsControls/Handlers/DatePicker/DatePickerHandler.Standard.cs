@@ -4,7 +4,7 @@ namespace Microsoft.Maui.Graphics.Controls
 {
 	public partial class DatePickerHandler : MixedGraphicsControlHandler<IDatePickerDrawable, IDatePicker, object>
 	{
-		protected override object CreateNativeView() => throw new NotImplementedException();
+		protected override object CreatePlatformView() => throw new NotImplementedException();
 
 		public static void MapMinimumDate(DatePickerHandler handler, IDatePicker datePicker) { }
 		public static void MapMaximumDate(DatePickerHandler handler, IDatePicker datePicker) { }

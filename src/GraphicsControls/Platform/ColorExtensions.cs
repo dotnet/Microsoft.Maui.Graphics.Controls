@@ -19,7 +19,7 @@ namespace Microsoft.Maui.Graphics.Controls
                 return color;
             else
             {
-                if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                if (Application.Current?.RequestedTheme == AppTheme.Light)
                     return Color.FromArgb(defaultLightColor);
                 else
                     return Color.FromArgb(defaultDarkColor);

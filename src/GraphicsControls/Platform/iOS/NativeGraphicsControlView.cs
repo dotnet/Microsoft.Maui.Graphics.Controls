@@ -2,17 +2,17 @@
 using System.Diagnostics;
 using CoreGraphics;
 using Foundation;
-using Microsoft.Maui.Graphics.Native;
+using Microsoft.Maui.Graphics.Platform;
 using UIKit;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-	public class NativeGraphicsControlView : NativeGraphicsView
+	public class PlatformGraphicsControlView : PlatformGraphicsView
 	{
         IGraphicsHandler? _graphicsControl;
 		bool _pressedContained;
 
-		public NativeGraphicsControlView()
+		public PlatformGraphicsControlView()
 		{
 			BackgroundColor = UIColor.Clear;
 		}

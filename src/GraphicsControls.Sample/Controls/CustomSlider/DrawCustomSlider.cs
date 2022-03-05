@@ -14,7 +14,7 @@ namespace GraphicsControls.Sample.Controls
 	{
 		protected override ISliderDrawable CreateDrawable() => new MaterialSliderDrawable();
 
-		public override void Draw(ICanvas canvas, RectangleF dirtyRect)
+		public override void Draw(ICanvas canvas, RectF dirtyRect)
         {			
 			canvas.SaveState();
 
@@ -27,7 +27,7 @@ namespace GraphicsControls.Sample.Controls
 			var x = dirtyRect.X;
 			var y = dirtyRect.Y;
 
-			canvas.SetToBoldSystemFont();
+			canvas.Font = Microsoft.Maui.Graphics.Font.DefaultBold;
 
 			string valueString = VirtualView.Value.ToString("####0.00");
 

@@ -52,10 +52,10 @@ namespace Microsoft.Maui.Graphics.Controls
 			}
 		}
 
-		public static void MapDrawTrack(ICanvas canvas, RectangleF dirtyRect, IProgressBarDrawable drawable, IProgress view)
+		public static void MapDrawTrack(ICanvas canvas, RectF dirtyRect, IProgressBarDrawable drawable, IProgress view)
 			=> drawable.DrawTrack(canvas, dirtyRect, view);
 
-		public static void MapDrawProgress(ICanvas canvas, RectangleF dirtyRect, IProgressBarDrawable drawable, IProgress view)
+		public static void MapDrawProgress(ICanvas canvas, RectF dirtyRect, IProgressBarDrawable drawable, IProgress view)
 			=> drawable.DrawProgress(canvas, dirtyRect, view);
 	}
 }

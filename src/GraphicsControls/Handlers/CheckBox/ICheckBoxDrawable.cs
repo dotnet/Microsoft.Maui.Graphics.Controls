@@ -2,8 +2,8 @@
 {
     public interface ICheckBoxDrawable : IViewDrawable<ICheckBox>
     {
-        void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ICheckBox view);
-        void DrawMark(ICanvas canvas, RectangleF dirtyRect, ICheckBox view);
-        void DrawText(ICanvas canvas, RectangleF dirtyRect, ICheckBox view);
+        void DrawBackground(ICanvas canvas, RectF dirtyRect, ICheckBox view);
+        void DrawMark(ICanvas canvas, RectF dirtyRect, ICheckBox view);
+        void DrawText(ICanvas canvas, RectF dirtyRect, ICheckBox view);
     }
 }

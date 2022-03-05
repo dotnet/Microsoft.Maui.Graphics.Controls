@@ -1,11 +1,11 @@
 ﻿namespace Microsoft.Maui.Graphics.Controls
 {
-	public interface IMixedNativeView : IInvalidatable
+	public interface IMixedPlatformView : IInvalidatable
 	{
-		string[] NativeLayers { get; }
+		string[] PlatformLayers { get; }
 		IDrawable Drawable { get; set; }
 		IMixedGraphicsHandler? GraphicsControl { get; set; }
 
-		void DrawBaseLayer(RectangleF dirtyRect);
+		void DrawBaseLayer(RectF dirtyRect);
 	}
 }

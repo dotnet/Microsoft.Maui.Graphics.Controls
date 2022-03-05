@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using CoreGraphics;
-using Microsoft.Maui.Graphics.Native;
+using Microsoft.Maui.Graphics.Platform;
 using UIKit;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public class GraphicsEditor : UITextView, IMixedNativeView
+    public class GraphicsEditor : UITextView, IMixedPlatformView
     {
-        readonly NativeCanvas _canvas;
+        readonly PlatformCanvas _canvas;
         readonly UITapGestureRecognizer _tapGesture;
 
         CGColorSpace? _colorSpace;
@@ -19,7 +19,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public GraphicsEditor()
         {
-            _canvas = new NativeCanvas(() => CGColorSpace.CreateDeviceRGB());
+            _canvas = new PlatformCanvas(() => CGColorSpace.CreateDeviceRGB());
 
             EdgeInsets = UIEdgeInsets.Zero;
             ClipsToBounds = true;
@@ -61,9 +61,9 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        static readonly string[] DefaultNativeLayers = new[] { nameof(IEntry.Text) };
+        static readonly string[] DefaultPlatformLayers = new[] { nameof(IEntry.Text) };
 
-        public string[] NativeLayers => DefaultNativeLayers;
+        public string[] PlatformLayers => DefaultPlatformLayers;
 
         public void Invalidate()
         {
@@ -89,7 +89,7 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
                 
-        public void DrawBaseLayer(RectangleF dirtyRect)
+        public void DrawBaseLayer(RectF dirtyRect)
         {
             base.Draw(dirtyRect);
         }
@@ -112,7 +112,7 @@ namespace Microsoft.Maui.Graphics.Controls
             Draw(coreGraphics, dirtyRect.AsRectangleF());
         }
 
-        void Draw(CGContext coreGraphics, RectangleF dirtyRect)
+        void Draw(CGContext coreGraphics, RectF dirtyRect)
         {
             _canvas.Context = coreGraphics;
 
@@ -122,7 +122,8 @@ namespace Microsoft.Maui.Graphics.Controls
             }
             catch (Exception exc)
             {
-                Logger.Error("An unexpected error occurred rendering the drawing.", exc);
+                //TODO: Add Logger Back
+                //Logger.Error("An unexpected error occurred rendering the drawing.", exc);
             }
             finally
             {

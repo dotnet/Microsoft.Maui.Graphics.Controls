@@ -7,14 +7,14 @@ namespace Microsoft.Maui.Graphics.Controls
         const string FluentEntryIndicatorIcon = "M6.84961 6L12 11.1504L11.1504 12L6 6.84961L0.849609 12L0 11.1504L5.15039 6L0 0.849609L0.849609 0L6 5.15039L11.1504 0L12 0.849609L6.84961 6Z";
         const float FluentEntryHeight = 32.0f;
 
-        RectangleF indicatorRect = new RectangleF();
-        public RectangleF IndicatorRect => indicatorRect;
+        RectF indicatorRect = new RectF();
+        public RectF IndicatorRect => indicatorRect;
 
         public bool HasFocus { get; set; }
 
         public double AnimationPercent { get; set; }
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEntry entry)
+        public void DrawBackground(ICanvas canvas, RectF dirtyRect, IEntry entry)
         {
             canvas.SaveState();
 
@@ -34,9 +34,9 @@ namespace Microsoft.Maui.Graphics.Controls
                 else
                 {
                     if (entry.IsEnabled)
-                        canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Background.Default.ToColor() : Fluent.Color.Dark.Control.Background.Default.ToColor();
+                        canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Background.Default.ToColor() : Fluent.Color.Dark.Control.Background.Default.ToColor();
                     else
-                        canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Background.Disabled.ToColor() : Fluent.Color.Dark.Control.Background.Disabled.ToColor();
+                        canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Background.Disabled.ToColor() : Fluent.Color.Dark.Control.Background.Disabled.ToColor();
                 }
             }
 
@@ -51,7 +51,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IEntry entry)
+        public void DrawBorder(ICanvas canvas, RectF dirtyRect, IEntry entry)
         {
             canvas.SaveState();
 
@@ -60,9 +60,9 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.StrokeSize = strokeWidth;
 
             if (entry.IsEnabled)
-                canvas.StrokeColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Border.Default.ToColor() : Fluent.Color.Dark.Control.Border.Default.ToColor();
+                canvas.StrokeColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Border.Default.ToColor() : Fluent.Color.Dark.Control.Border.Default.ToColor();
             else
-                canvas.StrokeColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Border.Disabled.ToColor() : Fluent.Color.Dark.Control.Border.Disabled.ToColor();
+                canvas.StrokeColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Border.Disabled.ToColor() : Fluent.Color.Dark.Control.Border.Disabled.ToColor();
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
@@ -78,12 +78,12 @@ namespace Microsoft.Maui.Graphics.Controls
             {
                 canvas.SaveState();
 
-                canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Foreground.Primary.ToColor() : Fluent.Color.Dark.Foreground.Primary.ToColor();
+                canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Foreground.Primary.ToColor() : Fluent.Color.Dark.Foreground.Primary.ToColor();
 
                 if (HasFocus)
                 {
                     strokeWidth = 2.0f;
-                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Accent.Primary.ToColor() : Fluent.Color.Dark.Accent.Primary.ToColor();
+                    canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Accent.Primary.ToColor() : Fluent.Color.Dark.Accent.Primary.ToColor();
                 }
 
                 x = strokeWidth;
@@ -97,7 +97,7 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        public void DrawIndicator(ICanvas canvas, RectangleF dirtyRect, IEntry entry)
+        public void DrawIndicator(ICanvas canvas, RectF dirtyRect, IEntry entry)
         {
             if (!string.IsNullOrEmpty(entry.Text))
             {
@@ -114,17 +114,17 @@ namespace Microsoft.Maui.Graphics.Controls
                 var vBuilder = new PathBuilder();
                 var path = vBuilder.BuildPath(FluentEntryIndicatorIcon);
 
-                canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Foreground.Secondary.ToColor() : Fluent.Color.Dark.Foreground.Secondary.ToColor();
+                canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Foreground.Secondary.ToColor() : Fluent.Color.Dark.Foreground.Secondary.ToColor();
 
                 canvas.FillPath(path);
 
                 canvas.RestoreState();
 
-                indicatorRect = new RectangleF(tX, tY, FluentEntryHeight / 2, FluentEntryHeight / 2);
+                indicatorRect = new RectF(tX, tY, FluentEntryHeight / 2, FluentEntryHeight / 2);
             }
         }
 
-        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEntry entry)
+        public void DrawPlaceholder(ICanvas canvas, RectF dirtyRect, IEntry entry)
         {
             if (!HasFocus && string.IsNullOrEmpty(entry.Text))
             {
@@ -133,7 +133,7 @@ namespace Microsoft.Maui.Graphics.Controls
                 if (entry.IsEnabled)
                     canvas.FontColor = entry.PlaceholderColor.WithDefault(Fluent.Color.Light.Foreground.Secondary, Fluent.Color.Dark.Foreground.Secondary);
                 else
-                    canvas.FontColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Foreground.Disabled.ToColor() : Fluent.Color.Dark.Foreground.Disabled.ToColor();
+                    canvas.FontColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Foreground.Disabled.ToColor() : Fluent.Color.Dark.Foreground.Disabled.ToColor();
 
                 canvas.FontSize = 14f;
 

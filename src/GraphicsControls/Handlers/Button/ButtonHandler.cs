@@ -59,10 +59,10 @@ namespace Microsoft.Maui.Graphics.Controls
 			}
 		}
 
-		public static void MapDrawBackground(ICanvas canvas, RectangleF dirtyRect, IButtonDrawable drawable, IButton view)
+		public static void MapDrawBackground(ICanvas canvas, RectF dirtyRect, IButtonDrawable drawable, IButton view)
 			=> drawable.DrawBackground(canvas, dirtyRect, view);
 
-		public static void MapDrawText(ICanvas canvas, RectangleF dirtyRect, IButtonDrawable drawable, IButton view)
+		public static void MapDrawText(ICanvas canvas, RectF dirtyRect, IButtonDrawable drawable, IButton view)
 			=> drawable.DrawText(canvas, dirtyRect, view);
 
         public override bool StartInteraction(PointF[] points)

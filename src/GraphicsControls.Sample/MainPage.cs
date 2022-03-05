@@ -11,7 +11,7 @@ namespace GraphicsControls.Sample
         {
             Title = "GraphicsControls";
 
-            Application.Current.UserAppTheme = OSAppTheme.Light;
+            Application.Current.UserAppTheme = AppTheme.Light;
 
             this.SetAppThemeColor(BackgroundColorProperty, SampleColors.LightPageBackgroundColor, SampleColors.DarkPageBackgroundColor);
 
@@ -25,15 +25,15 @@ namespace GraphicsControls.Sample
 
             var header = CreateHeader();
             layout.Add(header);
-            GridLayout.SetRow(header as BindableObject, 0);
+            Grid.SetRow(header as BindableObject, 0);
 
             var content = CreateContent();
             layout.Add(content);
-            GridLayout.SetRow(content as BindableObject, 1);
+            Grid.SetRow(content as BindableObject, 1);
 
             var footer = CreateFooter();
             layout.Add(footer);
-            GridLayout.SetRow(footer as BindableObject, 2);
+            Grid.SetRow(footer as BindableObject, 2);
 
             scrollView.Content = layout;
 
@@ -148,10 +148,10 @@ namespace GraphicsControls.Sample
             xamlFrame.Content = xamlLabel;
 
             galleryLayout.Children.Add(cSharpFrame);
-            GridLayout.SetColumn(cSharpFrame, 0);
+            Grid.SetColumn(cSharpFrame, 0);
 
             galleryLayout.Children.Add(xamlFrame);
-            GridLayout.SetColumn(xamlFrame, 1);
+            Grid.SetColumn(xamlFrame, 1);
 
             layout.Children.Add(galleryLayout);
 

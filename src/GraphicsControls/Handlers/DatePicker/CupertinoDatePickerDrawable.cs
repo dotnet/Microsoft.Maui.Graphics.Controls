@@ -4,7 +4,7 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public class CupertinoDatePickerDrawable : ViewDrawable<IDatePicker>, IDatePickerDrawable
     {
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IDatePicker datePicker)
+        public void DrawBackground(ICanvas canvas, RectF dirtyRect, IDatePicker datePicker)
         {
             canvas.SaveState();
 
@@ -29,7 +29,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IDatePicker datePicker)
+        public void DrawBorder(ICanvas canvas, RectF dirtyRect, IDatePicker datePicker)
         {
             canvas.SaveState();
 
@@ -49,7 +49,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawDate(ICanvas canvas, RectangleF dirtyRect, IDatePicker datePicker)
+        public void DrawDate(ICanvas canvas, RectF dirtyRect, IDatePicker datePicker)
         {
             canvas.SaveState();
 
@@ -70,12 +70,12 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawIndicator(ICanvas canvas, RectangleF dirtyRect, IDatePicker datePicker)
+        public void DrawIndicator(ICanvas canvas, RectF dirtyRect, IDatePicker datePicker)
         {
 
         }
 
-        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IDatePicker datePicker)
+        public void DrawPlaceholder(ICanvas canvas, RectF dirtyRect, IDatePicker datePicker)
         {
 
         }

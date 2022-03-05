@@ -5,7 +5,7 @@
         PointF TouchPoint { get; set; }
         double AnimationPercent { get; set; }
 
-        void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IButton view);
-        void DrawText(ICanvas canvas, RectangleF dirtyRect, IButton view);
+        void DrawBackground(ICanvas canvas, RectF dirtyRect, IButton view);
+        void DrawText(ICanvas canvas, RectF dirtyRect, IButton view);
     }
 }

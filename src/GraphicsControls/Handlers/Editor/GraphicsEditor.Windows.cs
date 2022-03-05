@@ -6,13 +6,13 @@ using WSize = Windows.Foundation.Size;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public class GraphicsEditor : UserControl, IMixedNativeView
+    public class GraphicsEditor : UserControl, IMixedPlatformView
     {
         CanvasControl? _canvasControl;
         readonly W2DCanvas _canvas = new W2DCanvas();
         IMixedGraphicsHandler? _graphicsControl;
         IDrawable? _drawable;
-        RectangleF _dirty;
+        RectF _dirty;
 
         public GraphicsEditor()
         {
@@ -36,11 +36,11 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        static readonly string[] DefaultNativeLayers = new[] { nameof(IEntry.Text) };
+        static readonly string[] DefaultPlatformLayers = new[] { nameof(IEntry.Text) };
 
-        public string[] NativeLayers => DefaultNativeLayers;
+        public string[] PlatformLayers => DefaultPlatformLayers;
 
-        public void DrawBaseLayer(RectangleF dirtyRect) { }
+        public void DrawBaseLayer(RectF dirtyRect) { }
 
         public void Invalidate()
         {

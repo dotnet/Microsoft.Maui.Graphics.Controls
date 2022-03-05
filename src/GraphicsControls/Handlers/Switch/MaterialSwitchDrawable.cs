@@ -12,7 +12,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public double AnimationPercent { get; set; }
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ISwitch view)
+        public void DrawBackground(ICanvas canvas, RectF dirtyRect, ISwitch view)
         {
             canvas.SaveState();
 
@@ -29,7 +29,7 @@ namespace Microsoft.Maui.Graphics.Controls
                     canvas.SetFillPaint(view.Background, dirtyRect);
                 else
                 {
-                    if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                    if (Application.Current?.RequestedTheme == AppTheme.Light)
                         canvas.FillColor = view.IsEnabled ? Material.Color.Light.Gray2.ToColor() : Material.Color.Light.Gray3.ToColor();
                     else
                         canvas.FillColor = view.IsEnabled ? Material.Color.Dark.Gray2.ToColor() : Material.Color.Dark.Gray3.ToColor();
@@ -51,7 +51,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawThumb(ICanvas canvas, RectangleF dirtyRect, ISwitch view)
+        public void DrawThumb(ICanvas canvas, RectF dirtyRect, ISwitch view)
         {
             canvas.SaveState();
 

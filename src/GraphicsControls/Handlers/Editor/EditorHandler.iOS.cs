@@ -6,7 +6,7 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public partial class EditorHandler : MixedGraphicsControlHandler<IEditorDrawable, IEditor, GraphicsEditor>
 	{
-		protected override GraphicsEditor CreateNativeView()
+		protected override GraphicsEditor CreatePlatformView()
 		{
 			UIEdgeInsets edgeInsets;
 
@@ -40,18 +40,18 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public static void MapText(EditorHandler handler, IEditor editor)
 		{
-			handler.NativeView?.UpdateText(editor);
+			handler.PlatformView?.UpdateText(editor);
 			(handler as IMixedGraphicsHandler)?.Invalidate();
 		}
 
 		public static void MapTextColor(EditorHandler handler, IEditor editor)
 		{
-			handler.NativeView?.UpdateTextColor(editor);
+			handler.PlatformView?.UpdateTextColor(editor);
 		}
 
 		public static void MapCharacterSpacing(EditorHandler handler, IEditor editor)
 		{
-			handler.NativeView?.UpdateCharacterSpacing(editor);
+			handler.PlatformView?.UpdateCharacterSpacing(editor);
 		}
 
 		[MissingMapper]
@@ -59,22 +59,22 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public static void MapIsReadOnly(EditorHandler handler, IEditor editor)
 		{
-			handler.NativeView?.UpdateIsReadOnly(editor);
+			handler.PlatformView?.UpdateIsReadOnly(editor);
 		}
 
 		public static void MapIsTextPredictionEnabled(EditorHandler handler, IEditor editor) 
 		{
-			handler.NativeView?.UpdateIsTextPredictionEnabled(editor);
+			handler.PlatformView?.UpdateIsTextPredictionEnabled(editor);
 		}
 
 		public static void MapMaxLength(EditorHandler handler, IEditor editor) 
 		{
-			handler.NativeView?.UpdateMaxLength(editor);
+			handler.PlatformView?.UpdateMaxLength(editor);
 		}
 
 		public static void MapKeyboard(EditorHandler handler, IEditor editor)
 		{
-			handler.NativeView?.UpdateKeyboard(editor);
+			handler.PlatformView?.UpdateKeyboard(editor);
 		}
 
 		void OnStarted(object? sender, EventArgs e)
@@ -88,11 +88,11 @@ namespace Microsoft.Maui.Graphics.Controls
 			Drawable.HasFocus = false;
 			Invalidate();
 
-			if (VirtualView == null || NativeView == null)
+			if (VirtualView == null || PlatformView == null)
 				return;
 
-			if (NativeView.Text != VirtualView.Text)
-				VirtualView.Text = NativeView.Text ?? string.Empty;
+			if (PlatformView.Text != VirtualView.Text)
+				VirtualView.Text = PlatformView.Text ?? string.Empty;
 
 			// TODO: Update IsFocused property
 

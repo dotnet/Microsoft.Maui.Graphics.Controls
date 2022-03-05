@@ -2,14 +2,14 @@
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public partial class GraphicsControlHandler<TViewDrawable, TVirtualView> : ViewHandler<TVirtualView, NativeGraphicsControlView>
+    public partial class GraphicsControlHandler<TViewDrawable, TVirtualView> : ViewHandler<TVirtualView, PlatformGraphicsControlView>
 	{
-		protected override NativeGraphicsControlView CreateNativeView() =>
-			new NativeGraphicsControlView { GraphicsControl = this };
+		protected override PlatformGraphicsControlView CreatePlatformView() =>
+			new PlatformGraphicsControlView { GraphicsControl = this };
 
 		public void Invalidate()
 		{
-			NativeView?.Invalidate();
+			PlatformView?.Invalidate();
 		}
 	}
 }

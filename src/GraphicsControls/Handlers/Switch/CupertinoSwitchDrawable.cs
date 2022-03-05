@@ -8,7 +8,7 @@
 
         public double AnimationPercent { get; set; }
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ISwitch view)
+        public void DrawBackground(ICanvas canvas, RectF dirtyRect, ISwitch view)
         {
             canvas.SaveState();
 
@@ -28,7 +28,7 @@
             canvas.RestoreState();
         }
 
-        public void DrawThumb(ICanvas canvas, RectangleF dirtyRect, ISwitch view)
+        public void DrawThumb(ICanvas canvas, RectF dirtyRect, ISwitch view)
         {
             canvas.SaveState();
 

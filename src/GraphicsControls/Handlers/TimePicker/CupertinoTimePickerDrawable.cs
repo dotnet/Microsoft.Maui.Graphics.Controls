@@ -4,7 +4,7 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public class CupertinoTimePickerDrawable : ViewDrawable<ITimePicker>, ITimePickerDrawable
     {
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
+        public void DrawBackground(ICanvas canvas, RectF dirtyRect, ITimePicker timePicker)
         {
             canvas.SaveState();
 
@@ -29,7 +29,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
+        public void DrawBorder(ICanvas canvas, RectF dirtyRect, ITimePicker timePicker)
         {
             canvas.SaveState();
 
@@ -49,12 +49,12 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
+        public void DrawPlaceholder(ICanvas canvas, RectF dirtyRect, ITimePicker timePicker)
         {
 
         }
 
-        public void DrawTime(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
+        public void DrawTime(ICanvas canvas, RectF dirtyRect, ITimePicker timePicker)
         {
             canvas.SaveState();
 

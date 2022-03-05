@@ -63,19 +63,19 @@ namespace Microsoft.Maui.Graphics.Controls
 			}
 		}
 
-		public static void MapDrawBackground(ICanvas canvas, RectangleF dirtyRect, IStepperDrawable drawable, IStepper view)
+		public static void MapDrawBackground(ICanvas canvas, RectF dirtyRect, IStepperDrawable drawable, IStepper view)
 			=> drawable.DrawBackground(canvas, dirtyRect, view);
 
-		public static void MapDrawSeparator(ICanvas canvas, RectangleF dirtyRect, IStepperDrawable drawable, IStepper view)
+		public static void MapDrawSeparator(ICanvas canvas, RectF dirtyRect, IStepperDrawable drawable, IStepper view)
 			=> drawable.DrawSeparator(canvas, dirtyRect, view);
 
-		public static void MapDrawMinus(ICanvas canvas, RectangleF dirtyRect, IStepperDrawable drawable, IStepper view)
+		public static void MapDrawMinus(ICanvas canvas, RectF dirtyRect, IStepperDrawable drawable, IStepper view)
 			=> drawable.DrawMinus(canvas, dirtyRect, view);
 
-		public static void MapDrawPlus(ICanvas canvas, RectangleF dirtyRect, IStepperDrawable drawable, IStepper view)
+		public static void MapDrawPlus(ICanvas canvas, RectF dirtyRect, IStepperDrawable drawable, IStepper view)
 			=> drawable.DrawPlus(canvas, dirtyRect, view);
 
-		public static void MapDrawText(ICanvas canvas, RectangleF dirtyRect, IStepperDrawable drawable, IStepper view)
+		public static void MapDrawText(ICanvas canvas, RectF dirtyRect, IStepperDrawable drawable, IStepper view)
 			=> drawable.DrawText(canvas, dirtyRect, view);
 
 		public override bool StartInteraction(PointF[] points)

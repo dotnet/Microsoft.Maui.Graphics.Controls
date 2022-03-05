@@ -1,16 +1,16 @@
 ﻿using Android.Content;
 using Android.Views;
-using Microsoft.Maui.Graphics.Native;
+using Microsoft.Maui.Graphics.Platform;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public class NativeGraphicsControlView : NativeGraphicsView
+    public class PlatformGraphicsControlView : PlatformGraphicsView
     {
         readonly float _density;
         IGraphicsHandler? _graphicsControl;
         bool _pressedContained;
 
-        public NativeGraphicsControlView(Context? context) : base(context)
+        public PlatformGraphicsControlView(Context? context) : base(context)
         {
             _density = Resources?.DisplayMetrics?.Density ?? 1.0f;
         }

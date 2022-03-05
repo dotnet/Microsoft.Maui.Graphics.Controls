@@ -36,7 +36,7 @@ namespace GraphicsControls.Sample.Controls
             set { SetValue(AvatarSizeProperty, value); }
         }
 
-        public override void Draw(ICanvas canvas, RectangleF dirtyRect)
+        public override void Draw(ICanvas canvas, RectF dirtyRect)
         {
             base.Draw(canvas, dirtyRect);
 
@@ -50,7 +50,7 @@ namespace GraphicsControls.Sample.Controls
            Debug.WriteLine($"Touch Down {point}");
         }
 
-        void DrawBackground(ICanvas canvas, RectangleF dirtyRect)
+        void DrawBackground(ICanvas canvas, RectF dirtyRect)
         {
             canvas.SaveState();
 
@@ -67,7 +67,7 @@ namespace GraphicsControls.Sample.Controls
             canvas.RestoreState();
         }
 
-        public virtual void DrawIndicator(ICanvas canvas, RectangleF dirtyRect)
+        public virtual void DrawIndicator(ICanvas canvas, RectF dirtyRect)
         {
             canvas.SaveState();
 
@@ -120,7 +120,7 @@ namespace GraphicsControls.Sample.Controls
             canvas.RestoreState();
         }
 
-        void DrawInitials(ICanvas canvas, RectangleF dirtyRect)
+        void DrawInitials(ICanvas canvas, RectF dirtyRect)
         {
             canvas.SaveState();
 
