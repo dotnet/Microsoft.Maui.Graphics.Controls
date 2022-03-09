@@ -12,7 +12,7 @@
 
 		public ControlState CurrentState { get; set; }
 
-		public virtual void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IView view)
+		public virtual void DrawBackground(ICanvas canvas, RectF dirtyRect, IView view)
 		{
 			if (view.Background == null)
 				return;
@@ -22,12 +22,12 @@
 			canvas.DrawRectangle(dirtyRect);
 		}
 
-		public virtual void DrawClip(ICanvas canvas, RectangleF dirtyRect, IView view)
+		public virtual void DrawClip(ICanvas canvas, RectF dirtyRect, IView view)
 		{
 		
 		}
 
-		public virtual void DrawText(ICanvas canvas, RectangleF dirtyRect, IText text)
+		public virtual void DrawText(ICanvas canvas, RectF dirtyRect, IText text)
 		{
 			if (text == null)
 				return;
@@ -47,12 +47,12 @@
 			canvas.DrawString((string)text.Text, dirtyRect, horizontalAlignment: horizontal, verticalAlignment: Microsoft.Maui.Graphics.VerticalAlignment.Center);
 
 		}
-		public virtual void DrawOverlay(ICanvas canvas, RectangleF dirtyRect, IView view)
+		public virtual void DrawOverlay(ICanvas canvas, RectF dirtyRect, IView view)
 		{
 
 		}
 
-		public virtual void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IView view)
+		public virtual void DrawBorder(ICanvas canvas, RectF dirtyRect, IView view)
 		{
 
 		}

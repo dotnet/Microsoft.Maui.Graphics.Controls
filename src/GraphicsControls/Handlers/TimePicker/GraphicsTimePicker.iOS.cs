@@ -90,7 +90,7 @@ namespace Microsoft.Maui.Graphics.Controls
             SetNeedsDisplay();
         }
 
-        public void DrawBaseLayer(RectangleF dirtyRect)
+        public void DrawBaseLayer(RectF dirtyRect)
         {
             base.Draw(dirtyRect);
         }
@@ -142,7 +142,7 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        void Draw(CGContext coreGraphics, RectangleF dirtyRect)
+        void Draw(CGContext coreGraphics, RectF dirtyRect)
         {
             _canvas.Context = coreGraphics;
 

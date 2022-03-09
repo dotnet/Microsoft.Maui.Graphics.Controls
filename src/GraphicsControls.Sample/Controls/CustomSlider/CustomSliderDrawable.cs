@@ -19,13 +19,13 @@ namespace GraphicsControls.Sample.Controls
     {
         public bool IsDragging { get; set; }
 
-        RectangleF trackRect = new RectangleF();
-        public RectangleF TrackRect => trackRect;
+        RectF trackRect = new RectF();
+        public RectF TrackRect => trackRect;
 
-        RectangleF touchTargetRect = new RectangleF(0, 0, 44, 44);
-        public RectangleF TouchTargetRect => touchTargetRect;
+        RectF touchTargetRect = new RectF(0, 0, 44, 44);
+        public RectF TouchTargetRect => touchTargetRect;
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ISlider slider)
+        public void DrawBackground(ICanvas canvas, RectF dirtyRect, ISlider slider)
         {
             canvas.SaveState();
 
@@ -46,12 +46,12 @@ namespace GraphicsControls.Sample.Controls
             canvas.RestoreState();
         }
         
-        public void DrawText(ICanvas canvas, RectangleF dirtyRect, ISlider slider)
+        public void DrawText(ICanvas canvas, RectF dirtyRect, ISlider slider)
         {
 
         }
 
-        public void DrawThumb(ICanvas canvas, RectangleF dirtyRect, ISlider slider)
+        public void DrawThumb(ICanvas canvas, RectF dirtyRect, ISlider slider)
         {
             float size = 38f;
             float strokeWidth = 0.5f;
@@ -81,7 +81,7 @@ namespace GraphicsControls.Sample.Controls
             linearGradientPaint.StartPoint = new Point(0, 0);
             linearGradientPaint.EndPoint = new Point(0.8, 1.0);
 
-            canvas.SetFillPaint(linearGradientPaint, new RectangleF(x, y, size, size)); //slider.ThumbColor.WithDefault(Colors.White.ToArgbHex());
+            canvas.SetFillPaint(linearGradientPaint, new RectF(x, y, size, size)); //slider.ThumbColor.WithDefault(Colors.White.ToArgbHex());
 
             canvas.SetShadow(new SizeF(6, 6), 6, Color.FromArgb("#99330194"));
 
@@ -115,7 +115,7 @@ namespace GraphicsControls.Sample.Controls
             canvas.SaveState();
         }
 
-        public void DrawTrackProgress(ICanvas canvas, RectangleF dirtyRect, ISlider slider)
+        public void DrawTrackProgress(ICanvas canvas, RectF dirtyRect, ISlider slider)
         {
 
         }

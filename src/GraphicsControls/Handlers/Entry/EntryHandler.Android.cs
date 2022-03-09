@@ -18,7 +18,7 @@ namespace Microsoft.Maui.Graphics.Controls
         EditorActionListener ActionListener { get; } = new EditorActionListener();
         EntryFocusChangeListener FocusChangeListener { get; } = new EntryFocusChangeListener();
 
-        protected override GraphicsEntry CreateNativeView()
+        protected override GraphicsEntry CreatePlatformView()
         {
             var nativeView = new GraphicsEntry(Context!)
             {
@@ -69,8 +69,8 @@ namespace Microsoft.Maui.Graphics.Controls
             {
                 PointF touchPoint = points[0];
 
-                if (Drawable.IndicatorRect.Contains(touchPoint) && NativeView != null)
-                    NativeView.Text = string.Empty;
+                if (Drawable.IndicatorRect.Contains(touchPoint) && PlatformView != null)
+                    PlatformView.Text = string.Empty;
             }
 
             return base.StartInteraction(points);
@@ -78,12 +78,12 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public static void MapText(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateText(entry);
+            handler.PlatformView?.UpdateText(entry);
         }
 
         public static void MapCharacterSpacing(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateCharacterSpacing(entry);
+            handler.PlatformView?.UpdateCharacterSpacing(entry);
         }
 
         public static void MapFont(EntryHandler handler, IEntry entry)
@@ -95,57 +95,57 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public static void MapHorizontalTextAlignment(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateHorizontalTextAlignment(entry);
+            handler.PlatformView?.UpdateHorizontalTextAlignment(entry);
         }
 
         public static void MapIsPassword(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateIsPassword(entry);
+            handler.PlatformView?.UpdateIsPassword(entry);
         }
 
         public static void MapIsReadOnly(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateIsReadOnly(entry);
+            handler.PlatformView?.UpdateIsReadOnly(entry);
         }
 
         public static void MapIsTextPredictionEnabled(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateIsTextPredictionEnabled(entry);
+            handler.PlatformView?.UpdateIsTextPredictionEnabled(entry);
         }
 
         public static void MapKeyboard(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateKeyboard(entry);
+            handler.PlatformView?.UpdateKeyboard(entry);
         }
 
         public static void MapMaxLength(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateMaxLength(entry);
+            handler.PlatformView?.UpdateMaxLength(entry);
         }
 
         public static void MapReturnType(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateReturnType(entry);
+            handler.PlatformView?.UpdateReturnType(entry);
         }
 
         public static void MapTextColor(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateTextColor(entry, DefaultTextColors);
+            handler.PlatformView?.UpdateTextColor(entry, DefaultTextColors);
         }
 
         public static void MapCursorPosition(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateCursorPosition(entry);
+            handler.PlatformView?.UpdateCursorPosition(entry);
         }
 
         public static void MapSelectionLength(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateSelectionLength(entry);
+            handler.PlatformView?.UpdateSelectionLength(entry);
         }
 
         void OnTextChanged(string? text)
         {
-            if (VirtualView == null || NativeView == null)
+            if (VirtualView == null || PlatformView == null)
                 return;
 
             // Even though <null> is technically different to "", it has no

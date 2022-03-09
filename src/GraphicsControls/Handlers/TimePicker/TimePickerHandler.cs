@@ -57,16 +57,16 @@ namespace Microsoft.Maui.Graphics.Controls
 			}
 		}
 
-		public static void MapDrawBackground(ICanvas canvas, RectangleF dirtyRect, ITimePickerDrawable drawable, ITimePicker view)
+		public static void MapDrawBackground(ICanvas canvas, RectF dirtyRect, ITimePickerDrawable drawable, ITimePicker view)
 			=> drawable.DrawBackground(canvas, dirtyRect, view);
 
-		public static void MapDrawBorder(ICanvas canvas, RectangleF dirtyRect, ITimePickerDrawable drawable, ITimePicker view)
+		public static void MapDrawBorder(ICanvas canvas, RectF dirtyRect, ITimePickerDrawable drawable, ITimePicker view)
 			=> drawable.DrawBorder(canvas, dirtyRect, view);
 
-		public static void MapDrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, ITimePickerDrawable drawable, ITimePicker view)
+		public static void MapDrawPlaceholder(ICanvas canvas, RectF dirtyRect, ITimePickerDrawable drawable, ITimePicker view)
 			=> drawable.DrawPlaceholder(canvas, dirtyRect, view);
 
-		public static void MapDrawTime(ICanvas canvas, RectangleF dirtyRect, ITimePickerDrawable drawable, ITimePicker view)
+		public static void MapDrawTime(ICanvas canvas, RectF dirtyRect, ITimePickerDrawable drawable, ITimePicker view)
 			=> drawable.DrawTime(canvas, dirtyRect, view);
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Essentials;
 using System;
 using System.Globalization;
 
@@ -9,7 +10,7 @@ namespace Microsoft.Maui.Graphics.Controls
         const float FluentDatePickerHeight = 32.0f;
         const float FluentDatePickerWidth = 250.0f;
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
+        public void DrawBackground(ICanvas canvas, RectF dirtyRect, ITimePicker timePicker)
         {
             canvas.SaveState();
 
@@ -18,9 +19,9 @@ namespace Microsoft.Maui.Graphics.Controls
             else
             {
                 if (timePicker.IsEnabled)
-                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Background.Default.ToColor() : Fluent.Color.Dark.Control.Background.Default.ToColor();
+                    canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Background.Default.ToColor() : Fluent.Color.Dark.Control.Background.Default.ToColor();
                 else
-                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Background.Disabled.ToColor() : Fluent.Color.Dark.Control.Background.Disabled.ToColor();
+                    canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Background.Disabled.ToColor() : Fluent.Color.Dark.Control.Background.Disabled.ToColor();
             }
 
             var x = dirtyRect.X;
@@ -34,7 +35,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
+        public void DrawBorder(ICanvas canvas, RectF dirtyRect, ITimePicker timePicker)
         {
             canvas.SaveState();
 
@@ -46,10 +47,10 @@ namespace Microsoft.Maui.Graphics.Controls
                 if (timePicker.TextColor != null)
                     strokeColor = timePicker.TextColor;
                 else
-                    strokeColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Border.Default.ToColor() : Fluent.Color.Dark.Control.Border.Default.ToColor();
+                    strokeColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Border.Default.ToColor() : Fluent.Color.Dark.Control.Border.Default.ToColor();
             }
             else
-                strokeColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Border.Disabled.ToColor() : Fluent.Color.Dark.Control.Border.Disabled.ToColor();
+                strokeColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Border.Disabled.ToColor() : Fluent.Color.Dark.Control.Border.Disabled.ToColor();
 
             canvas.StrokeSize = strokeWidth;
             canvas.StrokeColor = strokeColor;
@@ -89,12 +90,12 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
+        public void DrawPlaceholder(ICanvas canvas, RectF dirtyRect, ITimePicker timePicker)
         {
 
         }
 
-        public void DrawTime(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
+        public void DrawTime(ICanvas canvas, RectF dirtyRect, ITimePicker timePicker)
         {
             var height = FluentDatePickerHeight;
             var divided = FluentDatePickerWidth / 3;

@@ -1,11 +1,12 @@
 ﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Essentials;
 using System;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
     public class MaterialTimePickerDrawable : ViewDrawable<ITimePicker>, ITimePickerDrawable
     {
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
+        public void DrawBackground(ICanvas canvas, RectF dirtyRect, ITimePicker timePicker)
         {
             canvas.SaveState();
 
@@ -13,7 +14,7 @@ namespace Microsoft.Maui.Graphics.Controls
                 canvas.SetFillPaint(timePicker.Background, dirtyRect);
             else
             {
-                if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                if (Application.Current?.RequestedTheme == AppTheme.Light)
                     canvas.FillColor = timePicker.IsEnabled ? Material.Color.Light.Gray5.ToColor() : Material.Color.Light.Gray3.ToColor();
                 else
                     canvas.FillColor = timePicker.IsEnabled ? Material.Color.Dark.Gray5.ToColor() : Material.Color.Dark.Gray3.ToColor();
@@ -32,12 +33,12 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
+        public void DrawBorder(ICanvas canvas, RectF dirtyRect, ITimePicker timePicker)
         {
             canvas.SaveState();
 
             var strokeWidth = 1.0f;
-            canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Material.Color.Black.ToColor() : Material.Color.Light.Gray6.ToColor().WithAlpha(0.5f);
+            canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Material.Color.Black.ToColor() : Material.Color.Light.Gray6.ToColor().WithAlpha(0.5f);
 
             var x = dirtyRect.X;
             var y = 53.91f;
@@ -50,13 +51,13 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
+        public void DrawPlaceholder(ICanvas canvas, RectF dirtyRect, ITimePicker timePicker)
         {
             canvas.SaveState();
 
             if (timePicker.TextColor == null)
             {
-                if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                if (Application.Current?.RequestedTheme == AppTheme.Light)
                     canvas.FontColor = Material.Color.Light.Gray1.ToColor();
                 else
                     canvas.FontColor = Material.Color.Light.Gray6.ToColor();
@@ -86,7 +87,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawTime(ICanvas canvas, RectangleF dirtyRect, ITimePicker timePicker)
+        public void DrawTime(ICanvas canvas, RectF dirtyRect, ITimePicker timePicker)
         {
             canvas.SaveState();
 

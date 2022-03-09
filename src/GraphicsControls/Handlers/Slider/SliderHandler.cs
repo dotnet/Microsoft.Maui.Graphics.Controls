@@ -58,16 +58,16 @@ namespace Microsoft.Maui.Graphics.Controls
 			}
 		}
 
-		public static void MapDrawBackground(ICanvas canvas, RectangleF dirtyRect, ISliderDrawable drawable, ISlider view)
+		public static void MapDrawBackground(ICanvas canvas, RectF dirtyRect, ISliderDrawable drawable, ISlider view)
 			=> drawable.DrawBackground(canvas, dirtyRect, view);
 
-		public static void MapDrawThumb(ICanvas canvas, RectangleF dirtyRect, ISliderDrawable drawable, ISlider view)
+		public static void MapDrawThumb(ICanvas canvas, RectF dirtyRect, ISliderDrawable drawable, ISlider view)
 			=> drawable.DrawThumb(canvas, dirtyRect, view);
 
-		public static void MapDrawTrackProgress(ICanvas canvas, RectangleF dirtyRect, ISliderDrawable drawable, ISlider view)
+		public static void MapDrawTrackProgress(ICanvas canvas, RectF dirtyRect, ISliderDrawable drawable, ISlider view)
 			=> drawable.DrawTrackProgress(canvas, dirtyRect, view);
 
-		public static void MapDrawText(ICanvas canvas, RectangleF dirtyRect, ISliderDrawable drawable, ISlider view)
+		public static void MapDrawText(ICanvas canvas, RectF dirtyRect, ISliderDrawable drawable, ISlider view)
 			=> drawable.DrawText(canvas, dirtyRect, view);
 
 		public override bool StartInteraction(PointF[] points)

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Essentials;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -7,7 +8,7 @@ namespace Microsoft.Maui.Graphics.Controls
         public PointF TouchPoint { get; set; }
         public double AnimationPercent { get; set; }
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IButton button)
+        public void DrawBackground(ICanvas canvas, RectF dirtyRect, IButton button)
         {
             canvas.SaveState();
 
@@ -17,12 +18,12 @@ namespace Microsoft.Maui.Graphics.Controls
             var width = dirtyRect.Width;
             var height = dirtyRect.Height;
 
-            var defaultBackgroundColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Background.Default.ToColor() : Fluent.Color.Dark.Control.Background.Default.ToColor();
+            var defaultBackgroundColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Background.Default.ToColor() : Fluent.Color.Dark.Control.Background.Default.ToColor();
 
             if (button.Background != null && button.Background is SolidPaint solidPaint)
                 defaultBackgroundColor = solidPaint.Color;
 
-            var disabledColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Background.Disabled.ToColor() : Fluent.Color.Dark.Control.Background.Disabled.ToColor();
+            var disabledColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Background.Disabled.ToColor() : Fluent.Color.Dark.Control.Background.Disabled.ToColor();
 
             var backgroundColor = button.IsEnabled ? defaultBackgroundColor : disabledColor;
 
@@ -68,7 +69,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawText(ICanvas canvas, RectangleF dirtyRect, IButton button)
+        public void DrawText(ICanvas canvas, RectF dirtyRect, IButton button)
         {
             canvas.SaveState();
 

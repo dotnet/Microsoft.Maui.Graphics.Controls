@@ -5,6 +5,6 @@
 		DrawMapper DrawMapper { get; }
 
 		string[] LayerDrawingOrder();
-		void Resized(RectangleF bounds);
+		void Resized(RectF bounds);
 	}
 }

@@ -2,7 +2,7 @@
 {
     public partial class EditorHandler : MixedGraphicsControlHandler<IEditorDrawable, IEditor, GraphicsEditor>
     {
-		protected override GraphicsEditor CreateNativeView()
+		protected override GraphicsEditor CreatePlatformView()
 		{
 			return new GraphicsEditor { GraphicsControl = this };
 		}

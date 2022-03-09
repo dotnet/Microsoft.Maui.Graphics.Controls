@@ -66,13 +66,13 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        public static void MapDrawBackground(ICanvas canvas, RectangleF dirtyRect, IEditorDrawable drawable, IEditor view)
+        public static void MapDrawBackground(ICanvas canvas, RectF dirtyRect, IEditorDrawable drawable, IEditor view)
             => drawable.DrawBackground(canvas, dirtyRect, view);
 
-        public static void MapDrawBorder(ICanvas canvas, RectangleF dirtyRect, IEditorDrawable drawable, IEditor view)
+        public static void MapDrawBorder(ICanvas canvas, RectF dirtyRect, IEditorDrawable drawable, IEditor view)
             => drawable.DrawBorder(canvas, dirtyRect, view);
 
-        public static void MapDrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEditorDrawable drawable, IEditor view)
+        public static void MapDrawPlaceholder(ICanvas canvas, RectF dirtyRect, IEditorDrawable drawable, IEditor view)
             => drawable.DrawPlaceholder(canvas, dirtyRect, view);
 
         internal void AnimatePlaceholder()

@@ -99,7 +99,7 @@ namespace Microsoft.Maui.Graphics.Controls
                 rect.Height - insets.Top - insets.Bottom);
         }
 
-        public void DrawBaseLayer(RectangleF dirtyRect)
+        public void DrawBaseLayer(RectF dirtyRect)
         {
             base.Draw(dirtyRect);
         }
@@ -122,7 +122,7 @@ namespace Microsoft.Maui.Graphics.Controls
             Draw(coreGraphics, dirtyRect.AsRectangleF());
         }
 
-        void Draw(CGContext coreGraphics, RectangleF dirtyRect)
+        void Draw(CGContext coreGraphics, RectF dirtyRect)
         {
             _canvas.Context = coreGraphics;
 

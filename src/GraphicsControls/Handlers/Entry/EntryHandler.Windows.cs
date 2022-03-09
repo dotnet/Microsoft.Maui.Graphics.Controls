@@ -2,7 +2,7 @@
 {
     public partial class EntryHandler : MixedGraphicsControlHandler<IEntryDrawable, IEntry, GraphicsEntry>
 	{
-		protected override GraphicsEntry CreateNativeView()
+		protected override GraphicsEntry CreatePlatformView()
 		{
 			return new GraphicsEntry() { GraphicsControl = this };
 		}

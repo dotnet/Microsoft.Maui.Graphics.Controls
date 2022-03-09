@@ -11,7 +11,7 @@ namespace GraphicsControls.Sample
         {
             Title = "GraphicsControls";
 
-            Application.Current.UserAppTheme = OSAppTheme.Light;
+            Application.Current.UserAppTheme = AppTheme.Light;
 
             this.SetAppThemeColor(BackgroundColorProperty, SampleColors.LightPageBackgroundColor, SampleColors.DarkPageBackgroundColor);
 

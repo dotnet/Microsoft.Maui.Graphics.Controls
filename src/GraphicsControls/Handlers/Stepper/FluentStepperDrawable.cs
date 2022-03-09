@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Essentials;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -12,10 +13,10 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public PointF TouchPoint { get; set; }
         public double AnimationPercent { get; set; }
-        public RectangleF MinusRectangle { get; set; }
-        public RectangleF PlusRectangle { get; set; }
+        public RectF MinusRectangle { get; set; }
+        public RectF PlusRectangle { get; set; }
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
+        public void DrawBackground(ICanvas canvas, RectF dirtyRect, IStepper stepper)
         {
             canvas.SaveState();
 
@@ -24,9 +25,9 @@ namespace Microsoft.Maui.Graphics.Controls
             else
             {
                 if (stepper.IsEnabled)
-                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Background.Default.ToColor() : Fluent.Color.Dark.Control.Background.Default.ToColor();
+                    canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Background.Default.ToColor() : Fluent.Color.Dark.Control.Background.Default.ToColor();
                 else
-                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Background.Disabled.ToColor() : Fluent.Color.Dark.Control.Background.Disabled.ToColor();
+                    canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Background.Disabled.ToColor() : Fluent.Color.Dark.Control.Background.Disabled.ToColor();
             }
 
             var x = dirtyRect.X;
@@ -40,7 +41,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawMinus(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
+        public void DrawMinus(ICanvas canvas, RectF dirtyRect, IStepper stepper)
         {
             canvas.SaveState();
 
@@ -63,9 +64,9 @@ namespace Microsoft.Maui.Graphics.Controls
             else
             {
                 if (stepper.IsEnabled)
-                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Foreground.Secondary.ToColor() : Fluent.Color.Dark.Foreground.Secondary.ToColor();
+                    canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Foreground.Secondary.ToColor() : Fluent.Color.Dark.Foreground.Secondary.ToColor();
                 else
-                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Foreground.Disabled.ToColor() : Fluent.Color.Dark.Foreground.Disabled.ToColor();
+                    canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Foreground.Disabled.ToColor() : Fluent.Color.Dark.Foreground.Disabled.ToColor();
             }
 
             canvas.FillPath(path);
@@ -73,10 +74,10 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
 
             var touchMargin = 12;
-            MinusRectangle = new RectangleF(tX - touchMargin, FluentStepperHeight / 2, FluentStepperHeight / 2 + touchMargin, FluentStepperHeight / 2);
+            MinusRectangle = new RectF(tX - touchMargin, FluentStepperHeight / 2, FluentStepperHeight / 2 + touchMargin, FluentStepperHeight / 2);
         }
 
-        public void DrawPlus(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
+        public void DrawPlus(ICanvas canvas, RectF dirtyRect, IStepper stepper)
         {
             canvas.SaveState();
 
@@ -99,9 +100,9 @@ namespace Microsoft.Maui.Graphics.Controls
             else
             {
                 if (stepper.IsEnabled)
-                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Foreground.Secondary.ToColor() : Fluent.Color.Dark.Foreground.Secondary.ToColor();
+                    canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Foreground.Secondary.ToColor() : Fluent.Color.Dark.Foreground.Secondary.ToColor();
                 else
-                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Foreground.Disabled.ToColor() : Fluent.Color.Dark.Foreground.Disabled.ToColor();
+                    canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Foreground.Disabled.ToColor() : Fluent.Color.Dark.Foreground.Disabled.ToColor();
             }
 
             canvas.FillPath(path);
@@ -109,10 +110,10 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
 
             var touchMargin = 12;
-            PlusRectangle = new RectangleF(tX - touchMargin, 0, FluentStepperHeight / 2 + touchMargin, FluentStepperHeight / 2);
+            PlusRectangle = new RectF(tX - touchMargin, 0, FluentStepperHeight / 2 + touchMargin, FluentStepperHeight / 2);
         }
 
-        public void DrawSeparator(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
+        public void DrawSeparator(ICanvas canvas, RectF dirtyRect, IStepper stepper)
         {
             if (stepper.Background == null)
             {
@@ -121,9 +122,9 @@ namespace Microsoft.Maui.Graphics.Controls
                 var strokeWidth = 1.0f;
 
                 if (stepper.IsEnabled)
-                    canvas.StrokeColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Border.Default.ToColor() : Fluent.Color.Dark.Control.Border.Default.ToColor();
+                    canvas.StrokeColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Border.Default.ToColor() : Fluent.Color.Dark.Control.Border.Default.ToColor();
                 else
-                    canvas.StrokeColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Border.Disabled.ToColor() : Fluent.Color.Dark.Control.Border.Disabled.ToColor();
+                    canvas.StrokeColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Border.Disabled.ToColor() : Fluent.Color.Dark.Control.Border.Disabled.ToColor();
 
                 canvas.StrokeSize = strokeWidth;
 
@@ -139,7 +140,7 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        public void DrawText(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
+        public void DrawText(ICanvas canvas, RectF dirtyRect, IStepper stepper)
         {
             canvas.SaveState();
 
@@ -153,9 +154,9 @@ namespace Microsoft.Maui.Graphics.Controls
             else
             {
                 if (stepper.IsEnabled)
-                    canvas.FontColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Foreground.Secondary.ToColor() : Fluent.Color.Dark.Foreground.Secondary.ToColor();
+                    canvas.FontColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Foreground.Secondary.ToColor() : Fluent.Color.Dark.Foreground.Secondary.ToColor();
                 else
-                    canvas.FontColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Foreground.Disabled.ToColor() : Fluent.Color.Dark.Foreground.Disabled.ToColor();
+                    canvas.FontColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Foreground.Disabled.ToColor() : Fluent.Color.Dark.Foreground.Disabled.ToColor();
             }
 
             canvas.FontSize = 14f;

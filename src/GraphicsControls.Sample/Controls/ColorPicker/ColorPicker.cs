@@ -17,7 +17,7 @@ namespace GraphicsControls.Sample.Controls
             _lastTouchPoint = Point.Zero;
         }
 
-        public override void Draw(ICanvas canvas, RectangleF dirtyRect)
+        public override void Draw(ICanvas canvas, RectF dirtyRect)
         {
             float height = Math.Max(MinimumHeight, dirtyRect.Height);
 

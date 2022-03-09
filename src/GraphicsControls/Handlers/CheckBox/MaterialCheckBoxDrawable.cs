@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Essentials;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -6,7 +7,7 @@ namespace Microsoft.Maui.Graphics.Controls
     {
         const string MaterialCheckBoxMark = "M13.3516 1.35156L5 9.71094L0.648438 5.35156L1.35156 4.64844L5 8.28906L12.6484 0.648438L13.3516 1.35156Z";
     
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ICheckBox checkBox)
+        public void DrawBackground(ICanvas canvas, RectF dirtyRect, ICheckBox checkBox)
         {
             canvas.SaveState();
 
@@ -28,7 +29,7 @@ namespace Microsoft.Maui.Graphics.Controls
                 }
                 else
                 {
-                    if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                    if (Application.Current?.RequestedTheme == AppTheme.Light)
                         canvas.FillColor = Material.Color.Light.Gray3.ToColor();
                     else
                         canvas.FillColor = Material.Color.Dark.Gray3.ToColor();
@@ -42,7 +43,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
                 canvas.StrokeSize = strokeWidth;
 
-                if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                if (Application.Current?.RequestedTheme == AppTheme.Light)
                     canvas.StrokeColor = Material.Color.Light.Gray1.ToColor();
                 else
                     canvas.StrokeColor = Material.Color.Dark.Gray1.ToColor();
@@ -53,7 +54,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawMark(ICanvas canvas, RectangleF dirtyRect, ICheckBox checkBox)
+        public void DrawMark(ICanvas canvas, RectF dirtyRect, ICheckBox checkBox)
         {
             if (checkBox.IsChecked)
             {
@@ -68,7 +69,7 @@ namespace Microsoft.Maui.Graphics.Controls
                     canvas.StrokeColor = Material.Color.White.ToColor();
                 else
                 {
-                    if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                    if (Application.Current?.RequestedTheme == AppTheme.Light)
                         canvas.StrokeColor = Material.Color.Light.Gray1.ToColor();
                     else
                         canvas.StrokeColor = Material.Color.Dark.Gray6.ToColor();
@@ -80,7 +81,7 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        public void DrawText(ICanvas canvas, RectangleF dirtyRect, ICheckBox checkBox)
+        public void DrawText(ICanvas canvas, RectF dirtyRect, ICheckBox checkBox)
         {
 
         }

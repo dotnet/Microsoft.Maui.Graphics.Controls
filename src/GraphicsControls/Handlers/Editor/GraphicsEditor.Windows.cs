@@ -12,7 +12,7 @@ namespace Microsoft.Maui.Graphics.Controls
         readonly W2DCanvas _canvas = new W2DCanvas();
         IMixedGraphicsHandler? _graphicsControl;
         IDrawable? _drawable;
-        RectangleF _dirty;
+        RectF _dirty;
 
         public GraphicsEditor()
         {
@@ -40,7 +40,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public string[] NativeLayers => DefaultNativeLayers;
 
-        public void DrawBaseLayer(RectangleF dirtyRect) { }
+        public void DrawBaseLayer(RectF dirtyRect) { }
 
         public void Invalidate()
         {

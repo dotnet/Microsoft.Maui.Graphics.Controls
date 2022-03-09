@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Essentials;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -10,7 +11,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public double AnimationPercent { get; set; }
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ISwitch view)
+        public void DrawBackground(ICanvas canvas, RectF dirtyRect, ISwitch view)
         {
             var strokeWidth = 1;
 
@@ -32,20 +33,20 @@ namespace Microsoft.Maui.Graphics.Controls
                     if (backgroundColor != null)
                         canvas.StrokeColor = backgroundColor;
                     else
-                        canvas.StrokeColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Border.Default.ToColor() : Fluent.Color.Dark.Control.Border.Default.ToColor();
+                        canvas.StrokeColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Border.Default.ToColor() : Fluent.Color.Dark.Control.Border.Default.ToColor();
 
                     if (view.Background != null)
                         canvas.SetFillPaint(view.Background, dirtyRect);
                     else                      
-                        canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ?  Fluent.Color.Light.Background.Secondary.ToColor() : Fluent.Color.Dark.Background.Secondary.ToColor();
+                        canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ?  Fluent.Color.Light.Background.Secondary.ToColor() : Fluent.Color.Dark.Background.Secondary.ToColor();
                 }
             }
             else
             {
                 // Disabled
-                canvas.StrokeColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Border.Disabled.ToColor() : Fluent.Color.Dark.Control.Border.Disabled.ToColor();
+                canvas.StrokeColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Border.Disabled.ToColor() : Fluent.Color.Dark.Control.Border.Disabled.ToColor();
 
-                canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ?  Fluent.Color.Light.Background.Disabled.ToColor() : Fluent.Color.Dark.Background.Disabled.ToColor();
+                canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ?  Fluent.Color.Light.Background.Disabled.ToColor() : Fluent.Color.Dark.Background.Disabled.ToColor();
             }
 
             var x = dirtyRect.X;
@@ -62,7 +63,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawThumb(ICanvas canvas, RectangleF dirtyRect, ISwitch view)
+        public void DrawThumb(ICanvas canvas, RectF dirtyRect, ISwitch view)
         {
             canvas.SaveState();
 

@@ -7,7 +7,7 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public partial class GraphicsViewHandler : ViewHandler<IGraphicsView, PlatformGraphicsView>
     {
-        protected override PlatformGraphicsView CreateNativeView()
+        protected override PlatformGraphicsView CreatePlatformView()
         {
             var nativeGraphicsView = new PlatformGraphicsView(Context)
             {
@@ -37,7 +37,7 @@ namespace Microsoft.Maui.Graphics.Controls
         
         public static void MapInvalidate(GraphicsViewHandler handler, IGraphicsView graphicsView, object? arg)
         {
-            handler.NativeView?.Invalidate();
+            handler.PlatformView?.Invalidate();
         }
 
         void OnViewAttachedToWindow(object? sender, View.ViewAttachedToWindowEventArgs e)

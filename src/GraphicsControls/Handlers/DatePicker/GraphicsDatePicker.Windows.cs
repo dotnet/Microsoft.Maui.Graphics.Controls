@@ -20,7 +20,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
         IMixedGraphicsHandler? _graphicsControl;
         IDrawable? _drawable;
-        RectangleF _dirty;
+        RectF _dirty;
 
         public GraphicsDatePicker()
         {
@@ -81,7 +81,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public string[] NativeLayers => DefaultNativeLayers;
 
-        public void DrawBaseLayer(RectangleF dirtyRect) { }
+        public void DrawBaseLayer(RectF dirtyRect) { }
 
         public void Invalidate()
         {

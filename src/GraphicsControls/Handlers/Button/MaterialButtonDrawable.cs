@@ -1,5 +1,6 @@
 ﻿using Microsoft.Maui.Animations;
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Essentials;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -11,7 +12,7 @@ namespace Microsoft.Maui.Graphics.Controls
         public PointF TouchPoint { get; set; }
         public double AnimationPercent { get; set; }
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IButton button)
+        public void DrawBackground(ICanvas canvas, RectF dirtyRect, IButton button)
         {
             canvas.SaveState();
 
@@ -24,7 +25,7 @@ namespace Microsoft.Maui.Graphics.Controls
             }
             else
             {
-                if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                if (Application.Current?.RequestedTheme == AppTheme.Light)
                     canvas.FillColor = Material.Color.Light.Gray3.ToColor();
                 else
                     canvas.FillColor = Material.Color.Dark.Gray4.ToColor();
@@ -42,7 +43,7 @@ namespace Microsoft.Maui.Graphics.Controls
             DrawRippleEffect(canvas, dirtyRect, button);
         }
 
-        public void DrawText(ICanvas canvas, RectangleF dirtyRect, IButton button)
+        public void DrawText(ICanvas canvas, RectF dirtyRect, IButton button)
         {
             canvas.SaveState();
 
@@ -62,7 +63,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        internal void DrawRippleEffect(ICanvas canvas, RectangleF dirtyRect, IButton button)
+        internal void DrawRippleEffect(ICanvas canvas, RectF dirtyRect, IButton button)
         {
             if (dirtyRect.Contains(TouchPoint))
             {

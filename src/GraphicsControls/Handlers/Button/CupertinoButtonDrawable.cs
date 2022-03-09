@@ -7,7 +7,7 @@
         public PointF TouchPoint { get; set; }
         public double AnimationPercent { get; set; }
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IButton button)
+        public void DrawBackground(ICanvas canvas, RectF dirtyRect, IButton button)
         {
             canvas.SaveState();
               
@@ -27,7 +27,7 @@
             canvas.RestoreState();
         }
 
-        public void DrawText(ICanvas canvas, RectangleF dirtyRect, IButton button)
+        public void DrawText(ICanvas canvas, RectF dirtyRect, IButton button)
         {
             canvas.SaveState();
 

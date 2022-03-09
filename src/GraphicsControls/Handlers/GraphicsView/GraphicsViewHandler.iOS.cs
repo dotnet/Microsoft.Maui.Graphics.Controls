@@ -73,7 +73,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
         IDisposable? _isLoadedObserverDisposable;
 
-        protected override TouchNativeGraphicsView CreateNativeView()
+        protected override TouchNativeGraphicsView CreatePlatformView()
         {
             var nativeGraphicsView = new TouchNativeGraphicsView
             {
@@ -111,7 +111,7 @@ namespace Microsoft.Maui.Graphics.Controls
         
         public static void MapInvalidate(GraphicsViewHandler handler, IGraphicsView graphicsView, object? arg)
         {
-            handler.NativeView?.InvalidateDrawable();
+            handler.PlatformView?.InvalidateDrawable();
         }
 
         void OnViewLoadedObserver(NSObservedChange nSObservedChange)

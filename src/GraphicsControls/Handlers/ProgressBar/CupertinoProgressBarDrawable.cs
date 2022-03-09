@@ -4,7 +4,7 @@
     {
         const float CupertinoTrackHeight = 4.0f;
 
-        public void DrawProgress(ICanvas canvas, RectangleF dirtyRect, IProgress progressBar)
+        public void DrawProgress(ICanvas canvas, RectF dirtyRect, IProgress progressBar)
         {
             canvas.SaveState();
 
@@ -20,7 +20,7 @@
             canvas.RestoreState();
         }
 
-        public void DrawTrack(ICanvas canvas, RectangleF dirtyRect, IProgress progressBar)
+        public void DrawTrack(ICanvas canvas, RectF dirtyRect, IProgress progressBar)
         {
             canvas.SaveState();
 

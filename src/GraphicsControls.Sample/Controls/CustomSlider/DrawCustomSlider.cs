@@ -14,7 +14,7 @@ namespace GraphicsControls.Sample.Controls
 	{
 		protected override ISliderDrawable CreateDrawable() => new MaterialSliderDrawable();
 
-		public override void Draw(ICanvas canvas, RectangleF dirtyRect)
+		public override void Draw(ICanvas canvas, RectF dirtyRect)
         {			
 			canvas.SaveState();
 

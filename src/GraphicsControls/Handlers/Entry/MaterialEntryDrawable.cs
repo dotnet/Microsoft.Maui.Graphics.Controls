@@ -1,5 +1,6 @@
 ﻿using Microsoft.Maui.Animations;
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Essentials;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -13,14 +14,14 @@ namespace Microsoft.Maui.Graphics.Controls
         const float FocusedPlaceholderPosition = 6f;
         const float UnfocusedPlaceholderPosition = 22f;
 
-        RectangleF indicatorRect = new RectangleF();
-        public RectangleF IndicatorRect => indicatorRect;
+        RectF indicatorRect = new RectF();
+        public RectF IndicatorRect => indicatorRect;
 
         public bool HasFocus { get; set; }
 
         public double AnimationPercent { get; set; }
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEntry entry)
+        public void DrawBackground(ICanvas canvas, RectF dirtyRect, IEntry entry)
         {
             canvas.SaveState();
 
@@ -28,7 +29,7 @@ namespace Microsoft.Maui.Graphics.Controls
                 canvas.SetFillPaint(entry.Background, dirtyRect);
             else
             {
-                if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                if (Application.Current?.RequestedTheme == AppTheme.Light)
                     canvas.FillColor = entry.IsEnabled ? Material.Color.Light.Gray5.ToColor() : Material.Color.Light.Gray3.ToColor();
                 else
                     canvas.FillColor = entry.IsEnabled ? Material.Color.Dark.Gray5.ToColor() : Material.Color.Dark.Gray3.ToColor();
@@ -47,12 +48,12 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IEntry entry)
+        public void DrawBorder(ICanvas canvas, RectF dirtyRect, IEntry entry)
         {
             canvas.SaveState();
 
             var strokeWidth = 1.0f;
-            canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Material.Color.Black.ToColor() : Material.Color.Light.Gray6.ToColor().WithAlpha(0.5f);
+            canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Material.Color.Black.ToColor() : Material.Color.Light.Gray6.ToColor().WithAlpha(0.5f);
 
             if (entry.IsEnabled && HasFocus)
             {
@@ -71,7 +72,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawIndicator(ICanvas canvas, RectangleF dirtyRect, IEntry entry)
+        public void DrawIndicator(ICanvas canvas, RectF dirtyRect, IEntry entry)
         {
             if (!string.IsNullOrEmpty(entry.Text))
             {
@@ -109,7 +110,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
                 canvas.RestoreState();
 
-                indicatorRect = new RectangleF(x - radius, y - radius, radius * 2, radius * 2);
+                indicatorRect = new RectF(x - radius, y - radius, radius * 2, radius * 2);
 
                 canvas.SaveState();
 
@@ -151,11 +152,11 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEntry entry)
+        public void DrawPlaceholder(ICanvas canvas, RectF dirtyRect, IEntry entry)
         {
             canvas.SaveState();
 
-            if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+            if (Application.Current?.RequestedTheme == AppTheme.Light)
                 canvas.FontColor = Material.Color.DarkBackground.ToColor();
             else
                 canvas.FontColor = Material.Color.LightBackground.ToColor();

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Essentials;
 using System.Collections.Generic;
 using GHorizontalAlignment = Microsoft.Maui.Graphics.HorizontalAlignment;
 using GVerticalAlignment = Microsoft.Maui.Graphics.VerticalAlignment;
@@ -16,13 +17,13 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public bool IsDragging { get; set; }
 
-        RectangleF trackRect = new RectangleF();
-        public RectangleF TrackRect => trackRect;
+        RectF trackRect = new RectF();
+        public RectF TrackRect => trackRect;
 
-        RectangleF touchTargetRect = new RectangleF(0, 0, 44, 44);
-        public RectangleF TouchTargetRect => touchTargetRect;
+        RectF touchTargetRect = new RectF(0, 0, 44, 44);
+        public RectF TouchTargetRect => touchTargetRect;
 
-        public virtual void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ISlider slider)
+        public virtual void DrawBackground(ICanvas canvas, RectF dirtyRect, ISlider slider)
         {
             canvas.SaveState();
 
@@ -47,7 +48,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public virtual void DrawTrackProgress(ICanvas canvas, RectangleF dirtyRect, ISlider slider)
+        public virtual void DrawTrackProgress(ICanvas canvas, RectF dirtyRect, ISlider slider)
         {
             canvas.SaveState();
 
@@ -71,7 +72,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public virtual void DrawThumb(ICanvas canvas, RectangleF dirtyRect, ISlider slider)
+        public virtual void DrawThumb(ICanvas canvas, RectF dirtyRect, ISlider slider)
         {
             // Thumb
             canvas.SaveState();
@@ -138,7 +139,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
                 canvas.StrokeSize = strokeWidth;
 
-                canvas.StrokeColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Border.Default.ToColor() : Fluent.Color.Dark.Control.Border.Default.ToColor();
+                canvas.StrokeColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Border.Default.ToColor() : Fluent.Color.Dark.Control.Border.Default.ToColor();
 
                 canvas.DrawEllipse(x, y, thumbSize, thumbSize);
 
@@ -146,11 +147,11 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        public virtual void DrawText(ICanvas canvas, RectangleF dirtyRect, ISlider slider)
+        public virtual void DrawText(ICanvas canvas, RectF dirtyRect, ISlider slider)
         {
             canvas.SaveState();
 
-            canvas.FontColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Foreground.Primary.ToColor() : Fluent.Color.Dark.Foreground.Primary.ToColor();
+            canvas.FontColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Foreground.Primary.ToColor() : Fluent.Color.Dark.Foreground.Primary.ToColor();
             canvas.FontSize = 14f;
 
             var height = dirtyRect.Height;

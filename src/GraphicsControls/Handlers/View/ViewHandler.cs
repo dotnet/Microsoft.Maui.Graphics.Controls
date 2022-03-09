@@ -1,14 +1,14 @@
 ﻿using Microsoft.Maui.Platform;
 
 #if __IOS__ || MACCATALYST
-using NativeView = UIKit.UIView;
+using PlatformView = UIKit.UIView;
 #elif MONOANDROID
-using NativeView = Android.Views.View;
+using PlatformView = Android.Views.View;
 #elif WINDOWS
-using NativeView = Microsoft.UI.Xaml.FrameworkElement;
+using PlatformView = Microsoft.UI.Xaml.FrameworkElement;
 #elif NETSTANDARD
-using NativeView = System.Object;
-# endif
+using PlatformView = System.Object;
+#endif
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -32,22 +32,22 @@ namespace Microsoft.Maui.Graphics.Controls
 			["Overlay"] = DrawOverlay
 		};
 
-		public static void DrawClip(ICanvas canvas, RectangleF dirtyRect, IViewDrawable drawable, IView view) =>
+		public static void DrawClip(ICanvas canvas, RectF dirtyRect, IViewDrawable drawable, IView view) =>
 			drawable.DrawClip(canvas, dirtyRect, view);
 
-		public static void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IViewDrawable drawable, IView view) =>
+		public static void DrawBackground(ICanvas canvas, RectF dirtyRect, IViewDrawable drawable, IView view) =>
 			drawable.DrawBackground(canvas, dirtyRect, view);
 
-		public static void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IViewDrawable drawable, IView view) =>
+		public static void DrawBorder(ICanvas canvas, RectF dirtyRect, IViewDrawable drawable, IView view) =>
 			drawable.DrawBorder(canvas, dirtyRect, view);
 
-		public static void DrawText(ICanvas canvas, RectangleF dirtyRect, IViewDrawable drawable, IView view)
+		public static void DrawText(ICanvas canvas, RectF dirtyRect, IViewDrawable drawable, IView view)
 		{
 			if(view is IText text)
 				drawable.DrawText(canvas, dirtyRect, text);
 		}
 
-		public static void DrawOverlay(ICanvas canvas, RectangleF dirtyRect, IViewDrawable drawable, IView view) =>
+		public static void DrawOverlay(ICanvas canvas, RectF dirtyRect, IViewDrawable drawable, IView view) =>
 			drawable.DrawOverlay(canvas, dirtyRect, view);
 
 		public static readonly PropertyMapper<IView, IElementHandler> Mapper = new PropertyMapper<IView, IElementHandler>(Handlers.ViewHandler.ViewMapper)
@@ -66,19 +66,19 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public static void MapAutomationId(IElementHandler handler, IView view)
 		{
-			((NativeView?)handler.NativeView)?.UpdateAutomationId(view);
+			((PlatformView?)handler.PlatformView)?.UpdateAutomationId(view);
 		}
 		
 		public static void MapIsEnabled(IElementHandler handler, IView view)
         {
-			((NativeView?)handler.NativeView)?.UpdateIsEnabled(view);
+			((PlatformView?)handler.PlatformView)?.UpdateIsEnabled(view);
 
 			(handler as IGraphicsHandler)?.Invalidate();
 		}
 
 		public static void MapSemantics(IElementHandler handler, IView view)
 		{
-			((NativeView?)handler.NativeView)?.UpdateSemantics(view);
+			((PlatformView?)handler.PlatformView)?.UpdateSemantics(view);
 		}
 	}
 }

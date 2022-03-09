@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Essentials;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -7,7 +8,7 @@ namespace Microsoft.Maui.Graphics.Controls
         const float FluentTrackProgressHeight = 3.0f;
         const float FluentTrackHeight = 1.0f;
 
-        public void DrawProgress(ICanvas canvas, RectangleF dirtyRect, IProgress progressBar)
+        public void DrawProgress(ICanvas canvas, RectF dirtyRect, IProgress progressBar)
         {
             canvas.SaveState();
 
@@ -23,7 +24,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawTrack(ICanvas canvas, RectangleF dirtyRect, IProgress progressBar)
+        public void DrawTrack(ICanvas canvas, RectF dirtyRect, IProgress progressBar)
         {
             canvas.SaveState();
 
@@ -32,9 +33,9 @@ namespace Microsoft.Maui.Graphics.Controls
             else
             {
                 if (progressBar.IsEnabled)
-                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Border.Default.ToColor() : Fluent.Color.Dark.Control.Border.Default.ToColor();
+                    canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Border.Default.ToColor() : Fluent.Color.Dark.Control.Border.Default.ToColor();
                 else
-                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Border.Disabled.ToColor() : Fluent.Color.Dark.Control.Border.Disabled.ToColor();
+                    canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Border.Disabled.ToColor() : Fluent.Color.Dark.Control.Border.Disabled.ToColor();
             }
 
             var x = dirtyRect.X;

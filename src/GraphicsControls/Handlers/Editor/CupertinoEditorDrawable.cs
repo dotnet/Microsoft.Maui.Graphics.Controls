@@ -5,7 +5,7 @@
         public bool HasFocus { get; set; }
         public double AnimationPercent { get; set; }
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEditor editor)
+        public void DrawBackground(ICanvas canvas, RectF dirtyRect, IEditor editor)
         {
             canvas.SaveState();
 
@@ -30,7 +30,7 @@
             canvas.RestoreState();
         }
 
-        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IEditor editor)
+        public void DrawBorder(ICanvas canvas, RectF dirtyRect, IEditor editor)
         {
             canvas.SaveState();
 
@@ -50,7 +50,7 @@
             canvas.RestoreState();
         }
 
-        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEditor editor)
+        public void DrawPlaceholder(ICanvas canvas, RectF dirtyRect, IEditor editor)
         {
             if (!HasFocus && string.IsNullOrEmpty(editor.Text))
             {

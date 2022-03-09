@@ -95,7 +95,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public string[] NativeLayers => DefaultNativeLayers;
 
-        public void DrawBaseLayer(RectangleF dirtyRect) { }
+        public void DrawBaseLayer(RectF dirtyRect) { }
 
         protected override void Dispose(bool disposing)
         {
@@ -118,7 +118,7 @@ namespace Microsoft.Maui.Graphics.Controls
             if (_drawable == null)
                 return;
 
-            var dirtyRect = new RectangleF(0, 0, _width, _height);
+            var dirtyRect = new RectF(0, 0, _width, _height);
 
             _canvas.Canvas = androidCanvas;
 

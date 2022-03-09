@@ -22,7 +22,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		DrawMapper IGraphicsHandler.DrawMapper => _drawMapper;
 
-		public RectangleF Bounds { get; private set; }
+		public RectF Bounds { get; private set; }
 
 		public bool TouchEnabled { get; set; } = true;
 
@@ -95,7 +95,7 @@ namespace Microsoft.Maui.Graphics.Controls
 		{
 		}
 
-		public virtual void Resized(RectangleF bounds)
+		public virtual void Resized(RectF bounds)
 		{
 			Bounds = bounds;
 		}
@@ -110,7 +110,7 @@ namespace Microsoft.Maui.Graphics.Controls
 			Invalidate();
 		}
 
-		public virtual void Draw(ICanvas canvas, RectangleF dirtyRect)
+		public virtual void Draw(ICanvas canvas, RectF dirtyRect)
 		{
 			if (VirtualView == null || _drawMapper == null)
 				return;

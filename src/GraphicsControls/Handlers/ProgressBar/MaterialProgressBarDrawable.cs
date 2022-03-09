@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Essentials;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -6,7 +7,7 @@ namespace Microsoft.Maui.Graphics.Controls
     {
         const float MaterialTrackHeight = 4.0f;
 
-        public void DrawProgress(ICanvas canvas, RectangleF dirtyRect, IProgress progressBar)
+        public void DrawProgress(ICanvas canvas, RectF dirtyRect, IProgress progressBar)
         {
             canvas.SaveState();
 
@@ -14,7 +15,7 @@ namespace Microsoft.Maui.Graphics.Controls
                 canvas.FillColor = progressBar.ProgressColor.WithDefault(Material.Color.Blue);
             else
             {
-                if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                if (Application.Current?.RequestedTheme == AppTheme.Light)
                     canvas.FillColor = Material.Color.Light.Gray3.ToColor();
                 else
                     canvas.FillColor = Material.Color.Dark.Gray6.ToColor();
@@ -30,7 +31,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawTrack(ICanvas canvas, RectangleF dirtyRect, IProgress progressBar)
+        public void DrawTrack(ICanvas canvas, RectF dirtyRect, IProgress progressBar)
         {
             canvas.SaveState();
 
@@ -38,7 +39,7 @@ namespace Microsoft.Maui.Graphics.Controls
                 canvas.SetFillPaint(progressBar.Background, dirtyRect);
             else
             {
-                if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                if (Application.Current?.RequestedTheme == AppTheme.Light)
                     canvas.FillColor = Material.Color.Gray4.ToColor();
                 else
                     canvas.FillColor = Material.Color.Gray2.ToColor();

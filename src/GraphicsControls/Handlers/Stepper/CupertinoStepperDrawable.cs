@@ -10,10 +10,10 @@
 
         public PointF TouchPoint { get; set; }
         public double AnimationPercent { get; set; }
-        public RectangleF MinusRectangle { get; set; }
-        public RectangleF PlusRectangle { get; set; }
+        public RectF MinusRectangle { get; set; }
+        public RectF PlusRectangle { get; set; }
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
+        public void DrawBackground(ICanvas canvas, RectF dirtyRect, IStepper stepper)
         {
             canvas.SaveState();
 
@@ -33,7 +33,7 @@
             canvas.RestoreState();
         }
 
-        public void DrawMinus(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
+        public void DrawMinus(ICanvas canvas, RectF dirtyRect, IStepper stepper)
         {
             canvas.SaveState();
 
@@ -51,10 +51,10 @@
 
             canvas.RestoreState();
 
-            MinusRectangle = new RectangleF(tX, tY, CupertinoStepperHeight / 2, CupertinoStepperHeight / 2);
+            MinusRectangle = new RectF(tX, tY, CupertinoStepperHeight / 2, CupertinoStepperHeight / 2);
         }
 
-        public void DrawPlus(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
+        public void DrawPlus(ICanvas canvas, RectF dirtyRect, IStepper stepper)
         {
             canvas.SaveState();
 
@@ -72,10 +72,10 @@
 
             canvas.RestoreState();
 
-            PlusRectangle = new RectangleF(tX, tY, CupertinoStepperHeight / 2, CupertinoStepperHeight / 2);
+            PlusRectangle = new RectF(tX, tY, CupertinoStepperHeight / 2, CupertinoStepperHeight / 2);
         }
 
-        public void DrawSeparator(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
+        public void DrawSeparator(ICanvas canvas, RectF dirtyRect, IStepper stepper)
         {
             canvas.SaveState();
 
@@ -93,7 +93,7 @@
             canvas.RestoreState();
         }
 
-        public void DrawText(ICanvas canvas, RectangleF dirtyRect, IStepper view)
+        public void DrawText(ICanvas canvas, RectF dirtyRect, IStepper view)
         {
         
         }
