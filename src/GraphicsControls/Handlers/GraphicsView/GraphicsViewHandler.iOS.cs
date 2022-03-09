@@ -18,9 +18,9 @@ namespace Microsoft.Maui.Graphics.Controls
 
     public class TouchNativeGraphicsView : PlatformGraphicsView
     {
-        public event EventHandler<TouchEventArgs> TouchDown;
-        public event EventHandler<TouchEventArgs> TouchMove;
-        public event EventHandler<TouchEventArgs> TouchUp;
+        public event EventHandler<TouchEventArgs>? TouchDown;
+        public event EventHandler<TouchEventArgs>? TouchMove;
+        public event EventHandler<TouchEventArgs>? TouchUp;
 
         public override void TouchesBegan(NSSet touches, UIEvent? evt)
         {

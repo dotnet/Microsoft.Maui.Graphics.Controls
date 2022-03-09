@@ -154,7 +154,7 @@ namespace Microsoft.Maui.Graphics.Controls
 			{
 				//This will allow the native layer to handle the layers it can,
 				//i.e: For Entry, the Text layer and Caret is handled by the base drawing.
-				if (nativeLayers.Contains(layer))
+				if (nativeLayers != null && nativeLayers.Contains(layer))
 				{
 					if (hasDrawnBase)
 						continue;
