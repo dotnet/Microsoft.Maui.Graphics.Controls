@@ -28,11 +28,11 @@ namespace Microsoft.Maui.Graphics.Controls
 			nativeView.SetHorizontallyScrolling(false);
 
 			if (Drawable is MaterialEditorDrawable)
-				nativeView.SetPadding(36, 60, 0, 0);
+				nativeView.SetPadding(12, 18, 0, 0);
 			else if (Drawable is FluentEditorDrawable)
-				nativeView.SetPadding(24, 12, 0, 0);
+				nativeView.SetPadding(12, 12, 0, 0);
 			else if (Drawable is CupertinoEditorDrawable)
-				nativeView.SetPadding(24, 12, 0, 0);
+				nativeView.SetPadding(12, 12, 0, 0);
 
 			DefaultTextColors = nativeView.TextColors;
 

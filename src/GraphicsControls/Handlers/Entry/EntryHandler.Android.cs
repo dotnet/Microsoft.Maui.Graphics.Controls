@@ -26,11 +26,11 @@ namespace Microsoft.Maui.Graphics.Controls
             };
 
             if (Drawable is MaterialEntryDrawable)
-                nativeView.SetPadding(36, 60, 0, 0);
+                nativeView.SetPadding(12, 18, 0, 0);
             else if (Drawable is FluentEntryDrawable)
-                nativeView.SetPadding(24, 12, 0, 0);
+                nativeView.SetPadding(12, 12, 0, 0);
             else if (Drawable is CupertinoEntryDrawable)
-                nativeView.SetPadding(24, 12, 0, 0);
+                nativeView.SetPadding(12, 12, 0, 0);
 
             DefaultTextColors = nativeView.TextColors;
 
