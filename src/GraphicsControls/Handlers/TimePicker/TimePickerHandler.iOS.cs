@@ -2,7 +2,7 @@
 {
     public partial class TimePickerHandler : MixedGraphicsControlHandler<ITimePickerDrawable, ITimePicker, GraphicsTimePicker>
 	{
-		protected override GraphicsTimePicker CreateNativeView()
+		protected override GraphicsTimePicker CreatePlatformView()
         {
             return new GraphicsTimePicker() { GraphicsControl = this };
         }
@@ -23,7 +23,7 @@
 
         public static void MapTime(TimePickerHandler handler, ITimePicker timePicker)
         {
-            handler.NativeView?.UpdateTime(timePicker);
+            handler.PlatformView?.UpdateTime(timePicker);
             (handler as IGraphicsHandler)?.Invalidate();
         }
 

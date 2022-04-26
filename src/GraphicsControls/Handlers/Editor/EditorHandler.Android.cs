@@ -10,11 +10,9 @@ namespace Microsoft.Maui.Graphics.Controls
 {
 	public partial class EditorHandler : MixedGraphicsControlHandler<IEditorDrawable, IEditor, GraphicsEditor>
 	{
-		static ColorStateList? DefaultTextColors { get; set; }
-
 		EditorFocusChangeListener FocusChangeListener { get; } = new EditorFocusChangeListener();
 
-		protected override GraphicsEditor CreateNativeView()
+		protected override GraphicsEditor CreatePlatformView()
 		{
 			var nativeView = new GraphicsEditor(Context!)
 			{
@@ -28,13 +26,11 @@ namespace Microsoft.Maui.Graphics.Controls
 			nativeView.SetHorizontallyScrolling(false);
 
 			if (Drawable is MaterialEditorDrawable)
-				nativeView.SetPadding(36, 60, 0, 0);
+				nativeView.SetPadding(12, 18, 0, 0);
 			else if (Drawable is FluentEditorDrawable)
-				nativeView.SetPadding(24, 12, 0, 0);
+				nativeView.SetPadding(12, 12, 0, 0);
 			else if (Drawable is CupertinoEditorDrawable)
-				nativeView.SetPadding(24, 12, 0, 0);
-
-			DefaultTextColors = nativeView.TextColors;
+				nativeView.SetPadding(12, 12, 0, 0);
 
 			return nativeView;
 		}
@@ -59,45 +55,45 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public static void MapText(EditorHandler handler, IEditor editor)
 		{
-			handler.NativeView?.UpdateText(editor);
+			handler.PlatformView?.UpdateText(editor);
 			(handler as IMixedGraphicsHandler)?.Invalidate();
 		}
 
 		public static void MapTextColor(EditorHandler handler, IEditor editor)
 		{
-			handler.NativeView?.UpdateTextColor(editor, DefaultTextColors);
+			handler.PlatformView?.UpdateTextColor(editor);
 		}
 
 		public static void MapCharacterSpacing(EditorHandler handler, IEditor editor)
 		{
-			handler.NativeView?.UpdateCharacterSpacing(editor);
+			handler.PlatformView?.UpdateCharacterSpacing(editor);
 		}
 
 		public static void MapFont(EditorHandler handler, IEditor editor)
 		{
 			// TODO: Get require service FontManager
 			//IFontManager? fontManager = null;
-			//handler.NativeView?.UpdateFont(editor, fontManager);
+			//handler.PlatformView?.UpdateFont(editor, fontManager);
 		}
 
 		public static void MapIsReadOnly(EditorHandler handler, IEditor editor)
 		{
-			handler.NativeView?.UpdateIsReadOnly(editor);
+			handler.PlatformView?.UpdateIsReadOnly(editor);
 		}
 
 		public static void MapIsTextPredictionEnabled(EditorHandler handler, IEditor editor)
 		{
-			handler.NativeView?.UpdateIsTextPredictionEnabled(editor);
+			handler.PlatformView?.UpdateIsTextPredictionEnabled(editor);
 		}
 
 		public static void MapMaxLength(EditorHandler handler, IEditor editor)
 		{
-			handler.NativeView?.UpdateMaxLength(editor);
+			handler.PlatformView?.UpdateMaxLength(editor);
 		}
 
 		public static void MapKeyboard(EditorHandler handler, IEditor editor)
 		{
-			handler.NativeView?.UpdateKeyboard(editor);
+			handler.PlatformView?.UpdateKeyboard(editor);
 		}
 
 		void OnFocusedChange(bool hasFocus)

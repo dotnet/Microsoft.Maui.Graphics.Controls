@@ -6,8 +6,8 @@
         bool HasFocus { get; set; }
         double AnimationPercent { get; set; }
 
-        void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEditor view);
-        void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IEditor view);
-        void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEditor view);
+        void DrawBackground(ICanvas canvas, RectF dirtyRect, IEditor view);
+        void DrawBorder(ICanvas canvas, RectF dirtyRect, IEditor view);
+        void DrawPlaceholder(ICanvas canvas, RectF dirtyRect, IEditor view);
     }
 }

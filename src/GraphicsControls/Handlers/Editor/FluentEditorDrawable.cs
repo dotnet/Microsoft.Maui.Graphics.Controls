@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.ApplicationModel;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -7,7 +8,7 @@ namespace Microsoft.Maui.Graphics.Controls
         public bool HasFocus { get; set; }
         public double AnimationPercent { get; set; }
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEditor editor)
+        public void DrawBackground(ICanvas canvas, RectF dirtyRect, IEditor editor)
         {
             canvas.SaveState();
 
@@ -27,9 +28,9 @@ namespace Microsoft.Maui.Graphics.Controls
                 else
                 {
                     if (editor.IsEnabled)
-                        canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Background.Default.ToColor() : Fluent.Color.Dark.Control.Background.Default.ToColor();
+                        canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Background.Default.ToColor() : Fluent.Color.Dark.Control.Background.Default.ToColor();
                     else
-                        canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Background.Disabled.ToColor() : Fluent.Color.Dark.Control.Background.Disabled.ToColor();
+                        canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Background.Disabled.ToColor() : Fluent.Color.Dark.Control.Background.Disabled.ToColor();
                 }
             }
          
@@ -44,7 +45,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IEditor editor)
+        public void DrawBorder(ICanvas canvas, RectF dirtyRect, IEditor editor)
         {
             canvas.SaveState();
 
@@ -53,9 +54,9 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.StrokeSize = strokeWidth;
 
             if (editor.IsEnabled)
-                canvas.StrokeColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Border.Default.ToColor() : Fluent.Color.Dark.Control.Border.Default.ToColor();
+                canvas.StrokeColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Border.Default.ToColor() : Fluent.Color.Dark.Control.Border.Default.ToColor();
             else
-                canvas.StrokeColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Control.Border.Disabled.ToColor() : Fluent.Color.Dark.Control.Border.Disabled.ToColor();
+                canvas.StrokeColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Border.Disabled.ToColor() : Fluent.Color.Dark.Control.Border.Disabled.ToColor();
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
@@ -71,12 +72,12 @@ namespace Microsoft.Maui.Graphics.Controls
             {
                 canvas.SaveState();
 
-                canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Foreground.Primary.ToColor() : Fluent.Color.Dark.Foreground.Primary.ToColor();
+                canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Foreground.Primary.ToColor() : Fluent.Color.Dark.Foreground.Primary.ToColor();
 
                 if (HasFocus)
                 {
                     strokeWidth = 2.0f;
-                    canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Accent.Primary.ToColor() : Fluent.Color.Dark.Accent.Primary.ToColor();
+                    canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Accent.Primary.ToColor() : Fluent.Color.Dark.Accent.Primary.ToColor();
                 }
 
                 x = strokeWidth;
@@ -90,7 +91,7 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEditor editor)
+        public void DrawPlaceholder(ICanvas canvas, RectF dirtyRect, IEditor editor)
         {
             if (!HasFocus && string.IsNullOrEmpty(editor.Text))
             {
@@ -99,7 +100,7 @@ namespace Microsoft.Maui.Graphics.Controls
                 if (editor.IsEnabled)
                     canvas.FontColor = editor.PlaceholderColor.WithDefault(Fluent.Color.Light.Foreground.Secondary, Fluent.Color.Dark.Foreground.Secondary);
                 else
-                    canvas.FontColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Fluent.Color.Light.Foreground.Disabled.ToColor() : Fluent.Color.Dark.Foreground.Disabled.ToColor();
+                    canvas.FontColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Foreground.Disabled.ToColor() : Fluent.Color.Dark.Foreground.Disabled.ToColor();
 
                 canvas.FontSize = 14f;
 

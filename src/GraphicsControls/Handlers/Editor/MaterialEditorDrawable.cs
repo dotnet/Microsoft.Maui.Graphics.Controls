@@ -1,5 +1,6 @@
 ﻿using Microsoft.Maui.Animations;
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.ApplicationModel;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -14,7 +15,7 @@ namespace Microsoft.Maui.Graphics.Controls
         public bool HasFocus { get; set; }
         public double AnimationPercent { get; set; }
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEditor editor)
+        public void DrawBackground(ICanvas canvas, RectF dirtyRect, IEditor editor)
         {
             canvas.SaveState();
 
@@ -22,7 +23,7 @@ namespace Microsoft.Maui.Graphics.Controls
                 canvas.SetFillPaint(editor.Background, dirtyRect);
             else
             {
-                if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                if (Application.Current?.RequestedTheme == AppTheme.Light)
                     canvas.FillColor = editor.IsEnabled ? Material.Color.Light.Gray5.ToColor() : Material.Color.Light.Gray3.ToColor();
                 else
                     canvas.FillColor = editor.IsEnabled ? Material.Color.Dark.Gray5.ToColor() : Material.Color.Dark.Gray3.ToColor();
@@ -41,12 +42,12 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IEditor editor)
+        public void DrawBorder(ICanvas canvas, RectF dirtyRect, IEditor editor)
         {
             canvas.SaveState();
 
             var strokeWidth = 1.0f;
-            canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Material.Color.Black.ToColor() : Material.Color.Light.Gray6.ToColor().WithAlpha(0.5f);
+            canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Material.Color.Black.ToColor() : Material.Color.Light.Gray6.ToColor().WithAlpha(0.5f);
 
             if (editor.IsEnabled && HasFocus)
             {
@@ -65,7 +66,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEditor editor)
+        public void DrawPlaceholder(ICanvas canvas, RectF dirtyRect, IEditor editor)
         {
             canvas.SaveState();
 

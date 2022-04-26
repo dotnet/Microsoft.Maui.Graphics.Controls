@@ -33,13 +33,13 @@ namespace Microsoft.Maui.Graphics.Controls
             Invalidated?.Invoke(this, EventArgs.Empty);
         }
 
-        public virtual void Draw(ICanvas canvas, RectangleF dirtyRect)
+        public virtual void Draw(ICanvas canvas, RectF dirtyRect)
         {
             foreach (var layer in GraphicsLayers)
                 DrawLayer(layer, canvas, dirtyRect);
         }
 
-        public virtual void DrawLayer(string layer, ICanvas canvas, RectangleF dirtyRect)
+        public virtual void DrawLayer(string layer, ICanvas canvas, RectF dirtyRect)
         {
 
         }

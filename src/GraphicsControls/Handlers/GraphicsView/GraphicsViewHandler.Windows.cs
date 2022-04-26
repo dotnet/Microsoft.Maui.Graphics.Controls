@@ -8,7 +8,7 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public partial class GraphicsViewHandler : ViewHandler<IGraphicsView, W2DGraphicsView>
     {
-        protected override W2DGraphicsView CreateNativeView() => new W2DGraphicsView
+        protected override W2DGraphicsView CreatePlatformView() => new W2DGraphicsView
         {
             Drawable = VirtualView
         };
@@ -35,14 +35,14 @@ namespace Microsoft.Maui.Graphics.Controls
         
         public static void MapInvalidate(GraphicsViewHandler handler, IGraphicsView graphicsView, object? arg)
         {
-            handler.NativeView?.Invalidate();
+            handler.PlatformView?.Invalidate();
         }
 
         void OnPointerPressed(object sender, PointerRoutedEventArgs e)
         {
             try
             {
-                var currentPoint = e.GetCurrentPoint(NativeView);
+                var currentPoint = e.GetCurrentPoint(PlatformView);
                 var currentPosition = currentPoint.Position;
                 var point = new Point(currentPosition.X, currentPosition.Y);
 
@@ -58,7 +58,7 @@ namespace Microsoft.Maui.Graphics.Controls
         {
             try
             {
-                var currentPoint = e.GetCurrentPoint(NativeView);
+                var currentPoint = e.GetCurrentPoint(PlatformView);
                 var currentPosition = currentPoint.Position;
                 var point = new Point(currentPosition.X, currentPosition.Y);
 
@@ -74,7 +74,7 @@ namespace Microsoft.Maui.Graphics.Controls
         {
             try
             {
-                var currentPoint = e.GetCurrentPoint(NativeView);
+                var currentPoint = e.GetCurrentPoint(PlatformView);
                 var currentPosition = currentPoint.Position;
                 var point = new Point(currentPosition.X, currentPosition.Y);
 
@@ -90,7 +90,7 @@ namespace Microsoft.Maui.Graphics.Controls
         {
             try
             {
-                var currentPoint = e.GetCurrentPoint(NativeView);
+                var currentPoint = e.GetCurrentPoint(PlatformView);
                 var currentPosition = currentPoint.Position;
                 var point = new Point(currentPosition.X, currentPosition.Y);
 

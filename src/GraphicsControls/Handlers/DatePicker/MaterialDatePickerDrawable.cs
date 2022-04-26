@@ -1,10 +1,11 @@
 ﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.ApplicationModel;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
     public class MaterialDatePickerDrawable : ViewDrawable<IDatePicker>, IDatePickerDrawable
     {
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IDatePicker datePicker)
+        public void DrawBackground(ICanvas canvas, RectF dirtyRect, IDatePicker datePicker)
         {
             canvas.SaveState();
 
@@ -12,7 +13,7 @@ namespace Microsoft.Maui.Graphics.Controls
                 canvas.SetFillPaint(datePicker.Background, dirtyRect);
             else
             {
-                if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                if (Application.Current?.RequestedTheme == AppTheme.Light)
                     canvas.FillColor = datePicker.IsEnabled ? Material.Color.Light.Gray5.ToColor() : Material.Color.Light.Gray3.ToColor();
                 else
                     canvas.FillColor = datePicker.IsEnabled ? Material.Color.Dark.Gray5.ToColor() : Material.Color.Dark.Gray3.ToColor();
@@ -31,12 +32,12 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IDatePicker datePicker)
+        public void DrawBorder(ICanvas canvas, RectF dirtyRect, IDatePicker datePicker)
         {
             canvas.SaveState();
 
             var strokeWidth = 1.0f;
-            canvas.FillColor = (Application.Current?.RequestedTheme == OSAppTheme.Light) ? Material.Color.Black.ToColor() : Material.Color.Light.Gray6.ToColor().WithAlpha(0.5f);
+            canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Material.Color.Black.ToColor() : Material.Color.Light.Gray6.ToColor().WithAlpha(0.5f);
 
             var x = dirtyRect.X;
             var y = 53.91f;
@@ -49,7 +50,7 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawDate(ICanvas canvas, RectangleF dirtyRect, IDatePicker datePicker)
+        public void DrawDate(ICanvas canvas, RectF dirtyRect, IDatePicker datePicker)
         {
             canvas.SaveState();
 
@@ -72,18 +73,18 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.RestoreState();
         }
 
-        public void DrawIndicator(ICanvas canvas, RectangleF dirtyRect, IDatePicker datePicker)
+        public void DrawIndicator(ICanvas canvas, RectF dirtyRect, IDatePicker datePicker)
         {
 
         }
 
-        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IDatePicker datePicker)
+        public void DrawPlaceholder(ICanvas canvas, RectF dirtyRect, IDatePicker datePicker)
         {
             canvas.SaveState();
 
             if (datePicker.TextColor == null)
             {
-                if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                if (Application.Current?.RequestedTheme == AppTheme.Light)
                     canvas.FontColor = Material.Color.Light.Gray1.ToColor();
                 else
                     canvas.FontColor = Material.Color.Light.Gray6.ToColor();

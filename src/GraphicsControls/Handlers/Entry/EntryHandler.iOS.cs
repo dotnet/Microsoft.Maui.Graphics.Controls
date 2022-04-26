@@ -7,9 +7,7 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public partial class EntryHandler : MixedGraphicsControlHandler<IEntryDrawable, IEntry, GraphicsEntry>
     {
-        static UIColor? DefaultTextColor;
-
-        protected override GraphicsEntry CreateNativeView()
+        protected override GraphicsEntry CreatePlatformView()
         {
             UIEdgeInsets edgeInsets;
 
@@ -23,8 +21,6 @@ namespace Microsoft.Maui.Graphics.Controls
                 edgeInsets = new UIEdgeInsets();
 
             var nativeView = new GraphicsEntry {  GraphicsControl = this, EdgeInsets = edgeInsets };
-
-            DefaultTextColor = nativeView.TextColor;
 
             return nativeView;
         
@@ -56,8 +52,8 @@ namespace Microsoft.Maui.Graphics.Controls
             {
                 PointF touchPoint = points[0];
 
-                if (Drawable.IndicatorRect.Contains(touchPoint) && NativeView != null)
-                    NativeView.Text = string.Empty;
+                if (Drawable.IndicatorRect.Contains(touchPoint) && PlatformView != null)
+                    PlatformView.Text = string.Empty;
             }
 
             return base.StartInteraction(points);
@@ -65,13 +61,13 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public static void MapText(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateText(entry);
+            handler.PlatformView?.UpdateText(entry);
             (handler as IMixedGraphicsHandler)?.Invalidate();
         }
 
         public static void MapCharacterSpacing(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateIsPassword(entry);
+            handler.PlatformView?.UpdateIsPassword(entry);
         }
 
         [MissingMapper]
@@ -79,52 +75,52 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public static void MapHorizontalTextAlignment(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateHorizontalTextAlignment(entry);
+            handler.PlatformView?.UpdateHorizontalTextAlignment(entry);
         }
 
         public static void MapIsPassword(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateIsPassword(entry);
+            handler.PlatformView?.UpdateIsPassword(entry);
         }
 
         public static void MapIsReadOnly(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateIsReadOnly(entry);
+            handler.PlatformView?.UpdateIsReadOnly(entry);
         }
 
         public static void MapIsTextPredictionEnabled(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateIsTextPredictionEnabled(entry);
+            handler.PlatformView?.UpdateIsTextPredictionEnabled(entry);
         }
 
         public static void MapKeyboard(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateKeyboard(entry);
+            handler.PlatformView?.UpdateKeyboard(entry);
         }
 
         public static void MapMaxLength(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateMaxLength(entry);
+            handler.PlatformView?.UpdateMaxLength(entry);
         }
 
         public static void MapReturnType(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateReturnType(entry);
+            handler.PlatformView?.UpdateReturnType(entry);
         }
 
         public static void MapTextColor(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateTextColor(entry, DefaultTextColor);
+            handler.PlatformView?.UpdateTextColor(entry);
         }
 
         public static void MapCursorPosition(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateCursorPosition(entry);
+            handler.PlatformView?.UpdateCursorPosition(entry);
         }
 
         public static void MapSelectionLength(EntryHandler handler, IEntry entry)
         {
-            handler.NativeView?.UpdateSelectionLength(entry);
+            handler.PlatformView?.UpdateSelectionLength(entry);
         }
 
         void OnEditingChanged(object? sender, EventArgs e)
@@ -146,13 +142,13 @@ namespace Microsoft.Maui.Graphics.Controls
 
         void OnTextChanged()
         {
-            if (VirtualView == null || NativeView == null)
+            if (VirtualView == null || PlatformView == null)
                 return;
 
             // Even though <null> is technically different to "", it has no
             // functional difference to apps. Thus, hide it.
             var mauiText = VirtualView!.Text ?? string.Empty;
-            var nativeText = NativeView.Text ?? string.Empty;
+            var nativeText = PlatformView.Text ?? string.Empty;
 
             if (mauiText != nativeText)
                 VirtualView.Text = nativeText;
@@ -166,7 +162,7 @@ namespace Microsoft.Maui.Graphics.Controls
             if (range.Length + range.Location > currLength)
                 return false;
 
-            if (VirtualView == null || NativeView == null)
+            if (VirtualView == null || PlatformView == null)
                 return false;
 
             if (VirtualView.MaxLength < 0)

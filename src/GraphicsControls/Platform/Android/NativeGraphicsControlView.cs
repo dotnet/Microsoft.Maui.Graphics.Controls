@@ -1,10 +1,10 @@
 ﻿using Android.Content;
 using Android.Views;
-using Microsoft.Maui.Graphics.Native;
+using Microsoft.Maui.Graphics.Platform;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public class NativeGraphicsControlView : NativeGraphicsView
+    public class NativeGraphicsControlView : PlatformGraphicsView
     {
         readonly float _density;
         IGraphicsHandler? _graphicsControl;

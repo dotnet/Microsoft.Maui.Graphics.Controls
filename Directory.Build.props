@@ -13,9 +13,9 @@
   <PropertyGroup>
     <Summary>Library to draw MAUI controls.</Summary>
     <PackageTag>xamarin,ios,android,uwp,xamarin.forms,controls,watchos,tvos,tizen,draw</PackageTag>
-    <Description>Library to draw MAUI controls.</Description>
+    <Description>Library to draw .NET MAUI controls.</Description>
     <Company>Microsoft</Company>
-    <Product>Microsoft MAUI Graphics Controls</Product>
+    <Product>Microsoft .NET MAUI Graphics Controls</Product>
     <Authors>Microsoft</Authors>
     <Owners>microsoft</Owners>
     <NeutralLanguage>en</NeutralLanguage>

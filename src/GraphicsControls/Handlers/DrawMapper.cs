@@ -1,13 +1,14 @@
-﻿using System;
+﻿#nullable disable
+using System;
 using System.Collections.Generic;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
     public class DrawMapper
 	{
-		internal Dictionary<string, Action<ICanvas, RectangleF, IViewDrawable, IView>> genericMap = new Dictionary<string, Action<ICanvas, RectangleF, IViewDrawable, IView>>();
+		internal Dictionary<string, Action<ICanvas, RectF, IViewDrawable, IView>> genericMap = new Dictionary<string, Action<ICanvas, RectF, IViewDrawable, IView>>();
 
-		protected bool DrawLayer(string key, ICanvas canvas, RectangleF dirtyRect, IViewDrawable drawable, IView virtualView)
+		protected bool DrawLayer(string key, ICanvas canvas, RectF dirtyRect, IViewDrawable drawable, IView virtualView)
 		{
 			var action = Get(key);
 
@@ -19,7 +20,7 @@ namespace Microsoft.Maui.Graphics.Controls
 			return true;
 		}
 
-		public bool DrawLayer(ICanvas canvas, RectangleF dirtyRect, IViewDrawable drawable, IView virtualView, string property)
+		public bool DrawLayer(ICanvas canvas, RectF dirtyRect, IViewDrawable drawable, IView virtualView, string property)
 		{
 			if (virtualView == null)
 				return false;
@@ -27,7 +28,7 @@ namespace Microsoft.Maui.Graphics.Controls
 			return DrawLayer(property, canvas, dirtyRect, drawable, virtualView);
 		}
 
-		public virtual Action<ICanvas, RectangleF, IViewDrawable, IView> Get(string key)
+		public virtual Action<ICanvas, RectF, IViewDrawable, IView> Get(string key)
 		{
 			genericMap.TryGetValue(key, out var action);
 			return action;
@@ -48,15 +49,15 @@ namespace Microsoft.Maui.Graphics.Controls
 			Chained = chained;
 		}
 
-		public DrawMapper? Chained { get; set; }
+		public DrawMapper Chained { get; set; }
 
-		public Action<ICanvas, RectangleF, TViewDrawable, TVirtualView> this[string key]
+		public Action<ICanvas, RectF, TViewDrawable, TVirtualView> this[string key]
 		{
 			set => genericMap[key] = (canvas, rect, drawable, virtualView) =>
 			value?.Invoke(canvas, rect, (TViewDrawable)drawable, (TVirtualView)virtualView);
 		}
 
-		public override Action<ICanvas, RectangleF, IViewDrawable, IView>? Get(string key)
+		public override Action<ICanvas, RectF, IViewDrawable, IView> Get(string key)
 		{
 			if (genericMap.TryGetValue(key, out var action))
 				return action;

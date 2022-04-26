@@ -53,13 +53,13 @@ namespace Microsoft.Maui.Graphics.Controls
 			}
 		}
 
-		public static void MapDrawBackground(ICanvas canvas, RectangleF dirtyRect, ICheckBoxDrawable drawable, ICheckBox view)
+		public static void MapDrawBackground(ICanvas canvas, RectF dirtyRect, ICheckBoxDrawable drawable, ICheckBox view)
 			=> drawable.DrawBackground(canvas, dirtyRect, view);
 
-		public static void MapDrawMark(ICanvas canvas, RectangleF dirtyRect, ICheckBoxDrawable drawable, ICheckBox view)
+		public static void MapDrawMark(ICanvas canvas, RectF dirtyRect, ICheckBoxDrawable drawable, ICheckBox view)
 			=> drawable.DrawMark(canvas, dirtyRect, view);
 
-		public static void MapDrawText(ICanvas canvas, RectangleF dirtyRect, ICheckBoxDrawable drawable, ICheckBox view)
+		public static void MapDrawText(ICanvas canvas, RectF dirtyRect, ICheckBoxDrawable drawable, ICheckBox view)
 			=> drawable.DrawText(canvas, dirtyRect, view);
 
 		public override bool StartInteraction(PointF[] points)

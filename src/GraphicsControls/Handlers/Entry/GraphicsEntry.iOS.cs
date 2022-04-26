@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using CoreGraphics;
-using Microsoft.Maui.Graphics.Native;
+using Microsoft.Maui.Graphics.Platform;
 using UIKit;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
     public class GraphicsEntry : UITextField, IMixedNativeView
     {
-        readonly NativeCanvas _canvas;
+        readonly PlatformCanvas _canvas;
         readonly UITapGestureRecognizer _tapGesture;
 
         IMixedGraphicsHandler? _graphicsControl;
@@ -18,7 +18,7 @@ namespace Microsoft.Maui.Graphics.Controls
    
         public GraphicsEntry()
         {
-            _canvas = new NativeCanvas(() => CGColorSpace.CreateDeviceRGB());
+            _canvas = new PlatformCanvas(() => CGColorSpace.CreateDeviceRGB());
 
             EdgeInsets = UIEdgeInsets.Zero;
             BorderStyle = UITextBorderStyle.None;
@@ -99,7 +99,7 @@ namespace Microsoft.Maui.Graphics.Controls
                 rect.Height - insets.Top - insets.Bottom);
         }
 
-        public void DrawBaseLayer(RectangleF dirtyRect)
+        public void DrawBaseLayer(RectF dirtyRect)
         {
             base.Draw(dirtyRect);
         }
@@ -122,7 +122,7 @@ namespace Microsoft.Maui.Graphics.Controls
             Draw(coreGraphics, dirtyRect.AsRectangleF());
         }
 
-        void Draw(CGContext coreGraphics, RectangleF dirtyRect)
+        void Draw(CGContext coreGraphics, RectF dirtyRect)
         {
             _canvas.Context = coreGraphics;
 
@@ -132,7 +132,7 @@ namespace Microsoft.Maui.Graphics.Controls
             }
             catch (Exception exc)
             {
-                Logger.Error("An unexpected error occurred rendering the drawing.", exc);
+                Debug.WriteLine("An unexpected error occurred rendering the drawing.", exc);
             }
             finally
             {

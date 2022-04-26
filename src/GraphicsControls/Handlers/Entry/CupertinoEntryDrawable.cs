@@ -2,14 +2,14 @@
 {
     public class CupertinoEntryDrawable : ViewDrawable<IEntry>, IEntryDrawable
     {
-        RectangleF indicatorRect = new RectangleF();
-        public RectangleF IndicatorRect => indicatorRect;
+        RectF indicatorRect = new RectF();
+        public RectF IndicatorRect => indicatorRect;
 
         public bool HasFocus { get; set; }
 
         public double AnimationPercent { get; set; }
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IEntry editor)
+        public void DrawBackground(ICanvas canvas, RectF dirtyRect, IEntry editor)
         {
             canvas.SaveState();
 
@@ -34,7 +34,7 @@
             canvas.RestoreState();
         }
 
-        public void DrawBorder(ICanvas canvas, RectangleF dirtyRect, IEntry editor)
+        public void DrawBorder(ICanvas canvas, RectF dirtyRect, IEntry editor)
         {
             canvas.SaveState();
 
@@ -54,12 +54,12 @@
             canvas.RestoreState();
         }
 
-        public void DrawIndicator(ICanvas canvas, RectangleF dirtyRect, IEntry editor)
+        public void DrawIndicator(ICanvas canvas, RectF dirtyRect, IEntry editor)
         {
 
         }
 
-        public void DrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IEntry editor)
+        public void DrawPlaceholder(ICanvas canvas, RectF dirtyRect, IEntry editor)
         {
             if (!HasFocus && string.IsNullOrEmpty(editor.Text))
             {

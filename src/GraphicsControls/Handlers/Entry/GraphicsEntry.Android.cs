@@ -2,14 +2,14 @@
 using Android.Graphics;
 using Android.Views;
 using AndroidX.AppCompat.Widget;
-using Microsoft.Maui.Graphics.Native;
+using Microsoft.Maui.Graphics.Platform;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
     public class GraphicsEntry : AppCompatEditText, IMixedNativeView
     {
         IMixedGraphicsHandler? _graphicsControl;
-        readonly NativeCanvas _canvas;
+        readonly PlatformCanvas _canvas;
         readonly ScalingCanvas _scalingCanvas;
         readonly float _scale;
 
@@ -21,7 +21,7 @@ namespace Microsoft.Maui.Graphics.Controls
         public GraphicsEntry(Context context) : base(context)
         {
             _scale = Resources?.DisplayMetrics?.Density ?? 1;
-            _canvas = new NativeCanvas(context);
+            _canvas = new PlatformCanvas(context);
             _scalingCanvas = new ScalingCanvas(_canvas);
 
             Background = null;
@@ -57,14 +57,14 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public string[] NativeLayers => DefaultNativeLayers;
 
-        public void DrawBaseLayer(RectangleF dirtyRect) { }
+        public void DrawBaseLayer(RectF dirtyRect) { }
 
         public override void Draw(Canvas? androidCanvas)
         {
             if (_drawable == null)
                 return;
 
-            var dirtyRect = new RectangleF(0, 0, _width, _height);
+            var dirtyRect = new RectF(0, 0, _width, _height);
 
             _canvas.Canvas = androidCanvas;
 

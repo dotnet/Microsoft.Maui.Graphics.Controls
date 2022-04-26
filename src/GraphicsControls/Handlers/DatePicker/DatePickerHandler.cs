@@ -60,19 +60,19 @@ namespace Microsoft.Maui.Graphics.Controls
 			}
 		}
 
-		public static void MapDrawBackground(ICanvas canvas, RectangleF dirtyRect, IDatePickerDrawable drawable, IDatePicker view)
+		public static void MapDrawBackground(ICanvas canvas, RectF dirtyRect, IDatePickerDrawable drawable, IDatePicker view)
 			=> drawable.DrawBackground(canvas, dirtyRect, view);
 
-		public static void MapDrawBorder(ICanvas canvas, RectangleF dirtyRect, IDatePickerDrawable drawable, IDatePicker view)
+		public static void MapDrawBorder(ICanvas canvas, RectF dirtyRect, IDatePickerDrawable drawable, IDatePicker view)
 			=> drawable.DrawBorder(canvas, dirtyRect, view);
 
-		public static void MapDrawIndicator(ICanvas canvas, RectangleF dirtyRect, IDatePickerDrawable drawable, IDatePicker view)
+		public static void MapDrawIndicator(ICanvas canvas, RectF dirtyRect, IDatePickerDrawable drawable, IDatePicker view)
 		   => drawable.DrawIndicator(canvas, dirtyRect, view);
 
-		public static void MapDrawPlaceholder(ICanvas canvas, RectangleF dirtyRect, IDatePickerDrawable drawable, IDatePicker view)
+		public static void MapDrawPlaceholder(ICanvas canvas, RectF dirtyRect, IDatePickerDrawable drawable, IDatePicker view)
 			=> drawable.DrawPlaceholder(canvas, dirtyRect, view);
 
-		public static void MapDrawDate(ICanvas canvas, RectangleF dirtyRect, IDatePickerDrawable drawable, IDatePicker view)
+		public static void MapDrawDate(ICanvas canvas, RectF dirtyRect, IDatePickerDrawable drawable, IDatePicker view)
 			=> drawable.DrawDate(canvas, dirtyRect, view);
 	}
 }

@@ -4,13 +4,13 @@
 	{
 		public bool IsDragging { get; set; }
 
-		RectangleF trackRect = new RectangleF();
-		public RectangleF TrackRect => trackRect;
+		RectF trackRect = new RectF();
+		public RectF TrackRect => trackRect;
 
-		RectangleF touchTargetRect = new RectangleF(0, 0, 44, 44);
-		public RectangleF TouchTargetRect => touchTargetRect;
+		RectF touchTargetRect = new RectF(0, 0, 44, 44);
+		public RectF TouchTargetRect => touchTargetRect;
 
-		public virtual void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ISlider slider)
+		public virtual void DrawBackground(ICanvas canvas, RectF dirtyRect, ISlider slider)
 		{
 			canvas.SaveState();
 
@@ -34,7 +34,7 @@
 			canvas.RestoreState();
 		}
 
-		public virtual void DrawTrackProgress(ICanvas canvas, RectangleF dirtyRect, ISlider slider)
+		public virtual void DrawTrackProgress(ICanvas canvas, RectF dirtyRect, ISlider slider)
 		{
 			canvas.SaveState();
 			
@@ -57,7 +57,7 @@
 			canvas.RestoreState();
 		}
 
-		public virtual void DrawThumb(ICanvas canvas, RectangleF dirtyRect, ISlider slider)
+		public virtual void DrawThumb(ICanvas canvas, RectF dirtyRect, ISlider slider)
 		{
 			var MaterialFloatThumb = 12f;
 
@@ -86,7 +86,7 @@
 			canvas.RestoreState();
 		}
 
-		public virtual void DrawText(ICanvas canvas, RectangleF dirtyRect, ISlider slider)
+		public virtual void DrawText(ICanvas canvas, RectF dirtyRect, ISlider slider)
 		{
 
 		}

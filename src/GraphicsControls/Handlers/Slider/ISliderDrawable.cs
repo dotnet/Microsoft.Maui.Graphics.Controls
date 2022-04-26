@@ -3,12 +3,12 @@
     public interface ISliderDrawable : IViewDrawable<ISlider>
 	{
 		bool IsDragging { get; set; }
-		RectangleF TrackRect { get; }
-		RectangleF TouchTargetRect { get; }
+		RectF TrackRect { get; }
+		RectF TouchTargetRect { get; }
 
-		void DrawBackground(ICanvas canvas, RectangleF dirtyRect, ISlider view);
-		void DrawThumb(ICanvas canvas, RectangleF dirtyRect, ISlider view);
-		void DrawTrackProgress(ICanvas canvas, RectangleF dirtyRect, ISlider view);
-		void DrawText(ICanvas canvas, RectangleF dirtyRect, ISlider view);
+		void DrawBackground(ICanvas canvas, RectF dirtyRect, ISlider view);
+		void DrawThumb(ICanvas canvas, RectF dirtyRect, ISlider view);
+		void DrawTrackProgress(ICanvas canvas, RectF dirtyRect, ISlider view);
+		void DrawText(ICanvas canvas, RectF dirtyRect, ISlider view);
 	}
 }

@@ -17,7 +17,7 @@ namespace GraphicsControls.Sample.Controls
             _lastTouchPoint = Point.Zero;
         }
 
-        public override void Draw(ICanvas canvas, RectangleF dirtyRect)
+        public override void Draw(ICanvas canvas, RectF dirtyRect)
         {
             float height = Math.Max(MinimumHeight, dirtyRect.Height);
 
@@ -30,14 +30,14 @@ namespace GraphicsControls.Sample.Controls
 
             LinearGradientPaint linearGradientPaint = new LinearGradientPaint
             {
-                GradientStops = new Microsoft.Maui.Graphics.GradientStop[]
+                GradientStops = new PaintGradientStop[]
                 {
-                    new Microsoft.Maui.Graphics.GradientStop(0.0f, new Color(255, 0, 0)),
-                    new Microsoft.Maui.Graphics.GradientStop(0.2f, new Color(255, 255, 0)),
-                    new Microsoft.Maui.Graphics.GradientStop(0.4f, new Color(0, 255, 0)),
-                    new Microsoft.Maui.Graphics.GradientStop(0.6f, new Color(0, 255, 255)),
-                    new Microsoft.Maui.Graphics.GradientStop(0.8f, new Color(255, 0, 255)),
-                    new Microsoft.Maui.Graphics.GradientStop(1.0f, new Color(255, 0, 0))
+                    new PaintGradientStop(0.0f, new Color(255, 0, 0)),
+                    new PaintGradientStop(0.2f, new Color(255, 255, 0)),
+                    new PaintGradientStop(0.4f, new Color(0, 255, 0)),
+                    new PaintGradientStop(0.6f, new Color(0, 255, 255)),
+                    new PaintGradientStop(0.8f, new Color(255, 0, 255)),
+                    new PaintGradientStop(1.0f, new Color(255, 0, 0))
                 }
             };
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Maui.Animations;
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.ApplicationModel;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -15,10 +16,10 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public PointF TouchPoint { get; set; }
         public double AnimationPercent { get; set; }
-        public RectangleF MinusRectangle { get; set; }
-        public RectangleF PlusRectangle { get; set; }
+        public RectF MinusRectangle { get; set; }
+        public RectF PlusRectangle { get; set; }
 
-        public void DrawBackground(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
+        public void DrawBackground(ICanvas canvas, RectF dirtyRect, IStepper stepper)
         {
             canvas.SaveState();
 
@@ -28,7 +29,7 @@ namespace Microsoft.Maui.Graphics.Controls
                 canvas.SetFillPaint(stepper.Background, dirtyRect);
             else
             {
-                if (Application.Current?.RequestedTheme == OSAppTheme.Light)
+                if (Application.Current?.RequestedTheme == AppTheme.Light)
                     canvas.FillColor = stepper.IsEnabled ? Material.Color.White.ToColor() : Material.Color.Light.Gray6.ToColor();
                 else
                     canvas.FillColor = stepper.IsEnabled ? Material.Color.Dark.Gray1.ToColor().WithAlpha(0.25f) : Material.Color.Dark.Gray2.ToColor().WithAlpha(0.25f);
@@ -55,12 +56,12 @@ namespace Microsoft.Maui.Graphics.Controls
             DrawRippleEffect(canvas, dirtyRect, stepper);
         }
 
-        public void DrawMinus(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
+        public void DrawMinus(ICanvas canvas, RectF dirtyRect, IStepper stepper)
         {
             canvas.SaveState();
 
             canvas.StrokeSize = 1;
-            canvas.StrokeColor = Application.Current?.RequestedTheme == OSAppTheme.Light ? Material.Color.Light.Gray6.ToColor() : Material.Color.Dark.Gray6.ToColor();
+            canvas.StrokeColor = Application.Current?.RequestedTheme == AppTheme.Light ? Material.Color.Light.Gray6.ToColor() : Material.Color.Dark.Gray6.ToColor();
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
@@ -76,23 +77,23 @@ namespace Microsoft.Maui.Graphics.Controls
             var path = vBuilder.BuildPath(MaterialStepperMinusIcon);
 
             if (stepper.IsEnabled)
-                canvas.FillColor = Application.Current?.RequestedTheme == OSAppTheme.Light ? Material.Color.Black.ToColor() : Material.Color.White.ToColor().WithAlpha(0.5f);
+                canvas.FillColor = Application.Current?.RequestedTheme == AppTheme.Light ? Material.Color.Black.ToColor() : Material.Color.White.ToColor().WithAlpha(0.5f);
             else
-                canvas.FillColor = Application.Current?.RequestedTheme == OSAppTheme.Light ? Material.Color.Light.Gray3.ToColor() : Material.Color.White.ToColor().WithAlpha(0.25f);
+                canvas.FillColor = Application.Current?.RequestedTheme == AppTheme.Light ? Material.Color.Light.Gray3.ToColor() : Material.Color.White.ToColor().WithAlpha(0.25f);
 
             canvas.FillPath(path);
 
             canvas.RestoreState();
 
-            MinusRectangle = new RectangleF(x, y, width, height);
+            MinusRectangle = new RectF(x, y, width, height);
         }
 
-        public void DrawPlus(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
+        public void DrawPlus(ICanvas canvas, RectF dirtyRect, IStepper stepper)
         {
             canvas.SaveState();
 
             canvas.StrokeSize = 1;
-            canvas.StrokeColor = Application.Current?.RequestedTheme == OSAppTheme.Light ? Material.Color.Light.Gray6.ToColor() : Material.Color.Dark.Gray6.ToColor();
+            canvas.StrokeColor = Application.Current?.RequestedTheme == AppTheme.Light ? Material.Color.Light.Gray6.ToColor() : Material.Color.Dark.Gray6.ToColor();
 
             var x = MaterialStepperWidth / 2 + MaterialButtonMargin;
             var y = dirtyRect.Y;
@@ -108,30 +109,30 @@ namespace Microsoft.Maui.Graphics.Controls
             var path = vBuilder.BuildPath(MaterialStepperPlusIcon);
 
             if (stepper.IsEnabled)
-                canvas.FillColor = Application.Current?.RequestedTheme == OSAppTheme.Light ? Material.Color.Black.ToColor() : Material.Color.White.ToColor().WithAlpha(0.5f);
+                canvas.FillColor = Application.Current?.RequestedTheme == AppTheme.Light ? Material.Color.Black.ToColor() : Material.Color.White.ToColor().WithAlpha(0.5f);
             else
-                canvas.FillColor = Application.Current?.RequestedTheme == OSAppTheme.Light ? Material.Color.Light.Gray3.ToColor() : Material.Color.White.ToColor().WithAlpha(0.25f);
+                canvas.FillColor = Application.Current?.RequestedTheme == AppTheme.Light ? Material.Color.Light.Gray3.ToColor() : Material.Color.White.ToColor().WithAlpha(0.25f);
 
             canvas.FillPath(path);
 
             canvas.RestoreState();
 
-            PlusRectangle = new RectangleF(x, y, width, height);
+            PlusRectangle = new RectF(x, y, width, height);
         }
 
-        public void DrawSeparator(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
+        public void DrawSeparator(ICanvas canvas, RectF dirtyRect, IStepper stepper)
         {
         
         }
 
-        public void DrawText(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
+        public void DrawText(ICanvas canvas, RectF dirtyRect, IStepper stepper)
         {
         
         }
 
-        internal void DrawRippleEffect(ICanvas canvas, RectangleF dirtyRect, IStepper stepper)
+        internal void DrawRippleEffect(ICanvas canvas, RectF dirtyRect, IStepper stepper)
         {
-            RectangleF rect = RectangleF.Zero;
+            RectF rect = RectF.Zero;
 
             if (MinusRectangle.Contains(TouchPoint))
                 rect = MinusRectangle;
@@ -139,7 +140,7 @@ namespace Microsoft.Maui.Graphics.Controls
             if (PlusRectangle.Contains(TouchPoint))
                 rect = PlusRectangle;
 
-            if (rect != RectangleF.Zero)
+            if (rect != RectF.Zero)
             {
                 canvas.SaveState();
 
