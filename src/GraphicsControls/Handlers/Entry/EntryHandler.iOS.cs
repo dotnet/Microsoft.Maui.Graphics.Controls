@@ -7,8 +7,6 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public partial class EntryHandler : MixedGraphicsControlHandler<IEntryDrawable, IEntry, GraphicsEntry>
     {
-        static UIColor? DefaultTextColor;
-
         protected override GraphicsEntry CreatePlatformView()
         {
             UIEdgeInsets edgeInsets;
@@ -23,8 +21,6 @@ namespace Microsoft.Maui.Graphics.Controls
                 edgeInsets = new UIEdgeInsets();
 
             var nativeView = new GraphicsEntry {  GraphicsControl = this, EdgeInsets = edgeInsets };
-
-            DefaultTextColor = nativeView.TextColor;
 
             return nativeView;
         
@@ -114,7 +110,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public static void MapTextColor(EntryHandler handler, IEntry entry)
         {
-            handler.PlatformView?.UpdateTextColor(entry, DefaultTextColor);
+            handler.PlatformView?.UpdateTextColor(entry);
         }
 
         public static void MapCursorPosition(EntryHandler handler, IEntry entry)

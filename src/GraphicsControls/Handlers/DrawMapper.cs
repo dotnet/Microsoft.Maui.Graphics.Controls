@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable disable
+using System;
 using System.Collections.Generic;
 
 namespace Microsoft.Maui.Graphics.Controls
@@ -48,7 +49,7 @@ namespace Microsoft.Maui.Graphics.Controls
 			Chained = chained;
 		}
 
-		public DrawMapper? Chained { get; set; }
+		public DrawMapper Chained { get; set; }
 
 		public Action<ICanvas, RectF, TViewDrawable, TVirtualView> this[string key]
 		{
@@ -56,7 +57,7 @@ namespace Microsoft.Maui.Graphics.Controls
 			value?.Invoke(canvas, rect, (TViewDrawable)drawable, (TVirtualView)virtualView);
 		}
 
-		public override Action<ICanvas, RectF, IViewDrawable, IView>? Get(string key)
+		public override Action<ICanvas, RectF, IViewDrawable, IView> Get(string key)
 		{
 			if (genericMap.TryGetValue(key, out var action))
 				return action;

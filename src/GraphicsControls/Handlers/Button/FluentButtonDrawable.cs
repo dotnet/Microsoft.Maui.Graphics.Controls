@@ -1,5 +1,5 @@
 ﻿using Microsoft.Maui.Controls;
-using Microsoft.Maui.Essentials;
+using Microsoft.Maui.ApplicationModel;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
@@ -29,10 +29,10 @@ namespace Microsoft.Maui.Graphics.Controls
 
             var fill = new LinearGradientPaint
             {
-                GradientStops = new GradientStop[]
+                GradientStops = new PaintGradientStop[]
                 {
-                    new GradientStop(0.0f, backgroundColor.Lighter()),
-                    new GradientStop(0.9f, backgroundColor.Darker())
+                    new PaintGradientStop(0.0f, backgroundColor.Lighter()),
+                    new PaintGradientStop(0.9f, backgroundColor.Darker())
                 },
                 StartPoint = new Point(0, 0),
                 EndPoint = new Point(0, 1)

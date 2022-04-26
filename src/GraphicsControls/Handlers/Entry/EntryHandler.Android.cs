@@ -12,8 +12,6 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public partial class EntryHandler : MixedGraphicsControlHandler<IEntryDrawable, IEntry, GraphicsEntry>
     {
-        static ColorStateList? DefaultTextColors { get; set; }
-
         TextWatcher Watcher { get; } = new TextWatcher();
         EditorActionListener ActionListener { get; } = new EditorActionListener();
         EntryFocusChangeListener FocusChangeListener { get; } = new EntryFocusChangeListener();
@@ -31,8 +29,6 @@ namespace Microsoft.Maui.Graphics.Controls
                 nativeView.SetPadding(12, 12, 0, 0);
             else if (Drawable is CupertinoEntryDrawable)
                 nativeView.SetPadding(12, 12, 0, 0);
-
-            DefaultTextColors = nativeView.TextColors;
 
             return nativeView;
         }
@@ -130,7 +126,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public static void MapTextColor(EntryHandler handler, IEntry entry)
         {
-            handler.PlatformView?.UpdateTextColor(entry, DefaultTextColors);
+            handler.PlatformView?.UpdateTextColor(entry);
         }
 
         public static void MapCursorPosition(EntryHandler handler, IEntry entry)

@@ -10,8 +10,6 @@ namespace Microsoft.Maui.Graphics.Controls
 {
 	public partial class EditorHandler : MixedGraphicsControlHandler<IEditorDrawable, IEditor, GraphicsEditor>
 	{
-		static ColorStateList? DefaultTextColors { get; set; }
-
 		EditorFocusChangeListener FocusChangeListener { get; } = new EditorFocusChangeListener();
 
 		protected override GraphicsEditor CreatePlatformView()
@@ -33,8 +31,6 @@ namespace Microsoft.Maui.Graphics.Controls
 				nativeView.SetPadding(12, 12, 0, 0);
 			else if (Drawable is CupertinoEditorDrawable)
 				nativeView.SetPadding(12, 12, 0, 0);
-
-			DefaultTextColors = nativeView.TextColors;
 
 			return nativeView;
 		}
@@ -65,7 +61,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		public static void MapTextColor(EditorHandler handler, IEditor editor)
 		{
-			handler.PlatformView?.UpdateTextColor(editor, DefaultTextColors);
+			handler.PlatformView?.UpdateTextColor(editor);
 		}
 
 		public static void MapCharacterSpacing(EditorHandler handler, IEditor editor)

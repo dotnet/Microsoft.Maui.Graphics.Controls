@@ -1,5 +1,5 @@
-﻿using Microsoft.Maui.Controls;
-using Microsoft.Maui.Essentials;
+﻿using Microsoft.Maui.ApplicationModel;
+using Microsoft.Maui.Controls;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
