@@ -1,4 +1,5 @@
-﻿using Android.Content;
+﻿#nullable disable
+using Android.Content;
 using Android.Graphics;
 using Android.Views;
 using AndroidX.AppCompat.Widget;
@@ -8,15 +9,15 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public class GraphicsEntry : AppCompatEditText, IMixedNativeView
     {
-        IMixedGraphicsHandler? _graphicsControl;
+        IMixedGraphicsHandler _graphicsControl;
         readonly PlatformCanvas _canvas;
         readonly ScalingCanvas _scalingCanvas;
         readonly float _scale;
 
         bool _pressedContained;
         int _width, _height;
-        Color? _backgroundColor;
-        IDrawable? _drawable;
+        Color _backgroundColor;
+        IDrawable _drawable;
 
         public GraphicsEntry(Context context) : base(context)
         {
@@ -27,7 +28,7 @@ namespace Microsoft.Maui.Graphics.Controls
             Background = null;
         }
 
-        public Color? BackgroundColor
+        public Color BackgroundColor
         {
             get => _backgroundColor;
             set
@@ -37,13 +38,13 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        public IMixedGraphicsHandler? GraphicsControl
+        public IMixedGraphicsHandler GraphicsControl
         {
             get => _graphicsControl;
             set => Drawable = _graphicsControl = value;
         }
 
-        public IDrawable? Drawable
+        public IDrawable Drawable
         {
             get => _drawable;
             set
@@ -59,7 +60,7 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public void DrawBaseLayer(RectF dirtyRect) { }
 
-        public override void Draw(Canvas? androidCanvas)
+        public override void Draw(Canvas androidCanvas)
         {
             if (_drawable == null)
                 return;
@@ -93,7 +94,7 @@ namespace Microsoft.Maui.Graphics.Controls
             _height = height;
         }
 
-        public override bool OnTouchEvent(MotionEvent? e)
+        public override bool OnTouchEvent(MotionEvent e)
         {
             if (e != null && Enabled)
             {

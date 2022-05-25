@@ -1,4 +1,5 @@
-﻿using Microsoft.Graphics.Canvas.UI.Xaml;
+﻿#nullable disable
+using Microsoft.Graphics.Canvas.UI.Xaml;
 using Microsoft.Maui.Graphics.Win2D;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -8,10 +9,10 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public class GraphicsEditor : UserControl, IMixedNativeView
     {
-        CanvasControl? _canvasControl;
+        CanvasControl _canvasControl;
         readonly W2DCanvas _canvas = new W2DCanvas();
-        IMixedGraphicsHandler? _graphicsControl;
-        IDrawable? _drawable;
+        IMixedGraphicsHandler _graphicsControl;
+        IDrawable _drawable;
         RectF _dirty;
 
         public GraphicsEditor()
@@ -20,13 +21,13 @@ namespace Microsoft.Maui.Graphics.Controls
             Unloaded += OnUnloaded;
         }
 
-        public IMixedGraphicsHandler? GraphicsControl
+        public IMixedGraphicsHandler GraphicsControl
         {
             get => _graphicsControl;
             set => Drawable = _graphicsControl = value;
         }
 
-        public IDrawable? Drawable
+        public IDrawable Drawable
         {
             get => _drawable;
             set

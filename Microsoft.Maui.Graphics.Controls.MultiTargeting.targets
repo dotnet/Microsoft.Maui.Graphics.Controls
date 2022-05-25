@@ -83,7 +83,7 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="$(TargetFramework.Contains('-windows')) == true ">
-		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.1" />
-		<PackageReference Include="Microsoft.Maui.Graphics.Win2D.WinUI.Desktop" Version="6.0.300-rc.3.1315" />
+		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.3.1" />
+		<PackageReference Include="Microsoft.Maui.Graphics.Win2D.WinUI.Desktop" Version="6.0.400-preview.1.1367" />
 	</ItemGroup>
 </Project>

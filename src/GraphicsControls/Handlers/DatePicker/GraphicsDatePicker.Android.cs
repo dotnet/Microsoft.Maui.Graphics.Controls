@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable disable
+using System;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
@@ -13,16 +14,16 @@ namespace Microsoft.Maui.Graphics.Controls
         DateTime _minimumDate;
         DateTime _maximumDate;
 
-        IMixedGraphicsHandler? _graphicsControl;
+        IMixedGraphicsHandler _graphicsControl;
         readonly PlatformCanvas _canvas;
         readonly ScalingCanvas _scalingCanvas;
         readonly float _scale;
 
         int _width, _height;
-        Color? _backgroundColor;
-        IDrawable? _drawable;
+        Color _backgroundColor;
+        IDrawable _drawable;
 
-        DatePickerDialog? _dialog;
+        DatePickerDialog _dialog;
 
         public GraphicsDatePicker(Context context) : base(context)
         {
@@ -63,7 +64,7 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        public Color? BackgroundColor
+        public Color BackgroundColor
         {
             get => _backgroundColor;
             set
@@ -73,13 +74,13 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        public IMixedGraphicsHandler? GraphicsControl
+        public IMixedGraphicsHandler GraphicsControl
         {
             get => _graphicsControl;
             set => Drawable = _graphicsControl = value;
         }
 
-        public IDrawable? Drawable
+        public IDrawable Drawable
         {
             get => _drawable;
             set
@@ -89,7 +90,7 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        public event EventHandler<DateSelectedEventArgs>? DateSelected;
+        public event EventHandler<DateSelectedEventArgs> DateSelected;
 
         static readonly string[] DefaultNativeLayers = new string[] { };
 
@@ -113,7 +114,7 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        public override void Draw(Canvas? androidCanvas)
+        public override void Draw(Canvas androidCanvas)
         {
             if (_drawable == null)
                 return;
@@ -145,7 +146,7 @@ namespace Microsoft.Maui.Graphics.Controls
             _height = height;
         }
 
-        public override bool OnTouchEvent(MotionEvent? e)
+        public override bool OnTouchEvent(MotionEvent e)
         {
             if (e != null && Enabled)
             {
@@ -162,7 +163,7 @@ namespace Microsoft.Maui.Graphics.Controls
             return base.OnTouchEvent(e);
         }
 
-        void OnTouch(object? sender, TouchEventArgs e)
+        void OnTouch(object sender, TouchEventArgs e)
         {
             if (e.Event?.Action != MotionEventActions.Up)
                 return;
@@ -197,7 +198,7 @@ namespace Microsoft.Maui.Graphics.Controls
             _dialog.SetCanceledOnTouchOutside(true);
         }
 
-        void OnCancelButtonClicked(object? sender, EventArgs e)
+        void OnCancelButtonClicked(object sender, EventArgs e)
         {
             ClearFocus();
         }

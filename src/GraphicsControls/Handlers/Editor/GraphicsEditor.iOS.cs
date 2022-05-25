@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable disable
+using System;
 using System.Diagnostics;
 using CoreGraphics;
 using Microsoft.Maui.Graphics.Platform;
@@ -11,9 +12,9 @@ namespace Microsoft.Maui.Graphics.Controls
         readonly PlatformCanvas _canvas;
         readonly UITapGestureRecognizer _tapGesture;
 
-        CGColorSpace? _colorSpace;
-        IMixedGraphicsHandler? _graphicsControl;
-        IDrawable? _drawable;
+        CGColorSpace _colorSpace;
+        IMixedGraphicsHandler _graphicsControl;
+        IDrawable _drawable;
         CGRect _lastBounds;
         UIEdgeInsets _eddgeInsets;
 
@@ -32,13 +33,13 @@ namespace Microsoft.Maui.Graphics.Controls
             AddGestureRecognizer(_tapGesture);
         }
 
-        public IMixedGraphicsHandler? GraphicsControl
+        public IMixedGraphicsHandler GraphicsControl
         {
             get => _graphicsControl;
             set => Drawable = _graphicsControl = value;
         }
 
-        public IDrawable? Drawable
+        public IDrawable Drawable
         {
             get => _drawable;
             set
