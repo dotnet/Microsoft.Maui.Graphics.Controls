@@ -1,4 +1,5 @@
-﻿using Microsoft.Graphics.Canvas.UI.Xaml;
+﻿#nullable disable
+using Microsoft.Graphics.Canvas.UI.Xaml;
 using Microsoft.Maui.Graphics.Win2D;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -14,11 +15,11 @@ namespace Microsoft.Maui.Graphics.Controls
         DateTime _minimumDate;
         DateTime _maximumDate;
 
-        DatePickerFlyout? _datePickerFlyout;
-        CanvasControl? _canvasControl;
+        DatePickerFlyout _datePickerFlyout;
+        CanvasControl _canvasControl;
         readonly W2DCanvas _canvas = new W2DCanvas();
 
-        IMixedGraphicsHandler? _graphicsControl;
+        IMixedGraphicsHandler _graphicsControl;
         IDrawable? _drawable;
         RectF _dirty;
 
@@ -59,13 +60,13 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        public IMixedGraphicsHandler? GraphicsControl
+        public IMixedGraphicsHandler GraphicsControl
         {
             get => _graphicsControl;
             set => Drawable = _graphicsControl = value;
         }
 
-        public IDrawable? Drawable
+        public IDrawable Drawable
         {
             get => _drawable;
             set
@@ -75,7 +76,7 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        public event EventHandler<DateSelectedEventArgs>? DateSelected;
+        public event EventHandler<DateSelectedEventArgs> DateSelected;
 
         static readonly string[] DefaultNativeLayers = new string[] { };
 

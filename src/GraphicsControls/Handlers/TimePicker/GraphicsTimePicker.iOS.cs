@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable disable
+using System;
 using System.Diagnostics;
 using CoreGraphics;
 using Foundation;
@@ -12,15 +13,15 @@ namespace Microsoft.Maui.Graphics.Controls
     {
         TimeSpan _time;
 
-        IMixedGraphicsHandler? _graphicsControl;
+        IMixedGraphicsHandler _graphicsControl;
         readonly PlatformCanvas _canvas;
 
-        UIDatePicker? _picker;
-        NoCaretField? _entry;
-        NSDate? _preSelectedDate;
+        UIDatePicker _picker;
+        NoCaretField _entry;
+        NSDate _preSelectedDate;
 
-        CGColorSpace? _colorSpace;
-        IDrawable? _drawable;
+        CGColorSpace _colorSpace;
+        IDrawable _drawable;
         CGRect _lastBounds;
 
         public GraphicsTimePicker()
@@ -42,13 +43,13 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        public IMixedGraphicsHandler? GraphicsControl
+        public IMixedGraphicsHandler GraphicsControl
         {
             get => _graphicsControl;
             set => Drawable = _graphicsControl = value;
         }
 
-        public IDrawable? Drawable
+        public IDrawable Drawable
         {
             get => _drawable;
             set
@@ -60,7 +61,7 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        public event EventHandler<TimeSelectedEventArgs>? TimeSelected;
+        public event EventHandler<TimeSelectedEventArgs> TimeSelected;
 
         public override CGRect Bounds
         {
@@ -126,7 +127,7 @@ namespace Microsoft.Maui.Graphics.Controls
             Draw(coreGraphics, dirtyRect.AsRectangleF());
         }
 
-        public override void TouchesBegan(NSSet touches, UIEvent? evt)
+        public override void TouchesBegan(NSSet touches, UIEvent evt)
         {
             try
             {
