@@ -1,6 +1,8 @@
 ﻿using GraphicsControls.Sample.Controls;
+using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Graphics.Controls;
 using Microsoft.Maui.Graphics.Controls.Hosting;
+using Microsoft.Maui.Hosting;
 
 namespace GraphicsControls.Sample
 {

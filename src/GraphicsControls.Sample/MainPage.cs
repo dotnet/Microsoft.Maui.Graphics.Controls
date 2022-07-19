@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui;
+using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
 using System;
@@ -98,8 +99,6 @@ namespace GraphicsControls.Sample
             var cSharpFrame = new Frame
             {
                 CornerRadius = 12,
-                HeightRequest = 150,
-                WidthRequest = 150,
                 Margin = new Thickness(0, 6, 6, 0)
             };
 
@@ -124,8 +123,6 @@ namespace GraphicsControls.Sample
             var xamlFrame = new Frame
             {
                 CornerRadius = 12,
-                HeightRequest = 150,
-                WidthRequest = 150,
                 Margin = new Thickness(0, 6, 6, 0)
             };
 
@@ -170,7 +167,6 @@ namespace GraphicsControls.Sample
             var customizeFrame = new Frame
             {
                 CornerRadius = 12,
-                HeightRequest = 150,
                 Margin = new Thickness(0, 6, 6, 0)
             };
 

@@ -20,7 +20,7 @@ namespace Microsoft.Maui.Graphics.Controls
         readonly W2DCanvas _canvas = new W2DCanvas();
 
         IMixedGraphicsHandler _graphicsControl;
-        IDrawable? _drawable;
+        IDrawable _drawable;
         RectF _dirty;
 
         public GraphicsDatePicker()
