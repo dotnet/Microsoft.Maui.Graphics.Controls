@@ -145,7 +145,7 @@ namespace Microsoft.Maui.Graphics.Controls
                 canvas.SaveState();
 
                 var border = new PathF();
-                border.AppendRoundedRectangle(rect, MaterialDefaultCornerRadius);
+                border.AppendRoundedRectangle(rect, MaterialButtonCornerRadius);
 
                 canvas.ClipPath(border);
 
