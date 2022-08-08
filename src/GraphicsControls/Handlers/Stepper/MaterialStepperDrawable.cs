@@ -144,7 +144,10 @@ namespace Microsoft.Maui.Graphics.Controls
             {
                 canvas.SaveState();
 
-                canvas.ClipRectangle(rect);
+                var border = new PathF();
+                border.AppendRoundedRectangle(rect, MaterialDefaultCornerRadius);
+
+                canvas.ClipPath(border);
 
                 canvas.FillColor = Material.Color.White.ToColor().WithAlpha(0.75f);
 
