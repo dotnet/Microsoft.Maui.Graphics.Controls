@@ -28,7 +28,7 @@ namespace Microsoft.Maui.Graphics.Controls
             Background = null;
         }
 
-        public Color? BackgroundColor
+        public Color BackgroundColor
         {
             get => _backgroundColor;
             set

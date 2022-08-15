@@ -1,4 +1,6 @@
-﻿namespace GraphicsControls.Sample
+﻿using Microsoft.Maui.Controls;
+
+namespace GraphicsControls.Sample
 {
     public partial class App : Application
     {
