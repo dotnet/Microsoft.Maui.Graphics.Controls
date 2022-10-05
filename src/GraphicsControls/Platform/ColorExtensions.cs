@@ -61,5 +61,17 @@ namespace Microsoft.Maui.Graphics.Controls
             // Return black for bright colors, white for dark colors
             return luma > 0.5 ? Colors.Black : Colors.White;
         }
+
+        /// <summary>
+        /// Returns a color which is visible on top of the current color.
+        /// If the current color is dark, returns white. If the current color is light, returns black.
+        /// </summary>
+        /// <param name="color">Color on which we want to base returned color.</param>
+        /// <returns>Can return Colors.Black or Colors.White</returns>
+        public static Color ComplementaryColor(this Color color)
+        {
+            color.ToHsl(out _, out _, out var lightness);
+            return lightness > 0.4 ? Colors.Black : Colors.White;
+        }
     }
 }
