@@ -70,6 +70,9 @@ namespace Microsoft.Maui.Graphics.Controls
         /// <returns>Can return Colors.Black or Colors.White</returns>
         public static Color ComplementaryColor(this Color color)
         {
+            if(color == null)
+                return Colors.Black;
+
             color.ToHsl(out _, out _, out var lightness);
             return lightness > 0.4 ? Colors.Black : Colors.White;
         }
