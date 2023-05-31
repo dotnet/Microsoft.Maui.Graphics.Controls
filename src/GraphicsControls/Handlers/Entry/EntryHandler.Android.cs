@@ -22,13 +22,15 @@ namespace Microsoft.Maui.Graphics.Controls
             {
                 GraphicsControl = this
             };
+            
+            var density = nativeView.Resources?.DisplayMetrics?.Density ?? 1.0f;
 
             if (Drawable is MaterialEntryDrawable)
-                nativeView.SetPadding(12, 18, 0, 0);
+                nativeView.SetPadding((int)(density * 12), (int)(density * 24), 0, 0);
             else if (Drawable is FluentEntryDrawable)
-                nativeView.SetPadding(12, 12, 0, 0);
+                nativeView.SetPadding((int)(density * 12), (int)(density * 12), 0, 0);
             else if (Drawable is CupertinoEntryDrawable)
-                nativeView.SetPadding(12, 12, 0, 0);
+                nativeView.SetPadding((int)(density * 12), (int)(density * 12), 0, 0);
 
             return nativeView;
         }
