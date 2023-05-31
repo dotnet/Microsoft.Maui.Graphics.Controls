@@ -18,45 +18,45 @@ namespace Microsoft.Maui.Graphics.Controls
 
         protected override GraphicsEntry CreatePlatformView()
         {
-            var nativeView = new GraphicsEntry(Context!)
+            var platformView = new GraphicsEntry(Context!)
             {
                 GraphicsControl = this
             };
 
             if (Drawable is MaterialEntryDrawable)
-                nativeView.SetPadding(12, 18, 0, 0);
+                platformView.SetPadding(12, 18, 0, 0);
             else if (Drawable is FluentEntryDrawable)
-                nativeView.SetPadding(12, 12, 0, 0);
+                platformView.SetPadding(12, 12, 0, 0);
             else if (Drawable is CupertinoEntryDrawable)
-                nativeView.SetPadding(12, 12, 0, 0);
+                platformView.SetPadding(12, 12, 0, 0);
 
-            return nativeView;
+            return platformView;
         }
 
-        protected override void ConnectHandler(GraphicsEntry nativeView)
+        protected override void ConnectHandler(GraphicsEntry platformView)
         {
             Watcher.Handler = this;
             ActionListener.Handler = this;
             FocusChangeListener.Handler = this;
 
-            nativeView.AddTextChangedListener(Watcher);
-            nativeView.SetOnEditorActionListener(ActionListener);
-            nativeView.OnFocusChangeListener = FocusChangeListener;
+            platformView.AddTextChangedListener(Watcher);
+            platformView.SetOnEditorActionListener(ActionListener);
+            platformView.OnFocusChangeListener = FocusChangeListener;
 
-            base.ConnectHandler(nativeView);
+            base.ConnectHandler(platformView);
         }
 
-        protected override void DisconnectHandler(GraphicsEntry nativeView)
+        protected override void DisconnectHandler(GraphicsEntry platformView)
         {
-            nativeView.RemoveTextChangedListener(Watcher);
-            nativeView.SetOnEditorActionListener(null);
-            nativeView.OnFocusChangeListener = null;
+            platformView.RemoveTextChangedListener(Watcher);
+            platformView.SetOnEditorActionListener(null);
+            platformView.OnFocusChangeListener = null;
 
             Watcher.Handler = null;
             ActionListener.Handler = null;
             FocusChangeListener.Handler = null;
 
-            base.DisconnectHandler(nativeView);
+            base.DisconnectHandler(platformView);
         }
 
         public override bool StartInteraction(PointF[] points)
@@ -86,7 +86,7 @@ namespace Microsoft.Maui.Graphics.Controls
         {
             // TODO: Get require service FontManager
             //IFontManager? fontManager = null;
-            //handler.NativeView?.UpdateFont(editor, fontManager);
+            //handler.PlatformView?.UpdateFont(editor, fontManager);
         }
 
         public static void MapHorizontalTextAlignment(EntryHandler handler, IEntry entry)

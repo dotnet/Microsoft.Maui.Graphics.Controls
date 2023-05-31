@@ -14,16 +14,16 @@ using PlatformView = System.Object;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-	public abstract partial class MixedGraphicsControlHandler<TViewDrawable, TVirtualView, TNativeView> : ViewHandler<TVirtualView, TNativeView>, IViewHandler, IMixedGraphicsHandler
+	public abstract partial class MixedGraphicsControlHandler<TViewDrawable, TVirtualView, TPlatformView> : ViewHandler<TVirtualView, TPlatformView>, IViewHandler, IMixedGraphicsHandler
 		where TVirtualView : class, IView
 		where TViewDrawable : class, IViewDrawable
 #if !NETSTANDARD || IOS || ANDROID || WINDOWS
-		where TNativeView : PlatformView, IMixedNativeView
+		where TPlatformView : PlatformView, IMixedPlatformView
 #else
-		where TNativeView : class
+		where TPlatformView : class
 #endif
-	{
-		TViewDrawable? _drawable;
+    {
+        TViewDrawable? _drawable;
 		protected readonly DrawMapper _drawMapper;
 		ControlState _currentState = ControlState.Default;
 
@@ -131,7 +131,7 @@ namespace Microsoft.Maui.Graphics.Controls
 			base.SetVirtualView(view);
 
 			Drawable.View = VirtualView!;
-			if (PlatformView is IMixedNativeView mnv)
+			if (PlatformView is IMixedPlatformView mnv)
 				mnv.Drawable = this;
 
 			Invalidate();
@@ -147,20 +147,20 @@ namespace Microsoft.Maui.Graphics.Controls
 			var layers = LayerDrawingOrder();
 			var rect = dirtyRect;
 			bool hasDrawnBase = false;
-			var mixedNativeView = PlatformView as IMixedNativeView;
-			var nativeLayers = mixedNativeView?.NativeLayers;
+			var mixedPlatformView = PlatformView as IMixedPlatformView;
+			var platformLayers = mixedPlatformView?.PlatformLayers;
 
 			foreach (var layer in layers)
 			{
 				//This will allow the native layer to handle the layers it can,
 				//i.e: For Entry, the Text layer and Caret is handled by the base drawing.
-				if (nativeLayers != null && nativeLayers.Contains(layer))
+				if (platformLayers != null && platformLayers.Contains(layer))
 				{
 					if (hasDrawnBase)
 						continue;
 
 					hasDrawnBase = true;
-					mixedNativeView?.DrawBaseLayer(dirtyRect);
+					mixedPlatformView?.DrawBaseLayer(dirtyRect);
 				}
 				else
 					_drawMapper?.DrawLayer(canvas, rect, Drawable, VirtualView, layer);

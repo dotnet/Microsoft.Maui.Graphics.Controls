@@ -4,9 +4,9 @@ namespace Microsoft.Maui.Graphics.Controls
 {
     public static class ViewExtensions
     {
-        public static void UpdateIsEnabled(this UIView nativeView, IView view)
+        public static void UpdateIsEnabled(this UIView platformView, IView view)
         {
-            nativeView.UserInteractionEnabled = view.IsEnabled;
+            platformView.UserInteractionEnabled = view.IsEnabled;
         }
     }
 }

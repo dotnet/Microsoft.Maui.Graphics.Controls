@@ -22,20 +22,20 @@ namespace Microsoft.Maui.Graphics.Controls
 			return new GraphicsEditor { GraphicsControl = this, EdgeInsets = edgeInsets };
 		}
 
-        protected override void ConnectHandler(GraphicsEditor nativeView)
+        protected override void ConnectHandler(GraphicsEditor platformView)
         {
-            base.ConnectHandler(nativeView);
+            base.ConnectHandler(platformView);
 
-            nativeView.Started += OnStarted;
-			nativeView.Ended += OnEnded;
+            platformView.Started += OnStarted;
+            platformView.Ended += OnEnded;
 		}
 
-		protected override void DisconnectHandler(GraphicsEditor nativeView)
+		protected override void DisconnectHandler(GraphicsEditor platformView)
         {
-            base.DisconnectHandler(nativeView);
+            base.DisconnectHandler(platformView);
 
-			nativeView.Started -= OnStarted;
-			nativeView.Ended -= OnEnded;
+            platformView.Started -= OnStarted;
+            platformView.Ended -= OnEnded;
 		}
 
         public static void MapText(EditorHandler handler, IEditor editor)

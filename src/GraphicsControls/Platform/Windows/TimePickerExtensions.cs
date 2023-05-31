@@ -2,9 +2,9 @@
 {
     public static class TimePickerExtensions
     {
-        public static void UpdateTime(this GraphicsTimePicker nativeView, ITimePicker timePicker)
+        public static void UpdateTime(this GraphicsTimePicker platformView, ITimePicker timePicker)
         {
-            nativeView.Time = timePicker.Time;
+            platformView.Time = timePicker.Time;
         }
     }
 }

@@ -13,24 +13,24 @@ namespace Microsoft.Maui.Graphics.Controls
             Drawable = VirtualView
         };
 
-        protected override void ConnectHandler(W2DGraphicsView nativeView)
+        protected override void ConnectHandler(W2DGraphicsView platformView)
         {
-            base.ConnectHandler(nativeView);
+            base.ConnectHandler(platformView);
 
-            nativeView.PointerPressed += OnPointerPressed;
-            nativeView.PointerMoved += OnPointerMoved;
-            nativeView.PointerReleased += OnPointerReleased;
-            nativeView.PointerCanceled += OnPointerCanceled;
+            platformView.PointerPressed += OnPointerPressed;
+            platformView.PointerMoved += OnPointerMoved;
+            platformView.PointerReleased += OnPointerReleased;
+            platformView.PointerCanceled += OnPointerCanceled;
         }
 
-        protected override void DisconnectHandler(W2DGraphicsView nativeView)
+        protected override void DisconnectHandler(W2DGraphicsView platformView)
         {
-            base.DisconnectHandler(nativeView);
+            base.DisconnectHandler(platformView);
 
-            nativeView.PointerPressed -= OnPointerPressed;
-            nativeView.PointerMoved -= OnPointerMoved;
-            nativeView.PointerReleased -= OnPointerReleased;
-            nativeView.PointerCanceled -= OnPointerCanceled;
+            platformView.PointerPressed -= OnPointerPressed;
+            platformView.PointerMoved -= OnPointerMoved;
+            platformView.PointerReleased -= OnPointerReleased;
+            platformView.PointerCanceled -= OnPointerCanceled;
         }
         
         public static void MapInvalidate(GraphicsViewHandler handler, IGraphicsView graphicsView, object? arg)

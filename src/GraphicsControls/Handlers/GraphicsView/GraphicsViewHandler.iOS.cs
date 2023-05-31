@@ -85,28 +85,28 @@ namespace Microsoft.Maui.Graphics.Controls
             return nativeGraphicsView;
         }
 
-        protected override void ConnectHandler(TouchNativeGraphicsView nativeView)
+        protected override void ConnectHandler(TouchNativeGraphicsView platformView)
         {
-            base.ConnectHandler(nativeView);
+            base.ConnectHandler(platformView);
 
-            var key = nativeView.Superview == null ? "subviews" : "superview";
-            _isLoadedObserverDisposable = nativeView.AddObserver(key, observingOptions, OnViewLoadedObserver);
+            var key = platformView.Superview == null ? "subviews" : "superview";
+            _isLoadedObserverDisposable = platformView.AddObserver(key, observingOptions, OnViewLoadedObserver);
 
-            nativeView.TouchDown += OnTouchDown;
-            nativeView.TouchMove += OnTouchMove;
-            nativeView.TouchUp += OnTouchUp;
+            platformView.TouchDown += OnTouchDown;
+            platformView.TouchMove += OnTouchMove;
+            platformView.TouchUp += OnTouchUp;
         }
 
-        protected override void DisconnectHandler(TouchNativeGraphicsView nativeView)
+        protected override void DisconnectHandler(TouchNativeGraphicsView platformView)
         {
-            base.DisconnectHandler(nativeView);
+            base.DisconnectHandler(platformView);
 
             _isLoadedObserverDisposable?.Dispose();
             _isLoadedObserverDisposable = null;
 
-            nativeView.TouchDown -= OnTouchDown;
-            nativeView.TouchMove -= OnTouchMove;
-            nativeView.TouchUp -= OnTouchUp;
+            platformView.TouchDown -= OnTouchDown;
+            platformView.TouchMove -= OnTouchMove;
+            platformView.TouchUp -= OnTouchUp;
         }
         
         public static void MapInvalidate(GraphicsViewHandler handler, IGraphicsView graphicsView, object? arg)

@@ -20,30 +20,30 @@ namespace Microsoft.Maui.Graphics.Controls
             else
                 edgeInsets = new UIEdgeInsets();
 
-            var nativeView = new GraphicsEntry {  GraphicsControl = this, EdgeInsets = edgeInsets };
+            var platformView = new GraphicsEntry {  GraphicsControl = this, EdgeInsets = edgeInsets };
 
-            return nativeView;
+            return platformView;
         
         }
 
-        protected override void ConnectHandler(GraphicsEntry nativeView)
+        protected override void ConnectHandler(GraphicsEntry platformView)
         {
-            base.ConnectHandler(nativeView);
+            base.ConnectHandler(platformView);
 
-            nativeView.Started += OnStarted;
-            nativeView.EditingChanged += OnEditingChanged;
-            nativeView.EditingDidEnd += OnEditingEnded;
-            nativeView.ShouldChangeCharacters += OnShouldChangeCharacters;
+            platformView.Started += OnStarted;
+            platformView.EditingChanged += OnEditingChanged;
+            platformView.EditingDidEnd += OnEditingEnded;
+            platformView.ShouldChangeCharacters += OnShouldChangeCharacters;
         }
 
-        protected override void DisconnectHandler(GraphicsEntry nativeView)
+        protected override void DisconnectHandler(GraphicsEntry platformView)
         {
-            base.DisconnectHandler(nativeView);
+            base.DisconnectHandler(platformView);
 
-            nativeView.Started -= OnStarted;
-            nativeView.EditingChanged -= OnEditingChanged;
-            nativeView.EditingDidEnd -= OnEditingEnded;
-            nativeView.ShouldChangeCharacters -= OnShouldChangeCharacters;
+            platformView.Started -= OnStarted;
+            platformView.EditingChanged -= OnEditingChanged;
+            platformView.EditingDidEnd -= OnEditingEnded;
+            platformView.ShouldChangeCharacters -= OnShouldChangeCharacters;
         }
 
         public override bool StartInteraction(PointF[] points)

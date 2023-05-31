@@ -2,19 +2,19 @@
 {
     public static class DatePickerExtensions
     {
-        public static void UpdateMinimumDate(this GraphicsDatePicker nativeView, IDatePicker datePicker)
+        public static void UpdateMinimumDate(this GraphicsDatePicker platformView, IDatePicker datePicker)
         {
-            nativeView.MinimumDate = datePicker.MinimumDate;
+            platformView.MinimumDate = datePicker.MinimumDate;
         }
 
-        public static void UpdateMaximumDate(this GraphicsDatePicker nativeView, IDatePicker datePicker)
+        public static void UpdateMaximumDate(this GraphicsDatePicker platformView, IDatePicker datePicker)
         {
-            nativeView.MaximumDate = datePicker.MaximumDate;
+            platformView.MaximumDate = datePicker.MaximumDate;
         }
 
-        public static void UpdateDate(this GraphicsDatePicker nativeView, IDatePicker datePicker)
+        public static void UpdateDate(this GraphicsDatePicker platformView, IDatePicker datePicker)
         {
-            nativeView.Date = datePicker.Date;
+            platformView.Date = datePicker.Date;
         }
     }
 }
