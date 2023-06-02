@@ -24,13 +24,15 @@ namespace Microsoft.Maui.Graphics.Controls
 			nativeView.Gravity = GravityFlags.Top;
 			nativeView.TextAlignment = ATextAlignment.ViewStart;
 			nativeView.SetHorizontallyScrolling(false);
+            
+			var density = nativeView.Resources?.DisplayMetrics?.Density ?? 1.0f;
 
-			if (Drawable is MaterialEditorDrawable)
-				nativeView.SetPadding(12, 18, 0, 0);
-			else if (Drawable is FluentEditorDrawable)
-				nativeView.SetPadding(12, 12, 0, 0);
+            if (Drawable is MaterialEditorDrawable)
+				nativeView.SetPadding((int)(density * 12), (int)(density * 24), 0, 0);
+            else if (Drawable is FluentEditorDrawable)
+				nativeView.SetPadding((int)(density * 12), (int)(density * 12), 0, 0);
 			else if (Drawable is CupertinoEditorDrawable)
-				nativeView.SetPadding(12, 12, 0, 0);
+				nativeView.SetPadding((int)(density * 12), (int)(density * 12), 0, 0);
 
 			return nativeView;
 		}
