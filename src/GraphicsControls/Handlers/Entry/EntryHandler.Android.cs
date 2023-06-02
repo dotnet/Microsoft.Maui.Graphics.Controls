@@ -22,7 +22,7 @@ namespace Microsoft.Maui.Graphics.Controls
             {
                 GraphicsControl = this
             };
-            
+
             var density = platformView.Resources?.DisplayMetrics?.Density ?? 1.0f;
 
             if (Drawable is MaterialEntryDrawable)
@@ -31,7 +31,7 @@ namespace Microsoft.Maui.Graphics.Controls
                 platformView.SetPadding((int)(density * 12), (int)(density * 12), 0, 0);
             else if (Drawable is CupertinoEntryDrawable)
                 platformView.SetPadding((int)(density * 12), (int)(density * 12), 0, 0);
-                
+
             return platformView;
         }
 

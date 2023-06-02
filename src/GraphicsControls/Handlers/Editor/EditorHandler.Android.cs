@@ -20,17 +20,19 @@ namespace Microsoft.Maui.Graphics.Controls
 				ImeOptions = ImeAction.Done
 			};
 
-      platformView.SetSingleLine(false);
-      platformView.Gravity = GravityFlags.Top;
-      platformView.TextAlignment = ATextAlignment.ViewStart;
-      platformView.SetHorizontallyScrolling(false);
+			platformView.SetSingleLine(false);
+			platformView.Gravity = GravityFlags.Top;
+			platformView.TextAlignment = ATextAlignment.ViewStart;
+			platformView.SetHorizontallyScrolling(false);
+            
+			var density = platformView.Resources?.DisplayMetrics?.Density ?? 1.0f;
 
-      if (Drawable is MaterialEditorDrawable)
-        platformView.SetPadding((int)(density * 12), (int)(density * 24), 0, 0);
-      else if (Drawable is FluentEditorDrawable)
-        platformView.SetPadding((int)(density * 12), (int)(density * 12), 0, 0);
-      else if (Drawable is CupertinoEditorDrawable)
-        platformView.SetPadding((int)(density * 12), (int)(density * 12), 0, 0);
+            if (Drawable is MaterialEditorDrawable)
+				platformView.SetPadding((int)(density * 12), (int)(density * 24), 0, 0);
+			else if (Drawable is FluentEditorDrawable)
+				platformView.SetPadding((int)(density * 12), (int)(density * 12), 0, 0);
+			else if (Drawable is CupertinoEditorDrawable)
+				platformView.SetPadding((int)(density * 12), (int)(density * 12), 0, 0);
 
 			return platformView;
 		}
