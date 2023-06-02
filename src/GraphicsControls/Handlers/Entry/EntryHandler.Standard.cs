@@ -4,7 +4,7 @@ namespace Microsoft.Maui.Graphics.Controls
 {
 	public partial class EntryHandler : MixedGraphicsControlHandler<IEntryDrawable, IEntry, object>
 	{
-		protected override object CreateNativeView() => throw new NotImplementedException();
+		protected override object CreatePlatformView() => throw new NotImplementedException();
 
 		public static void MapText(IViewHandler handler, IEntry entry) { }
 		public static void MapCharacterSpacing(IViewHandler handler, IEntry entry) { }

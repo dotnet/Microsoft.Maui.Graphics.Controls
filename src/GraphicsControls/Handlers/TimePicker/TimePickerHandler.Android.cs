@@ -7,18 +7,18 @@
             return new GraphicsTimePicker(Context!) { GraphicsControl = this };
         }
 
-        protected override void ConnectHandler(GraphicsTimePicker nativeView)
+        protected override void ConnectHandler(GraphicsTimePicker platformView)
         {
-            base.ConnectHandler(nativeView);
+            base.ConnectHandler(platformView);
 
-            nativeView.TimeSelected += OnTimeSelected;
+            platformView.TimeSelected += OnTimeSelected;
         }
 
-        protected override void DisconnectHandler(GraphicsTimePicker nativeView)
+        protected override void DisconnectHandler(GraphicsTimePicker platformView)
         {
-            base.DisconnectHandler(nativeView);
+            base.DisconnectHandler(platformView);
 
-            nativeView.TimeSelected -= OnTimeSelected;
+            platformView.TimeSelected -= OnTimeSelected;
         }
 
         public static void MapTime(TimePickerHandler handler, ITimePicker timePicker)

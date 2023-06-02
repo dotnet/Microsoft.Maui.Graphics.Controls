@@ -9,7 +9,7 @@ using UIKit;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public class GraphicsDatePicker : UIView, IMixedNativeView
+    public class GraphicsDatePicker : UIView, IMixedPlatformView
     {
         DateTime _date;
         DateTime _minimumDate;
@@ -104,9 +104,9 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        static readonly string[] DefaultNativeLayers = new string[] { };
+        static readonly string[] DefaultPlatformLayers = new string[] { };
 
-        public string[] NativeLayers => DefaultNativeLayers;
+        public string[] PlatformLayers => DefaultPlatformLayers;
 
         public void Invalidate()
         {

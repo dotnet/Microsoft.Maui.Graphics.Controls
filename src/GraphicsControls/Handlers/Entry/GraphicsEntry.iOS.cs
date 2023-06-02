@@ -7,7 +7,7 @@ using UIKit;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public class GraphicsEntry : UITextField, IMixedNativeView
+    public class GraphicsEntry : UITextField, IMixedPlatformView
     {
         readonly PlatformCanvas _canvas;
         readonly UITapGestureRecognizer _tapGesture;
@@ -53,9 +53,9 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public UIEdgeInsets EdgeInsets { get; set; }
 
-        static readonly string[] DefaultNativeLayers = new[] { nameof(IEntry.Text) };
+        static readonly string[] DefaultPlatformLayers = new[] { nameof(IEntry.Text) };
 
-        public string[] NativeLayers => DefaultNativeLayers;
+        public string[] PlatformLayers => DefaultPlatformLayers;
 
         public void Invalidate()
         {

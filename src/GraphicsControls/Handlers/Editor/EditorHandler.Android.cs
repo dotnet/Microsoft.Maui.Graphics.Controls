@@ -14,45 +14,45 @@ namespace Microsoft.Maui.Graphics.Controls
 
 		protected override GraphicsEditor CreatePlatformView()
 		{
-			var nativeView = new GraphicsEditor(Context!)
+			var platformView = new GraphicsEditor(Context!)
 			{
 				GraphicsControl = this,
 				ImeOptions = ImeAction.Done
 			};
 
-			nativeView.SetSingleLine(false);
-			nativeView.Gravity = GravityFlags.Top;
-			nativeView.TextAlignment = ATextAlignment.ViewStart;
-			nativeView.SetHorizontallyScrolling(false);
+			platformView.SetSingleLine(false);
+			platformView.Gravity = GravityFlags.Top;
+			platformView.TextAlignment = ATextAlignment.ViewStart;
+			platformView.SetHorizontallyScrolling(false);
             
-			var density = nativeView.Resources?.DisplayMetrics?.Density ?? 1.0f;
+			var density = platformView.Resources?.DisplayMetrics?.Density ?? 1.0f;
 
             if (Drawable is MaterialEditorDrawable)
-				nativeView.SetPadding((int)(density * 12), (int)(density * 24), 0, 0);
-            else if (Drawable is FluentEditorDrawable)
-				nativeView.SetPadding((int)(density * 12), (int)(density * 12), 0, 0);
+				platformView.SetPadding((int)(density * 12), (int)(density * 24), 0, 0);
+			else if (Drawable is FluentEditorDrawable)
+				platformView.SetPadding((int)(density * 12), (int)(density * 12), 0, 0);
 			else if (Drawable is CupertinoEditorDrawable)
-				nativeView.SetPadding((int)(density * 12), (int)(density * 12), 0, 0);
+				platformView.SetPadding((int)(density * 12), (int)(density * 12), 0, 0);
 
-			return nativeView;
+			return platformView;
 		}
 
-		protected override void ConnectHandler(GraphicsEditor nativeView)
+		protected override void ConnectHandler(GraphicsEditor platformView)
 		{
 			FocusChangeListener.Handler = this;
 
-			nativeView.OnFocusChangeListener = FocusChangeListener;
+            platformView.OnFocusChangeListener = FocusChangeListener;
 
-			nativeView.TextChanged += OnTextChanged;
+            platformView.TextChanged += OnTextChanged;
 		}
 
-		protected override void DisconnectHandler(GraphicsEditor nativeView)
+		protected override void DisconnectHandler(GraphicsEditor platformView)
 		{
-			nativeView.OnFocusChangeListener = null;
+            platformView.OnFocusChangeListener = null;
 
-			FocusChangeListener.Handler = null; 
-			
-			nativeView.TextChanged -= OnTextChanged;
+			FocusChangeListener.Handler = null;
+
+            platformView.TextChanged -= OnTextChanged;
 		}
 
         public static void MapText(EditorHandler handler, IEditor editor)

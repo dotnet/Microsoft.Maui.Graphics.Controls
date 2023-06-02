@@ -17,22 +17,22 @@ namespace Microsoft.Maui.Graphics.Controls
             return nativeGraphicsView;
         }
 
-        protected override void ConnectHandler(PlatformGraphicsView nativeView)
+        protected override void ConnectHandler(PlatformGraphicsView platformView)
         {
-            base.ConnectHandler(nativeView);
+            base.ConnectHandler(platformView);
 
-            nativeView.ViewAttachedToWindow += OnViewAttachedToWindow;
-            nativeView.ViewDetachedFromWindow += OnViewDetachedFromWindow;
-            nativeView.Touch += OnTouch;
+            platformView.ViewAttachedToWindow += OnViewAttachedToWindow;
+            platformView.ViewDetachedFromWindow += OnViewDetachedFromWindow;
+            platformView.Touch += OnTouch;
         }
 
-        protected override void DisconnectHandler(PlatformGraphicsView nativeView)
+        protected override void DisconnectHandler(PlatformGraphicsView platformView)
         {
-            base.DisconnectHandler(nativeView); 
-            
-            nativeView.ViewAttachedToWindow -= OnViewAttachedToWindow;
-            nativeView.ViewDetachedFromWindow -= OnViewDetachedFromWindow; 
-            nativeView.Touch -= OnTouch;
+            base.DisconnectHandler(platformView);
+
+            platformView.ViewAttachedToWindow -= OnViewAttachedToWindow;
+            platformView.ViewDetachedFromWindow -= OnViewDetachedFromWindow;
+            platformView.Touch -= OnTouch;
         }
         
         public static void MapInvalidate(GraphicsViewHandler handler, IGraphicsView graphicsView, object? arg)

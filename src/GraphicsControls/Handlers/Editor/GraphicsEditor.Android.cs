@@ -7,7 +7,7 @@ using Microsoft.Maui.Graphics.Platform;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public class GraphicsEditor : AppCompatEditText, IMixedNativeView
+    public class GraphicsEditor : AppCompatEditText, IMixedPlatformView
     {
         readonly PlatformCanvas _canvas;
         readonly ScalingCanvas _scalingCanvas;
@@ -54,9 +54,9 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        static readonly string[] DefaultNativeLayers = new[] { nameof(IEntry.Text) };
+        static readonly string[] DefaultPlatformLayers = new[] { nameof(IEntry.Text) };
 
-        public string[] NativeLayers => DefaultNativeLayers;
+        public string[] PlatformLayers => DefaultPlatformLayers;
 
         public void DrawBaseLayer(RectF dirtyRect) { }
 

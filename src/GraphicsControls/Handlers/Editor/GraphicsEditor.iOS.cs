@@ -7,7 +7,7 @@ using UIKit;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public class GraphicsEditor : UITextView, IMixedNativeView
+    public class GraphicsEditor : UITextView, IMixedPlatformView
     {
         readonly PlatformCanvas _canvas;
         readonly UITapGestureRecognizer _tapGesture;
@@ -62,9 +62,9 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
-        static readonly string[] DefaultNativeLayers = new[] { nameof(IEntry.Text) };
+        static readonly string[] DefaultPlatformLayers = new[] { nameof(IEntry.Text) };
 
-        public string[] NativeLayers => DefaultNativeLayers;
+        public string[] PlatformLayers => DefaultPlatformLayers;
 
         public void Invalidate()
         {

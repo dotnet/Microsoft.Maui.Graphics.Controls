@@ -7,18 +7,18 @@
             return new GraphicsDatePicker() { GraphicsControl = this };
         }
 
-        protected override void ConnectHandler(GraphicsDatePicker nativeView)
+        protected override void ConnectHandler(GraphicsDatePicker platformView)
         {
-            base.ConnectHandler(nativeView);
+            base.ConnectHandler(platformView);
 
-            nativeView.DateSelected += OnDateSelected;
+            platformView.DateSelected += OnDateSelected;
         }
 
-        protected override void DisconnectHandler(GraphicsDatePicker nativeView)
+        protected override void DisconnectHandler(GraphicsDatePicker platformView)
         {
-            base.DisconnectHandler(nativeView);
+            base.DisconnectHandler(platformView);
 
-            nativeView.DateSelected -= OnDateSelected;
+            platformView.DateSelected -= OnDateSelected;
         }
 
         public static void MapMinimumDate(DatePickerHandler handler, IDatePicker datePicker)

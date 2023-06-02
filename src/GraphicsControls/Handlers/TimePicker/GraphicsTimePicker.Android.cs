@@ -9,7 +9,7 @@ using Microsoft.Maui.Graphics.Platform;
 
 namespace Microsoft.Maui.Graphics.Controls
 {
-    public class GraphicsTimePicker : View, IMixedNativeView
+    public class GraphicsTimePicker : View, IMixedPlatformView
     {
         TimeSpan _time;
 
@@ -71,9 +71,9 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public event EventHandler<TimeSelectedEventArgs> TimeSelected;
 
-        static readonly string[] DefaultNativeLayers = new string[] { };
+        static readonly string[] DefaultPlatformLayers = new string[] { };
 
-        public string[] NativeLayers => DefaultNativeLayers;
+        public string[] PlatformLayers => DefaultPlatformLayers;
 
         public void DrawBaseLayer(RectF dirtyRect) { }
 
