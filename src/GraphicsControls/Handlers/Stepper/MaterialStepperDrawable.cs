@@ -30,9 +30,13 @@ namespace Microsoft.Maui.Graphics.Controls
             else
             {
                 if (Application.Current?.RequestedTheme == AppTheme.Light)
-                    canvas.FillColor = stepper.IsEnabled ? Material.Color.White.ToColor() : Material.Color.Light.Gray6.ToColor();
+                    canvas.FillColor = stepper.IsEnabled
+                        ? Material.Color.White.ToColor()
+                        : Material.Color.Light.Gray6.ToColor();
                 else
-                    canvas.FillColor = stepper.IsEnabled ? Material.Color.Dark.Gray1.ToColor().WithAlpha(0.25f) : Material.Color.Dark.Gray2.ToColor().WithAlpha(0.25f);
+                    canvas.FillColor = stepper.IsEnabled
+                        ? Material.Color.Dark.Gray1.ToColor().WithAlpha(0.25f)
+                        : Material.Color.Dark.Gray2.ToColor().WithAlpha(0.25f);
             }
 
             var x = dirtyRect.X;
@@ -49,7 +53,7 @@ namespace Microsoft.Maui.Graphics.Controls
             height = MaterialStepperHeight;
             width = MaterialStepperWidth / 2;
 
-            canvas.FillRoundedRectangle(x, y, width, height, MaterialButtonCornerRadius);     
+            canvas.FillRoundedRectangle(x, y, width, height, MaterialButtonCornerRadius);
 
             canvas.RestoreState();
 
@@ -61,7 +65,9 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.SaveState();
 
             canvas.StrokeSize = 1;
-            canvas.StrokeColor = Application.Current?.RequestedTheme == AppTheme.Light ? Material.Color.Light.Gray6.ToColor() : Material.Color.Dark.Gray6.ToColor();
+            canvas.StrokeColor = Application.Current?.RequestedTheme == AppTheme.Light
+                ? Material.Color.Light.Gray6.ToColor()
+                : Material.Color.Dark.Gray6.ToColor();
 
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
@@ -77,9 +83,13 @@ namespace Microsoft.Maui.Graphics.Controls
             var path = vBuilder.BuildPath(MaterialStepperMinusIcon);
 
             if (stepper.IsEnabled)
-                canvas.FillColor = Application.Current?.RequestedTheme == AppTheme.Light ? Material.Color.Black.ToColor() : Material.Color.White.ToColor().WithAlpha(0.5f);
+                canvas.FillColor = Application.Current?.RequestedTheme == AppTheme.Light
+                    ? Material.Color.Black.ToColor()
+                    : Material.Color.White.ToColor().WithAlpha(0.5f);
             else
-                canvas.FillColor = Application.Current?.RequestedTheme == AppTheme.Light ? Material.Color.Light.Gray3.ToColor() : Material.Color.White.ToColor().WithAlpha(0.25f);
+                canvas.FillColor = Application.Current?.RequestedTheme == AppTheme.Light
+                    ? Material.Color.Light.Gray3.ToColor()
+                    : Material.Color.White.ToColor().WithAlpha(0.25f);
 
             canvas.FillPath(path);
 
@@ -93,7 +103,9 @@ namespace Microsoft.Maui.Graphics.Controls
             canvas.SaveState();
 
             canvas.StrokeSize = 1;
-            canvas.StrokeColor = Application.Current?.RequestedTheme == AppTheme.Light ? Material.Color.Light.Gray6.ToColor() : Material.Color.Dark.Gray6.ToColor();
+            canvas.StrokeColor = Application.Current?.RequestedTheme == AppTheme.Light
+                ? Material.Color.Light.Gray6.ToColor()
+                : Material.Color.Dark.Gray6.ToColor();
 
             var x = MaterialStepperWidth / 2 + MaterialButtonMargin;
             var y = dirtyRect.Y;
@@ -109,9 +121,13 @@ namespace Microsoft.Maui.Graphics.Controls
             var path = vBuilder.BuildPath(MaterialStepperPlusIcon);
 
             if (stepper.IsEnabled)
-                canvas.FillColor = Application.Current?.RequestedTheme == AppTheme.Light ? Material.Color.Black.ToColor() : Material.Color.White.ToColor().WithAlpha(0.5f);
+                canvas.FillColor = Application.Current?.RequestedTheme == AppTheme.Light
+                    ? Material.Color.Black.ToColor()
+                    : Material.Color.White.ToColor().WithAlpha(0.5f);
             else
-                canvas.FillColor = Application.Current?.RequestedTheme == AppTheme.Light ? Material.Color.Light.Gray3.ToColor() : Material.Color.White.ToColor().WithAlpha(0.25f);
+                canvas.FillColor = Application.Current?.RequestedTheme == AppTheme.Light
+                    ? Material.Color.Light.Gray3.ToColor()
+                    : Material.Color.White.ToColor().WithAlpha(0.25f);
 
             canvas.FillPath(path);
 
@@ -122,17 +138,15 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public void DrawSeparator(ICanvas canvas, RectF dirtyRect, IStepper stepper)
         {
-        
         }
 
         public void DrawText(ICanvas canvas, RectF dirtyRect, IStepper stepper)
         {
-        
         }
 
         internal void DrawRippleEffect(ICanvas canvas, RectF dirtyRect, IStepper stepper)
         {
-            RectF rect = RectF.Zero;
+            var rect = RectF.Zero;
 
             if (MinusRectangle.Contains(TouchPoint))
                 rect = MinusRectangle;
@@ -149,12 +163,12 @@ namespace Microsoft.Maui.Graphics.Controls
 
                 canvas.ClipPath(border);
 
-                canvas.FillColor = Material.Color.White.ToColor().WithAlpha(0.75f);
+                var color = stepper.Background?.ToColor() ?? Colors.White;
+                canvas.FillColor = color?.ComplementaryColor().WithAlpha(0.5f);
 
                 canvas.Alpha = 0.25f;
 
-                float minimumRippleEffectSize = 0.0f;
-
+                const float minimumRippleEffectSize = 0.0f;
                 var rippleEffectSize = minimumRippleEffectSize.Lerp(rect.Width, AnimationPercent);
 
                 canvas.FillCircle((float)TouchPoint.X, (float)TouchPoint.Y, rippleEffectSize);

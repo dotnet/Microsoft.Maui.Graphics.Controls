@@ -13,7 +13,6 @@ namespace Microsoft.Maui.Graphics.Controls
 
         public SwitchHandler() : base(DrawMapper, PropertyMapper)
         {
-
         }
 
         public SwitchHandler(DrawableType drawableType) : base(DrawMapper, PropertyMapper)
@@ -21,18 +20,20 @@ namespace Microsoft.Maui.Graphics.Controls
             _drawableType = drawableType;
         }
 
-        public static PropertyMapper<ISwitch, SwitchHandler> PropertyMapper = new PropertyMapper<ISwitch, SwitchHandler>(ViewHandler.Mapper)
-        {
-            [nameof(ISwitch.IsOn)] = MapIsOn,
-            [nameof(ISwitch.TrackColor)] = ViewHandler.MapInvalidate,
-            [nameof(ISwitch.ThumbColor)] = ViewHandler.MapInvalidate
-        };
+        public static PropertyMapper<ISwitch, SwitchHandler> PropertyMapper =
+            new PropertyMapper<ISwitch, SwitchHandler>(ViewHandler.Mapper)
+            {
+                [nameof(ISwitch.IsOn)] = MapIsOn,
+                [nameof(ISwitch.TrackColor)] = ViewHandler.MapInvalidate,
+                [nameof(ISwitch.ThumbColor)] = ViewHandler.MapInvalidate
+            };
 
-        public static DrawMapper<ISwitchDrawable, ISwitch> DrawMapper = new DrawMapper<ISwitchDrawable, ISwitch>(ViewHandler.DrawMapper)
-        {
-            ["Background"] = MapDrawBackground,
-            ["Thumb"] = MapDrawThumb
-        };
+        public static DrawMapper<ISwitchDrawable, ISwitch> DrawMapper =
+            new DrawMapper<ISwitchDrawable, ISwitch>(ViewHandler.DrawMapper)
+            {
+                ["Background"] = MapDrawBackground,
+                ["Thumb"] = MapDrawThumb
+            };
 
         public static string[] DefaultSwitchLayerDrawingOrder =
             ViewHandler.DefaultLayerDrawingOrder.ToList().InsertAfter(new string[]
@@ -64,15 +65,15 @@ namespace Microsoft.Maui.Graphics.Controls
         public static void MapDrawThumb(ICanvas canvas, RectF dirtyRect, ISwitchDrawable drawable, ISwitch view)
             => drawable.DrawThumb(canvas, dirtyRect, view);
 
-        public override bool StartInteraction(PointF[] points)
+        public override void EndInteraction(PointF[] points, bool inside)
         {
-            if (VirtualView != null)
+            if (VirtualView != null && inside)
             {
                 VirtualView.IsOn = !VirtualView.IsOn;
                 AnimateToggle();
             }
 
-            return base.StartInteraction(points);
+            base.EndInteraction(points, inside);
         }
 
         public static void MapIsOn(IElementHandler handler, ISwitch virtualView)
@@ -89,7 +90,7 @@ namespace Microsoft.Maui.Graphics.Controls
                 Invalidate();
             }
             else
-                AnimateToggle();           
+                AnimateToggle();
         }
 
         internal void AnimateToggle()

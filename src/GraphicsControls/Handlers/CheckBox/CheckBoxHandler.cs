@@ -62,12 +62,12 @@ namespace Microsoft.Maui.Graphics.Controls
 		public static void MapDrawText(ICanvas canvas, RectF dirtyRect, ICheckBoxDrawable drawable, ICheckBox view)
 			=> drawable.DrawText(canvas, dirtyRect, view);
 
-		public override bool StartInteraction(PointF[] points)
+		public override void EndInteraction(PointF[] points, bool inside)
 		{
-			if (VirtualView != null)
+			if (VirtualView != null && inside)
 				VirtualView.IsChecked = !VirtualView.IsChecked;
 
-			return base.StartInteraction(points);
+			base.EndInteraction(points, inside);
 		}
 	}
 }

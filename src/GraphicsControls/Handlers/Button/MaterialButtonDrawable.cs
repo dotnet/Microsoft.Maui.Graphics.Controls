@@ -58,7 +58,8 @@ namespace Microsoft.Maui.Graphics.Controls
             var width = dirtyRect.Width;
 
             var text = (button as IText)?.Text;
-            canvas.DrawString(text?.ToUpper(), x, y, width, MaterialBackgroundHeight, HorizontalAlignment.Center, VerticalAlignment.Center);
+            canvas.DrawString(text?.ToUpper(), x, y, width, MaterialBackgroundHeight, HorizontalAlignment.Center,
+                VerticalAlignment.Center);
 
             canvas.RestoreState();
         }
@@ -74,12 +75,12 @@ namespace Microsoft.Maui.Graphics.Controls
 
                 canvas.ClipPath(border);
 
-                canvas.FillColor = Material.Color.White.ToColor().WithAlpha(0.75f);
+                var color = button.Background?.ToColor() ?? Colors.White;
+                canvas.FillColor = color?.ComplementaryColor().WithAlpha(0.5f);
 
                 canvas.Alpha = 0.25f;
 
-                float minimumRippleEffectSize = 0.0f;
-
+                const float minimumRippleEffectSize = 0.0f;
                 var rippleEffectSize = minimumRippleEffectSize.Lerp(dirtyRect.Width, AnimationPercent);
 
                 canvas.FillCircle((float)TouchPoint.X, (float)TouchPoint.Y, rippleEffectSize);
