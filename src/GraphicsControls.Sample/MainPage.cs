@@ -1,7 +1,6 @@
 ﻿using Microsoft.Maui;
 using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Controls;
-using Microsoft.Maui.Graphics;
 using System;
 
 namespace GraphicsControls.Sample
@@ -202,7 +201,7 @@ namespace GraphicsControls.Sample
             var footer = new Label
             {
                 FontSize = 10,
-                Text = "Microsoft Corporation 2021",
+                Text = "Microsoft Corporation 2023",
                 HorizontalOptions = LayoutOptions.Center,
                 TextColor = SampleColors.LightTextColor
             };
