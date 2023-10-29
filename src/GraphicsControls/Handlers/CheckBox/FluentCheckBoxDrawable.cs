@@ -1,12 +1,17 @@
-﻿using Microsoft.Maui.ApplicationModel;
+// Import required namespaces
+using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Controls;
 
+// Define the namespace for the class
 namespace Microsoft.Maui.Graphics.Controls
 {
+    // Define a class named FluentCheckBoxDrawable that implements ICheckBoxDrawable
     public class FluentCheckBoxDrawable : ViewDrawable<ICheckBox>, ICheckBoxDrawable
     {
+        // Define a constant string representing the path data for the checkmark icon
         const string FluentCheckBoxMark = "M0.00195312 3.49805C0.00195312 3.36133 0.0507812 3.24414 0.148438 3.14648C0.246094 3.04883 0.363281 3 0.5 3C0.636719 3 0.753906 3.04883 0.851562 3.14648L3.5 5.79492L9.14844 0.146484C9.24609 0.0488281 9.36328 0 9.5 0C9.57031 0 9.63477 0.0136719 9.69336 0.0410156C9.75586 0.0644531 9.80859 0.0996094 9.85156 0.146484C9.89844 0.189453 9.93555 0.242187 9.96289 0.304688C9.99023 0.363281 10.0039 0.427734 10.0039 0.498047C10.0039 0.634766 9.95312 0.753906 9.85156 0.855469L3.85156 6.85547C3.75391 6.95312 3.63672 7.00195 3.5 7.00195C3.36328 7.00195 3.24609 6.95312 3.14844 6.85547L0.148438 3.85547C0.0507812 3.75781 0.00195312 3.63867 0.00195312 3.49805Z";
 
+        // Method to draw the background of the CheckBox
         public void DrawBackground(ICanvas canvas, RectF dirtyRect, ICheckBox checkBox)
         {
             canvas.SaveState();
@@ -16,8 +21,10 @@ namespace Microsoft.Maui.Graphics.Controls
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
 
+            // Check if the CheckBox is checked
             if (checkBox.IsChecked)
             {
+                // Determine the fill color based on the CheckBox state and theme
                 if (checkBox.IsEnabled)
                 {
                     Color fillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Accent.Primary.ToColor() : Fluent.Color.Dark.Accent.Primary.ToColor();
@@ -30,6 +37,7 @@ namespace Microsoft.Maui.Graphics.Controls
                 else
                     canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Accent.Disabled.ToColor() : Fluent.Color.Dark.Accent.Disabled.ToColor();
 
+                // Draw the filled rounded rectangle
                 canvas.FillRoundedRectangle(x, y, size, size, 3);
             }
             else
@@ -38,17 +46,20 @@ namespace Microsoft.Maui.Graphics.Controls
 
                 canvas.StrokeSize = strokeWidth;
 
+                // Determine the stroke color based on the CheckBox state and theme
                 if (checkBox.IsEnabled)
                     canvas.StrokeColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Border.Default.ToColor() : Fluent.Color.Dark.Control.Border.Default.ToColor();
                 else
                     canvas.FillColor = (Application.Current?.RequestedTheme == AppTheme.Light) ? Fluent.Color.Light.Control.Background.Secondary.ToColor() : Fluent.Color.Dark.Control.Background.Secondary.ToColor();
 
+                // Draw the stroked rounded rectangle
                 canvas.DrawRoundedRectangle(x + strokeWidth / 2, y + strokeWidth / 2, size - strokeWidth, size - strokeWidth, 3);
             }
 
             canvas.RestoreState();
         }
 
+        // Method to draw the checkmark of the CheckBox
         public void DrawMark(ICanvas canvas, RectF dirtyRect, ICheckBox checkBox)
         {
             if (checkBox.IsChecked)
@@ -60,6 +71,7 @@ namespace Microsoft.Maui.Graphics.Controls
                 var vBuilder = new PathBuilder();
                 var path = vBuilder.BuildPath(FluentCheckBoxMark);
 
+                // Set the stroke color for drawing the checkmark
                 canvas.StrokeColor = Colors.White;
                 canvas.DrawPath(path);
 
@@ -67,11 +79,13 @@ namespace Microsoft.Maui.Graphics.Controls
             }
         }
 
+        // Method to draw text on the CheckBox (implementation is missing)
         public void DrawText(ICanvas canvas, RectF dirtyRect, ICheckBox checkBox)
         {
-
+            // Implementation for drawing text can be added here
         }
 
+        // Override method to get the desired size of the CheckBox
         public override Size GetDesiredSize(IView view, double widthConstraint, double heightConstraint) =>
             new Size(widthConstraint, 20f);
     }
