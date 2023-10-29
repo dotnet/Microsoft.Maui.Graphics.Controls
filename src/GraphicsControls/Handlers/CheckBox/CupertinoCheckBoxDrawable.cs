@@ -1,9 +1,13 @@
-﻿namespace Microsoft.Maui.Graphics.Controls
+// Define the namespace for the class
+namespace Microsoft.Maui.Graphics.Controls
 {
+    // Define a class named CupertinoCheckBoxDrawable that implements ICheckBoxDrawable
     public class CupertinoCheckBoxDrawable : ViewDrawable<ICheckBox>, ICheckBoxDrawable
     {
+        // Define a constant string representing the path data for the checkmark icon
         const string CupertinoCheckBoxMark = "M4.78246 10.9434C5.03441 10.9434 5.23363 10.832 5.37426 10.6152L10.9114 1.89648C11.0168 1.72656 11.0579 1.59766 11.0579 1.46289C11.0579 1.14062 10.8469 0.929688 10.5246 0.929688C10.2903 0.929688 10.1614 1.00586 10.0207 1.22852L4.75902 9.61328L2.02855 6.03906C1.88207 5.83398 1.73559 5.75195 1.52465 5.75195C1.19066 5.75195 0.962149 5.98047 0.962149 6.30273C0.962149 6.4375 1.02074 6.58984 1.13207 6.73047L4.17309 10.6035C4.34887 10.832 4.53051 10.9434 4.78246 10.9434Z";
 
+        // Method to draw the background of the CheckBox
         public void DrawBackground(ICanvas canvas, RectF dirtyRect, ICheckBox checkBox)
         {
             canvas.SaveState();
@@ -13,6 +17,7 @@
             var x = dirtyRect.X;
             var y = dirtyRect.Y;
 
+            // Check if the CheckBox is checked
             if (checkBox.IsChecked)
             {
                 Color fillColor = checkBox.IsEnabled ? Cupertino.Color.SystemColor.Light.Blue.ToColor() : Cupertino.Color.SystemGray.Light.InactiveGray.ToColor();
@@ -35,6 +40,7 @@
             canvas.RestoreState();
         }
 
+        // Method to draw the checkmark of the CheckBox
         public void DrawMark(ICanvas canvas, RectF dirtyRect, ICheckBox checkBox)
         {
             if (checkBox.IsChecked)
@@ -54,11 +60,13 @@
             }
         }
 
+        // Method to draw text on the CheckBox (implementation is missing)
         public void DrawText(ICanvas canvas, RectF dirtyRect, ICheckBox checkBox)
         {
-
+            // Implementation for drawing text can be added here
         }
 
+        // Override method to get the desired size of the CheckBox
         public override Size GetDesiredSize(IView view, double widthConstraint, double heightConstraint) =>
             new Size(widthConstraint, 24f);
     }
